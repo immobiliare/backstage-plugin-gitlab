@@ -1,0 +1,1 @@
+export { Contributor } from './Contributor';

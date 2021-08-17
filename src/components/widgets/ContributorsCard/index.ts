@@ -1,0 +1,1 @@
+export { ContributorsCard } from './ContributorsCard';
