@@ -34,14 +34,10 @@ export const Router =  (_props: Props) => {
   return (
     <>
       <MissingAnnotationEmptyState annotation={GITLAB_ANNOTATION_PROJECT_ID} />
-      <h1>
-        Or use a label selector query, which takes precedence over the previous
-        annotation.
-      </h1>
       <Button
         variant="contained"
         color="primary"
-        href="https://backstage.io/docs/features/kubernetes/configuration#surfacing-your-kubernetes-components-as-part-of-an-entity"
+        href="https://github.com/loblaw-sre/backstage-plugin-gitlab/blob/main/README.md"
       >
         Read Gitlab Plugin Docs
       </Button>
