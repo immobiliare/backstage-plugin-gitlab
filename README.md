@@ -33,19 +33,23 @@ const serviceEntityPage = (
       <EntityGitlabContent />
   </EntityLayout.Route>
 ```
-4. Add proxy config:
+
+3. Add proxy config:
 
 ```
   '/gitlabci':
     target: ${GITLAB_URL}/api/v4
     allowedMethods: ['GET']
     headers:
-      PRIVATE-TOKEN: '${GITLAB_TOKEN}' #Create a Personal Access Token, set scope to read_api https://${GITLAB_URL}/-/profile/personal_access_tokens
+      PRIVATE-TOKEN: '${GITLAB_TOKEN}' 
 ```
 
-5. Add a `gitlab.com/project-id` annotation to your respective `catalog-info.yaml` files, on the format <git-provider>/<owner>/<project> (https://backstage.io/docs/architecture-decisions/adrs-adr002#format).
+* Default GitLab URL: `https://gitlab.com`
+* GitLab Token should be with of scope `read_api` and can be generated from this [URL](https://gitlab.com/-/profile/personal_access_tokens) 
 
-```yaml
+4. Add a `gitlab.com/project-id` annotation to your respective `catalog-info.yaml` files, on the [format](https://backstage.io/docs/architecture-decisions/adrs-adr002#format) `<git-provider>/<owner>/<project>` 
+
+```yml
 # Example catalog-info.yaml entity definition file
 apiVersion: backstage.io/v1alpha1
 kind: Component
@@ -57,6 +61,8 @@ spec:
   type: service
   # ...
 ```
+    
+**Note:** `spec.type` can take values in ['website','library','service'] but to render GitLab Entity, Catalog must be of type `service`
 
 ## Features
 
