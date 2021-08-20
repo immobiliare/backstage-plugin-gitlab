@@ -42,10 +42,11 @@ export const MergeRequestStats = ({}) => {
     const GitlabCIAPI = useApi(GitlabCIApiRef);
     const mergeStat: MergeRequestStatsCount = {avgTimeUntilMerge:0, closedCount:0, mergedCount:0};
     const { value, loading, error } = useAsync(async (): Promise<MergeStats> => {
-        const gitlabObj = await GitlabCIAPI.getMergeRequestsSummary(project_id);
-        const data = gitlabObj?.getMergeRequestsData;
+        const gitlabObj = await GitlabCIAPI.getMergeRequestsStatusSummary(project_id, 20);
+        const data = gitlabObj?.getMergeRequestsStatusData;
         let renderData: any = { data }
         renderData.project_name = await GitlabCIAPI.getProjectName(project_id);
+        console.log(renderData.data)
         if(renderData.data){
             renderData.data.forEach((element : MergeRequest) => {
                 mergeStat.avgTimeUntilMerge += element.merged_at
@@ -57,6 +58,16 @@ export const MergeRequestStats = ({}) => {
             })
         }
 
+        if(mergeStat.mergedCount === 0) return {
+            avgTimeUntilMerge: 'Never',
+            mergedToClosedRatio: '0%',
+        }
+        if(mergeStat.closedCount === 0) return {
+            avgTimeUntilMerge: `${
+                ((mergeStat.avgTimeUntilMerge / 3600000) / mergeStat.mergedCount).toFixed(2)
+            } hrs`,
+            mergedToClosedRatio: '0%',
+        }
         return {
             avgTimeUntilMerge: `${
                 ((mergeStat.avgTimeUntilMerge / 3600000) / mergeStat.mergedCount).toFixed(2)
@@ -80,9 +91,7 @@ export const MergeRequestStats = ({}) => {
                 <Box position="relative">
                     <div> <b>Average time of MR until merge :</b> {value.avgTimeUntilMerge}</div>
                     <div> <b>Merged to closed ratio :</b> {value.mergedToClosedRatio}</div>
-
                     <>Number of MRs : 20</>
-
                 </Box>
         </InfoCard>
     ) : (
