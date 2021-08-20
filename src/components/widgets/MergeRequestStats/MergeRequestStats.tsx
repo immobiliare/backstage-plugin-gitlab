@@ -8,6 +8,7 @@ import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { InfoCard} from '@backstage/core-components';
 import {MergeRequest} from "../../types";
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
     infoCard: {
@@ -42,7 +43,7 @@ export const MergeRequestStats = ({}) => {
     const GitlabCIAPI = useApi(GitlabCIApiRef);
     const mergeStat: MergeRequestStatsCount = {avgTimeUntilMerge:0, closedCount:0, mergedCount:0};
     const { value, loading, error } = useAsync(async (): Promise<MergeStats> => {
-        const gitlabObj = await GitlabCIAPI.getMergeRequestsStatusSummary(project_id, 20);
+        const gitlabObj = await GitlabCIAPI.getMergeRequestsStatusSummary(project_id, 5);
         const data = gitlabObj?.getMergeRequestsStatusData;
         let renderData: any = { data }
         renderData.project_name = await GitlabCIAPI.getProjectName(project_id);
@@ -62,16 +63,19 @@ export const MergeRequestStats = ({}) => {
             avgTimeUntilMerge: 'Never',
             mergedToClosedRatio: '0%',
         }
+
+        const avgTimeUntilMergeDiff = moment.duration(
+            mergeStat.avgTimeUntilMerge / mergeStat.mergedCount,
+        );
+
+        const avgTimeUntilMerge = avgTimeUntilMergeDiff.humanize();
+
         if(mergeStat.closedCount === 0) return {
-            avgTimeUntilMerge: `${
-                ((mergeStat.avgTimeUntilMerge / 3600000) / mergeStat.mergedCount).toFixed(2)
-            } hrs`,
+            avgTimeUntilMerge: avgTimeUntilMerge,
             mergedToClosedRatio: '0%',
         }
         return {
-            avgTimeUntilMerge: `${
-                ((mergeStat.avgTimeUntilMerge / 3600000) / mergeStat.mergedCount).toFixed(2)
-            } hrs`,
+            avgTimeUntilMerge: avgTimeUntilMerge,
             mergedToClosedRatio: `${Math.round(
                 (mergeStat.mergedCount / mergeStat.closedCount) * 100,
             )}%`,
