@@ -14,6 +14,8 @@ export type MergeRequest = {
     }
     title: string;
     created_at: string;
+    merged_at: string;
+    closed_at: string;
 };  
 
 export type PipelineObject = {
@@ -25,3 +27,5 @@ export type PipelineObject = {
     project_name: string;
     onRestartClick: () => void;
 };
+
+export type MergeRequestState = 'opened' | 'closed' | 'all';

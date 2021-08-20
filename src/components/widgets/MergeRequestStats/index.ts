@@ -1,0 +1,1 @@
+export { MergeRequestStats } from './MergeRequestStats';
