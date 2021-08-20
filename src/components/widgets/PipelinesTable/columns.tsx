@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Box, Typography, Link } from '@material-ui/core';
 import {
   StatusPending,
   StatusRunning,
@@ -34,4 +34,18 @@ export function createStatusColumn(): TableColumn<{}> {
         </Box>
       ),
      }
+}
+
+export function createWebURLColumn(): TableColumn<{}> {
+  return { title: 'Web URL',  render: (row: Partial<PipelineObject>) => (
+    <Link
+    href={`${row.web_url}`}
+    color="inherit"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {row.web_url}
+  </Link>
+    ),
+   }
 }
