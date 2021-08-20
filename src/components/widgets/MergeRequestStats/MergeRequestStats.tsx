@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Progress } from '@backstage/core-components';
-import { Box, makeStyles } from '@material-ui/core';
+import { Box, makeStyles, FormControl, FormHelperText, Select, MenuItem } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { useAsync } from 'react-use';
 import { gitlabAppData } from '../../gitlabAppData';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
-import { InfoCard} from '@backstage/core-components';
+import { InfoCard, StructuredMetadataTable, InfoCardVariants } from '@backstage/core-components';
 import {MergeRequest} from "../../types";
 import moment from 'moment';
+import { Entity } from '@backstage/catalog-model';
 
 const useStyles = makeStyles(theme => ({
     infoCard: {
@@ -33,21 +34,25 @@ export type MergeRequestStatsCount = {
 
 export type MergeStats = {
     avgTimeUntilMerge: string;
-    mergedToClosedRatio: string;
+    mergedToTotalRatio: string;
 };
 
+type Props = {
+    entity?: Entity;
+    variant?: InfoCardVariants;
+};
 
-export const MergeRequestStats = ({}) => {
+const MergeRequestStats = (props: Props) => {
+    const [count, setCount] = useState<number>(20);
     const classes = useStyles();
     const { project_id } = gitlabAppData();
     const GitlabCIAPI = useApi(GitlabCIApiRef);
     const mergeStat: MergeRequestStatsCount = {avgTimeUntilMerge:0, closedCount:0, mergedCount:0};
     const { value, loading, error } = useAsync(async (): Promise<MergeStats> => {
-        const gitlabObj = await GitlabCIAPI.getMergeRequestsStatusSummary(project_id, 5);
+        const gitlabObj = await GitlabCIAPI.getMergeRequestsStatusSummary(project_id, count);
         const data = gitlabObj?.getMergeRequestsStatusData;
         let renderData: any = { data }
         renderData.project_name = await GitlabCIAPI.getProjectName(project_id);
-        console.log(renderData.data)
         if(renderData.data){
             renderData.data.forEach((element : MergeRequest) => {
                 mergeStat.avgTimeUntilMerge += element.merged_at
@@ -61,7 +66,7 @@ export const MergeRequestStats = ({}) => {
 
         if(mergeStat.mergedCount === 0) return {
             avgTimeUntilMerge: 'Never',
-            mergedToClosedRatio: '0%',
+            mergedToTotalRatio: '0%',
         }
 
         const avgTimeUntilMergeDiff = moment.duration(
@@ -70,14 +75,14 @@ export const MergeRequestStats = ({}) => {
 
         const avgTimeUntilMerge = avgTimeUntilMergeDiff.humanize();
 
-        if(mergeStat.closedCount === 0) return {
+        /*if(mergeStat.closedCount === 0) return {
             avgTimeUntilMerge: avgTimeUntilMerge,
             mergedToClosedRatio: '0%',
-        }
+        }*/
         return {
             avgTimeUntilMerge: avgTimeUntilMerge,
-            mergedToClosedRatio: `${Math.round(
-                (mergeStat.mergedCount / mergeStat.closedCount) * 100,
+            mergedToTotalRatio: `${Math.round(
+                (mergeStat.mergedCount / count) * 100,
             )}%`,
         }
     });
@@ -91,14 +96,34 @@ export const MergeRequestStats = ({}) => {
 
     return value ? (
         <InfoCard
-            title="Merge requests statistics" className={classes.infoCard} >
-                <Box position="relative">
+            title="Merge requests statistics" className={classes.infoCard} variant={props.variant} >
+            {/*   <Box position="relative">
                     <div> <b>Average time of MR until merge :</b> {value.avgTimeUntilMerge}</div>
                     <div> <b>Merged to closed ratio :</b> {value.mergedToClosedRatio}</div>
                     <>Number of MRs : 20</>
+                </Box>*/}
+
+            <Box position="relative">
+                <StructuredMetadataTable metadata={value} />
+                <Box display="flex" justifyContent="flex-end">
+                    <FormControl>
+                        <Select
+                            value={count}
+                            onChange={event => setCount(Number(event.target.value))}
+                        >
+                            <MenuItem value={10}>10</MenuItem>
+                            <MenuItem value={20}>20</MenuItem>
+                            <MenuItem value={50}>50</MenuItem>
+                            <MenuItem value={100}>100</MenuItem>
+                        </Select>
+                        <FormHelperText>Number of PRs</FormHelperText>
+                    </FormControl>
                 </Box>
+            </Box>
         </InfoCard>
     ) : (
         <InfoCard title="Merge Request Statistics" />
     );
 };
+
+export default MergeRequestStats;
