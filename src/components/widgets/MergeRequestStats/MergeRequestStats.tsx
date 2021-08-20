@@ -7,6 +7,7 @@ import { gitlabAppData } from '../../gitlabAppData';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { InfoCard} from '@backstage/core-components';
+import {MergeRequest} from "../../types";
 
 const useStyles = makeStyles(theme => ({
     infoCard: {
@@ -41,13 +42,12 @@ export const MergeRequestStats = ({}) => {
     const GitlabCIAPI = useApi(GitlabCIApiRef);
     const mergeStat: MergeRequestStatsCount = {avgTimeUntilMerge:0, closedCount:0, mergedCount:0};
     const { value, loading, error } = useAsync(async (): Promise<MergeStats> => {
-        const gitlabObj = await GitlabCIAPI.getMergeRequestsStatusSummary(project_id, 20);
-        const data = gitlabObj?.getMergeRequestsStatusData;
+        const gitlabObj = await GitlabCIAPI.getMergeRequestsSummary(project_id);
+        const data = gitlabObj?.getMergeRequestsData;
         let renderData: any = { data }
         renderData.project_name = await GitlabCIAPI.getProjectName(project_id);
-        console.log(renderData.data)
         if(renderData.data){
-            renderData.data.forEach((element: renderData.data) => {
+            renderData.data.forEach((element : MergeRequest) => {
                 mergeStat.avgTimeUntilMerge += element.merged_at
                         ? new Date(element.merged_at).getTime() -
                         new Date(element.created_at).getTime()
@@ -59,7 +59,7 @@ export const MergeRequestStats = ({}) => {
 
         return {
             avgTimeUntilMerge: `${
-                (mergeStat.avgTimeUntilMerge / 3600000).toFixed(2)
+                ((mergeStat.avgTimeUntilMerge / 3600000) / mergeStat.mergedCount).toFixed(2)
             } hrs`,
             mergedToClosedRatio: `${Math.round(
                 (mergeStat.mergedCount / mergeStat.closedCount) * 100,
@@ -78,10 +78,10 @@ export const MergeRequestStats = ({}) => {
         <InfoCard
             title="Merge requests statistics" className={classes.infoCard} >
                 <Box position="relative">
-                    <div> <b>Average time of MR until merge:</b> {value.avgTimeUntilMerge}</div>
-                    <div> <b>Merged to closed ratio:</b> {value.mergedToClosedRatio}</div>
+                    <div> <b>Average time of MR until merge :</b> {value.avgTimeUntilMerge}</div>
+                    <div> <b>Merged to closed ratio :</b> {value.mergedToClosedRatio}</div>
 
-                            <>Number of MRs : 20</>
+                    <>Number of MRs : 20</>
 
                 </Box>
         </InfoCard>
