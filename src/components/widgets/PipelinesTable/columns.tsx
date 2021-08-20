@@ -40,7 +40,6 @@ export function createWebURLColumn(): TableColumn<{}> {
   return { title: 'Web URL',  render: (row: Partial<PipelineObject>) => (
     <Link
     href={`${row.web_url}`}
-    color="inherit"
     target="_blank"
     rel="noopener noreferrer"
   >
