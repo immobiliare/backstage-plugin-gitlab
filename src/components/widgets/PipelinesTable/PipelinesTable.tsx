@@ -5,7 +5,10 @@ import { useAsync } from 'react-use';
 import { gitlabAppData } from '../../gitlabAppData';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
-import { createStatusColumn } from './columns';
+import { 
+  createStatusColumn,
+  createWebURLColumn
+ } from './columns';
 import { PipelineObject } from '../../types';
 
 export const DenseTable = ({ pipelineObjects }: any) => {
@@ -14,8 +17,8 @@ export const DenseTable = ({ pipelineObjects }: any) => {
     { title: 'Pipeline_ID', field: 'id' },
     createStatusColumn(),
     { title: 'Branch', field: 'ref' },
-    { title: 'Web URL', field: 'web_url' },
-];
+    createWebURLColumn(),
+  ];
   const title = "Gitlab Pipelines: " + pipelineObjects?.project_name;
 
   const data = pipelineObjects.data.map((pipelineObject: PipelineObject) => {
