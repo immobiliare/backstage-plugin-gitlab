@@ -10,6 +10,7 @@ import {
   createWebURLColumn
  } from './columns';
 import { PipelineObject } from '../../types';
+import { getDuration, getElapsedTime } from '../../utils';
 
 export const DenseTable = ({ pipelineObjects }: any) => {
 
@@ -18,6 +19,8 @@ export const DenseTable = ({ pipelineObjects }: any) => {
     createStatusColumn(),
     { title: 'Branch', field: 'ref' },
     createWebURLColumn(),
+    { title: 'Created At', field: 'created_date'},
+    { title: 'Duration', field: 'duration'}
   ];
   const title = "Gitlab Pipelines: " + pipelineObjects?.project_name;
 
@@ -27,6 +30,8 @@ export const DenseTable = ({ pipelineObjects }: any) => {
        status: pipelineObject.status,
        ref: pipelineObject.ref,
        web_url: pipelineObject.web_url,
+       created_date: getElapsedTime(pipelineObject.created_at),
+       duration: getDuration(pipelineObject.created_at, pipelineObject.updated_at)
     };
   });
 
