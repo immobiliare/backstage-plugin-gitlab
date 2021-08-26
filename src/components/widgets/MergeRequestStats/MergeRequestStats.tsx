@@ -85,7 +85,7 @@ const MergeRequestStats = (props: Props) => {
                 (mergeStat.mergedCount / count) * 100,
             )}%`,
         }
-    });
+    },[count]);
 
     if (loading) {
         return <Progress />;
@@ -116,7 +116,7 @@ const MergeRequestStats = (props: Props) => {
                             <MenuItem value={50}>50</MenuItem>
                             <MenuItem value={100}>100</MenuItem>
                         </Select>
-                        <FormHelperText>Number of PRs</FormHelperText>
+                        <FormHelperText>Number of MRs</FormHelperText>
                     </FormControl>
                 </Box>
             </Box>
