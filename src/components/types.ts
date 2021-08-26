@@ -26,6 +26,8 @@ export type PipelineObject = {
     web_url: string;
     project_name: string;
     onRestartClick: () => void;
+    created_at: string;
+    updated_at: string;
 };
 
 export type MergeRequestState = 'opened' | 'closed' | 'all';
