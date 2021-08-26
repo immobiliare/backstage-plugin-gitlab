@@ -1,4 +1,4 @@
-import { PipelineSummary, GitlabCIApi, ContributorsSummary, LanguagesSummary, MergeRequestsSummary} from './GitlabCIApi';
+import { PipelineSummary, GitlabCIApi, ContributorsSummary, LanguagesSummary, MergeRequestsSummary, MergeRequestsStatusSummary} from './GitlabCIApi';
 import { DiscoveryApi } from '@backstage/core-plugin-api';
 import { ContributorData, MergeRequest, PipelineObject } from '../components/types';
 
@@ -73,6 +73,16 @@ export class GitlabCIClient implements GitlabCIApi {
    return {
      getMergeRequestsData: mergeRquestsList!,
    };
+  }
+
+  async getMergeRequestsStatusSummary(
+      projectID ?: string,
+      count?: number,
+  ): Promise<MergeRequestsStatusSummary | undefined> {
+      const mergeRequestsList = await this.callApi<MergeRequest[]>('projects/' + projectID + '/merge_requests', {per_page: count});
+      return {
+          getMergeRequestsStatusData: mergeRequestsList!,
+      };
   }
 
  async getContributorsSummary(

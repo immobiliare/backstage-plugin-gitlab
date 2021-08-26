@@ -10,6 +10,7 @@ import {
   LanguagesCard,
   MergeRequestsTable,
   PipelinesTable,
+  MergeRequestStats,
 } from '../widgets';
 
 export const GitlabCI = () => (
@@ -18,12 +19,15 @@ export const GitlabCI = () => (
       <ContentHeader title="Gitlab Plugin">
       </ContentHeader>
       <Grid container spacing={6} direction="row" alignItems="stretch">
-        <Grid item sm={12} md={6} lg={6}>
+        <Grid item sm={12} md={6} lg={4}>
           <ContributorsCard />
         </Grid>
-          <Grid item sm={12} md={6} lg={6}>
+        <Grid item sm={12} md={6} lg={4}>
           <LanguagesCard />
-          </Grid>
+        </Grid>
+        <Grid item sm={12} md={6} lg={4}>
+          <MergeRequestStats />
+        </Grid>
         <Grid item md={12}>
           <PipelinesTable />
         </Grid>

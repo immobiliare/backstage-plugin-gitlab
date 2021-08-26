@@ -14,6 +14,10 @@ export interface MergeRequestsSummary {
   getMergeRequestsData: MergeRequest[];
 }
 
+export interface MergeRequestsStatusSummary {
+  getMergeRequestsStatusData: MergeRequest[];
+}
+
 export interface LanguagesSummary {
   getLanguagesData: any;
 }
@@ -26,7 +30,8 @@ export const GitlabCIApiRef = createApiRef<GitlabCIApi>({
 export type GitlabCIApi = {
   getPipelineSummary(projectID: string): Promise<PipelineSummary | undefined>;
   getContributorsSummary(projectID: string): Promise<ContributorsSummary | undefined>;
-  getMergeRequestsSummary(projectID: string): Promise<MergeRequestsSummary | undefined>;  
+  getMergeRequestsSummary(projectID: string): Promise<MergeRequestsSummary | undefined>;
+  getMergeRequestsStatusSummary(projectID: string, count: number): Promise<MergeRequestsStatusSummary | undefined>;
   getProjectName(projectID: string): Promise<string | undefined>;
   getLanguagesSummary(projectID: string): Promise<LanguagesSummary | undefined>;
   retryPipelineBuild(projectID: string, pipelineID: string): Promise<Object | undefined>;
