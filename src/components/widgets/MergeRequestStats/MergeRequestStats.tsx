@@ -62,28 +62,33 @@ const MergeRequestStats = (props: Props) => {
                 mergeStat.mergedCount += element.merged_at ? 1 : 0;
                 mergeStat.closedCount += element.closed_at ? 1 : 0;
             })
-        }
 
-        if(mergeStat.mergedCount === 0) return {
+            if(mergeStat.mergedCount === 0) return {
+                avgTimeUntilMerge: 'Never',
+                mergedToTotalRatio: '0%',
+            }
+
+            const avgTimeUntilMergeDiff = moment.duration(
+                mergeStat.avgTimeUntilMerge / mergeStat.mergedCount,
+            );
+
+            const avgTimeUntilMerge = avgTimeUntilMergeDiff.humanize();
+
+            /*if(mergeStat.closedCount === 0) return {
+                avgTimeUntilMerge: avgTimeUntilMerge,
+                mergedToClosedRatio: '0%',
+            }*/
+        
+            return {
+                avgTimeUntilMerge: avgTimeUntilMerge,
+                mergedToTotalRatio: `${Math.round(
+                    (mergeStat.mergedCount / renderData.data.length) * 100,
+                )}%`,
+            }
+        }
+        return {
             avgTimeUntilMerge: 'Never',
             mergedToTotalRatio: '0%',
-        }
-
-        const avgTimeUntilMergeDiff = moment.duration(
-            mergeStat.avgTimeUntilMerge / mergeStat.mergedCount,
-        );
-
-        const avgTimeUntilMerge = avgTimeUntilMergeDiff.humanize();
-
-        /*if(mergeStat.closedCount === 0) return {
-            avgTimeUntilMerge: avgTimeUntilMerge,
-            mergedToClosedRatio: '0%',
-        }*/
-        return {
-            avgTimeUntilMerge: avgTimeUntilMerge,
-            mergedToTotalRatio: `${Math.round(
-                (mergeStat.mergedCount / renderData.data.length) * 100,
-            )}%`,
         }
     },[count]);
 
