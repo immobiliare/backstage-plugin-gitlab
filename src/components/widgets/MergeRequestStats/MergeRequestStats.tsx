@@ -47,8 +47,8 @@ const MergeRequestStats = (props: Props) => {
     const classes = useStyles();
     const { project_id } = gitlabAppData();
     const GitlabCIAPI = useApi(GitlabCIApiRef);
+    const mergeStat: MergeRequestStatsCount = {avgTimeUntilMerge:0, closedCount:0, mergedCount:0};
     const { value, loading, error } = useAsync(async (): Promise<MergeStats> => {
-	    const mergeStat: MergeRequestStatsCount = {avgTimeUntilMerge:0, closedCount:0, mergedCount:0};
         const gitlabObj = await GitlabCIAPI.getMergeRequestsStatusSummary(project_id, count);
         const data = gitlabObj?.getMergeRequestsStatusData;
         let renderData: any = { data }
