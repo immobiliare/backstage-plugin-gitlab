@@ -15,6 +15,7 @@ export type MergeRequest = {
     title: string;
     created_at: string;
     merged_at: string;
+    updated_at: string;
     closed_at: string;
 };  
 

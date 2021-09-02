@@ -6,7 +6,7 @@ import { gitlabAppData } from '../../gitlabAppData';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { MergeRequest } from '../../types';
-import { getElapsedTime } from '../../utils'
+import { getElapsedTime, getDuration } from '../../utils'
 import { createTitleColumn } from "./columns"
 
 export const DenseTable = ({ mergeRequests }: any) => {
@@ -17,6 +17,7 @@ export const DenseTable = ({ mergeRequests }: any) => {
     { title: 'Creator', field: 'author' },
     { title: 'State', field: 'state' },
     { title: 'Created At', field: 'created_date' },
+    { title: 'Duration', field: 'duration' },
   ];
   const title = "Gitlab Merge Request Status: " + mergeRequests?.project_name;
   const data = mergeRequests.data.map((mergeRequest: MergeRequest) => {
@@ -26,6 +27,7 @@ export const DenseTable = ({ mergeRequests }: any) => {
        author: mergeRequest.author.username,
        title: mergeRequest.title,
        created_date: getElapsedTime(mergeRequest.created_at),
+       duration: getDuration(mergeRequest.created_at, mergeRequest.updated_at)
     };
   });
 
