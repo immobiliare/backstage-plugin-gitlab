@@ -33,6 +33,7 @@ export const DenseTable = ({ mergeRequests }: any) => {
 			state: mergeRequest.state,
 			author: mergeRequest.author.username,
 			title: mergeRequest.title,
+			web_url: mergeRequest.web_url,
 			created_date: getElapsedTime(mergeRequest.created_at),
 		};
 	});
