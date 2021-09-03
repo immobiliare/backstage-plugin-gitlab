@@ -49,7 +49,7 @@ const serviceEntityPage = (
 
 4. Add a `gitlab.com/project-id` annotation to your respective `catalog-info.yaml` files, on the [format](https://backstage.io/docs/architecture-decisions/adrs-adr002#format) `<git-provider>/<owner>/<project>` 
 
-```yml
+```yaml
 # Example catalog-info.yaml entity definition file
 apiVersion: backstage.io/v1alpha1
 kind: Component
