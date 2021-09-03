@@ -15,11 +15,6 @@ export const DenseTable = ({ mergeRequests }: any) => {
 		{
 			title: 'ID',
 			field: 'id',
-			render: (row: any) => (
-				<Link href={row.web_url} target='_blank'>
-					{row.id}
-				</Link>
-			),
 		},
 		createTitleColumn(),
 		{ title: 'Creator', field: 'author' },
