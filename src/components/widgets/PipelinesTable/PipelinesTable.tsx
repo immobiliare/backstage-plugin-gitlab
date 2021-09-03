@@ -5,8 +5,12 @@ import { useAsync } from 'react-use';
 import { gitlabAppData } from '../../gitlabAppData';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
-import { createStatusColumn } from './columns';
+import { 
+  createStatusColumn,
+  createWebURLColumn
+ } from './columns';
 import { PipelineObject } from '../../types';
+import { getDuration, getElapsedTime } from '../../utils';
 
 export const DenseTable = ({ pipelineObjects }: any) => {
 
@@ -14,8 +18,10 @@ export const DenseTable = ({ pipelineObjects }: any) => {
     { title: 'Pipeline_ID', field: 'id' },
     createStatusColumn(),
     { title: 'Branch', field: 'ref' },
-    { title: 'Web URL', field: 'web_url' },
-];
+    createWebURLColumn(),
+    { title: 'Created At', field: 'created_date'},
+    { title: 'Duration', field: 'duration'}
+  ];
   const title = "Gitlab Pipelines: " + pipelineObjects?.project_name;
 
   const data = pipelineObjects.data.map((pipelineObject: PipelineObject) => {
@@ -24,6 +30,8 @@ export const DenseTable = ({ pipelineObjects }: any) => {
        status: pipelineObject.status,
        ref: pipelineObject.ref,
        web_url: pipelineObject.web_url,
+       created_date: getElapsedTime(pipelineObject.created_at),
+       duration: getDuration(pipelineObject.created_at, pipelineObject.updated_at)
     };
   });
 
