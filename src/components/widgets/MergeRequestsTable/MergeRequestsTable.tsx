@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table, TableColumn, Progress } from '@backstage/core-components';
-import Link from '@material-ui/core/Link';
 import Alert from '@material-ui/lab/Alert';
 import { useAsync } from 'react-use';
 import { gitlabAppData } from '../../gitlabAppData';
