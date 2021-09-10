@@ -1,6 +1,9 @@
 # Backstage Gitlab Plugin
 
-![npm](https://img.shields.io/npm/dt/@loblaw/backstage-plugin-gitlab)
+[![npm](https://img.shields.io/npm/v/@loblaw/backstage-plugin-gitlab.svg)](https://www.npmjs.com/package/@loblaw/backstage-plugin-gitlab)
+[![Downloads](https://img.shields.io/npm/dm/@loblaw/backstage-plugin-gitlab.svg)](https://www.npmjs.com/package/@loblaw/backstage-plugin-gitlab)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 
 Website: [https://gitlab.com/](https://gitlab.com/)
 
