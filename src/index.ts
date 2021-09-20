@@ -1,2 +1,2 @@
 export { gitlabPlugin, EntityGitlabContent } from './plugin';
-export { isGitlabAnnotationAvailable } from './Router';
+export { isGitlabAvaiable } from './Router';
