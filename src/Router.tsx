@@ -19,7 +19,7 @@ type Props = {
 
 export const Router =  (_props: Props) => {
   const { entity } = useEntity();
-
+  
   if (isGitlabAnnotationAvailable(entity)) {
     return (
       <Routes>
