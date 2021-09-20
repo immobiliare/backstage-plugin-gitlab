@@ -9,7 +9,7 @@ import { useEntity } from '@backstage/plugin-catalog-react';
 
 
 const GITLAB_ANNOTATION_PROJECT_ID = 'gitlab.com/project-id';
-export const isGitlabAvaiable = (entity: Entity) =>
+export const isGitlabAvailable = (entity: Entity) =>
 Boolean(entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_ID]);
 
 type Props = {
@@ -20,7 +20,7 @@ type Props = {
 export const Router =  (_props: Props) => {
   const { entity } = useEntity();
   
-  if (isGitlabAvaiable(entity)) {
+  if (isGitlabAvailable(entity)) {
     return (
       <Routes>
         <Route
