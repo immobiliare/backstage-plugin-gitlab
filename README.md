@@ -26,15 +26,14 @@ yarn add @loblaw/backstage-plugin-gitlab
 ```tsx
 // In packages/app/src/components/catalog/EntityPage.tsx
 
-import { EntityGitlabContent } from '@loblaw/backstage-plugin-gitlab';
-
+import { isGitlabAvaiable, EntityGitlabContent } from '@loblaw/backstage-plugin-gitlab';
 // Farther down at the serviceEntityPage declaration
 const serviceEntityPage = (
 <EntityLayout>
     {/* Place the following section where you want the tab to appear */}
-  <EntityLayout.Route path="/gitlab" title="Gitlab">
-      <EntityGitlabContent />
-  </EntityLayout.Route>
+    <EntityLayout.Route if={isGitlabAvaiable} path="/gitlab" title="Gitlab">
+       <EntityGitlabContent />
+    </EntityLayout.Route>
 ```
 
 3. Add proxy config:
