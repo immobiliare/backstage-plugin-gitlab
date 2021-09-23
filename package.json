@@ -1,5 +1,5 @@
 {
-  "name": "@loblaw/plugin-backstage-plugin-gitlab",
+  "name": "@loblaw/backstage-plugin-gitlab",
   "version": "0.1.13",
   "main": "src/index.ts",
   "types": "src/index.ts",
