@@ -60,7 +60,7 @@ integrations:
       token: ${GITLAB_TOKEN}
 ```
 
-5. Add proxy config:
+4. Add proxy config:
 
 ```
   '/gitlabci':
