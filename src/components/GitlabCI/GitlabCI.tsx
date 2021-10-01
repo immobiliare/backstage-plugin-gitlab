@@ -3,7 +3,6 @@ import { Grid } from '@material-ui/core';
 import {
   Page,
   Content,
-  ContentHeader,
 } from '@backstage/core-components';
 import {
   ContributorsCard,
