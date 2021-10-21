@@ -1,38 +1,52 @@
 import { createApiRef } from '@backstage/core-plugin-api';
-import { ContributorData, MergeRequest, PipelineObject } from '../components/types';
-
+import {
+	ContributorData,
+	MergeRequest,
+	PipelineObject,
+} from '../components/types';
 
 export interface PipelineSummary {
-  getPipelinesData: PipelineObject[];
+	getPipelinesData: PipelineObject[];
 }
 
 export interface ContributorsSummary {
-  getContributorsData: ContributorData[];
+	getContributorsData: ContributorData[];
 }
 
 export interface MergeRequestsSummary {
-  getMergeRequestsData: MergeRequest[];
+	getMergeRequestsData: MergeRequest[];
 }
 
 export interface MergeRequestsStatusSummary {
-  getMergeRequestsStatusData: MergeRequest[];
+	getMergeRequestsStatusData: MergeRequest[];
 }
 
 export interface LanguagesSummary {
-  getLanguagesData: any;
+	getLanguagesData: any;
 }
 
 export const GitlabCIApiRef = createApiRef<GitlabCIApi>({
-  id: 'plugin.gitlabci.service',
-  description: 'Used by the GitlabCI plugin to make requests',
+	id: 'plugin.gitlabci.service',
+	description: 'Used by the GitlabCI plugin to make requests',
 });
 
 export type GitlabCIApi = {
-  getPipelineSummary(projectID: string): Promise<PipelineSummary | undefined>;
-  getContributorsSummary(projectID: string): Promise<ContributorsSummary | undefined>;
-  getMergeRequestsSummary(projectID: string): Promise<MergeRequestsSummary | undefined>;
-  getMergeRequestsStatusSummary(projectID: string, count: number): Promise<MergeRequestsStatusSummary | undefined>;
-  getProjectName(projectID: string): Promise<string | undefined>;
-  getLanguagesSummary(projectID: string): Promise<LanguagesSummary | undefined>;
-  retryPipelineBuild(projectID: string, pipelineID: string): Promise<Object | undefined>;
+	getPipelineSummary(projectID: string): Promise<PipelineSummary | undefined>;
+	getContributorsSummary(
+		projectID: string,
+	): Promise<ContributorsSummary | undefined>;
+	getMergeRequestsSummary(
+		projectID: string,
+	): Promise<MergeRequestsSummary | undefined>;
+	getMergeRequestsStatusSummary(
+		projectID: string,
+		count: number,
+	): Promise<MergeRequestsStatusSummary | undefined>;
+	getProjectName(projectID: string): Promise<string | undefined>;
+	getLanguagesSummary(projectID: string): Promise<LanguagesSummary | undefined>;
+	retryPipelineBuild(
+		projectID: string,
+		pipelineID: string,
+	): Promise<Object | undefined>;
+	getProjectDetails(projectSlug: string): Promise<Object | undefined>;
 };

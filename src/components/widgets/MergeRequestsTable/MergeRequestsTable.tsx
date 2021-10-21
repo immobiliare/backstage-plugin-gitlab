@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, TableColumn, Progress } from '@backstage/core-components';
 import Alert from '@material-ui/lab/Alert';
 import { useAsync } from 'react-use';
-import { gitlabAppData } from '../../gitlabAppData';
+import { gitlabAppData, gitlabAppSlug } from '../../gitlabAppData';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { MergeRequest } from '../../types';
@@ -43,16 +43,19 @@ export const DenseTable = ({ mergeRequests }: any) => {
 
 export const MergeRequestsTable = ({}) => {
 	const { project_id } = gitlabAppData();
+	const { project_slug } = gitlabAppSlug();
 
 	const GitlabCIAPI = useApi(GitlabCIApiRef);
 
 	const { value, loading, error } = useAsync(async (): Promise<
 		MergeRequest[]
 	> => {
-		const gitlabObj = await GitlabCIAPI.getMergeRequestsSummary(project_id);
+		const projectDetails = await GitlabCIAPI.getProjectDetails(project_slug);
+		let projectId = project_id ? project_id : projectDetails?.id;
+		const gitlabObj = await GitlabCIAPI.getMergeRequestsSummary(projectId);
 		const data = gitlabObj?.getMergeRequestsData;
 		let renderData: any = { data };
-		renderData.project_name = await GitlabCIAPI.getProjectName(project_id);
+		renderData.project_name = await GitlabCIAPI.getProjectName(projectId);
 		return renderData;
 	}, []);
 

@@ -16,13 +16,23 @@
 
 import { useEntity } from '@backstage/plugin-catalog-react';
 
-export const GITLAB_ANNOTATION_PROJECT_ID = "gitlab.com/project-id";
+export const GITLAB_ANNOTATION_PROJECT_ID = 'gitlab.com/project-id';
+export const GITLAB_ANNOTATION_PROJECT_SLUG = 'gitlab.com/project-slug';
 
 export const gitlabAppData = () => {
-  const { entity } = useEntity();
+	const { entity } = useEntity();
 
-  const project_id =
-    (entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_ID] ?? '');
+	const project_id =
+		entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_ID] ?? '';
 
-  return { project_id };
+	return { project_id };
+};
+
+export const gitlabAppSlug = () => {
+	const { entity } = useEntity();
+
+	const project_slug =
+		entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_SLUG] ?? '';
+
+	return { project_slug };
 };

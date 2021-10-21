@@ -7,40 +7,47 @@ import { GitlabCI } from './components/GitlabCI';
 import { rootRouteRef } from './plugin';
 import { useEntity } from '@backstage/plugin-catalog-react';
 
-
 const GITLAB_ANNOTATION_PROJECT_ID = 'gitlab.com/project-id';
-export const isGitlabAvailable = (entity: Entity) =>
-Boolean(entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_ID]);
+export const GITLAB_ANNOTATION_PROJECT_SLUG = 'gitlab.com/project-slug';
+
+export const isGitlabAnnotationAvailable = (entity: Entity) =>
+	Boolean(entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_ID]);
+
+export const isGitlabSlugAnnotationAvailable = (entity: Entity) =>
+	Boolean(entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_SLUG]);
 
 type Props = {
-  /** @deprecated The entity is now grabbed from context instead */
-  entity?: Entity;
+	/** @deprecated The entity is now grabbed from context instead */
+	entity?: Entity;
 };
 
-export const Router =  (_props: Props) => {
-  const { entity } = useEntity();
-  
-  if (isGitlabAvailable(entity)) {
-    return (
-      <Routes>
-        <Route
-          path={`/${rootRouteRef.path}`}
-          element={<GitlabCI />}
-        />
-      </Routes>
-    );
-  }
+export const Router = (_props: Props) => {
+	const { entity } = useEntity();
 
-  return (
-    <>
-      <MissingAnnotationEmptyState annotation={GITLAB_ANNOTATION_PROJECT_ID} />
-      <Button
-        variant="contained"
-        color="primary"
-        href="https://github.com/loblaw-sre/backstage-plugin-gitlab/blob/main/README.md"
-      >
-        Read Gitlab Plugin Docs
-      </Button>
-    </>
-  );
+	if (
+		isGitlabAnnotationAvailable(entity) ||
+		isGitlabSlugAnnotationAvailable(entity)
+	) {
+		return (
+			<Routes>
+				<Route path={`/${rootRouteRef.path}`} element={<GitlabCI />} />
+			</Routes>
+		);
+	}
+
+	return (
+		<>
+			<MissingAnnotationEmptyState annotation={GITLAB_ANNOTATION_PROJECT_ID} />
+			<MissingAnnotationEmptyState
+				annotation={GITLAB_ANNOTATION_PROJECT_SLUG}
+			/>
+			<Button
+				variant='contained'
+				color='primary'
+				href='https://github.com/loblaw-sre/backstage-plugin-gitlab/blob/main/README.md'
+			>
+				Read Gitlab Plugin Docs
+			</Button>
+		</>
+	);
 };
