@@ -4,7 +4,6 @@ import React from 'react';
 import { MissingAnnotationEmptyState } from '@backstage/core-components';
 import { Button } from '@material-ui/core';
 import { GitlabCI } from './components/GitlabCI';
-import { rootRouteRef } from './plugin';
 import { useEntity } from '@backstage/plugin-catalog-react';
 
 const GITLAB_ANNOTATION_PROJECT_ID = 'gitlab.com/project-id';
@@ -29,12 +28,11 @@ export const Router = (_props: Props) => {
 	const { entity } = useEntity();
 
 	if (
-		isGitlabProjectIDAnnotationAvailable(entity) ||
-		isGitlabSlugAnnotationAvailable(entity)
+		isGitlabAvailable(entity)
 	) {
 		return (
 			<Routes>
-				<Route path={`/${rootRouteRef.path}`} element={<GitlabCI />} />
+				<Route path="/" element={<GitlabCI />} />
 			</Routes>
 		);
 	}
