@@ -10,7 +10,11 @@ import { useEntity } from '@backstage/plugin-catalog-react';
 const GITLAB_ANNOTATION_PROJECT_ID = 'gitlab.com/project-id';
 export const GITLAB_ANNOTATION_PROJECT_SLUG = 'gitlab.com/project-slug';
 
-export const isGitlabAnnotationAvailable = (entity: Entity) =>
+export const isGitlabAvailable = (entity: Entity) =>
+isGitlabProjectIDAnnotationAvailable(entity) || isGitlabSlugAnnotationAvailable(entity)
+
+
+export const isGitlabProjectIDAnnotationAvailable = (entity: Entity) =>
 	Boolean(entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_ID]);
 
 export const isGitlabSlugAnnotationAvailable = (entity: Entity) =>
@@ -25,7 +29,7 @@ export const Router = (_props: Props) => {
 	const { entity } = useEntity();
 
 	if (
-		isGitlabAnnotationAvailable(entity) ||
+		isGitlabProjectIDAnnotationAvailable(entity) ||
 		isGitlabSlugAnnotationAvailable(entity)
 	) {
 		return (

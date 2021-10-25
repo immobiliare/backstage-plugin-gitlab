@@ -83,6 +83,8 @@ metadata:
   # ...
   annotations:
       gitlab.com/project-id: 'project-id' #1234. This must be in quotes and can be found under Settings --> General
+      or
+      gitlab.com/project-slug: 'project-slug' # group_name/project_name
 spec:
   type: service
   # ...
