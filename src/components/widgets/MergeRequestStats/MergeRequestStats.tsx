@@ -66,7 +66,7 @@ const MergeRequestStats = (props: Props) => {
 		mergedCount: 0,
 	};
 	const { value, loading, error } = useAsync(async (): Promise<MergeStats> => {
-		const projectDetails = await GitlabCIAPI.getProjectDetails(project_slug);
+		let projectDetails: any = await GitlabCIAPI.getProjectDetails(project_slug);
 		let projectId = project_id ? project_id : projectDetails?.id;
 		const gitlabObj = await GitlabCIAPI.getMergeRequestsStatusSummary(
 			projectId,

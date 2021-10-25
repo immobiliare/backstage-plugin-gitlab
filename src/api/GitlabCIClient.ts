@@ -141,10 +141,13 @@ export class GitlabCIClient implements GitlabCIApi {
 	}
 
 	async getProjectDetails(projectSlug?: string): Promise<Object | undefined> {
-		let projectDetails: any = await this.callApi<Object>(
-			'projects/' + encodeURIComponent(projectSlug),
-			{},
-		);
+		let projectDetails: any;
+		if(projectSlug){
+			projectDetails = await this.callApi<Object>(
+				'projects/' + encodeURIComponent(projectSlug),
+				{},
+			);
+		}
 		return projectDetails;
 	}
 
