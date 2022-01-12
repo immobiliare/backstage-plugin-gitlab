@@ -9,7 +9,7 @@ import {
 import { GitlabCIApiRef, GitlabCIClient } from './api';
 
 export const rootRouteRef = createRouteRef({
-  title: 'Gitlab',
+  id: 'Gitlab',
 });
 
 export const gitlabPlugin = createPlugin({

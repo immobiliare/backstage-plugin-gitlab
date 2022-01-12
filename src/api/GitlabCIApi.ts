@@ -27,7 +27,6 @@ export interface LanguagesSummary {
 
 export const GitlabCIApiRef = createApiRef<GitlabCIApi>({
 	id: 'plugin.gitlabci.service',
-	description: 'Used by the GitlabCI plugin to make requests',
 });
 
 export type GitlabCIApi = {
