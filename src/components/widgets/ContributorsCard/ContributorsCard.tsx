@@ -5,7 +5,7 @@ import { InfoCard, Progress } from '@backstage/core-components';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useAsync } from 'react-use';
-import { gitlabAppData, gitlabAppSlug, useEntityGitlabScmIntegration } from '../../gitlabAppData';
+import { gitlabAppData, gitlabAppSlug } from '../../gitlabAppData';
 import { ContributorsList } from './components/ContributorsList';
 import { ContributorData } from '../../types';
 

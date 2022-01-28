@@ -18,7 +18,6 @@ import { useEntity } from '@backstage/plugin-catalog-react';
 import { useApi } from '@backstage/core-plugin-api';
 import { scmIntegrationsApiRef } from '@backstage/integration-react';
 import {
-  Entity,
   parseLocationReference,
   LOCATION_ANNOTATION,
   SOURCE_LOCATION_ANNOTATION,
