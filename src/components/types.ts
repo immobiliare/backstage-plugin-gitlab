@@ -1,4 +1,6 @@
 export type ContributorData = {
+	project_web_url: string;
+	project_default_branch: string;
 	name: string;
 	email: string;
 	avatar_url: string;

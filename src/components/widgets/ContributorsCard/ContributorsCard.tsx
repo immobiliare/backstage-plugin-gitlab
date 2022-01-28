@@ -25,15 +25,21 @@ export const ContributorsCard = ({}) => {
 	const { project_slug } = gitlabAppSlug();
 	/* TODO: to change the below logic to get contributors data*/
 	const { value, loading, error } = useAsync(async (): Promise<
-		ContributorData[]
+		ContributorData
 	> => {
-		let projectDetails: any = await GitlabCIAPI.getProjectDetails(project_slug);
+		let projectDetails: any = await GitlabCIAPI.getProjectDetails(project_slug != '' ? project_slug : project_id);
 		let projectId = project_id ? project_id : projectDetails?.id;
 		const gitlabObj = await GitlabCIAPI.getContributorsSummary(projectId);
 		const data = gitlabObj?.getContributorsData;
-		return data!;
+		let renderData: any = { data };
+		renderData.project_web_url = projectDetails?.web_url;
+		renderData.project_default_branch = projectDetails?.default_branch;
+		return renderData!;
 	}, []);
 
+	const project_web_url = value?.project_web_url; 
+	const project_default_branch = value?.project_default_branch; 
+	
 	if (loading) {
 		return <Progress />;
 	} else if (error) {
@@ -44,8 +50,16 @@ export const ContributorsCard = ({}) => {
 		);
 	}
 	return (
-		<InfoCard title='Contributors'>
-			<ContributorsList contributors={value || []} />
+		<InfoCard title='Contributors'
+		deepLink={{
+			link: `${project_web_url}/-/graphs/${project_default_branch}`,
+			title: 'People',
+			onClick: e => {
+			  e.preventDefault();
+			  window.open(`${project_web_url}/-/graphs/${project_default_branch}`);
+			},
+		  }} className={classes.infoCard}>
+			<ContributorsList contributorsObj={value || { data: [] }} />
 		</InfoCard>
 	);
 };
