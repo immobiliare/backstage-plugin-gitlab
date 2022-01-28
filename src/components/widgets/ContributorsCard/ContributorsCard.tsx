@@ -58,7 +58,7 @@ export const ContributorsCard = ({}) => {
 			  e.preventDefault();
 			  window.open(`${project_web_url}/-/graphs/${project_default_branch}`);
 			},
-		  }}>
+		  }} className={classes.infoCard}>
 			<ContributorsList contributorsObj={value || { data: [] }} />
 		</InfoCard>
 	);
