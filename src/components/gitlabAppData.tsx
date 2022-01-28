@@ -15,9 +15,46 @@
  */
 
 import { useEntity } from '@backstage/plugin-catalog-react';
+import { useApi } from '@backstage/core-plugin-api';
+import { scmIntegrationsApiRef } from '@backstage/integration-react';
+import {
+  Entity,
+  parseLocationReference,
+  LOCATION_ANNOTATION,
+  SOURCE_LOCATION_ANNOTATION,
+} from '@backstage/catalog-model';
 
 export const GITLAB_ANNOTATION_PROJECT_ID = 'gitlab.com/project-id';
 export const GITLAB_ANNOTATION_PROJECT_SLUG = 'gitlab.com/project-slug';
+const defaultGitlabIntegration = {
+	hostname: 'gitlab.com',
+	baseUrl: 'https://gitlab.com/api/v4',
+};
+  
+export const useEntityGitlabScmIntegration = () => {
+	const { entity } = useEntity();
+	const integrations = useApi(scmIntegrationsApiRef);
+	if (!entity) {
+	  return defaultGitlabIntegration;
+	}
+  
+	let location = entity.metadata.annotations?.[SOURCE_LOCATION_ANNOTATION];
+  
+	if (!location) {
+	  location = entity.metadata.annotations?.[LOCATION_ANNOTATION];
+	}
+  
+	const { target } = parseLocationReference(location || '');
+  
+	const scm = integrations.gitlab.byUrl(target);
+	if (scm) {
+	  return {
+		hostname: scm.config.host,
+		baseUrl: scm.config.apiBaseUrl,
+	  };
+	}
+	return defaultGitlabIntegration;
+};
 
 export const gitlabAppData = () => {
 	const { entity } = useEntity();
