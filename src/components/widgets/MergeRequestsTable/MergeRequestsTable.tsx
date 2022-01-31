@@ -19,7 +19,7 @@ export const DenseTable = ({ mergeRequests }: any) => {
 		{ title: 'Duration', field: 'duration' },
 	];
 	const title = 'Gitlab Merge Request Status: ' + mergeRequests?.project_name;
-	const data = mergeRequests.data.map((mergeRequest: MergeRequest) => {
+	const data = mergeRequests?.data?.map((mergeRequest: MergeRequest) => {
 		return {
 			id: mergeRequest.id,
 			state: mergeRequest.state,
