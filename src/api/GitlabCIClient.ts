@@ -30,15 +30,15 @@ export class GitlabCIClient implements GitlabCIApi {
 	private async callApi<T>(
 		path: string,
 		query: { [key in string]: any },
-	): Promise<T | undefined> {
+	): Promise<T | []> {
 		const apiUrl = `${await this.discoveryApi.getBaseUrl('proxy')}/gitlabci`;
 		const response = await fetch(
 			`${apiUrl}/${path}?${new URLSearchParams(query).toString()}`,
 		);
 		if (response.status === 200) {
 			return (await response.json()) as T;
-		}
-		return undefined;
+		}		
+		return [];
 	}
 
 	async getPipelineSummary(
