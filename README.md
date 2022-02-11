@@ -36,12 +36,13 @@ yarn add @loblaw/backstage-plugin-gitlab
 ```
 
 
-2. Add the `EntityGitlabContent` extension to the entity page in your app:
+2. Add a new Gitlab tab to the entity page.
 
 ```tsx
-// In packages/app/src/components/catalog/EntityPage.tsx
+// packages/app/src/components/catalog/EntityPage.tsx
 
 import { isGitlabAvailable, EntityGitlabContent } from '@loblaw/backstage-plugin-gitlab';
+
 // Farther down at the serviceEntityPage declaration
 const serviceEntityPage = (
 <EntityLayout>
@@ -49,9 +50,44 @@ const serviceEntityPage = (
     <EntityLayout.Route if={isGitlabAvailable} path="/gitlab" title="Gitlab">
        <EntityGitlabContent />
     </EntityLayout.Route>
+</EntityLayout>
+    );
+```
+3. Add the Gitlab cards to the Overview tab on the entity page(Optional).
+
+```tsx
+// packages/app/src/components/catalog/EntityPage.tsx
+
+import { 
+  isGitlabAvailable, 
+  EntityGitlabContent, 
+  EntityGitlabLanguageCard, 
+  EntityGitlabContributorsCard, 
+  EntityGitlabMergeRequestsTable, 
+  EntityGitlabMergeRequestStatsCard, 
+  EntityGitlabPipelinesTable 
+} from '@loblaw/backstage-plugin-gitlab';
+
+//Farther down at the overviewContent declaration
+//Depends on user's need the individual card can be added or removed from the Grid item.
+  const overviewContent = (
+  <Grid container spacing={3} alignItems="stretch">
+    <EntitySwitch>
+      <EntitySwitch.Case if={isGitlabAvailable}>
+        <Grid item md={6}>
+          <EntityGitlabContributorsCard />
+          <EntityGitlabLanguageCard />
+          <EntityGitlabMergeRequestStatsCard />
+          <EntityGitlabPipelinesTable />
+          <EntityGitlabMergeRequestsTable />
+        </Grid> 
+      </EntitySwitch.Case>
+    </EntitySwitch>
+  </Grid>
+);
 ```
 
-3. Add integration:
+4. Add integration:
 In `app-config.yaml` add the integration for gitlab:
 ```
 integrations:
@@ -60,7 +96,7 @@ integrations:
       token: ${GITLAB_TOKEN}
 ```
 
-4. Add proxy config:
+5. Add proxy config:
 
 ```
   '/gitlabci':
