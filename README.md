@@ -45,13 +45,13 @@ import { isGitlabAvailable, EntityGitlabContent } from '@loblaw/backstage-plugin
 
 // Farther down at the serviceEntityPage declaration
 const serviceEntityPage = (
-<EntityLayout>
+  <EntityLayout>
     {/* Place the following section where you want the tab to appear */}
     <EntityLayout.Route if={isGitlabAvailable} path="/gitlab" title="Gitlab">
        <EntityGitlabContent />
     </EntityLayout.Route>
-</EntityLayout>
-    );
+  </EntityLayout>
+);
 ```
 3. Add the Gitlab cards to the Overview tab on the entity page(Optional).
 
@@ -69,8 +69,8 @@ import {
 } from '@loblaw/backstage-plugin-gitlab';
 
 //Farther down at the overviewContent declaration
-//Depends on user's need the individual card can be added or removed from the Grid item.
-  const overviewContent = (
+//You can add only selected widgets or all of them.
+const overviewContent = (
   <Grid container spacing={3} alignItems="stretch">
     <EntitySwitch>
       <EntitySwitch.Case if={isGitlabAvailable}>
