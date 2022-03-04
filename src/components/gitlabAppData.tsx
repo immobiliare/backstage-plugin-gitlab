@@ -18,9 +18,9 @@ import { useEntity } from '@backstage/plugin-catalog-react';
 import { useApi } from '@backstage/core-plugin-api';
 import { scmIntegrationsApiRef } from '@backstage/integration-react';
 import {
-  parseLocationReference,
-  LOCATION_ANNOTATION,
-  SOURCE_LOCATION_ANNOTATION,
+  parseLocationRef,
+  ANNOTATION_LOCATION,
+  ANNOTATION_SOURCE_LOCATION,
 } from '@backstage/catalog-model';
 
 export const GITLAB_ANNOTATION_PROJECT_ID = 'gitlab.com/project-id';
@@ -37,13 +37,13 @@ export const useEntityGitlabScmIntegration = () => {
 	  return defaultGitlabIntegration;
 	}
   
-	let location = entity.metadata.annotations?.[SOURCE_LOCATION_ANNOTATION];
+	let location = entity.metadata.annotations?.[ANNOTATION_SOURCE_LOCATION];
   
 	if (!location) {
-	  location = entity.metadata.annotations?.[LOCATION_ANNOTATION];
+	  location = entity.metadata.annotations?.[ANNOTATION_LOCATION];
 	}
   
-	const { target } = parseLocationReference(location || '');
+	const { target } = parseLocationRef(location || '');
   
 	const scm = integrations.gitlab.byUrl(target);
 	if (scm) {
