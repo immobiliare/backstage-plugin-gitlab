@@ -55,6 +55,8 @@ export class GitlabCIClient implements GitlabCIApi {
 		if (pipelineObjects) {
 			pipelineObjects.forEach((element: PipelineObject) => {
 				element.project_name = projectObj?.name;
+				element.web_url = element.web_url ||
+          			`${this.baseUrl}${projectObj.path_with_namespace}/pipelines/${element.id}`;
 			});
 		}
 		return {

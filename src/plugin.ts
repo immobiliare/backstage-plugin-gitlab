@@ -24,7 +24,7 @@ export const gitlabPlugin = createPlugin({
       factory: ({ configApi, discoveryApi }) =>
         new GitlabCIClient({
           discoveryApi,
-          baseUrl: configApi.getOptionalString('gitlab.baseUrl'),
+          baseUrl: configApi.getOptionalConfigArray("integrations.gitlab")?.[0].getOptionalString('baseUrl'),
         }),
     }),
   ],
