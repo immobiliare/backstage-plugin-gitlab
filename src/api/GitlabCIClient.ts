@@ -44,19 +44,27 @@ export class GitlabCIClient implements GitlabCIApi {
 	async getPipelineSummary(
 		projectID?: string,
 	): Promise<PipelineSummary | undefined> {
-		const pipelineObjects = await this.callApi<PipelineObject[]>(
-			'projects/' + projectID + '/pipelines',
-			{},
-		);
-		let projectObj: any = await this.callApi<Object>(
-			'projects/' + projectID,
-			{},
-		);
-		if (pipelineObjects) {
-			pipelineObjects.forEach((element: PipelineObject) => {
-				element.project_name = projectObj?.name;
-			});
-		}
+
+		const [pipelines, projectObj] = await Promise.all([
+			this.callApi<PipelineObject[]>(
+				'projects/' + projectID + '/pipelines',
+				{},
+			),
+			this.callApi<Object>(
+				'projects/' + projectID,
+				{},
+			)
+		]);
+
+		const pipelineObjects: PipelineObject[] = await Promise.all(pipelines.map(async ({ id }) => {
+			const pipeline = await this.callApi<PipelineObject>(
+				`projects/${projectID}/pipelines/${id}`,
+				{},
+			) as PipelineObject;
+			pipeline.project_name = (projectObj as any)?.name ;
+			return pipeline;
+		}));
+
 		return {
 			getPipelinesData: pipelineObjects!,
 		};
