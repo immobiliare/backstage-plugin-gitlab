@@ -1,4 +1,4 @@
-# Backstage Gitlab Plugin
+# Backstage GitLab Plugin
 
 [![Version](https://img.shields.io/npm/v/@loblaw/backstage-plugin-gitlab.svg)](https://www.npmjs.com/package/@loblaw/backstage-plugin-gitlab)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
@@ -36,7 +36,7 @@ yarn add @loblaw/backstage-plugin-gitlab
 ```
 
 
-2. Add a new Gitlab tab to the entity page.
+2. Add a new GitLab tab to the entity page.
 
 ```tsx
 // packages/app/src/components/catalog/EntityPage.tsx
@@ -53,7 +53,7 @@ const serviceEntityPage = (
   </EntityLayout>
 );
 ```
-3. Add the Gitlab cards to the Overview tab on the entity page(Optional).
+3. Add the GitLab cards to the Overview tab on the entity page(Optional).
 
 ```tsx
 // packages/app/src/components/catalog/EntityPage.tsx
