@@ -1,11 +1,11 @@
-export { 
-    gitlabPlugin,
-    EntityGitlabContent,
-    EntityGitlabLanguageCard,
-    EntityGitlabContributorsCard,
-    EntityGitlabMergeRequestsTable,
-    EntityGitlabMergeRequestStatsCard,
-    EntityGitlabPipelinesTable,
+export {
+  EntityGitlabContent,
+  EntityGitlabContributorsCard,
+  EntityGitlabIssuesTable,
+  EntityGitlabLanguageCard,
+  EntityGitlabMergeRequestsTable,
+  EntityGitlabMergeRequestStatsCard,
+  EntityGitlabPipelinesTable,
+  gitlabPlugin,
 } from './plugin';
-
 export { isGitlabAvailable } from './Router';

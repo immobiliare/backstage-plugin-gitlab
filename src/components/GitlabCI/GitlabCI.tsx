@@ -1,15 +1,13 @@
-import React from 'react';
+import { Content, Page } from '@backstage/core-components';
 import { Grid } from '@material-ui/core';
-import {
-  Page,
-  Content,
-} from '@backstage/core-components';
+import React from 'react';
 import {
   ContributorsCard,
+  IssuesTable,
   LanguagesCard,
   MergeRequestsTable,
-  PipelinesTable,
   MergeRequestStats,
+  PipelinesTable,
 } from '../widgets';
 
 export const GitlabCI = () => (
@@ -30,6 +28,9 @@ export const GitlabCI = () => (
         </Grid>
         <Grid item md={12}>
           <MergeRequestsTable />
+        </Grid>
+        <Grid item md={12}>
+          <IssuesTable />
         </Grid>
       </Grid>
     </Content>

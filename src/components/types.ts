@@ -34,4 +34,30 @@ export type PipelineObject = {
 	updated_at: string;
 };
 
+export type IssueObject = {
+	id: string;
+	project_name: string;
+	project_id: string;
+	title: string;
+	state: IssueState;
+	type: IssueType;
+	description: string;
+	created_at: string;
+	updated_at: string;
+	author: Author;
+	web_url: string;
+};
+
+type Author = {
+	id: string;
+	username: string;
+	name: string;
+	avatar_url: string;
+	web_url: string;
+};
+
 export type MergeRequestState = 'opened' | 'closed' | 'all';
+
+export type IssueState = 'opened' | 'closed';
+
+export type IssueType = 'issue' | 'incident' | 'test_case';

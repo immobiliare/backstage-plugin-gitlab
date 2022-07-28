@@ -1,17 +1,19 @@
-import {
-	PipelineSummary,
-	GitlabCIApi,
-	ContributorsSummary,
-	LanguagesSummary,
-	MergeRequestsSummary,
-	MergeRequestsStatusSummary,
-} from './GitlabCIApi';
 import { DiscoveryApi } from '@backstage/core-plugin-api';
 import {
 	ContributorData,
 	MergeRequest,
 	PipelineObject,
 } from '../components/types';
+import { IssueObject } from './../components/types';
+import {
+	ContributorsSummary,
+	GitlabCIApi,
+	IssuesSummary,
+	LanguagesSummary,
+	MergeRequestsStatusSummary,
+	MergeRequestsSummary,
+	PipelineSummary,
+} from './GitlabCIApi';
 
 export class GitlabCIClient implements GitlabCIApi {
 	discoveryApi: DiscoveryApi;
@@ -37,7 +39,7 @@ export class GitlabCIClient implements GitlabCIApi {
 		);
 		if (response.status === 200) {
 			return (await response.json()) as T;
-		}		
+		}
 		return [];
 	}
 
@@ -59,6 +61,29 @@ export class GitlabCIClient implements GitlabCIApi {
 		}
 		return {
 			getPipelinesData: pipelineObjects!,
+		};
+	}
+
+	async getIssuesSummary(
+		projectId: string,
+	): Promise<IssuesSummary | undefined> {
+		const issuesObject = await this.callApi<IssueObject[]>(
+			`projects/${projectId}/issues`,
+			{},
+		);
+
+		let projectObj: any = await this.callApi<Object>(
+			'projects/' + projectId,
+			{},
+		);
+		if (issuesObject) {
+			issuesObject.forEach((element: IssueObject) => {
+				element.project_name = projectObj?.name;
+			});
+		}
+
+		return {
+			getIssuesData: issuesObject!,
 		};
 	}
 
@@ -142,7 +167,7 @@ export class GitlabCIClient implements GitlabCIApi {
 
 	async getProjectDetails(projectSlug?: string): Promise<Object | undefined> {
 		let projectDetails: any;
-		if(projectSlug){
+		if (projectSlug) {
 			projectDetails = await this.callApi<Object>(
 				'projects/' + encodeURIComponent(projectSlug),
 				{},

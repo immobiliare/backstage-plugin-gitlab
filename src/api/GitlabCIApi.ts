@@ -3,6 +3,7 @@ import {
 	ContributorData,
 	MergeRequest,
 	PipelineObject,
+	IssueObject
 } from '../components/types';
 
 export interface PipelineSummary {
@@ -23,6 +24,10 @@ export interface MergeRequestsStatusSummary {
 
 export interface LanguagesSummary {
 	getLanguagesData: any;
+}
+
+export interface IssuesSummary {
+	getIssuesData: IssueObject[]
 }
 
 export const GitlabCIApiRef = createApiRef<GitlabCIApi>({
@@ -48,4 +53,5 @@ export type GitlabCIApi = {
 		pipelineID: string,
 	): Promise<Object | undefined>;
 	getProjectDetails(projectSlug: string): Promise<Object | undefined>;
+	getIssuesSummary(projectID: string): Promise<IssuesSummary | undefined>;
 };

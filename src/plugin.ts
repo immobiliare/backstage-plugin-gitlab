@@ -1,7 +1,7 @@
-import { createPlugin, 
-  createRoutableExtension,
-  createComponentExtension,
- } from '@backstage/core-plugin-api';
+import {
+  createComponentExtension, createPlugin,
+  createRoutableExtension
+} from '@backstage/core-plugin-api';
 
 import {
   configApiRef,
@@ -84,6 +84,16 @@ export const EntityGitlabPipelinesTable = gitlabPlugin.provide(
     component: {
       lazy: () =>
         import('./components/widgets/index').then((m) => m.PipelinesTable),
+    },
+  })
+);
+
+export const EntityGitlabIssuesTable = gitlabPlugin.provide(
+  createComponentExtension({
+    name: 'EntityGitlabIssuesTable',
+    component: {
+      lazy: () =>
+        import('./components/widgets/index').then((m) => m.IssuesTable),
     },
   })
 );
