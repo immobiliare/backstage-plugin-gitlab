@@ -24,6 +24,7 @@ Website: [https://gitlab.com/](https://gitlab.com/)
 
 <img src="https://raw.githubusercontent.com/loblaw-sre/backstage-plugin-gitlab/main/src/assets/Backstage_Gitlab_Pipeline_Information.png"  alt="Contributors Languages Pipeline Status"/>
 <img src="https://raw.githubusercontent.com/loblaw-sre/backstage-plugin-gitlab/main/src/assets/Backstage_Gitlab_Merge_Request_information.png"  alt="Merge Request Information"/>
+<img src="https://raw.githubusercontent.com/loblaw-sre/backstage-plugin-gitlab/main/src/assets/Backstage_Gitlab_Issue_Information.png"  alt="Issue Information"/>
 
 ## Setup
 
@@ -58,14 +59,14 @@ const serviceEntityPage = (
 ```tsx
 // packages/app/src/components/catalog/EntityPage.tsx
 
-import { 
-  isGitlabAvailable, 
-  EntityGitlabContent, 
-  EntityGitlabLanguageCard, 
-  EntityGitlabContributorsCard, 
-  EntityGitlabMergeRequestsTable, 
-  EntityGitlabMergeRequestStatsCard, 
-  EntityGitlabPipelinesTable 
+import {
+  isGitlabAvailable,
+  EntityGitlabContent,
+  EntityGitlabLanguageCard,
+  EntityGitlabContributorsCard,
+  EntityGitlabMergeRequestsTable,
+  EntityGitlabMergeRequestStatsCard,
+  EntityGitlabPipelinesTable
 } from '@loblaw/backstage-plugin-gitlab';
 
 //Farther down at the overviewContent declaration
@@ -80,7 +81,7 @@ const overviewContent = (
           <EntityGitlabMergeRequestStatsCard />
           <EntityGitlabPipelinesTable />
           <EntityGitlabMergeRequestsTable />
-        </Grid> 
+        </Grid>
       </EntitySwitch.Case>
     </EntitySwitch>
   </Grid>
@@ -132,6 +133,7 @@ spec:
 
 - List top 20 builds for a project
 - List top 20 Merge Requests for a project
+- List top 20 Issues for a project
 - View Contributors for a project
 - View Languages used for a project
 - View Pipeline status for a project
