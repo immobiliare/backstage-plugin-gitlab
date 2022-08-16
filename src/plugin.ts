@@ -32,6 +32,7 @@ export const gitlabPlugin = createPlugin({
 
 export const EntityGitlabContent = gitlabPlugin.provide(
   createRoutableExtension({
+    name: 'EntityGitlabContent',
     component: () =>
     import('./Router').then(m => m.Router),
     mountPoint: rootRouteRef,
