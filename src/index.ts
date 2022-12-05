@@ -8,4 +8,4 @@ export {
   EntityGitlabPipelinesTable,
   gitlabPlugin,
 } from './plugin';
-export { isGitlabAvailable } from './Router';
+export { isGitlabAvailable } from './components';
