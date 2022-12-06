@@ -14,13 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/loblaw-sre/backstage-plugin-gitlab"
+    "url": "https://github.com/immobiliare/backstage-plugin-gitlab"
   },
   "keywords": [
     "backstage",
     "gitlab",
     "ci/cd",
-    "loblaw"
+    "loblaw",
+    "immobiliare",
+    "immobiliarelabs"
   ],
   "scripts": {
     "start": "backstage-cli package start",
@@ -49,6 +51,16 @@
     "react-router": "6.0.0-beta.0 || ^6.3.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.0.0",
+    "@commitlint/config-conventional": "^17.0.0",
+    "@nuxtjs/eslint-config-typescript": "^12.0.0",
+    "@saithodev/semantic-release-backmerge": "^2.0.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.2",
+    "@semantic-release/npm": "^9.0.0",
+    "@semantic-release/release-notes-generator": "^10.0.2",
     "@backstage/cli": "^0.21.1",
     "@backstage/core-app-api": "^1.0.0",
     "@backstage/dev-utils": "^1.0.0",

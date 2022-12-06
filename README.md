@@ -1,31 +1,6 @@
 # Backstage GitLab Plugin
 
-[![Version](https://img.shields.io/npm/v/@loblaw/backstage-plugin-gitlab.svg)](https://www.npmjs.com/package/@loblaw/backstage-plugin-gitlab)
-![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
-[![Downloads](https://img.shields.io/npm/dm/@loblaw/backstage-plugin-gitlab.svg)](https://www.npmjs.com/package/@loblaw/backstage-plugin-gitlab)
-[![License](https://img.shields.io/badge/license-Apache_License_2.0-blue.svg)](https://opensource.org/licenses/Apache_License_2.0)
-![Stars Badge](https://img.shields.io/github/stars/loblaw-sre/backstage-plugin-gitlab)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/loblaw-sre/backstage-plugin-gitlab)
-
-![Build Status](https://github.com/loblaw-sre/backstage-plugin-gitlab/workflows/Node.js%20Package/badge.svg)
-![](https://img.shields.io/github/commit-activity/m/loblaw-sre/backstage-plugin-gitlab)
-![](https://img.shields.io/github/contributors/loblaw-sre/backstage-plugin-gitlab)
-![](https://img.shields.io/github/last-commit/loblaw-sre/backstage-plugin-gitlab)
-
-![Language](https://img.shields.io/github/languages/top/loblaw-sre/backstage-plugin-gitlab?color=green&logo=typescript&logoColor=blue)
-![](https://img.shields.io/github/issues/loblaw-sre/backstage-plugin-gitlab)
-![](https://img.shields.io/github/issues-closed/loblaw-sre/backstage-plugin-gitlab)
-[![Repo Size](https://img.shields.io/github/repo-size/loblaw-sre/backstage-plugin-gitlab)](https://github.com/loblaw-sre/backstage-plugin-gitlab)
-[![](https://img.shields.io/github/languages/code-size/loblaw-sre/backstage-plugin-gitlab)](https://github.com/loblaw-sre/backstage-plugin-gitlab)
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Floblaw-sre%2Fbackstage-plugin-gitlab&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitors&edge_flat=false)](https://hits.seeyoufarm.com)
-
-
-Website: [https://gitlab.com/](https://gitlab.com/)
-
-<img src="https://raw.githubusercontent.com/loblaw-sre/backstage-plugin-gitlab/main/src/assets/Backstage_Gitlab_Pipeline_Information.png"  alt="Contributors Languages Pipeline Status"/>
-<img src="https://raw.githubusercontent.com/loblaw-sre/backstage-plugin-gitlab/main/src/assets/Backstage_Gitlab_Merge_Request_information.png"  alt="Merge Request Information"/>
-<img src="https://raw.githubusercontent.com/loblaw-sre/backstage-plugin-gitlab/main/src/assets/Backstage_Gitlab_Issue_Information.png"  alt="Issue Information"/>
-
+This plugin 
 ## Setup
 
 1. If you have a standalone app (you didn't clone this repo), then do
@@ -33,7 +8,7 @@ Website: [https://gitlab.com/](https://gitlab.com/)
 ```bash
 # From your Backstage root directory
 cd packages/app
-yarn add @loblaw/backstage-plugin-gitlab
+yarn add @immobiliarelabs/backstage-plugin-gitlab
 ```
 
 
@@ -42,7 +17,7 @@ yarn add @loblaw/backstage-plugin-gitlab
 ```tsx
 // packages/app/src/components/catalog/EntityPage.tsx
 
-import { isGitlabAvailable, EntityGitlabContent } from '@loblaw/backstage-plugin-gitlab';
+import { isGitlabAvailable, EntityGitlabContent } from '@immobiliarelabs/backstage-plugin-gitlab';
 
 // Farther down at the serviceEntityPage declaration
 const serviceEntityPage = (
@@ -67,7 +42,7 @@ import {
   EntityGitlabMergeRequestsTable,
   EntityGitlabMergeRequestStatsCard,
   EntityGitlabPipelinesTable
-} from '@loblaw/backstage-plugin-gitlab';
+} from '@immobiliarelabs/backstage-plugin-gitlab';
 
 //Farther down at the overviewContent declaration
 //You can add only selected widgets or all of them.
@@ -141,3 +116,7 @@ spec:
 - Pagination for builds
 - Pagination for Merge Requests
 - Merge Requests Statistics
+
+## License 
+
+This plugin is under Apache 2.0 license, see [NOTICE](NOTICE) for copyright.
