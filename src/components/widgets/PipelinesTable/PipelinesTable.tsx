@@ -56,7 +56,7 @@ export const PipelinesTable = ({}) => {
         const projectDetails: any = await GitlabCIAPI.getProjectDetails(
             project_slug
         );
-        const projectId = project_id ? project_id : projectDetails?.id;
+        const projectId = project_id || projectDetails?.id;
         const gitlabObj = await GitlabCIAPI.getPipelineSummary(projectId);
         const data = gitlabObj?.getPipelinesData;
         const renderData: any = { data };

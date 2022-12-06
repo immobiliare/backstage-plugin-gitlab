@@ -56,7 +56,7 @@ export const MergeRequestsTable = ({}) => {
         const projectDetails: any = await GitlabCIAPI.getProjectDetails(
             project_slug
         );
-        const projectId = project_id ? project_id : projectDetails?.id;
+        const projectId = project_id || projectDetails?.id;
         const gitlabObj = await GitlabCIAPI.getMergeRequestsSummary(projectId);
         const data = gitlabObj?.getMergeRequestsData;
         const renderData: any = { data };

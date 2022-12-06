@@ -70,7 +70,7 @@ const MergeRequestStats = (props: Props) => {
             const projectDetails: any = await GitlabCIAPI.getProjectDetails(
                 project_slug
             );
-            const projectId = project_id ? project_id : projectDetails?.id;
+            const projectId = project_id || projectDetails?.id;
             const gitlabObj = await GitlabCIAPI.getMergeRequestsStatusSummary(
                 projectId,
                 count

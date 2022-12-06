@@ -29,7 +29,7 @@ export const ContributorsCard = ({}) => {
             const projectDetails: any = await GitlabCIAPI.getProjectDetails(
                 project_slug != '' ? project_slug : project_id
             );
-            const projectId = project_id ? project_id : projectDetails?.id;
+            const projectId = project_id || projectDetails?.id;
             const gitlabObj = await GitlabCIAPI.getContributorsSummary(
                 projectId
             );
