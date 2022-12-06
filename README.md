@@ -24,18 +24,22 @@ yarn add @immobiliarelabs/backstage-plugin-gitlab
 // packages/app/src/components/catalog/EntityPage.tsx
 
 import {
-  isGitlabAvailable,
-  EntityGitlabContent,
-} from "@immobiliarelabs/backstage-plugin-gitlab";
+    isGitlabAvailable,
+    EntityGitlabContent,
+} from '@immobiliarelabs/backstage-plugin-gitlab';
 
 // Farther down at the serviceEntityPage declaration
 const serviceEntityPage = (
-  <EntityLayout>
-    {/* Place the following section where you want the tab to appear */}
-    <EntityLayout.Route if={isGitlabAvailable} path="/gitlab" title="Gitlab">
-      <EntityGitlabContent />
-    </EntityLayout.Route>
-  </EntityLayout>
+    <EntityLayout>
+        {/* Place the following section where you want the tab to appear */}
+        <EntityLayout.Route
+            if={isGitlabAvailable}
+            path="/gitlab"
+            title="Gitlab"
+        >
+            <EntityGitlabContent />
+        </EntityLayout.Route>
+    </EntityLayout>
 );
 ```
 
@@ -45,31 +49,31 @@ const serviceEntityPage = (
 // packages/app/src/components/catalog/EntityPage.tsx
 
 import {
-  isGitlabAvailable,
-  EntityGitlabContent,
-  EntityGitlabLanguageCard,
-  EntityGitlabContributorsCard,
-  EntityGitlabMergeRequestsTable,
-  EntityGitlabMergeRequestStatsCard,
-  EntityGitlabPipelinesTable,
-} from "@immobiliarelabs/backstage-plugin-gitlab";
+    isGitlabAvailable,
+    EntityGitlabContent,
+    EntityGitlabLanguageCard,
+    EntityGitlabContributorsCard,
+    EntityGitlabMergeRequestsTable,
+    EntityGitlabMergeRequestStatsCard,
+    EntityGitlabPipelinesTable,
+} from '@immobiliarelabs/backstage-plugin-gitlab';
 
 //Farther down at the overviewContent declaration
 //You can add only selected widgets or all of them.
 const overviewContent = (
-  <Grid container spacing={3} alignItems="stretch">
-    <EntitySwitch>
-      <EntitySwitch.Case if={isGitlabAvailable}>
-        <Grid item md={6}>
-          <EntityGitlabContributorsCard />
-          <EntityGitlabLanguageCard />
-          <EntityGitlabMergeRequestStatsCard />
-          <EntityGitlabPipelinesTable />
-          <EntityGitlabMergeRequestsTable />
-        </Grid>
-      </EntitySwitch.Case>
-    </EntitySwitch>
-  </Grid>
+    <Grid container spacing={3} alignItems="stretch">
+        <EntitySwitch>
+            <EntitySwitch.Case if={isGitlabAvailable}>
+                <Grid item md={6}>
+                    <EntityGitlabContributorsCard />
+                    <EntityGitlabLanguageCard />
+                    <EntityGitlabMergeRequestStatsCard />
+                    <EntityGitlabPipelinesTable />
+                    <EntityGitlabMergeRequestsTable />
+                </Grid>
+            </EntitySwitch.Case>
+        </EntitySwitch>
+    </Grid>
 );
 ```
 
@@ -93,8 +97,8 @@ integrations:
       PRIVATE-TOKEN: '${GITLAB_TOKEN}'
 ```
 
-- Default GitLab URL: `https://gitlab.com`
-- GitLab Token should be with of scope `read_api` and can be generated from this [URL](https://gitlab.com/-/profile/personal_access_tokens)
+-   Default GitLab URL: `https://gitlab.com`
+-   GitLab Token should be with of scope `read_api` and can be generated from this [URL](https://gitlab.com/-/profile/personal_access_tokens)
 
 5. Add a `gitlab.com/project-id` annotation to your respective `catalog-info.yaml` files, on the [format](https://backstage.io/docs/architecture-decisions/adrs-adr002#format)
 
@@ -117,16 +121,16 @@ spec:
 
 ## Features
 
-- List top 20 builds for a project
-- List top 20 Merge Requests for a project
-- List top 20 Issues for a project
-- View Contributors for a project
-- View Languages used for a project
-- View Pipeline status for a project
-- Works for both project and personal tokens
-- Pagination for builds
-- Pagination for Merge Requests
-- Merge Requests Statistics
+-   List top 20 builds for a project
+-   List top 20 Merge Requests for a project
+-   List top 20 Issues for a project
+-   View Contributors for a project
+-   View Languages used for a project
+-   View Pipeline status for a project
+-   Works for both project and personal tokens
+-   Pagination for builds
+-   Pagination for Merge Requests
+-   Merge Requests Statistics
 
 ## Support & Contribute
 

@@ -1,7 +1,7 @@
 {
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 2020,
+        "ecmaVersion": 2022,
         "sourceType": "module"
     },
     "env": {
@@ -12,6 +12,12 @@
         "prettier",
         "plugin:@typescript-eslint/recommended",
         "plugin:prettier/recommended"
+    ],
+    "ignorePatterns": [
+        ".eslintrc.js",
+        "**/dist/**",
+        "**/dist-types/**",
+        "**/examples/**"
     ],
     "rules": {
         "@typescript-eslint/no-var-requires": "off",

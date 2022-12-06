@@ -22,68 +22,72 @@ import { AuthorColumn, IssueStateIndicator, IssueTitle } from './columns';
 // };
 
 export const DenseTable = ({
-	issuesObjects,
-	projectName,
+    issuesObjects,
+    projectName,
 }: {
-	issuesObjects: IssueObject[];
-	projectName: string | undefined;
+    issuesObjects: IssueObject[];
+    projectName: string | undefined;
 }) => {
-	const columns: TableColumn<IssueObject>[] = [
-		{ title: 'Issue ID', field: 'id' },
-		{ title: 'Title', render: IssueTitle },
-		{ title: 'Author', render: AuthorColumn },
-		{ title: 'Created At', field: 'created_at' },
-		{ title: 'Issue Type', field: 'type' },
-		{ title: 'Issue Status', render: IssueStateIndicator },
-	];
+    const columns: TableColumn<IssueObject>[] = [
+        { title: 'Issue ID', field: 'id' },
+        { title: 'Title', render: IssueTitle },
+        { title: 'Author', render: AuthorColumn },
+        { title: 'Created At', field: 'created_at' },
+        { title: 'Issue Type', field: 'type' },
+        { title: 'Issue Status', render: IssueStateIndicator },
+    ];
 
-	const title = 'Gitlab Issues: ' + projectName;
+    const title = 'Gitlab Issues: ' + projectName;
 
-	const data = issuesObjects.map(issue => ({
-		...issue,
-		created_at: getElapsedTime(issue.created_at),
-	}));
+    const data = issuesObjects.map((issue) => ({
+        ...issue,
+        created_at: getElapsedTime(issue.created_at),
+    }));
 
-	return (
-		<Table
-			title={title}
-			options={{ search: true, paging: true }}
-			columns={columns}
-			data={data}
-		/>
-	);
+    return (
+        <Table
+            title={title}
+            options={{ search: true, paging: true }}
+            columns={columns}
+            data={data}
+        />
+    );
 };
 
 export const IssuesTable = ({}) => {
-	const { project_id } = gitlabAppData();
-	const { project_slug } = gitlabAppSlug();
+    const { project_id } = gitlabAppData();
+    const { project_slug } = gitlabAppSlug();
 
-	const GitlabCIAPI = useApi(GitlabCIApiRef);
+    const GitlabCIAPI = useApi(GitlabCIApiRef);
 
-	const { value, loading, error } = useAsync(async (): Promise<{
-		data: IssueObject[];
-		projectName: string;
-	}> => {
-		let projectDetails: any = await GitlabCIAPI.getProjectDetails(project_slug);
-		let projectId = project_id ? project_id : projectDetails?.id;
-		let projectName = await GitlabCIAPI.getProjectName(projectId);
-		const gitlabIssuesObject = await GitlabCIAPI.getIssuesSummary(project_id);
-		const data = gitlabIssuesObject?.getIssuesData;
-		let renderData: any = { data, projectName };
+    const { value, loading, error } = useAsync(async (): Promise<{
+        data: IssueObject[];
+        projectName: string;
+    }> => {
+        const projectDetails: any = await GitlabCIAPI.getProjectDetails(
+            project_slug
+        );
+        const projectId = project_id ? project_id : projectDetails?.id;
+        const projectName = await GitlabCIAPI.getProjectName(projectId);
+        const gitlabIssuesObject = await GitlabCIAPI.getIssuesSummary(
+            project_id
+        );
+        const data = gitlabIssuesObject?.getIssuesData;
+        const renderData: any = { data, projectName };
 
-		return renderData;
-	}, []);
+        return renderData;
+    }, []);
 
-	if (loading) {
-		return <Progress />;
-	} else if (error) {
-		return <Alert severity="error">{error.message}</Alert>;
-	}
+    if (loading) {
+        return <Progress />;
+    } else if (error) {
+        return <Alert severity="error">{error.message}</Alert>;
+    }
 
-	return (
-		<DenseTable
-			issuesObjects={value?.data || []}
-			projectName={value?.projectName}
-		/>
-	);
+    return (
+        <DenseTable
+            issuesObjects={value?.data || []}
+            projectName={value?.projectName}
+        />
+    );
 };

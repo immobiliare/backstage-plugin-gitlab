@@ -1,7 +1,7 @@
 import { gitlabPlugin } from './plugin';
 
 describe('gitlabPlugin', () => {
-  it('should export plugin', () => {
-    expect(gitlabPlugin).toBeDefined();
-  });
+    it('should export plugin', () => {
+        expect(gitlabPlugin).toBeDefined();
+    });
 });
