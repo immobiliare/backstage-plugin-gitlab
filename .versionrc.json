@@ -2,8 +2,8 @@
     "tagPrefix": "v",
     "name": "conventionalcommits",
     "owner": "immobiliare",
-    "repository": "dats",
-    "repoUrl": "https://github.com/immobiliare/fastify-metrics",
+    "repository": "backstage-plugin-gitlab",
+    "repoUrl": "https://github.com/immobiliare/backstage-plugin-gitlab",
     "types": [
         {
             "type": "feat",
@@ -42,8 +42,8 @@
             "hidden": true
         }
     ],
-    "commitUrlFormat": "https://github.com/immobiliare/fastify-metrics/commit/{{hash}}",
-    "compareUrlFormat": "https://github.com/immobiliare/fastify-metrics/compare/{{previousTag}}...{{currentTag}}",
-    "issueUrlFormat": "https://github.com/immobiliare/fastify-metrics/issues/{{id}}",
+    "commitUrlFormat": "https://github.com/immobiliare/backstage-plugin-gitlab/commit/{{hash}}",
+    "compareUrlFormat": "https://github.com/immobiliare/backstage-plugin-gitlab/compare/{{previousTag}}...{{currentTag}}",
+    "issueUrlFormat": "https://github.com/immobiliare/backstage-plugin-gitlab/issues/{{id}}",
     "userUrlFormat": "https://github.com/{{user}}"
 }
