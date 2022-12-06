@@ -20,7 +20,6 @@
     "backstage",
     "gitlab",
     "ci/cd",
-    "loblaw",
     "immobiliare",
     "immobiliarelabs"
   ],
@@ -61,6 +60,8 @@
     "@semantic-release/github": "^8.0.2",
     "@semantic-release/npm": "^9.0.0",
     "@semantic-release/release-notes-generator": "^10.0.2",
+    "husky": "^8.0.0",
+    "prettier": "^2.0.5",
     "@backstage/cli": "^0.21.1",
     "@backstage/core-app-api": "^1.0.0",
     "@backstage/dev-utils": "^1.0.0",
