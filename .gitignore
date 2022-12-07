@@ -135,3 +135,7 @@ site
 
 # Sensitive credentials
 *-credentials.yaml
+
+# Ignore lock files
+yarn.lock
+package-lock.json

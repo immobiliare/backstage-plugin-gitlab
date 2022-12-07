@@ -135,6 +135,12 @@ spec:
 -   Pagination for Merge Requests
 -   Merge Requests Statistics
 
+## Screenshots
+
+<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/Backstage_Gitlab_Pipeline_Information.png"  alt="Contributors Languages Pipeline Status"/>
+<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/Backstage_Gitlab_Merge_Request_information.png"  alt="Merge Request Information"/>
+<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/Backstage_Gitlab_Issue_Information.png"  alt="Issue Information"/>
+
 ## Support & Contribute
 
 Made with ❤️ by [ImmobiliareLabs](https://github.com/immobiliare) & [Contributors](./CONTRIBUTING.md#contributors)
@@ -143,5 +149,7 @@ We'd love for you to contribute to Backstage GitLab Plugin!
 If you have any questions on how to use Backstage GitLab Plugin, bugs and enhancement please feel free to reach out by opening a [GitHub Issue](https://github.com/immobiliare/backstage-plugin-gitlab/issues).
 
 ## License
+
+This plugin is based on the original work of [loblaw-sre/backstage-plugin-gitlab](https://github.com/loblaw-sre/backstage-plugin-gitlab) by Sathish Kumar.
 
 This plugin is under [Apache 2.0 license](LICENSE), see [NOTICE](NOTICE) for copyright.
