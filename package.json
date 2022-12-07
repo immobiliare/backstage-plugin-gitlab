@@ -1,6 +1,6 @@
 {
     "name": "@immobiliarelabs/backstage-plugin-gitlab",
-    "version": "0.1.24",
+    "version": "1.0.0-next.1",
     "main": "dist/index.esm.js",
     "types": "dist/index.d.ts",
     "license": "Apache-2.0",
@@ -25,12 +25,13 @@
     ],
     "scripts": {
         "start": "backstage-cli package start",
-        "build": "backstage-cli package build",
+        "build": "yarn tsc && backstage-cli package build",
         "lint": "backstage-cli package lint",
         "test": "backstage-cli package test",
         "clean": "backstage-cli package clean",
         "prepack": "backstage-cli package prepack",
-        "postpack": "backstage-cli package postpack"
+        "postpack": "backstage-cli package postpack",
+        "prepare": ""
     },
     "dependencies": {
         "@backstage/core-components": "^0.12.0",
