@@ -39,7 +39,7 @@ export const Router = () => {
             <Button
                 variant="contained"
                 color="primary"
-                href="https://github.com/immobiliare/backstage-plugin-gitlab/blob/main/README.md"
+                to="https://github.com/immobiliare/backstage-plugin-gitlab/blob/main/README.md"
             >
                 Read Gitlab Plugin Docs
             </Button>
