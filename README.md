@@ -9,7 +9,7 @@
 ![npm (scoped)](https://img.shields.io/npm/v/@immobiliarelabs/backstage-plugin-gitlab?style=flat-square)
 ![license](https://img.shields.io/github/license/immobiliare/backstage-plugin-gitlab)
 
-> [Backstage](https://backstage.io/) plugins to interact with [https://gitlab.com/](GitLab)
+> [Backstage](https://backstage.io/) plugins to interact with [GitLab](https://gitlab.com/)
 
 ## Setup
 
