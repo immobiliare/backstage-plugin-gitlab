@@ -1,27 +1,38 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+name: Release
 
-name: Node.js Package
-
-on:
-  release:
-    types: [released]
+on: [workflow_dispatch]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@main
-    - name: Set up Node.js
-      uses: actions/setup-node@main
-      with:
-        node-version: 14.x
-        registry-url: https://registry.npmjs.org/
-    - run: yarn install
-    - run: yarn tsc
-    - run: yarn build
-    - run: npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-         
+    test:
+        name: Run tests
+        uses: ./.github/workflows/test.yml
+
+    release:
+        needs: [test]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+
+            - uses: actions/checkout@v3
+              with:
+                  token: ${{ secrets.GH_NODE_TOKEN }}
+                  persist-credentials: false
+
+            - name: Install dependencies
+              run: npm set-script prepare ''
+
+            - name: Install dependencies
+              run: npm i
+
+            - name: Build
+              run: npm run build
+
+            - name: Semantic release
+              uses: codfish/semantic-release-action@v2
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GH_NODE_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+                  GIT_AUTHOR_NAME: '${{ github.actor }}'
+                  GIT_COMMITTER_NAME: '${{ github.actor }}'
