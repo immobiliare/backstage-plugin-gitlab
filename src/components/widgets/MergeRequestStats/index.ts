@@ -1,1 +1,1 @@
-export { default as MergeRequestStats} from './MergeRequestStats';
+export { default as MergeRequestStats } from './MergeRequestStats';
