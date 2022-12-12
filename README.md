@@ -150,6 +150,6 @@ If you have any questions on how to use Backstage GitLab Plugin, bugs and enhanc
 
 ## License
 
-This plugin is based on the original work of [loblaw-sre/backstage-plugin-gitlab](https://github.com/loblaw-sre/backstage-plugin-gitlab) by Sathish Kumar.
+This plugin is based on the original work of [loblaw-sre/backstage-plugin-gitlab](https://github.com/loblaw-sre/backstage-plugin-gitlab) by @satrox28 and @Balasundaram.
 
 This plugin is under [Apache 2.0 license](LICENSE), see [NOTICE](NOTICE) for copyright.
