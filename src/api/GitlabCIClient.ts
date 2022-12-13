@@ -18,24 +18,28 @@ import {
 export class GitlabCIClient implements GitlabCIApi {
     discoveryApi: DiscoveryApi;
     baseUrl: string;
+    proxyPath: string;
     constructor({
         discoveryApi,
         baseUrl = 'https://gitlab.com/',
+        proxyPath = '/gitlabci',
     }: {
         discoveryApi: DiscoveryApi;
         baseUrl?: string;
+        proxyPath?: string;
     }) {
         this.discoveryApi = discoveryApi;
         this.baseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+        this.proxyPath = proxyPath;
     }
 
     private async callApi<T>(
         path: string,
         query: { [key in string]: any }
     ): Promise<T | []> {
-        const apiUrl = `${await this.discoveryApi.getBaseUrl(
-            'proxy'
-        )}/gitlabci`;
+        const apiUrl = `${await this.discoveryApi.getBaseUrl('proxy')}${
+            this.proxyPath
+        }`;
         const response = await fetch(
             `${apiUrl}/${path}?${new URLSearchParams(query).toString()}`
         );

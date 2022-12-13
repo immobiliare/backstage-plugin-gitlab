@@ -6,17 +6,19 @@
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-### npm scripts
+### yarn scripts
 
 ```bash
 # install dependencies
-$ npm i
+$ yarn
 # run tests
-$ npm test
+$ yarn test
 # run the code linter
-$ npm run lint
+$ yarn lint
 # Build the lib
-$ npm run build
+$ yarn build
+# Test UI locally with mocked data
+$ yarn start
 ```
 
 ### Commit Convention
@@ -39,7 +41,7 @@ Contributions should pass existing tests or have test cases for new functionalit
 
 ```bash
 # Should pass
-$ npm test
+$ yarn test
 ```
 
 ### Style
@@ -47,7 +49,7 @@ $ npm test
 Style and lint errors should be fixed with
 
 ```bash
-$ npm run lint
+$ yarn lint
 ```
 
 ## Contributors
