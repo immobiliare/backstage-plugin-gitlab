@@ -8,4 +8,5 @@ export {
     EntityGitlabPipelinesTable,
     gitlabPlugin,
 } from './plugin';
+export * from './api';
 export { isGitlabAvailable } from './components';
