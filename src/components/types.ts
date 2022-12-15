@@ -8,6 +8,7 @@ export type ContributorData = {
 
 export type MergeRequest = {
     id: string;
+    iid: string;
     project_id: string;
     state: string;
     created_date: string;

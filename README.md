@@ -122,6 +122,48 @@ spec:
 
 **Note:** `spec.type` can take values in ['website','library','service'] but to render GitLab Entity, Catalog must be of type `service`
 
+## Old/New GitLab Versions
+
+If you have an old GitLab version, or a new one, we allow you to extend the GitLab Client as follow:
+
+`packages/app/src/api.ts`
+
+```ts
+import { GitlabCIApiRef } from '@immobiliarelabs/backstage-plugin-gitlab';
+import { CustomGitlabCIClient } from '@immobiliarelabs/backstage-plugin-gitlab';
+import { discoveryApiRef, configApiRef } from '@backstage/core-plugin-api';
+import { CustomGitlabCIClient } from 'packages/app/src/myCustomClient.ts'
+
+export const apis: AnyApiFactory[] = [
+    createApiFactory({
+        api: GitlabCIApiRef,
+        deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
+        factory: ({ configApi, discoveryApi }) =>
+            new CustomGitlabCIClient({
+                discoveryApi,
+                baseUrl: configApi.getOptionalString('gitlab.baseUrl'),
+            }),
+    }),
+];
+```
+
+`packages/app/src/myCustomClient.ts`
+
+```ts
+import { GitlabCIClient } from '@immobiliarelabs/backstage-plugin-gitlab';
+
+export class CustomGitlabCIClient extends GitlabCIClient {
+    // Override methods
+    async getPipelineSummary(projectID: string | undefined): Promise<PipelineSummary | undefined> {
+        this.callApi(...)
+        .
+        .
+        .
+    }
+}
+```
+see [here](./src/api/GitlabCIClient.ts).
+
 ## Features
 
 -   List top 20 builds for a project
@@ -134,6 +176,7 @@ spec:
 -   Pagination for builds
 -   Pagination for Merge Requests
 -   Merge Requests Statistics
+-   Support for Olds/New GitLab APIs version
 
 ## Screenshots
 

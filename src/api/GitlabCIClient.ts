@@ -33,7 +33,7 @@ export class GitlabCIClient implements GitlabCIApi {
         this.proxyPath = proxyPath;
     }
 
-    private async callApi<T>(
+    protected async callApi<T>(
         path: string,
         query: { [key in string]: any }
     ): Promise<T | []> {
