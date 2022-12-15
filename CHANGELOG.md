@@ -1,3 +1,11 @@
+# [1.1.0-next.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v1.0.0...v1.1.0-next.1) (2022-12-15)
+
+
+### Features
+
+* added api extendibility ([fcc2087](https://github.com/immobiliare/backstage-plugin-gitlab/commit/fcc2087fbc8fb55db9c18e5556c4fd2fa6ded289))
+* setup dev environment and added proxy path attribute ([300f04f](https://github.com/immobiliare/backstage-plugin-gitlab/commit/300f04ffbec8896565578a6133bacdd03e957be3))
+
 # 1.0.0 (2022-12-07)
 
 
