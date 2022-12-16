@@ -1,7 +1,11 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import duration from 'dayjs/plugin/duration';
+dayjs.extend(relativeTime);
+dayjs.extend(duration);
 
 export const getElapsedTime = (start: string) => {
-    return moment(start).fromNow();
+    return dayjs(start).fromNow();
 };
 
 export const getDuration = (start: string, end: string) => {
@@ -9,9 +13,9 @@ export const getDuration = (start: string, end: string) => {
         return 'NA';
     }
 
-    const end_time = moment(end); //todays date
-    const start_time = moment(start); // another date
-    const duration = moment.duration(
+    const end_time = dayjs(end); //todays date
+    const start_time = dayjs(start); // another date
+    const duration = dayjs.duration(
         end_time.diff(start_time, 'seconds'),
         'seconds'
     );

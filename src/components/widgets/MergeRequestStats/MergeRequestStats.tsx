@@ -19,7 +19,7 @@ import {
     InfoCardVariants,
 } from '@backstage/core-components';
 import { MergeRequest } from '../../types';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { Entity } from '@backstage/catalog-model';
 
 const useStyles = makeStyles((theme) => ({
@@ -97,7 +97,7 @@ const MergeRequestStats = (props: Props) => {
                     mergedToTotalRatio: '0%',
                 };
 
-            const avgTimeUntilMergeDiff = moment.duration(
+            const avgTimeUntilMergeDiff = dayjs.duration(
                 mergeStat.avgTimeUntilMerge / mergeStat.mergedCount
             );
 
