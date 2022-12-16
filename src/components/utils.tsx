@@ -11,5 +11,21 @@ export const getDuration = (start: string, end: string) => {
 
     const end_time = moment(end); //todays date
     const start_time = moment(start); // another date
-    return end_time.diff(start_time, 'minutes') + ' min(s)';
+    const duration = moment.duration(
+        end_time.diff(start_time, 'seconds'),
+        'seconds'
+    );
+
+    const days = duration.days();
+    const hours = duration.hours();
+    const minutes = duration.minutes();
+    const seconds = duration.seconds();
+
+    const output = `${days ? days + 'd ' : ''}${hours ? hours + 'h ' : ''}${
+        minutes ? minutes + 'm ' : ''
+    }${seconds ? seconds + 's' : ''}`;
+
+    if (!output) return '0s';
+
+    return output;
 };
