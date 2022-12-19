@@ -57,6 +57,21 @@ type Author = {
     web_url: string;
 };
 
+export type FileOwnership = {
+    rule: string;
+    path: string;
+    owners: string[];
+};
+
+export type UserDetail = {
+    id: number;
+    name: string;
+    username: string;
+    state: string;
+    avatar_url: string;
+    web_url: string;
+};
+
 export type MergeRequestState = 'opened' | 'closed' | 'all';
 
 export type IssueState = 'opened' | 'closed';

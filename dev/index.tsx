@@ -25,11 +25,12 @@ createDevApp()
                 path: string,
                 query: { [key in string]: any }
             ) {
+                console.log(`${path}?${new URLSearchParams(query).toString()}`);
                 const response =
                     mockedGitlabReqToRes[
                         `${path}?${new URLSearchParams(query).toString()}`
                     ];
-                return response || [];
+                return response || null;
             };
             return cli;
         },

@@ -14,3 +14,6 @@ Copyright 2021-2022 Sathish Kumar, 2022 Immobiliare Labs
 
 The Initial Developer of the library is Sathish Kumar (https://github.com/loblaw-sre/backstage-plugin-gitlab).
 Copyright 2021-2022 Sathish Kumar. All Rights Reserved.
+
+The CodeOwner parsing part of /src/components/utils.tsx is a modification of https://github.com/jjmschofield/github-codeowners and it is under MIT license.  
+Copyright (c) 2020 Jack Schofield (https://github.com/jjmschofield)

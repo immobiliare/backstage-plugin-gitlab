@@ -3,9 +3,12 @@ import {
     ContributorData,
     MergeRequest,
     PipelineObject,
+    UserDetail,
 } from '../components/types';
+import { parseCodeOwners } from '../components/utils';
 import { IssueObject } from './../components/types';
 import {
+    CodeOwners,
     ContributorsSummary,
     GitlabCIApi,
     IssuesSummary,
@@ -36,7 +39,7 @@ export class GitlabCIClient implements GitlabCIApi {
     protected async callApi<T>(
         path: string,
         query: { [key in string]: any }
-    ): Promise<T | []> {
+    ): Promise<T | null> {
         const apiUrl = `${await this.discoveryApi.getBaseUrl('proxy')}${
             this.proxyPath
         }`;
@@ -46,7 +49,7 @@ export class GitlabCIClient implements GitlabCIApi {
         if (response.status === 200) {
             return (await response.json()) as T;
         }
-        return [];
+        return null;
     }
 
     async getPipelineSummary(
@@ -194,5 +197,34 @@ export class GitlabCIClient implements GitlabCIApi {
             {}
         );
         return retryBuild;
+    }
+
+    async getCodeOwners(
+        projectID?: string,
+        branch = 'HEAD',
+        filePath = 'CODEOWNERS'
+    ): Promise<CodeOwners> {
+        const codeOwnersStr = await this.callApi<string>(
+            `projects/${projectID}/repository/files/${encodeURI(filePath)}/raw`,
+            { ref: branch }
+        );
+
+        console.log(codeOwnersStr);
+        return {
+            getCodeOwners: parseCodeOwners(codeOwnersStr || ''),
+        };
+    }
+
+    async getUserDetail(username: string): Promise<UserDetail> {
+        if (username.startsWith('@')) {
+            username = username.slice(1);
+        }
+        const userDetail = (
+            await this.callApi<UserDetail[]>('users', { username })
+        )?.[0];
+
+        if (!userDetail) throw new Error(`user ${username} does not exist`);
+
+        return userDetail;
     }
 }

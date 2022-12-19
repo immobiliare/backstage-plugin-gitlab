@@ -4,6 +4,8 @@ import {
     MergeRequest,
     PipelineObject,
     IssueObject,
+    FileOwnership,
+    UserDetail,
 } from '../components/types';
 
 export interface PipelineSummary {
@@ -28,6 +30,10 @@ export interface LanguagesSummary {
 
 export interface IssuesSummary {
     getIssuesData: IssueObject[];
+}
+
+export interface CodeOwners {
+    getCodeOwners: FileOwnership[];
 }
 
 export const GitlabCIApiRef = createApiRef<GitlabCIApi>({
@@ -58,4 +64,11 @@ export type GitlabCIApi = {
         projectSlug: string
     ): Promise<Record<string, unknown> | undefined>;
     getIssuesSummary(projectID: string): Promise<IssuesSummary | undefined>;
+    getCodeOwners(
+        projectID?: string,
+        branch?: string,
+        filePath?: string
+    ): Promise<CodeOwners>;
+
+    getUserDetail(username: string): Promise<UserDetail>;
 };
