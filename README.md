@@ -83,41 +83,56 @@ const overviewContent = (
 4. Add integration:
    In `app-config.yaml` add the integration for gitlab:
 
-```
+```yaml
 integrations:
-  gitlab:
-    - host: gitlab.com
-      token: ${GITLAB_TOKEN}
+    gitlab:
+        - host: gitlab.com
+          token: ${GITLAB_TOKEN}
 ```
 
 5. Add proxy config:
 
-```
-  '/gitlabci':
+```yaml
+'/gitlabci':
     target: '${GITLAB_URL}/api/v4'
     allowedMethods: ['GET']
     headers:
-      PRIVATE-TOKEN: '${GITLAB_TOKEN}'
+        PRIVATE-TOKEN: '${GITLAB_TOKEN}'
 ```
 
 -   Default GitLab URL: `https://gitlab.com`
 -   GitLab Token should be with of scope `read_api` and can be generated from this [URL](https://gitlab.com/-/profile/personal_access_tokens)
 
-5. Add a `gitlab.com/project-id` annotation to your respective `catalog-info.yaml` files, on the [format](https://backstage.io/docs/architecture-decisions/adrs-adr002#format)
+6. (**Optional**): You can also add plugin configurations in `app-config.yaml` file:
+
+```yaml
+gitlab:
+    # Default path for CODEOWNERS file
+    # Default: CODEOWNERS
+    defaultCodeOwnersPath: .gitlab/CODEOWNERS
+    # Proxy path
+    # Default: /gitlabci
+    proxyPath: /gitlabci
+```
+
+7. Add a `gitlab.com/project-id` annotation to your respective `catalog-info.yaml` files, on the [format](https://backstage.io/docs/architecture-decisions/adrs-adr002#format)
 
 ```yaml
 # Example catalog-info.yaml entity definition file
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  # ...
-  annotations:
-      gitlab.com/project-id: 'project-id' #1234. This must be in quotes and can be found under Settings --> General
-      or
-      gitlab.com/project-slug: 'project-slug' # group_name/project_name
+    # ...
+    annotations:
+        gitlab.com/project-id: 'project-id' #1234. This must be in quotes and can be found under Settings --> General
+        # or
+        gitlab.com/project-slug: 'project-slug' # group_name/project_name
+        # You can change the CODEOWNERS path
+        # if it is not passed default specified in `app-config.yaml` is used
+        gitlab.com/codeowners-path: 'somewhere/CODEOWNERS'
 spec:
-  type: service
-  # ...
+    type: service
+    # ...
 ```
 
 **Note:** `spec.type` can take values in ['website','library','service'] but to render GitLab Entity, Catalog must be of type `service`
@@ -132,7 +147,7 @@ If you have an old GitLab version, or a new one, we allow you to extend the GitL
 import { GitlabCIApiRef } from '@immobiliarelabs/backstage-plugin-gitlab';
 import { CustomGitlabCIClient } from '@immobiliarelabs/backstage-plugin-gitlab';
 import { discoveryApiRef, configApiRef } from '@backstage/core-plugin-api';
-import { CustomGitlabCIClient } from 'packages/app/src/myCustomClient.ts'
+import { CustomGitlabCIClient } from 'packages/app/src/myCustomClient.ts';
 
 export const apis: AnyApiFactory[] = [
     createApiFactory({
@@ -162,6 +177,7 @@ export class CustomGitlabCIClient extends GitlabCIClient {
     }
 }
 ```
+
 see [here](./src/api/GitlabCIClient.ts).
 
 ## Features

@@ -8,8 +8,8 @@ export interface Config {
          */
         defaultCodeOwnersPath?: string;
         /**
-         * Default path for CODEOWNERS file
-         * @default "gitlabci"
+         * Proxy path
+         * @default "/gitlabci"
          * @visibility frontend
          */
         proxyPath?: string;
