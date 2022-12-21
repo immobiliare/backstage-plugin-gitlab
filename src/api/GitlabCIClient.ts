@@ -22,18 +22,23 @@ export class GitlabCIClient implements GitlabCIApi {
     discoveryApi: DiscoveryApi;
     baseUrl: string;
     proxyPath: string;
+    codeOwnersPath: string;
+
     constructor({
         discoveryApi,
         baseUrl = 'https://gitlab.com/',
-        proxyPath = '/gitlabci',
+        proxyPath,
+        codeOwnersPath,
     }: {
         discoveryApi: DiscoveryApi;
         baseUrl?: string;
         proxyPath?: string;
+        codeOwnersPath?: string;
     }) {
         this.discoveryApi = discoveryApi;
         this.baseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
-        this.proxyPath = proxyPath;
+        this.proxyPath = proxyPath || '/gitlabci';
+        this.codeOwnersPath = codeOwnersPath || 'CODEOWNERS';
     }
 
     protected async callApi<T>(
@@ -202,14 +207,16 @@ export class GitlabCIClient implements GitlabCIApi {
     async getCodeOwners(
         projectID?: string,
         branch = 'HEAD',
-        filePath = 'CODEOWNERS'
+        filePath = this.codeOwnersPath
     ): Promise<CodeOwners> {
+        // Removing starting './'
+        if (filePath.startsWith('./')) filePath = filePath.slice(2);
+
         const codeOwnersStr = await this.callApi<string>(
             `projects/${projectID}/repository/files/${encodeURI(filePath)}/raw`,
             { ref: branch }
         );
 
-        console.log(codeOwnersStr);
         return {
             getCodeOwners: parseCodeOwners(codeOwnersStr || ''),
         };

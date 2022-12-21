@@ -53,3 +53,8 @@ backend:
 integrations:
   gitlab:
     - host: gitlab.com
+
+
+gitlab:
+  defaultCodeOwnersPath: .gitlab/CODEOWNERS
+  proxyPath: /gitlabci
