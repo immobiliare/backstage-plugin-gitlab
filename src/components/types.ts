@@ -1,4 +1,4 @@
-export type ContributorData = {
+export type PersonData = {
     project_web_url: string;
     project_default_branch: string;
     name: string;

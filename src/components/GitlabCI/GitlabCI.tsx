@@ -2,7 +2,7 @@ import { Content, Page } from '@backstage/core-components';
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import {
-    ContributorsCard,
+    PeopleCard,
     IssuesTable,
     LanguagesCard,
     MergeRequestsTable,
@@ -15,7 +15,7 @@ export const GitlabCI = () => (
         <Content>
             <Grid container spacing={6} direction="row" alignItems="stretch">
                 <Grid item sm={12} md={6} lg={4}>
-                    <ContributorsCard />
+                    <PeopleCard />
                 </Grid>
                 <Grid item sm={12} md={6} lg={4}>
                     <LanguagesCard />

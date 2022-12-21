@@ -1,10 +1,10 @@
 import React from 'react';
 import { Avatar, Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { ContributorData } from '../../../../types';
+import { PersonData } from '../../../../types';
 
 type Props = {
-    contributor: ContributorData;
+    person: PersonData;
 };
 
 const LightTooltip = withStyles({
@@ -16,12 +16,8 @@ const LightTooltip = withStyles({
     },
 })(Tooltip);
 
-export const Contributor = ({ contributor }: Props) => (
-    <LightTooltip title={contributor.name}>
-        <Avatar
-            key={contributor.name}
-            alt={contributor.name}
-            src={contributor.avatar_url}
-        />
+export const Person = ({ person }: Props) => (
+    <LightTooltip title={person.name}>
+        <Avatar key={person.name} alt={person.name} src={person.avatar_url} />
     </LightTooltip>
 );
