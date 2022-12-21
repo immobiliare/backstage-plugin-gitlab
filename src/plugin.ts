@@ -57,13 +57,13 @@ export const EntityGitlabLanguageCard = gitlabPlugin.provide(
     })
 );
 
-export const EntityGitlabContributorsCard = gitlabPlugin.provide(
+export const EntityGitlabPeopleCard = gitlabPlugin.provide(
     createComponentExtension({
-        name: 'EntityGitlabContributorsCard',
+        name: 'EntityGitlabPeopleCard',
         component: {
             lazy: () =>
                 import('./components/widgets/index').then(
-                    (m) => m.ContributorsCard
+                    (m) => m.PeopleCard
                 ),
         },
     })

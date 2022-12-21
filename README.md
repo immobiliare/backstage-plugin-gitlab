@@ -55,7 +55,7 @@ import {
     isGitlabAvailable,
     EntityGitlabContent,
     EntityGitlabLanguageCard,
-    EntityGitlabContributorsCard,
+    EntityGitlabPeopleCard,
     EntityGitlabMergeRequestsTable,
     EntityGitlabMergeRequestStatsCard,
     EntityGitlabPipelinesTable,
@@ -68,7 +68,7 @@ const overviewContent = (
         <EntitySwitch>
             <EntitySwitch.Case if={isGitlabAvailable}>
                 <Grid item md={6}>
-                    <EntityGitlabContributorsCard />
+                    <EntityGitlabPeopleCard />
                     <EntityGitlabLanguageCard />
                     <EntityGitlabMergeRequestStatsCard />
                     <EntityGitlabPipelinesTable />
@@ -132,7 +132,7 @@ If you have an old GitLab version, or a new one, we allow you to extend the GitL
 import { GitlabCIApiRef } from '@immobiliarelabs/backstage-plugin-gitlab';
 import { CustomGitlabCIClient } from '@immobiliarelabs/backstage-plugin-gitlab';
 import { discoveryApiRef, configApiRef } from '@backstage/core-plugin-api';
-import { CustomGitlabCIClient } from 'packages/app/src/myCustomClient.ts'
+import { CustomGitlabCIClient } from 'packages/app/src/myCustomClient.ts';
 
 export const apis: AnyApiFactory[] = [
     createApiFactory({
@@ -162,6 +162,7 @@ export class CustomGitlabCIClient extends GitlabCIClient {
     }
 }
 ```
+
 see [here](./src/api/GitlabCIClient.ts).
 
 ## Features

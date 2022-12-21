@@ -1,6 +1,6 @@
 export {
     EntityGitlabContent,
-    EntityGitlabContributorsCard,
+    EntityGitlabPeopleCard,
     EntityGitlabIssuesTable,
     EntityGitlabLanguageCard,
     EntityGitlabMergeRequestsTable,
