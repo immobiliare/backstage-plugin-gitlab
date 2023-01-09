@@ -11,7 +11,7 @@ import {
     gitlabCodeOwnerPath,
 } from '../../gitlabAppData';
 import { PeopleList } from './components/PeopleList';
-import { PersonData, FileOwnership, ProjectDetail } from '../../types';
+import { PersonData, ProjectDetail } from '../../types';
 import { Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({

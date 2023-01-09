@@ -4,7 +4,6 @@ import {
     MergeRequest,
     PipelineObject,
     IssueObject,
-    FileOwnership,
 } from '../components/types';
 
 export interface PipelineSummary {

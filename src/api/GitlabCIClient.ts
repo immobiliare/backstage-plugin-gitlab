@@ -58,7 +58,7 @@ export class GitlabCIClient implements GitlabCIApi {
             ) {
                 return (await response.json()) as T;
             } else {
-                return response.text() as T;
+                return response.text() as unknown as T;
             }
         }
         return null;
