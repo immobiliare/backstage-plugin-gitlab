@@ -1,10 +1,5 @@
 import { DiscoveryApi } from '@backstage/core-plugin-api';
-import {
-    ContributorData,
-    MergeRequest,
-    PipelineObject,
-    UserDetail,
-} from '../components/types';
+import { PersonData, MergeRequest, PipelineObject } from '../components/types';
 import { parseCodeOwners } from '../components/utils';
 import { IssueObject } from './../components/types';
 import {
@@ -109,9 +104,10 @@ export class GitlabCIClient implements GitlabCIApi {
         return projectObj?.name;
     }
 
+    //TODO: Merge with getUserdDetatils
     private async getUserProfilesData(
-        contributorsData: ContributorData[]
-    ): Promise<ContributorData[]> {
+        contributorsData: PersonData[]
+    ): Promise<PersonData[]> {
         for (let i = 0; contributorsData && i < contributorsData.length; i++) {
             const userProfile: any = await this.callApi<
                 Record<string, unknown>[]
@@ -119,7 +115,7 @@ export class GitlabCIClient implements GitlabCIApi {
                 search: contributorsData[i].email,
             });
             if (userProfile) {
-                userProfile.forEach((userProfileElement: ContributorData) => {
+                userProfile.forEach((userProfileElement: PersonData) => {
                     if (userProfileElement.name == contributorsData[i].name) {
                         contributorsData[i].avatar_url =
                             userProfileElement?.avatar_url;
@@ -158,7 +154,7 @@ export class GitlabCIClient implements GitlabCIApi {
     async getContributorsSummary(
         projectID?: string
     ): Promise<ContributorsSummary | undefined> {
-        const contributorsData = await this.callApi<ContributorData[]>(
+        const contributorsData = await this.callApi<PersonData[]>(
             'projects/' + projectID + '/repository/contributors',
             { sort: 'desc' }
         );
@@ -222,16 +218,33 @@ export class GitlabCIClient implements GitlabCIApi {
         };
     }
 
-    async getUserDetail(username: string): Promise<UserDetail> {
+    async getUserDetail(username: string): Promise<PersonData> {
         if (username.startsWith('@')) {
             username = username.slice(1);
         }
         const userDetail = (
-            await this.callApi<UserDetail[]>('users', { username })
+            await this.callApi<PersonData[]>('users', { username })
         )?.[0];
 
         if (!userDetail) throw new Error(`user ${username} does not exist`);
 
         return userDetail;
+    }
+
+    getContributorsLink(
+        projectWebUrl: string | undefined,
+        projectDefaultBranch: string | undefined
+    ): string {
+        return `${projectWebUrl}/-/graphs/${projectDefaultBranch}`;
+    }
+
+    getOwnersLink(
+        projectWebUrl: string | undefined,
+        projectDefaultBranch: string | undefined,
+        codeOwnersPath: string
+    ): string {
+        return `${projectWebUrl}/-/blob/${projectDefaultBranch}/${
+            codeOwnersPath || '.gitlab/CODEOWNERS'
+        }`;
     }
 }

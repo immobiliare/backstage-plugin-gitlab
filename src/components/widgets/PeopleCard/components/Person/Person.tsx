@@ -16,8 +16,16 @@ const LightTooltip = withStyles({
     },
 })(Tooltip);
 
-export const Person = ({ person }: Props) => (
-    <LightTooltip title={person.name}>
-        <Avatar key={person.name} alt={person.name} src={person.avatar_url} />
-    </LightTooltip>
-);
+export const Person = ({ person }: Props) => {
+    return (
+        <LightTooltip title={person.name}>
+            <a href={person.web_url} target="_blank">
+                <Avatar
+                    key={person.name}
+                    alt={person.name}
+                    src={person.avatar_url}
+                />
+            </a>
+        </LightTooltip>
+    );
+};

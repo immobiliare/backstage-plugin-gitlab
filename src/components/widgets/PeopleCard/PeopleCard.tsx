@@ -5,9 +5,13 @@ import { InfoCard, Progress } from '@backstage/core-components';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useAsync } from 'react-use';
-import { gitlabAppData, gitlabAppSlug } from '../../gitlabAppData';
+import {
+    gitlabAppData,
+    gitlabAppSlug,
+    gitlabCodeOwnerPath,
+} from '../../gitlabAppData';
 import { PeopleList } from './components/PeopleList';
-import { PersonData, FileOwnership } from '../../types';
+import { PersonData, FileOwnership, ProjectDetail } from '../../types';
 import { CodeOwners } from '../../../api/GitlabCIApi';
 import { Divider } from '@material-ui/core';
 
@@ -25,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
     },
+    link: {
+        color: 'inherit',
+        textDecoration: 'none',
+        marginTop: theme.spacing(2),
+    },
 }));
 
 export const PeopleCard = ({}) => {
@@ -32,31 +41,77 @@ export const PeopleCard = ({}) => {
     const GitlabCIAPI = useApi(GitlabCIApiRef);
     const { project_id } = gitlabAppData();
     const { project_slug } = gitlabAppSlug();
+    const { codeowners_path } = gitlabCodeOwnerPath();
     /* TODO: to change the below logic to get contributors data*/
     const { value, loading, error } = useAsync(async (): Promise<{
-        contributors: PersonData;
-        owners: FileOwnership[];
+        contributors: PersonData[] | undefined;
+        owners: PersonData[];
+        projectDetails: ProjectDetail;
     }> => {
         const projectDetails: any = await GitlabCIAPI.getProjectDetails(
             project_slug != '' ? project_slug : project_id
         );
         const projectId = project_id || projectDetails?.id;
         const gitlabObj = await GitlabCIAPI.getContributorsSummary(projectId);
-        const data = gitlabObj?.getContributorsData;
-        const renderData: any = { data };
-        renderData.project_web_url = projectDetails?.web_url;
-        renderData.project_default_branch = projectDetails?.default_branch;
+        const contributorData: PersonData[] | undefined =
+            gitlabObj?.getContributorsData;
+        const projectDetailsData: ProjectDetail = {
+            project_web_url: projectDetails?.web_url,
+            project_default_branch: projectDetails?.default_branch,
+        };
+        // CODE OWNERS
         const codeOwners: CodeOwners = await GitlabCIAPI.getCodeOwners(
             project_id,
-            renderData.project_default_branch,
-            'CODEOWNERS'
+            projectDetailsData.project_default_branch,
+            codeowners_path || 'CODEOWNERS'
         );
         const dataOwners: FileOwnership[] = codeOwners?.getCodeOwners;
-        return { contributors: renderData!, owners: dataOwners };
+        const uniqueOwners = [
+            ...new Set(dataOwners.flatMap((owner) => owner.owners)),
+        ];
+        const owners: PersonData[] = await Promise.all(
+            uniqueOwners.map(async (owner) => {
+                const ownerData: PersonData = await GitlabCIAPI.getUserDetail(
+                    owner
+                );
+                return ownerData;
+            })
+        );
+        return {
+            contributors: contributorData!,
+            owners: owners,
+            projectDetails: projectDetailsData!,
+        };
     }, []);
 
-    const project_web_url = value?.contributors.project_web_url;
-    const project_default_branch = value?.contributors.project_default_branch;
+    const project_web_url = value?.projectDetails.project_web_url;
+    const project_default_branch = value?.projectDetails.project_default_branch;
+    const contributorsLink = GitlabCIAPI.getContributorsLink(
+        project_web_url,
+        project_default_branch
+    );
+    const ownersLink = GitlabCIAPI.getOwnersLink(
+        project_web_url,
+        project_default_branch,
+        codeowners_path || 'CODEOWNERS'
+    );
+
+    const contributorsDeepLink = {
+        link: contributorsLink,
+        title: 'go to Contributors',
+        onClick: (e: Event) => {
+            e.preventDefault();
+            window.open(contributorsLink);
+        },
+    };
+    const ownersDeepLink = {
+        link: ownersLink,
+        title: 'go to Owners File',
+        onClick: (e: Event) => {
+            e.preventDefault();
+            window.open(ownersLink);
+        },
+    };
 
     if (loading) {
         return <Progress />;
@@ -68,25 +123,18 @@ export const PeopleCard = ({}) => {
         );
     }
     return (
-        <InfoCard
-            title="People"
-            deepLink={{
-                link: `${project_web_url}/-/graphs/${project_default_branch}`,
-                title: 'People',
-                onClick: (e) => {
-                    e.preventDefault();
-                    window.open(
-                        `${project_web_url}/-/graphs/${project_default_branch}`
-                    );
-                },
-            }}
-            className={classes.infoCard}
-        >
+        <InfoCard title="People" className={classes.infoCard}>
             <h2 className={classes.subTitle}>Owners</h2>
-            <PeopleList peopleObj={value?.contributors || { data: [] }} />
+            <PeopleList
+                peopleObj={value?.owners || []}
+                deepLink={ownersDeepLink}
+            />
             <Divider className={classes.divider}></Divider>
             <h1 className={classes.subTitle}>Contributors</h1>
-            <PeopleList peopleObj={value?.contributors || { data: [] }} />
+            <PeopleList
+                peopleObj={value?.contributors || []}
+                deepLink={contributorsDeepLink}
+            />
         </InfoCard>
     );
 };
