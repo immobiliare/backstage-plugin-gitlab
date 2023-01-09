@@ -5105,6 +5105,17 @@ rust-toolchain @xMAC94x
             web_url: 'https://gitlab.com/xMAC94x',
         },
     ],
+    'users?search=joshua.s.barretto%40gmail.com': [
+        {
+            id: 717010,
+            name: 'Joshua Barretto',
+            username: 'zesterer',
+            state: 'active',
+            avatar_url:
+                'https://gitlab.com/uploads/-/system/user/avatar/717010/avatar.png',
+            web_url: 'https://gitlab.com/zesterer',
+        },
+    ],
 };
 
 export const projectId = '10174980';

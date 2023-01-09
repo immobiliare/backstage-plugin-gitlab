@@ -1,11 +1,9 @@
 import { createApiRef } from '@backstage/core-plugin-api';
 import {
-    ContributorData,
+    PersonData,
     MergeRequest,
     PipelineObject,
     IssueObject,
-    FileOwnership,
-    UserDetail,
 } from '../components/types';
 
 export interface PipelineSummary {
@@ -13,7 +11,7 @@ export interface PipelineSummary {
 }
 
 export interface ContributorsSummary {
-    getContributorsData: ContributorData[];
+    getContributorsData: PersonData[];
 }
 
 export interface MergeRequestsSummary {
@@ -30,10 +28,6 @@ export interface LanguagesSummary {
 
 export interface IssuesSummary {
     getIssuesData: IssueObject[];
-}
-
-export interface CodeOwners {
-    getCodeOwners: FileOwnership[];
 }
 
 export const GitlabCIApiRef = createApiRef<GitlabCIApi>({
@@ -68,7 +62,17 @@ export type GitlabCIApi = {
         projectID?: string,
         branch?: string,
         filePath?: string
-    ): Promise<CodeOwners>;
+    ): Promise<PersonData[]>;
 
-    getUserDetail(username: string): Promise<UserDetail>;
+    getUserDetail(username: string): Promise<PersonData>;
+
+    getContributorsLink(
+        projectWebUrl: string | undefined,
+        projectDefaultBranch: string | undefined
+    ): string;
+    getOwnersLink(
+        projectWebUrl: string | undefined,
+        projectDefaultBranch: string | undefined,
+        codeOwnersPath: string
+    ): string;
 };

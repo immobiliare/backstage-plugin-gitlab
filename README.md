@@ -55,7 +55,7 @@ import {
     isGitlabAvailable,
     EntityGitlabContent,
     EntityGitlabLanguageCard,
-    EntityGitlabContributorsCard,
+    EntityGitlabPeopleCard,
     EntityGitlabMergeRequestsTable,
     EntityGitlabMergeRequestStatsCard,
     EntityGitlabPipelinesTable,
@@ -68,7 +68,7 @@ const overviewContent = (
         <EntitySwitch>
             <EntitySwitch.Case if={isGitlabAvailable}>
                 <Grid item md={6}>
-                    <EntityGitlabContributorsCard />
+                    <EntityGitlabPeopleCard />
                     <EntityGitlabLanguageCard />
                     <EntityGitlabMergeRequestStatsCard />
                     <EntityGitlabPipelinesTable />
