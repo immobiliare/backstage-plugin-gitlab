@@ -157,6 +157,10 @@ export const apis: AnyApiFactory[] = [
             new CustomGitlabCIClient({
                 discoveryApi,
                 baseUrl: configApi.getOptionalString('gitlab.baseUrl'),
+                proxyPath: configApi.getOptionalString('gitlab.proxyPath'),
+                codeOwnersPath: configApi.getOptionalString(
+                    'gitlab.defaultCodeOwnersPath'
+                ),
             }),
     }),
 ];
