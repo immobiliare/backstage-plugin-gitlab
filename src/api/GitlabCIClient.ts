@@ -47,7 +47,15 @@ export class GitlabCIClient implements GitlabCIApi {
             `${apiUrl}/${path}?${new URLSearchParams(query).toString()}`
         );
         if (response.status === 200) {
-            return (await response.json()) as T;
+            if (
+                response.headers
+                    .get('content-type')
+                    ?.includes('application/json')
+            ) {
+                return (await response.json()) as T;
+            } else {
+                return response.text() as T;
+            }
         }
         return null;
     }
