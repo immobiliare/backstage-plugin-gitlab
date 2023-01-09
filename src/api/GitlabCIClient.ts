@@ -116,7 +116,7 @@ export class GitlabCIClient implements GitlabCIApi {
         return projectObj?.name;
     }
 
-    //TODO: Merge with getUserdDetatils
+    //TODO: Merge with getUserDetail
     private async getUserProfilesData(
         contributorsData: PersonData[]
     ): Promise<PersonData[]> {
@@ -136,6 +136,19 @@ export class GitlabCIClient implements GitlabCIApi {
             }
         }
         return contributorsData;
+    }
+
+    private async getUserDetail(username: string): Promise<PersonData> {
+        if (username.startsWith('@')) {
+            username = username.slice(1);
+        }
+        const userDetail = (
+            await this.callApi<PersonData[]>('users', { username })
+        )?.[0];
+
+        if (!userDetail) throw new Error(`user ${username} does not exist`);
+
+        return userDetail;
     }
 
     async getMergeRequestsSummary(
@@ -239,19 +252,6 @@ export class GitlabCIClient implements GitlabCIApi {
         );
 
         return owners;
-    }
-
-    async getUserDetail(username: string): Promise<PersonData> {
-        if (username.startsWith('@')) {
-            username = username.slice(1);
-        }
-        const userDetail = (
-            await this.callApi<PersonData[]>('users', { username })
-        )?.[0];
-
-        if (!userDetail) throw new Error(`user ${username} does not exist`);
-
-        return userDetail;
     }
 
     getContributorsLink(
