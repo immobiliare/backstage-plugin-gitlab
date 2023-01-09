@@ -64,8 +64,6 @@ export type GitlabCIApi = {
         filePath?: string
     ): Promise<PersonData[]>;
 
-    getUserDetail(username: string): Promise<PersonData>;
-
     getContributorsLink(
         projectWebUrl: string | undefined,
         projectDefaultBranch: string | undefined
