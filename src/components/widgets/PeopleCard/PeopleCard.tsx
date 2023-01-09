@@ -63,7 +63,7 @@ export const PeopleCard = ({}) => {
         const codeOwners: CodeOwners = await GitlabCIAPI.getCodeOwners(
             project_id,
             projectDetailsData.project_default_branch,
-            codeowners_path || 'CODEOWNERS'
+            codeowners_path
         );
         const dataOwners: FileOwnership[] = codeOwners?.getCodeOwners;
         const uniqueOwners = [
@@ -93,7 +93,7 @@ export const PeopleCard = ({}) => {
     const ownersLink = GitlabCIAPI.getOwnersLink(
         project_web_url,
         project_default_branch,
-        codeowners_path || 'CODEOWNERS'
+        codeowners_path
     );
 
     const contributorsDeepLink = {

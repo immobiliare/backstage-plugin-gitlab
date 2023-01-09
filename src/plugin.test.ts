@@ -17,6 +17,9 @@ const CODEOWNERS = `
 # docs/*  docs@example.com
 `;
 
+const CODEOWNERS2 = `# Specify a default Code Owner by using a wildcard:
+* @amusolino`;
+
 describe('gitlabPlugin', () => {
     it('should export plugin', () => {
         expect(gitlabPlugin).toBeDefined();
@@ -33,6 +36,16 @@ describe('gitlabPlugin', () => {
                 owners: ['@octocat', '@github/js'],
                 path: '*.js',
                 rule: '*.js    @octocat @github/js',
+            },
+        ]);
+    });
+
+    it('parse codeOwners works', async () => {
+        expect(parseCodeOwners(CODEOWNERS2)).toEqual([
+            {
+                owners: ['@amusolino'],
+                path: '*',
+                rule: '* @amusolino',
             },
         ]);
     });
