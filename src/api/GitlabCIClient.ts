@@ -1,9 +1,13 @@
 import { DiscoveryApi } from '@backstage/core-plugin-api';
-import { PersonData, MergeRequest, PipelineObject } from '../components/types';
+import {
+    PersonData,
+    MergeRequest,
+    PipelineObject,
+    FileOwnership,
+} from '../components/types';
 import { parseCodeOwners } from '../components/utils';
 import { IssueObject } from './../components/types';
 import {
-    CodeOwners,
     ContributorsSummary,
     GitlabCIApi,
     IssuesSummary,
@@ -212,7 +216,7 @@ export class GitlabCIClient implements GitlabCIApi {
         projectID?: string,
         branch = 'HEAD',
         filePath = this.codeOwnersPath
-    ): Promise<CodeOwners> {
+    ): Promise<PersonData[]> {
         // Removing starting './'
         if (filePath.startsWith('./')) filePath = filePath.slice(2);
 
@@ -221,9 +225,20 @@ export class GitlabCIClient implements GitlabCIApi {
             { ref: branch }
         );
 
-        return {
-            getCodeOwners: parseCodeOwners(codeOwnersStr || ''),
-        };
+        const codeOwners = parseCodeOwners(codeOwnersStr || '');
+
+        const dataOwners: FileOwnership[] = codeOwners;
+        const uniqueOwners = [
+            ...new Set(dataOwners.flatMap((owner) => owner.owners)),
+        ];
+        const owners: PersonData[] = await Promise.all(
+            uniqueOwners.map(async (owner) => {
+                const ownerData: PersonData = await this.getUserDetail(owner);
+                return ownerData;
+            })
+        );
+
+        return owners;
     }
 
     async getUserDetail(username: string): Promise<PersonData> {

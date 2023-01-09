@@ -12,7 +12,6 @@ import {
 } from '../../gitlabAppData';
 import { PeopleList } from './components/PeopleList';
 import { PersonData, FileOwnership, ProjectDetail } from '../../types';
-import { CodeOwners } from '../../../api/GitlabCIApi';
 import { Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -60,26 +59,14 @@ export const PeopleCard = ({}) => {
             project_default_branch: projectDetails?.default_branch,
         };
         // CODE OWNERS
-        const codeOwners: CodeOwners = await GitlabCIAPI.getCodeOwners(
+        const codeOwners: PersonData[] = await GitlabCIAPI.getCodeOwners(
             project_id,
             projectDetailsData.project_default_branch,
             codeowners_path
         );
-        const dataOwners: FileOwnership[] = codeOwners?.getCodeOwners;
-        const uniqueOwners = [
-            ...new Set(dataOwners.flatMap((owner) => owner.owners)),
-        ];
-        const owners: PersonData[] = await Promise.all(
-            uniqueOwners.map(async (owner) => {
-                const ownerData: PersonData = await GitlabCIAPI.getUserDetail(
-                    owner
-                );
-                return ownerData;
-            })
-        );
         return {
             contributors: contributorData!,
-            owners: owners,
+            owners: codeOwners,
             projectDetails: projectDetailsData!,
         };
     }, []);

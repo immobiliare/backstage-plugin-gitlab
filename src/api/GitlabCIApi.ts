@@ -31,10 +31,6 @@ export interface IssuesSummary {
     getIssuesData: IssueObject[];
 }
 
-export interface CodeOwners {
-    getCodeOwners: FileOwnership[];
-}
-
 export const GitlabCIApiRef = createApiRef<GitlabCIApi>({
     id: 'plugin.gitlabci.service',
 });
@@ -67,7 +63,7 @@ export type GitlabCIApi = {
         projectID?: string,
         branch?: string,
         filePath?: string
-    ): Promise<CodeOwners>;
+    ): Promise<PersonData[]>;
 
     getUserDetail(username: string): Promise<PersonData>;
 
