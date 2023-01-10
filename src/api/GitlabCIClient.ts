@@ -267,7 +267,7 @@ export class GitlabCIClient implements GitlabCIApi {
         codeOwnersPath: string
     ): string {
         return `${projectWebUrl}/-/blob/${projectDefaultBranch}/${
-            codeOwnersPath || '.gitlab/CODEOWNERS'
+            codeOwnersPath || this.codeOwnersPath
         }`;
     }
 }
