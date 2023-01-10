@@ -86,5 +86,9 @@
         "dist",
         "config.d.ts"
     ],
+    "volta": {
+        "node": "18.13.0",
+        "npm": "8.19.3"
+    },
     "configSchema": "config.d.ts"
 }
