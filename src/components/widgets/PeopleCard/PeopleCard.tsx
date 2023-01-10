@@ -28,11 +28,6 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
     },
-    link: {
-        color: 'inherit',
-        textDecoration: 'none',
-        marginTop: theme.spacing(2),
-    },
 }));
 
 export const PeopleCard = ({}) => {
@@ -111,14 +106,14 @@ export const PeopleCard = ({}) => {
     }
     return (
         <InfoCard title="People" className={classes.infoCard}>
-            <h2 className={classes.subTitle}>Owners</h2>
             <PeopleList
+                title="Owners"
                 peopleObj={value?.owners || []}
                 deepLink={ownersDeepLink}
             />
             <Divider className={classes.divider}></Divider>
-            <h1 className={classes.subTitle}>Contributors</h1>
             <PeopleList
+                title="Contributors"
                 peopleObj={value?.contributors || []}
                 deepLink={contributorsDeepLink}
             />
