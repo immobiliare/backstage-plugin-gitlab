@@ -1,3 +1,22 @@
+# [1.1.0-next.2](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v1.1.0-next.1...v1.1.0-next.2) (2023-01-10)
+
+
+### Bug Fixes
+
+* **api:** code owner api ([b1111c6](https://github.com/immobiliare/backstage-plugin-gitlab/commit/b1111c6842bb0d82e04058d5a8e57b2b4aa8ed4a))
+* formatted durations ([66000a8](https://github.com/immobiliare/backstage-plugin-gitlab/commit/66000a86fb8969e414e2084b945b521cb1d66e2f))
+* moved get owners details in getCodeOwners ([f3013ee](https://github.com/immobiliare/backstage-plugin-gitlab/commit/f3013ee4e79de340e10e2844144e72ecf64cac05))
+* **PeopleCard:** moved link right to title ([6275e1a](https://github.com/immobiliare/backstage-plugin-gitlab/commit/6275e1a247b91b84ccfed971a0a6c9cf5ad0b26f))
+* tsc build errors ([4d3a25e](https://github.com/immobiliare/backstage-plugin-gitlab/commit/4d3a25e0cd79aa23753c1b662566528c114fd154))
+
+
+### Features
+
+* added bottom links for cards and links in avatars ([0bbf949](https://github.com/immobiliare/backstage-plugin-gitlab/commit/0bbf949314cf39e3344505fcaf9426a660aa0d2b))
+* added code ownership ([d093713](https://github.com/immobiliare/backstage-plugin-gitlab/commit/d093713b42e815596d81b0a91ea3a6d277d2eb51))
+* added codeowners annotation and new configuration variables ([279ea26](https://github.com/immobiliare/backstage-plugin-gitlab/commit/279ea266a8deb95ada2d10fb1826ee61e63135d3))
+* **PeopleCard:** Changed from contributors to people card ([3118b5f](https://github.com/immobiliare/backstage-plugin-gitlab/commit/3118b5f74b9fe93bb1428864fab632ac8991d665))
+
 # [1.1.0-next.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v1.0.0...v1.1.0-next.1) (2022-12-15)
 
 
