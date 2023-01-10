@@ -1,3 +1,30 @@
+# [2.0.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v1.0.0...v2.0.0) (2023-01-10)
+
+
+### Bug Fixes
+
+* **api:** code owner api ([bd0ab22](https://github.com/immobiliare/backstage-plugin-gitlab/commit/bd0ab226711a2e2648f482456b68c660468c0351))
+* default filepath ([46bf66c](https://github.com/immobiliare/backstage-plugin-gitlab/commit/46bf66c5baec3f993b616300376ec66fe6dca441))
+* formatted durations ([66000a8](https://github.com/immobiliare/backstage-plugin-gitlab/commit/66000a86fb8969e414e2084b945b521cb1d66e2f))
+* moved get owners details in getCodeOwners ([73b29d3](https://github.com/immobiliare/backstage-plugin-gitlab/commit/73b29d3596c4ed6802826903ddac0855bf208c03))
+* **PeopleCard:** moved link right to title ([d1eb225](https://github.com/immobiliare/backstage-plugin-gitlab/commit/d1eb2255da6b4088ebc5815e4a407182c2962a00))
+* tsc build errors ([5db5e6d](https://github.com/immobiliare/backstage-plugin-gitlab/commit/5db5e6d482b16f7d0d689cc3fbffe16c2c313607))
+
+
+### Features
+
+* added api extendibility ([fcc2087](https://github.com/immobiliare/backstage-plugin-gitlab/commit/fcc2087fbc8fb55db9c18e5556c4fd2fa6ded289))
+* added bottom links for cards and links in avatars ([26551d6](https://github.com/immobiliare/backstage-plugin-gitlab/commit/26551d6d04307b5fd487b2f4921036767c212ee6))
+* added code ownership ([d093713](https://github.com/immobiliare/backstage-plugin-gitlab/commit/d093713b42e815596d81b0a91ea3a6d277d2eb51))
+* added codeowners annotation and new configuration variables ([279ea26](https://github.com/immobiliare/backstage-plugin-gitlab/commit/279ea266a8deb95ada2d10fb1826ee61e63135d3))
+* **PeopleCard:** Changed from contributors to people card ([d52e4a6](https://github.com/immobiliare/backstage-plugin-gitlab/commit/d52e4a657cc0974b19adcb7bfae9295fa68396ae))
+* setup dev environment and added proxy path attribute ([300f04f](https://github.com/immobiliare/backstage-plugin-gitlab/commit/300f04ffbec8896565578a6133bacdd03e957be3))
+
+
+### BREAKING CHANGES
+
+* **PeopleCard:** contributor card was removed and converted into people card
+
 # [2.0.0-next.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v1.1.0-next.1...v2.0.0-next.1) (2023-01-10)
 
 
