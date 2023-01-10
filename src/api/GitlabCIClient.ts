@@ -228,8 +228,9 @@ export class GitlabCIClient implements GitlabCIApi {
     async getCodeOwners(
         projectID?: string,
         branch = 'HEAD',
-        filePath = this.codeOwnersPath
+        filePath?: string
     ): Promise<PersonData[]> {
+        filePath = filePath || this.codeOwnersPath;
         // Removing starting './'
         if (filePath.startsWith('./')) filePath = filePath.slice(2);
 
