@@ -200,9 +200,8 @@ see [here](./src/api/GitlabCIClient.ts).
 
 ## Screenshots
 
-<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/Backstage_Gitlab_Pipeline_Information.png"  alt="Contributors Languages Pipeline Status"/>
-<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/Backstage_Gitlab_Merge_Request_information.png"  alt="Merge Request Information"/>
-<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/Backstage_Gitlab_Issue_Information.png"  alt="Issue Information"/>
+<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/backstage_gitlab_pipeline_information.png"  alt="Contributors Languages Pipeline Status"/>
+<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/backstage_gitlab_mr_and_issues.png"  alt="Merge Request Information"/>
 
 ## Support & Contribute
 
