@@ -62,9 +62,7 @@ export const EntityGitlabPeopleCard = gitlabPlugin.provide(
         name: 'EntityGitlabPeopleCard',
         component: {
             lazy: () =>
-                import('./components/widgets/index').then(
-                    (m) => m.PeopleCard
-                ),
+                import('./components/widgets/index').then((m) => m.PeopleCard),
         },
     })
 );
