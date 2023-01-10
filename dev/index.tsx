@@ -4,18 +4,23 @@ import { EntityProvider } from '@backstage/plugin-catalog-react';
 import { gitlabPlugin, EntityGitlabContent } from '../src/plugin';
 import { GitlabCIApiRef, GitlabCIClient } from '../src/api';
 import { mockedGitlabReqToRes, projectId } from './mock-gitlab/api-v4-v15.7.0';
+import { configApiRef, discoveryApiRef } from '@backstage/core-plugin-api';
+import { config } from 'process';
 
 createDevApp()
     .registerPlugin(gitlabPlugin)
     .registerApi({
         api: GitlabCIApiRef,
-        deps: {},
-        factory: () => {
+        deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
+        factory: ({ configApi }) => {
             const cli = new GitlabCIClient({
                 discoveryApi: {
                     getBaseUrl: () => Promise.resolve('https://gitlab.com'),
                 },
-                proxyPath: '',
+                proxyPath: configApi.getOptionalString('gitlab.proxyPath'),
+                codeOwnersPath: configApi.getOptionalString(
+                    'gitlab.defaultCodeOwnersPath'
+                ),
             });
 
             // Here we mock the client requests to GitLab
@@ -29,7 +34,7 @@ createDevApp()
                     mockedGitlabReqToRes[
                         `${path}?${new URLSearchParams(query).toString()}`
                     ];
-                return response || [];
+                return response || null;
             };
             return cli;
         },
@@ -41,6 +46,7 @@ createDevApp()
                     metadata: {
                         annotations: {
                             'gitlab.com/project-id': `${projectId}`,
+                            'gitlab.com/codeowners-path': `CODEOWNERS`,
                         },
                         name: 'backstage',
                     },

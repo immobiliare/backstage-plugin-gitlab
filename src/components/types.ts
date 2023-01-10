@@ -1,9 +1,17 @@
-export type ContributorData = {
-    project_web_url: string;
-    project_default_branch: string;
+export type PersonData = {
     name: string;
     email: string;
     avatar_url: string;
+    id: number;
+    state: string;
+    username: string;
+    web_url: string;
+};
+
+export type PeopleLink = {
+    link: string;
+    title: string;
+    onClick: (e: any) => void;
 };
 
 export type MergeRequest = {
@@ -55,6 +63,26 @@ type Author = {
     name: string;
     avatar_url: string;
     web_url: string;
+};
+
+export type FileOwnership = {
+    rule: string;
+    path: string;
+    owners: string[];
+};
+
+export type UserDetail = {
+    id: number;
+    name: string;
+    username: string;
+    state: string;
+    avatar_url: string;
+    web_url: string;
+};
+
+export type ProjectDetail = {
+    project_web_url: string;
+    project_default_branch: string;
 };
 
 export type MergeRequestState = 'opened' | 'closed' | 'all';

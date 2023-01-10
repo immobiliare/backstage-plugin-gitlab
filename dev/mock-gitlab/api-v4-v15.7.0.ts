@@ -5089,6 +5089,33 @@ export const mockedGitlabReqToRes: Record<string, any> = {
             approvals_before_merge: null,
         },
     ],
+    'projects/10174980/repository/files/CODEOWNERS/raw?ref=master': `
+*/Cargo.toml @xMAC94x
+Cargo.toml @xMAC94x
+rust-toolchain @xMAC94x
+.gitlab/scripts/* @xMAC94x`,
+    'users?username=xMAC94x': [
+        {
+            id: 276442,
+            username: 'xMAC94x',
+            name: 'Marcel',
+            state: 'active',
+            avatar_url:
+                'https://gitlab.com/uploads/-/system/user/avatar/276442/avatar.png',
+            web_url: 'https://gitlab.com/xMAC94x',
+        },
+    ],
+    'users?search=joshua.s.barretto%40gmail.com': [
+        {
+            id: 717010,
+            name: 'Joshua Barretto',
+            username: 'zesterer',
+            state: 'active',
+            avatar_url:
+                'https://gitlab.com/uploads/-/system/user/avatar/717010/avatar.png',
+            web_url: 'https://gitlab.com/zesterer',
+        },
+    ],
 };
 
 export const projectId = '10174980';

@@ -22,11 +22,16 @@ export const gitlabPlugin = createPlugin({
         createApiFactory({
             api: GitlabCIApiRef,
             deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
-            factory: ({ configApi, discoveryApi }) =>
-                new GitlabCIClient({
+            factory: ({ configApi, discoveryApi }) => {
+                return new GitlabCIClient({
                     discoveryApi,
                     baseUrl: configApi.getOptionalString('gitlab.baseUrl'),
-                }),
+                    proxyPath: configApi.getOptionalString('gitlab.proxyPath'),
+                    codeOwnersPath: configApi.getOptionalString(
+                        'gitlab.defaultCodeOwnersPath'
+                    ),
+                });
+            },
         }),
     ],
 });
@@ -52,13 +57,13 @@ export const EntityGitlabLanguageCard = gitlabPlugin.provide(
     })
 );
 
-export const EntityGitlabContributorsCard = gitlabPlugin.provide(
+export const EntityGitlabPeopleCard = gitlabPlugin.provide(
     createComponentExtension({
-        name: 'EntityGitlabContributorsCard',
+        name: 'EntityGitlabPeopleCard',
         component: {
             lazy: () =>
                 import('./components/widgets/index').then(
-                    (m) => m.ContributorsCard
+                    (m) => m.PeopleCard
                 ),
         },
     })

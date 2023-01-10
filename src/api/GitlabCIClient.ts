@@ -1,9 +1,11 @@
 import { DiscoveryApi } from '@backstage/core-plugin-api';
 import {
-    ContributorData,
+    PersonData,
     MergeRequest,
     PipelineObject,
+    FileOwnership,
 } from '../components/types';
+import { parseCodeOwners } from '../components/utils';
 import { IssueObject } from './../components/types';
 import {
     ContributorsSummary,
@@ -19,24 +21,29 @@ export class GitlabCIClient implements GitlabCIApi {
     discoveryApi: DiscoveryApi;
     baseUrl: string;
     proxyPath: string;
+    codeOwnersPath: string;
+
     constructor({
         discoveryApi,
         baseUrl = 'https://gitlab.com/',
-        proxyPath = '/gitlabci',
+        proxyPath,
+        codeOwnersPath,
     }: {
         discoveryApi: DiscoveryApi;
         baseUrl?: string;
         proxyPath?: string;
+        codeOwnersPath?: string;
     }) {
         this.discoveryApi = discoveryApi;
         this.baseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
-        this.proxyPath = proxyPath;
+        this.proxyPath = proxyPath || '/gitlabci';
+        this.codeOwnersPath = codeOwnersPath || 'CODEOWNERS';
     }
 
     protected async callApi<T>(
         path: string,
         query: { [key in string]: any }
-    ): Promise<T | []> {
+    ): Promise<T | null> {
         const apiUrl = `${await this.discoveryApi.getBaseUrl('proxy')}${
             this.proxyPath
         }`;
@@ -44,9 +51,17 @@ export class GitlabCIClient implements GitlabCIApi {
             `${apiUrl}/${path}?${new URLSearchParams(query).toString()}`
         );
         if (response.status === 200) {
-            return (await response.json()) as T;
+            if (
+                response.headers
+                    .get('content-type')
+                    ?.includes('application/json')
+            ) {
+                return (await response.json()) as T;
+            } else {
+                return response.text() as unknown as T;
+            }
         }
-        return [];
+        return null;
     }
 
     async getPipelineSummary(
@@ -101,9 +116,10 @@ export class GitlabCIClient implements GitlabCIApi {
         return projectObj?.name;
     }
 
+    //TODO: Merge with getUserDetail
     private async getUserProfilesData(
-        contributorsData: ContributorData[]
-    ): Promise<ContributorData[]> {
+        contributorsData: PersonData[]
+    ): Promise<PersonData[]> {
         for (let i = 0; contributorsData && i < contributorsData.length; i++) {
             const userProfile: any = await this.callApi<
                 Record<string, unknown>[]
@@ -111,7 +127,7 @@ export class GitlabCIClient implements GitlabCIApi {
                 search: contributorsData[i].email,
             });
             if (userProfile) {
-                userProfile.forEach((userProfileElement: ContributorData) => {
+                userProfile.forEach((userProfileElement: PersonData) => {
                     if (userProfileElement.name == contributorsData[i].name) {
                         contributorsData[i].avatar_url =
                             userProfileElement?.avatar_url;
@@ -120,6 +136,19 @@ export class GitlabCIClient implements GitlabCIApi {
             }
         }
         return contributorsData;
+    }
+
+    private async getUserDetail(username: string): Promise<PersonData> {
+        if (username.startsWith('@')) {
+            username = username.slice(1);
+        }
+        const userDetail = (
+            await this.callApi<PersonData[]>('users', { username })
+        )?.[0];
+
+        if (!userDetail) throw new Error(`user ${username} does not exist`);
+
+        return userDetail;
     }
 
     async getMergeRequestsSummary(
@@ -150,7 +179,7 @@ export class GitlabCIClient implements GitlabCIApi {
     async getContributorsSummary(
         projectID?: string
     ): Promise<ContributorsSummary | undefined> {
-        const contributorsData = await this.callApi<ContributorData[]>(
+        const contributorsData = await this.callApi<PersonData[]>(
             'projects/' + projectID + '/repository/contributors',
             { sort: 'desc' }
         );
@@ -194,5 +223,51 @@ export class GitlabCIClient implements GitlabCIApi {
             {}
         );
         return retryBuild;
+    }
+
+    async getCodeOwners(
+        projectID?: string,
+        branch = 'HEAD',
+        filePath = this.codeOwnersPath
+    ): Promise<PersonData[]> {
+        // Removing starting './'
+        if (filePath.startsWith('./')) filePath = filePath.slice(2);
+
+        const codeOwnersStr = await this.callApi<string>(
+            `projects/${projectID}/repository/files/${encodeURI(filePath)}/raw`,
+            { ref: branch }
+        );
+
+        const codeOwners = parseCodeOwners(codeOwnersStr || '');
+
+        const dataOwners: FileOwnership[] = codeOwners;
+        const uniqueOwners = [
+            ...new Set(dataOwners.flatMap((owner) => owner.owners)),
+        ];
+        const owners: PersonData[] = await Promise.all(
+            uniqueOwners.map(async (owner) => {
+                const ownerData: PersonData = await this.getUserDetail(owner);
+                return ownerData;
+            })
+        );
+
+        return owners;
+    }
+
+    getContributorsLink(
+        projectWebUrl: string | undefined,
+        projectDefaultBranch: string | undefined
+    ): string {
+        return `${projectWebUrl}/-/graphs/${projectDefaultBranch}`;
+    }
+
+    getOwnersLink(
+        projectWebUrl: string | undefined,
+        projectDefaultBranch: string | undefined,
+        codeOwnersPath: string
+    ): string {
+        return `${projectWebUrl}/-/blob/${projectDefaultBranch}/${
+            codeOwnersPath || '.gitlab/CODEOWNERS'
+        }`;
     }
 }

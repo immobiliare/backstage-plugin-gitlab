@@ -1,6 +1,6 @@
 import { createApiRef } from '@backstage/core-plugin-api';
 import {
-    ContributorData,
+    PersonData,
     MergeRequest,
     PipelineObject,
     IssueObject,
@@ -11,7 +11,7 @@ export interface PipelineSummary {
 }
 
 export interface ContributorsSummary {
-    getContributorsData: ContributorData[];
+    getContributorsData: PersonData[];
 }
 
 export interface MergeRequestsSummary {
@@ -58,4 +58,19 @@ export type GitlabCIApi = {
         projectSlug: string
     ): Promise<Record<string, unknown> | undefined>;
     getIssuesSummary(projectID: string): Promise<IssuesSummary | undefined>;
+    getCodeOwners(
+        projectID?: string,
+        branch?: string,
+        filePath?: string
+    ): Promise<PersonData[]>;
+
+    getContributorsLink(
+        projectWebUrl: string | undefined,
+        projectDefaultBranch: string | undefined
+    ): string;
+    getOwnersLink(
+        projectWebUrl: string | undefined,
+        projectDefaultBranch: string | undefined,
+        codeOwnersPath: string
+    ): string;
 };
