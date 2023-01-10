@@ -1,1 +1,0 @@
-export { ContributorsList } from './ContributorsList';

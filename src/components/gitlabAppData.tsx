@@ -25,6 +25,7 @@ import {
 
 export const GITLAB_ANNOTATION_PROJECT_ID = 'gitlab.com/project-id';
 export const GITLAB_ANNOTATION_PROJECT_SLUG = 'gitlab.com/project-slug';
+export const GITLAB_ANNOTATION_CODEOWNERS_PATH = 'gitlab.com/codeowners-path';
 const defaultGitlabIntegration = {
     hostname: 'gitlab.com',
     baseUrl: 'https://gitlab.com/api/v4',
@@ -71,4 +72,13 @@ export const gitlabAppSlug = () => {
         entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_SLUG] ?? '';
 
     return { project_slug };
+};
+
+export const gitlabCodeOwnerPath = () => {
+    const { entity } = useEntity();
+
+    const codeowners_path =
+        entity.metadata.annotations?.[GITLAB_ANNOTATION_CODEOWNERS_PATH] ?? '';
+
+    return { codeowners_path };
 };

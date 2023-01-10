@@ -1,1 +1,0 @@
-export { Contributor } from './Contributor';
