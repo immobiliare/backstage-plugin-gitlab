@@ -11,6 +11,37 @@
 
 > [Backstage](https://backstage.io/) plugins to interact with [GitLab](https://gitlab.com/)
 
+## Table of contents
+
+<!-- toc -->
+  * [Features](#features)
+  * [Screenshots](#screenshots)
+  * [Setup](#setup)
+  * [Old/New GitLab Versions](#oldnew-gitlab-versions)
+  * [Support & Contribute](#support--contribute)
+  * [License](#license)
+<!-- tocstop -->
+
+## Features
+
+-   List top 20 builds for a project
+-   List top 20 Merge Requests for a project
+-   List top 20 Issues for a project
+-   View Code Owners for a project
+-   View Contributors for a project
+-   View Languages used for a project
+-   View Pipeline status for a project
+-   Works for both project and personal tokens
+-   Pagination for builds
+-   Pagination for Merge Requests
+-   Merge Requests Statistics
+-   Support for Olds/New GitLab APIs version
+
+## Screenshots
+
+<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/backstage_gitlab_pipeline_information.png"  alt="Contributors Languages Pipeline Status"/>
+<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/backstage_gitlab_mr_and_issues.png"  alt="Merge Request Information"/>
+
 ## Setup
 
 1. If you have a standalone app (you didn't clone this repo), then do
@@ -184,24 +215,6 @@ export class CustomGitlabCIClient extends GitlabCIClient {
 
 see [here](./src/api/GitlabCIClient.ts).
 
-## Features
-
--   List top 20 builds for a project
--   List top 20 Merge Requests for a project
--   List top 20 Issues for a project
--   View Contributors for a project
--   View Languages used for a project
--   View Pipeline status for a project
--   Works for both project and personal tokens
--   Pagination for builds
--   Pagination for Merge Requests
--   Merge Requests Statistics
--   Support for Olds/New GitLab APIs version
-
-## Screenshots
-
-<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/backstage_gitlab_pipeline_information.png"  alt="Contributors Languages Pipeline Status"/>
-<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/backstage_gitlab_mr_and_issues.png"  alt="Merge Request Information"/>
 
 ## Support & Contribute
 
