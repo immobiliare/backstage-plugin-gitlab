@@ -1,3 +1,16 @@
+# [2.1.0-next.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v2.0.0...v2.1.0-next.1) (2023-01-13)
+
+
+### Bug Fixes
+
+* upgrade @backstage/core-components from 0.12.1 to 0.12.2 ([a7d9f4a](https://github.com/immobiliare/backstage-plugin-gitlab/commit/a7d9f4a819b5f7ec7fb7c46464bb53ec79faa9ad))
+* upgrade @backstage/plugin-catalog-react from 1.2.2 to 1.2.3 ([c75d205](https://github.com/immobiliare/backstage-plugin-gitlab/commit/c75d2058e6183c5eec4de2709cfd145d9d156d3c))
+
+
+### Features
+
+* **CODEOWNERS:** handled missing file ([d2c61da](https://github.com/immobiliare/backstage-plugin-gitlab/commit/d2c61da4cca0c66a24fbbb5d8fc1a54da9c96202))
+
 # [2.0.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v1.0.0...v2.0.0) (2023-01-10)
 
 

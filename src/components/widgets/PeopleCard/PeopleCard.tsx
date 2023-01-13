@@ -39,7 +39,7 @@ export const PeopleCard = ({}) => {
     /* TODO: to change the below logic to get contributors data*/
     const { value, loading, error } = useAsync(async (): Promise<{
         contributors: PersonData[] | undefined;
-        owners: PersonData[];
+        owners: PersonData[] | undefined;
         projectDetails: ProjectDetail;
     }> => {
         const projectDetails: any = await GitlabCIAPI.getProjectDetails(
@@ -54,11 +54,16 @@ export const PeopleCard = ({}) => {
             project_default_branch: projectDetails?.default_branch,
         };
         // CODE OWNERS
-        const codeOwners: PersonData[] = await GitlabCIAPI.getCodeOwners(
-            project_id,
-            projectDetailsData.project_default_branch,
-            codeowners_path
-        );
+        let codeOwners: PersonData[] | undefined = [];
+        try {
+            codeOwners = await GitlabCIAPI.getCodeOwners(
+                project_id,
+                projectDetailsData.project_default_branch,
+                codeowners_path
+            );
+        } catch (error) {
+            codeOwners = undefined;
+        }
         return {
             contributors: contributorData!,
             owners: codeOwners,
@@ -106,12 +111,17 @@ export const PeopleCard = ({}) => {
     }
     return (
         <InfoCard title="People" className={classes.infoCard}>
-            <PeopleList
-                title="Owners"
-                peopleObj={value?.owners || []}
-                deepLink={ownersDeepLink}
-            />
-            <Divider className={classes.divider}></Divider>
+            {value?.owners && (
+                <>
+                    <PeopleList
+                        title="Owners"
+                        peopleObj={value?.owners}
+                        deepLink={ownersDeepLink}
+                    />
+                    <Divider className={classes.divider}></Divider>
+                </>
+            )}
+
             <PeopleList
                 title="Contributors"
                 peopleObj={value?.contributors || []}

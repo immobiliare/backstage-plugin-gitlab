@@ -239,6 +239,10 @@ export class GitlabCIClient implements GitlabCIApi {
             { ref: branch }
         );
 
+        if (!codeOwnersStr) {
+            throw Error(`Code owners file not found`);
+        }
+
         const codeOwners = parseCodeOwners(codeOwnersStr || '');
 
         const dataOwners: FileOwnership[] = codeOwners;
