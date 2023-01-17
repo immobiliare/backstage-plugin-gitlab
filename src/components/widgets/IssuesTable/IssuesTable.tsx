@@ -70,7 +70,7 @@ export const IssuesTable = ({}) => {
         const projectId = project_id || projectDetails?.id;
         const projectName = await GitlabCIAPI.getProjectName(projectId);
         const gitlabIssuesObject = await GitlabCIAPI.getIssuesSummary(
-            project_id
+            projectId
         );
         const data = gitlabIssuesObject?.getIssuesData;
         const renderData: any = { data, projectName };
