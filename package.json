@@ -1,6 +1,6 @@
 {
     "name": "@immobiliarelabs/backstage-plugin-gitlab",
-    "version": "2.1.1-next.1",
+    "version": "2.1.1",
     "main": "dist/index.esm.js",
     "types": "dist/index.d.ts",
     "license": "Apache-2.0",
