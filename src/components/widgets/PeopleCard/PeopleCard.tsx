@@ -43,7 +43,7 @@ export const PeopleCard = ({}) => {
         projectDetails: ProjectDetail;
     }> => {
         const projectDetails: any = await GitlabCIAPI.getProjectDetails(
-            project_slug != '' ? project_slug : project_id
+            project_slug
         );
         const projectId = project_id || projectDetails?.id;
         const gitlabObj = await GitlabCIAPI.getContributorsSummary(projectId);
@@ -57,7 +57,7 @@ export const PeopleCard = ({}) => {
         let codeOwners: PersonData[] | undefined = [];
         try {
             codeOwners = await GitlabCIAPI.getCodeOwners(
-                project_id,
+                projectId,
                 projectDetailsData.project_default_branch,
                 codeowners_path
             );
