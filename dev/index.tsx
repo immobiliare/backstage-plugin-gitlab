@@ -5,7 +5,6 @@ import { gitlabPlugin, EntityGitlabContent } from '../src/plugin';
 import { GitlabCIApiRef, GitlabCIClient } from '../src/api';
 import { mockedGitlabReqToRes, projectId } from './mock-gitlab/api-v4-v15.7.0';
 import { configApiRef, discoveryApiRef } from '@backstage/core-plugin-api';
-import { config } from 'process';
 
 createDevApp()
     .registerPlugin(gitlabPlugin)
