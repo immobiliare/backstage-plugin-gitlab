@@ -1,3 +1,11 @@
+## [2.1.1-next.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v2.1.0...v2.1.1-next.1) (2023-01-17)
+
+
+### Bug Fixes
+
+* code owners and issues do not work with project slug ([de2e045](https://github.com/immobiliare/backstage-plugin-gitlab/commit/de2e045208378e593f595318b7271267eb2737d8))
+* missing details if project slug is undefined ([e2f06f2](https://github.com/immobiliare/backstage-plugin-gitlab/commit/e2f06f2564c68601b9ebc2730e250eddf479eda8))
+
 # [2.1.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v2.0.0...v2.1.0) (2023-01-13)
 
 
