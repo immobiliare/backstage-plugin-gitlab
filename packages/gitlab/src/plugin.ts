@@ -22,16 +22,14 @@ export const gitlabPlugin = createPlugin({
         createApiFactory({
             api: GitlabCIApiRef,
             deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
-            factory: ({ configApi, discoveryApi }) => {
-                return new GitlabCIClient({
+            factory: ({ configApi, discoveryApi }) =>
+                GitlabCIClient.setupAPI({
                     discoveryApi,
                     baseUrl: configApi.getOptionalString('gitlab.baseUrl'),
-                    proxyPath: configApi.getOptionalString('gitlab.proxyPath'),
                     codeOwnersPath: configApi.getOptionalString(
                         'gitlab.defaultCodeOwnersPath'
                     ),
-                });
-            },
+                }),
         }),
     ],
 });

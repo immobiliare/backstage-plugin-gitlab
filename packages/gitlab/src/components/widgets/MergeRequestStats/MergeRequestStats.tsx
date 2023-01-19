@@ -57,9 +57,9 @@ const MergeRequestStats = (props: Props) => {
     const [count, setCount] = useState<number>(20);
     const classes = useStyles();
     const { project_id } = gitlabAppData();
-    const { project_slug } = gitlabAppSlug();
+    const { project_slug, gitlab_instance } = gitlabAppSlug();
 
-    const GitlabCIAPI = useApi(GitlabCIApiRef);
+    const GitlabCIAPI = useApi(GitlabCIApiRef).build(gitlab_instance || '0');
     const mergeStat: MergeRequestStatsCount = {
         avgTimeUntilMerge: 0,
         closedCount: 0,

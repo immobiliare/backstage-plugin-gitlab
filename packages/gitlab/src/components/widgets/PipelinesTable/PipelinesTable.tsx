@@ -46,9 +46,9 @@ export const DenseTable = ({ pipelineObjects }: any) => {
 
 export const PipelinesTable = ({}) => {
     const { project_id } = gitlabAppData();
-    const { project_slug } = gitlabAppSlug();
+    const { project_slug, gitlab_instance } = gitlabAppSlug();
 
-    const GitlabCIAPI = useApi(GitlabCIApiRef);
+    const GitlabCIAPI = useApi(GitlabCIApiRef).build(gitlab_instance || '0');
 
     const { value, loading, error } = useAsync(async (): Promise<
         PipelineObject[]

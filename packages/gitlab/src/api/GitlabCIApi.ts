@@ -30,9 +30,13 @@ export interface IssuesSummary {
     getIssuesData: IssueObject[];
 }
 
-export const GitlabCIApiRef = createApiRef<GitlabCIApi>({
+export const GitlabCIApiRef = createApiRef<GitlabCIBuilder>({
     id: 'plugin.gitlabci.service',
 });
+
+export type GitlabCIBuilder = {
+    build(gitlabInstance: string): GitlabCIApi;
+};
 
 export type GitlabCIApi = {
     getPipelineSummary(projectID: string): Promise<PipelineSummary | undefined>;

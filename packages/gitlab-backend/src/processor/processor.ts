@@ -38,7 +38,7 @@ export class GitlabFillerProcessor implements CatalogProcessor {
     ): Promise<Entity> {
         if (
             location.type === 'url' &&
-            // To make annotation constants
+            // TODO: make annotation constants
             !entity.metadata.annotations?.['gitlab.com/project-id'] &&
             !entity.metadata.annotations?.['gitlab.com/project-slug'] &&
             this.allowedKinds.has(entity.kind.toLowerCase()) &&

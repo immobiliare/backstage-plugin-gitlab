@@ -68,10 +68,12 @@ export const gitlabAppData = () => {
 export const gitlabAppSlug = () => {
     const { entity } = useEntity();
 
-    const project_slug =
+    const data =
         entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_SLUG] ?? '';
 
-    return { project_slug };
+    const [project_slug, gitlab_instance] = data.split('@').reverse();
+
+    return { project_slug, gitlab_instance };
 };
 
 export const gitlabCodeOwnerPath = () => {

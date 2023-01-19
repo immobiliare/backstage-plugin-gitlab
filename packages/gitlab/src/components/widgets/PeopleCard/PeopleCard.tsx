@@ -32,9 +32,10 @@ const useStyles = makeStyles((theme) => ({
 
 export const PeopleCard = ({}) => {
     const classes = useStyles();
-    const GitlabCIAPI = useApi(GitlabCIApiRef);
     const { project_id } = gitlabAppData();
-    const { project_slug } = gitlabAppSlug();
+    const { project_slug, gitlab_instance } = gitlabAppSlug();
+
+    const GitlabCIAPI = useApi(GitlabCIApiRef).build(gitlab_instance || '0');
     const { codeowners_path } = gitlabCodeOwnerPath();
     /* TODO: to change the below logic to get contributors data*/
     const { value, loading, error } = useAsync(async (): Promise<{

@@ -47,9 +47,10 @@ export const LanguagesCard = ({}) => {
     const classes = useStyles();
     let barWidth = 0;
     let languageTitle = new String();
-    const GitlabCIAPI = useApi(GitlabCIApiRef);
     const { project_id } = gitlabAppData();
-    const { project_slug } = gitlabAppSlug();
+    const { project_slug, gitlab_instance } = gitlabAppSlug();
+
+    const GitlabCIAPI = useApi(GitlabCIApiRef).build(gitlab_instance || '0');
 
     const { value, loading, error } = useAsync(async (): Promise<Language> => {
         const projectDetails: any = await GitlabCIAPI.getProjectDetails(

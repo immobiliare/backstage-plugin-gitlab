@@ -20,32 +20,55 @@ import {
 export class GitlabCIClient implements GitlabCIApi {
     discoveryApi: DiscoveryApi;
     baseUrl: string;
-    proxyPath: string;
     codeOwnersPath: string;
+    gitlabInstance: string;
 
-    constructor({
+    private constructor({
         discoveryApi,
         baseUrl = 'https://gitlab.com/',
-        proxyPath,
+        codeOwnersPath,
+        gitlabInstance,
+    }: {
+        discoveryApi: DiscoveryApi;
+        baseUrl?: string;
+        codeOwnersPath?: string;
+        gitlabInstance: string;
+    }) {
+        this.discoveryApi = discoveryApi;
+        this.baseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+        this.codeOwnersPath = codeOwnersPath || 'CODEOWNERS';
+        this.gitlabInstance = gitlabInstance;
+    }
+
+    static setupAPI({
+        discoveryApi,
+        baseUrl = 'https://gitlab.com/',
         codeOwnersPath,
     }: {
         discoveryApi: DiscoveryApi;
         baseUrl?: string;
-        proxyPath?: string;
         codeOwnersPath?: string;
     }) {
-        this.discoveryApi = discoveryApi;
-        this.baseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
-        this.proxyPath = proxyPath || '/gitlabci';
-        this.codeOwnersPath = codeOwnersPath || 'CODEOWNERS';
+        return {
+            build: (gitlabInstance: string) =>
+                new GitlabCIClient({
+                    discoveryApi,
+                    baseUrl,
+                    codeOwnersPath,
+                    gitlabInstance,
+                }),
+        };
     }
 
     protected async callApi<T>(
         path: string,
         query: { [key in string]: any }
     ): Promise<T | null> {
-        const apiUrl = `${await this.discoveryApi.getBaseUrl('proxy')}${
-            this.proxyPath
+        //const apiUrl = `${await this.discoveryApi.getBaseUrl('proxy')}${
+        //    this.proxyPath
+        //}`;
+        const apiUrl = `${await this.discoveryApi.getBaseUrl('gitlab')}/${
+            this.gitlabInstance
         }`;
         const response = await fetch(
             `${apiUrl}/${path}?${new URLSearchParams(query).toString()}`
