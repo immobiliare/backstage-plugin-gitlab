@@ -26,7 +26,7 @@ export async function createRouter(
         const apiUrl = new URL(apiBaseUrl);
         router.use(
             `/${i}`,
-            createProxyMiddleware({
+            createProxyMiddleware((_pathname, req) => req.method === 'GET', {
                 target: apiUrl.origin,
                 changeOrigin: true,
                 headers: {
