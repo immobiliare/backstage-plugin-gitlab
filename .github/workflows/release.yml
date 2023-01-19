@@ -3,36 +3,57 @@ name: Release
 on: [workflow_dispatch]
 
 jobs:
-    test:
-        name: Run tests
-        uses: ./.github/workflows/test.yml
-
     release:
-        needs: [test]
+        name: Release
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-
             - uses: actions/checkout@v3
               with:
-                  token: ${{ secrets.GH_NODE_TOKEN }}
                   persist-credentials: false
+                  fetch-depth: 0
 
-            - name: Install dependencies
-              run: npm set-script prepare ''
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  # setting this should create the npmrc with $NODE_AUTH_TOKEN
+                  registry-url: 'https://registry.npmjs.org'
 
-            - name: Install dependencies
-              run: npm i
+            - name: Config git user
+              run: |
+                  git config --global user.name "${{ github.actor }}"
+                  git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+                  git remote set-url origin https://${{ github.actor }}:${{ secrets.GH_NODE_TOKEN }}@github.com/${{ github.repository }}
 
-            - name: Build
-              run: npm run build
+            - name: Bootstrap lerna
+              run: yarn
 
-            - name: Semantic release
-              uses: codfish/semantic-release-action@v2
+            - name: Lerna build
+              run: yarn build
+
+            - name: Bump release
+              if: github.ref == 'refs/heads/main'
+              run: yarn version:release
               env:
-                  GITHUB_TOKEN: ${{ secrets.GH_NODE_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-                  GIT_AUTHOR_NAME: '${{ github.actor }}'
-                  GIT_COMMITTER_NAME: '${{ github.actor }}'
+                  GH_TOKEN: ${{ secrets.GH_NODE_TOKEN }}
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
+            - name: Bump prerelease
+              if: github.ref != 'refs/heads/main'
+              run: yarn version:prerelease
+              env:
+                  GH_TOKEN: ${{ secrets.GH_NODE_TOKEN }}
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
+            - name: Publish packages
+              run: yarn publish:ci
+              env:
+                  GH_TOKEN: ${{ secrets.GH_NODE_TOKEN }}
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
+            - name: merge main -> next
+              uses: actions/setup-node@v3
+              with:
+                  type: now
+                  from_branch: main
+                  target_branch: next
+                  github_token: ${{ secrets.GH_NODE_TOKEN }}

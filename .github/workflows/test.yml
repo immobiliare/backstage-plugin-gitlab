@@ -23,4 +23,7 @@ jobs:
                   node-version: 18.x
 
             - name: Install dependencies
-              run: npm it
+              run: yarn
+
+            - name: Test
+              run: yarn test
