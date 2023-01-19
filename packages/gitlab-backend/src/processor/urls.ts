@@ -12,7 +12,7 @@ export function buildProjectUrl(target: string): URL {
             .split('/blob/')
             .splice(0, 1)
             .join('/')
-            .split('/-/')
+            .split('/-')
             .splice(0, 1)
             .join('/');
 
@@ -24,18 +24,6 @@ export function buildProjectUrl(target: string): URL {
     } catch (e) {
         throw new Error(`Incorrect url: ${target}, ${e}`);
     }
-}
-
-export function isValidGitlabHost(
-    target: string,
-    hosts: GitLabIntegrationConfig[]
-): boolean {
-    const url = new URL(target);
-
-    return hosts.some((config) => {
-        const baseUrl = new URL(config.baseUrl);
-        return url.origin === baseUrl.origin;
-    });
 }
 
 // from: https://gitlab.com/groupA/teams/teamA/subgroupA/repoA/-/blob/branch/filepath
@@ -52,7 +40,7 @@ export function getProjectPath(target: string): string {
         .split('/blob/')
         .splice(0, 1)
         .join('/')
-        .split('/-/')
+        .split('/-')
         .splice(0, 1)
         .join('/')
         .slice(1);

@@ -38,18 +38,32 @@ export class GitlabFillerProcessor implements CatalogProcessor {
     ): Promise<Entity> {
         if (
             location.type === 'url' &&
-            entity.metadata.annotations &&
             // To make annotation constants
-            !entity.metadata.annotations['gitlab.com/project-id'] &&
-            !entity.metadata.annotations['gitlab.com/project-slug'] &&
+            !entity.metadata.annotations?.['gitlab.com/project-id'] &&
+            !entity.metadata.annotations?.['gitlab.com/project-slug'] &&
             this.allowedKinds.has(entity.kind.toLowerCase()) &&
             this.isValidGitlabHost(location.target)
         ) {
+            if (!entity.metadata.annotations) entity.metadata.annotations = {};
             entity.metadata.annotations['gitlab.com/project-slug'] =
-                getProjectPath(location.target);
+                this.generateAnnotation(location.target);
         }
 
         return entity;
+    }
+
+    private generateAnnotation(target: string): string {
+        const url = new URL(target);
+
+        // TODO: handle the possibility to have a baseUrl with a path
+        const index = this.gitLabIntegrationsConfig.findIndex(
+            ({ baseUrl }) => baseUrl === url.origin
+        );
+
+        const projectPath = getProjectPath(target);
+        if (index < 0) return projectPath;
+
+        return `${index}@${projectPath}`;
     }
 
     private isValidGitlabHost(target: string) {
