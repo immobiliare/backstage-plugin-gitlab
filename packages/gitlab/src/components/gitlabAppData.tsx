@@ -71,9 +71,12 @@ export const gitlabAppSlug = () => {
     const data =
         entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_SLUG] ?? '';
 
-    const [project_slug, gitlab_instance] = data.split('@').reverse();
+    const [projectSlug, gitlabInstance] = data.split('@').reverse();
 
-    return { project_slug, gitlab_instance };
+    return {
+        project_slug: projectSlug || '',
+        gitlab_instance: gitlabInstance || '',
+    };
 };
 
 export const gitlabCodeOwnerPath = () => {
