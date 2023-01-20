@@ -1,10 +1,9 @@
 {
     "name": "@immobiliarelabs/backstage-plugin-gitlab-backend",
     "version": "0.1.0",
-    "main": "dist/index.esm.js",
+    "main": "dist/index.cjs.js",
     "types": "dist/index.d.ts",
     "license": "Apache-2.0",
-    "private": true,
     "publishConfig": {
         "access": "public",
         "main": "dist/index.cjs.js",
@@ -13,6 +12,18 @@
     "backstage": {
         "role": "backend-plugin"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/immobiliare/backstage-plugin-gitlab"
+    },
+    "keywords": [
+        "backstage",
+        "gitlab",
+        "ci/cd",
+        "immobiliare",
+        "immobiliarelabs",
+        "backend"
+    ],
     "scripts": {
         "start": "backstage-cli package start",
         "types": "tsc",

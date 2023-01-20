@@ -19,7 +19,7 @@ createDevApp()
                 codeOwnersPath: configApi.getOptionalString(
                     'gitlab.defaultCodeOwnersPath'
                 ),
-            }).build(0);
+            }).build('0');
 
             // Here we mock the client requests to GitLab
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment

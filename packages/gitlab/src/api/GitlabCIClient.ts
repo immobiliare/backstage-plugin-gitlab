@@ -23,7 +23,7 @@ export class GitlabCIClient implements GitlabCIApi {
     codeOwnersPath: string;
     gitlabInstance: string;
 
-    private constructor({
+    constructor({
         discoveryApi,
         baseUrl = 'https://gitlab.com/',
         codeOwnersPath,
@@ -51,7 +51,7 @@ export class GitlabCIClient implements GitlabCIApi {
     }) {
         return {
             build: (gitlabInstance: string) =>
-                new GitlabCIClient({
+                new this({
                     discoveryApi,
                     baseUrl,
                     codeOwnersPath,
