@@ -47,7 +47,30 @@ describe('Processor', () => {
         ).toEqual('0@backstage/backstage');
     });
 
-    it('Processor creates the right old gitlab', async () => {
+    it('Processor creates the right annotation for second instance', async () => {
+        const processor = new GitlabFillerProcessor(config);
+        const entity: Entity = {
+            apiVersion: 'backstage.io/v1alpha1',
+            kind: 'Component',
+            metadata: {
+                name: 'backstage',
+            },
+        };
+        await processor.postProcessEntity(
+            entity,
+            {
+                type: 'url',
+                target: 'https://my.second-custom-gitlab.com/backstage/backstage/-/blob/next/catalog.yaml',
+            },
+            () => undefined
+        );
+
+        expect(
+            entity.metadata?.annotations?.['gitlab.com/project-slug']
+        ).toEqual('1@backstage/backstage');
+    });
+
+    it('Processor creates the right annotation for old gitlab instance', async () => {
         const processor = new GitlabFillerProcessor(config);
         const entity: Entity = {
             apiVersion: 'backstage.io/v1alpha1',
