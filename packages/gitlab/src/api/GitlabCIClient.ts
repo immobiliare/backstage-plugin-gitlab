@@ -64,9 +64,6 @@ export class GitlabCIClient implements GitlabCIApi {
         path: string,
         query: { [key in string]: any }
     ): Promise<T | null> {
-        //const apiUrl = `${await this.discoveryApi.getBaseUrl('proxy')}${
-        //    this.proxyPath
-        //}`;
         const apiUrl = `${await this.discoveryApi.getBaseUrl('gitlab')}/${
             this.gitlabInstance
         }`;

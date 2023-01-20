@@ -16,7 +16,7 @@ export class GitlabFillerProcessor implements CatalogProcessor {
 
     constructor(config: Config) {
         const allowedKinds = config.getOptionalStringArray(
-            'gitlab.allowKinds'
+            'gitlab.allowedKinds'
         ) || ['Component'];
         this.gitLabIntegrationsConfig = readGitLabIntegrationConfigs(
             config.getConfigArray('integrations.gitlab')

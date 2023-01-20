@@ -6,6 +6,6 @@ export interface Config {
          * @default "['Component']"
          * @visibility backend
          */
-        allowKinds?: string[];
+        allowedKinds?: string[];
     };
 }
