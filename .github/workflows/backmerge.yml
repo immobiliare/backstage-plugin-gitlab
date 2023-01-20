@@ -1,0 +1,24 @@
+name: Backmerge main -> next
+
+on:
+    push:
+        branches:
+            - 'main'
+
+jobs:
+    backmerge:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  persist-credentials: false
+
+            - name: Merge main -> next
+              uses: devmasx/merge-branch@master
+              with:
+                  type: now
+                  from_branch: main
+                  target_branch: next
+                  github_token: ${{ secrets.GH_NODE_TOKEN }}
+                  message: "Merge 'main' into 'next' [skip ci]"
