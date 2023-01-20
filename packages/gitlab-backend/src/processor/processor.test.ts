@@ -1,6 +1,11 @@
 import { GitlabFillerProcessor } from './processor';
 import { ConfigReader } from '@backstage/config';
 import { Entity } from '@backstage/catalog-model';
+import {
+    GITLAB_PROJECT_SLUG,
+    GITLAB_PROJECT_ID,
+    GITLAB_INSTANCE,
+} from '../annotations';
 
 // To write tests
 describe('Processor', () => {
@@ -42,9 +47,10 @@ describe('Processor', () => {
             () => undefined
         );
 
-        expect(
-            entity.metadata?.annotations?.['gitlab.com/project-slug']
-        ).toEqual('0@backstage/backstage');
+        expect(entity.metadata?.annotations?.[GITLAB_PROJECT_SLUG]).toEqual(
+            'backstage/backstage'
+        );
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual('0');
     });
 
     it('Processor creates the right annotation for second instance', async () => {
@@ -65,9 +71,10 @@ describe('Processor', () => {
             () => undefined
         );
 
-        expect(
-            entity.metadata?.annotations?.['gitlab.com/project-slug']
-        ).toEqual('1@backstage/backstage');
+        expect(entity.metadata?.annotations?.[GITLAB_PROJECT_SLUG]).toEqual(
+            'backstage/backstage'
+        );
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual('1');
     });
 
     it('Processor creates the right annotation for old gitlab instance', async () => {
@@ -88,9 +95,10 @@ describe('Processor', () => {
             () => undefined
         );
 
-        expect(
-            entity.metadata?.annotations?.['gitlab.com/project-slug']
-        ).toEqual('0@backstage/backstage');
+        expect(entity.metadata?.annotations?.[GITLAB_PROJECT_SLUG]).toEqual(
+            'backstage/backstage'
+        );
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual('0');
     });
 
     it('The processor does not update annotation if the annotations exist', async () => {
@@ -102,7 +110,7 @@ describe('Processor', () => {
             metadata: {
                 name: 'backstage',
                 annotations: {
-                    'gitlab.com/project-id': projectId,
+                    [GITLAB_PROJECT_ID]: projectId,
                 },
             },
         };
@@ -116,10 +124,11 @@ describe('Processor', () => {
         );
 
         expect(
-            entity.metadata?.annotations?.['gitlab.com/project-slug']
+            entity.metadata?.annotations?.[GITLAB_PROJECT_SLUG]
         ).toBeUndefined();
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toBeUndefined();
 
-        expect(entity.metadata?.annotations?.['gitlab.com/project-id']).toEqual(
+        expect(entity.metadata?.annotations?.[GITLAB_PROJECT_ID]).toEqual(
             projectId
         );
     });

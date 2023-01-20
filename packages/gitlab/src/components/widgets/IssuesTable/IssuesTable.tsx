@@ -4,7 +4,11 @@ import Alert from '@material-ui/lab/Alert';
 import React from 'react';
 import { useAsync } from 'react-use';
 import { GitlabCIApiRef } from '../../../api';
-import { gitlabAppData, gitlabAppSlug } from '../../gitlabAppData';
+import {
+    gitlabInstance,
+    gitlabProjectId,
+    gitlabProjectSlug,
+} from '../../gitlabAppData';
 import { IssueObject } from '../../types';
 import { getElapsedTime } from '../../utils';
 import { AuthorColumn, IssueStateIndicator, IssueTitle } from './columns';
@@ -55,8 +59,9 @@ export const DenseTable = ({
 };
 
 export const IssuesTable = ({}) => {
-    const { project_id } = gitlabAppData();
-    const { project_slug, gitlab_instance } = gitlabAppSlug();
+    const project_id = gitlabProjectId();
+    const project_slug = gitlabProjectSlug();
+    const gitlab_instance = gitlabInstance();
 
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(gitlab_instance || '0');
 

@@ -2,7 +2,11 @@ import React from 'react';
 import { Table, TableColumn, Progress } from '@backstage/core-components';
 import Alert from '@material-ui/lab/Alert';
 import { useAsync } from 'react-use';
-import { gitlabAppData, gitlabAppSlug } from '../../gitlabAppData';
+import {
+    gitlabInstance,
+    gitlabProjectId,
+    gitlabProjectSlug,
+} from '../../gitlabAppData';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { MergeRequest } from '../../types';
@@ -45,8 +49,9 @@ export const DenseTable = ({ mergeRequests }: any) => {
 };
 
 export const MergeRequestsTable = ({}) => {
-    const { project_id } = gitlabAppData();
-    const { project_slug, gitlab_instance } = gitlabAppSlug();
+    const project_id = gitlabProjectId();
+    const project_slug = gitlabProjectSlug();
+    const gitlab_instance = gitlabInstance();
 
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(gitlab_instance || '0');
 

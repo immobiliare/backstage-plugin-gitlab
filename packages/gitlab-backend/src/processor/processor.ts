@@ -6,6 +6,11 @@ import type {
     CatalogProcessor,
     CatalogProcessorEmit,
 } from '@backstage/plugin-catalog-backend';
+import {
+    GITLAB_INSTANCE,
+    GITLAB_PROJECT_ID,
+    GITLAB_PROJECT_SLUG,
+} from './../annotations';
 import type { LocationSpec } from '@backstage/plugin-catalog-common';
 import type { GitLabIntegrationConfig } from '@backstage/integration';
 
@@ -39,20 +44,24 @@ export class GitlabFillerProcessor implements CatalogProcessor {
         if (
             location.type === 'url' &&
             // TODO: make annotation constants
-            !entity.metadata.annotations?.['gitlab.com/project-id'] &&
-            !entity.metadata.annotations?.['gitlab.com/project-slug'] &&
+            !entity.metadata.annotations?.[GITLAB_PROJECT_ID] &&
+            !entity.metadata.annotations?.[GITLAB_PROJECT_SLUG] &&
+            !entity.metadata.annotations?.[GITLAB_INSTANCE] &&
             this.allowedKinds.has(entity.kind.toLowerCase()) &&
             this.isValidGitlabHost(location.target)
         ) {
             if (!entity.metadata.annotations) entity.metadata.annotations = {};
-            entity.metadata.annotations['gitlab.com/project-slug'] =
-                this.generateAnnotation(location.target);
+            entity.metadata.annotations[GITLAB_PROJECT_SLUG] = getProjectPath(
+                location.target
+            );
+            entity.metadata.annotations[GITLAB_INSTANCE] =
+                this.getGitlabInstance(location.target);
         }
 
         return entity;
     }
 
-    private generateAnnotation(target: string): string {
+    private getGitlabInstance(target: string): string {
         const url = new URL(target);
 
         // TODO: handle the possibility to have a baseUrl with a path
@@ -60,10 +69,9 @@ export class GitlabFillerProcessor implements CatalogProcessor {
             ({ baseUrl }) => baseUrl === url.origin
         );
 
-        const projectPath = getProjectPath(target);
-        if (index < 0) return projectPath;
+        if (index < 0) return '0';
 
-        return `${index}@${projectPath}`;
+        return index.toString(10);
     }
 
     private isValidGitlabHost(target: string) {

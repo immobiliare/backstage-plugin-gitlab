@@ -10,7 +10,11 @@ import {
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { useAsync } from 'react-use';
-import { gitlabAppData, gitlabAppSlug } from '../../gitlabAppData';
+import {
+    gitlabInstance,
+    gitlabProjectId,
+    gitlabProjectSlug,
+} from '../../gitlabAppData';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import {
@@ -56,8 +60,9 @@ type Props = {
 const MergeRequestStats = (props: Props) => {
     const [count, setCount] = useState<number>(20);
     const classes = useStyles();
-    const { project_id } = gitlabAppData();
-    const { project_slug, gitlab_instance } = gitlabAppSlug();
+    const project_id = gitlabProjectId();
+    const project_slug = gitlabProjectSlug();
+    const gitlab_instance = gitlabInstance();
 
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(gitlab_instance || '0');
     const mergeStat: MergeRequestStatsCount = {

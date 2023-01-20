@@ -25,6 +25,7 @@ import {
 
 export const GITLAB_ANNOTATION_PROJECT_ID = 'gitlab.com/project-id';
 export const GITLAB_ANNOTATION_PROJECT_SLUG = 'gitlab.com/project-slug';
+export const GITLAB_ANNOTATION_INSTANCE = 'gitlab.com/instance';
 export const GITLAB_ANNOTATION_CODEOWNERS_PATH = 'gitlab.com/codeowners-path';
 const defaultGitlabIntegration = {
     hostname: 'gitlab.com',
@@ -56,27 +57,31 @@ export const useEntityGitlabScmIntegration = () => {
     return defaultGitlabIntegration;
 };
 
-export const gitlabAppData = () => {
+export const gitlabProjectId = () => {
     const { entity } = useEntity();
 
     const project_id =
         entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_ID] ?? '';
 
-    return { project_id };
+    return project_id;
 };
 
-export const gitlabAppSlug = () => {
+export const gitlabProjectSlug = () => {
     const { entity } = useEntity();
 
-    const data =
+    const project_slug =
         entity.metadata.annotations?.[GITLAB_ANNOTATION_PROJECT_SLUG] ?? '';
 
-    const [projectSlug, gitlabInstance] = data.split('@').reverse();
+    return project_slug;
+};
 
-    return {
-        project_slug: projectSlug || '',
-        gitlab_instance: gitlabInstance || '',
-    };
+export const gitlabInstance = () => {
+    const { entity } = useEntity();
+
+    const instance =
+        entity.metadata.annotations?.[GITLAB_ANNOTATION_INSTANCE] ?? '';
+
+    return instance;
 };
 
 export const gitlabCodeOwnerPath = () => {
@@ -85,5 +90,5 @@ export const gitlabCodeOwnerPath = () => {
     const codeowners_path =
         entity.metadata.annotations?.[GITLAB_ANNOTATION_CODEOWNERS_PATH] ?? '';
 
-    return { codeowners_path };
+    return codeowners_path;
 };

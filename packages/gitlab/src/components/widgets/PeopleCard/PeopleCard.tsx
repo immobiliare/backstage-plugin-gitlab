@@ -6,9 +6,10 @@ import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useAsync } from 'react-use';
 import {
-    gitlabAppData,
-    gitlabAppSlug,
+    gitlabProjectId,
+    gitlabProjectSlug,
     gitlabCodeOwnerPath,
+    gitlabInstance,
 } from '../../gitlabAppData';
 import { PeopleList } from './components/PeopleList';
 import { PersonData, ProjectDetail } from '../../types';
@@ -32,11 +33,12 @@ const useStyles = makeStyles((theme) => ({
 
 export const PeopleCard = ({}) => {
     const classes = useStyles();
-    const { project_id } = gitlabAppData();
-    const { project_slug, gitlab_instance } = gitlabAppSlug();
+    const project_id = gitlabProjectId();
+    const project_slug = gitlabProjectSlug();
+    const gitlab_instance = gitlabInstance();
+    const codeowners_path = gitlabCodeOwnerPath();
 
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(gitlab_instance || '0');
-    const { codeowners_path } = gitlabCodeOwnerPath();
     /* TODO: to change the below logic to get contributors data*/
     const { value, loading, error } = useAsync(async (): Promise<{
         contributors: PersonData[] | undefined;
