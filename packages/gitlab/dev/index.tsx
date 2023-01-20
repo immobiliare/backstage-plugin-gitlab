@@ -12,15 +12,14 @@ createDevApp()
         api: GitlabCIApiRef,
         deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
         factory: ({ configApi }) => {
-            const cli = new GitlabCIClient({
+            const cli = GitlabCIClient.setupAPI({
                 discoveryApi: {
                     getBaseUrl: () => Promise.resolve('https://gitlab.com'),
                 },
-                proxyPath: configApi.getOptionalString('gitlab.proxyPath'),
                 codeOwnersPath: configApi.getOptionalString(
                     'gitlab.defaultCodeOwnersPath'
                 ),
-            });
+            }).build(0);
 
             // Here we mock the client requests to GitLab
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -35,7 +34,9 @@ createDevApp()
                     ];
                 return response || null;
             };
-            return cli;
+            return {
+                build: (gitlabInstance: string) => cli,
+            };
         },
     })
     .addPage({
