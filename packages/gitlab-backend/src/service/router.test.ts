@@ -21,6 +21,18 @@ describe('createRouter', () => {
                     })
                 );
             }
+        ),
+        rest.get(
+            'https://non-existing-example-2.com/api/v4/projects/434',
+            (req, res, ctx) => {
+                return res(
+                    ctx.status(200),
+                    ctx.json({
+                        url: req.url.toString(),
+                        headers: req.headers.all(),
+                    })
+                );
+            }
         )
     );
 
@@ -30,6 +42,10 @@ describe('createRouter', () => {
                 {
                     host: 'non-existing-example.com',
                     apiBaseUrl: 'https://non-existing-example.com/api/v4',
+                },
+                {
+                    host: 'non-existing-example-2.com',
+                    apiBaseUrl: 'https://non-existing-example-2.com/api/v4',
                 },
             ],
         },
@@ -58,8 +74,8 @@ describe('createRouter', () => {
         server.resetHandlers();
     });
 
-    describe('GET /Route', () => {
-        it('returns ok', async () => {
+    describe('GET Request', () => {
+        it('First instance should work', async () => {
             const agent = request.agent(app);
             // this is set to let msw pass test requests through the mock server
             agent.set('User-Agent', 'supertest');
@@ -74,6 +90,55 @@ describe('createRouter', () => {
                 },
                 url: 'https://non-existing-example.com/api/v4/projects/434',
             });
+        });
+
+        it('Second instance should work', async () => {
+            const agent = request.agent(app);
+            // this is set to let msw pass test requests through the mock server
+            agent.set('User-Agent', 'supertest');
+            const response = await agent.get('/api/gitlab/1/projects/434');
+            expect(response.status).toEqual(200);
+            expect(response.body).toEqual({
+                headers: {
+                    'accept-encoding': 'gzip, deflate',
+                    connection: 'close',
+                    host: 'non-existing-example-2.com',
+                    'user-agent': 'supertest',
+                },
+                url: 'https://non-existing-example-2.com/api/v4/projects/434',
+            });
+        });
+    });
+
+    describe('Error requests', () => {
+        it('Methods different from GET should reject', async () => {
+            const agent = request.agent(app);
+            // this is set to let msw pass test requests through the mock server
+            agent.set('User-Agent', 'supertest');
+            for (const method of [
+                'post',
+                'delete',
+                'put',
+                'options',
+                'trace',
+                'patch',
+            ]) {
+                // @ts-ignore
+                const response = await agent?.[method](
+                    '/api/gitlab/1/projects/434'
+                );
+                expect(response.status).toEqual(404);
+                expect(response.body).toEqual({});
+            }
+        });
+
+        it('Request out of instance should reject', async () => {
+            const agent = request.agent(app);
+            // this is set to let msw pass test requests through the mock server
+            agent.set('User-Agent', 'supertest');
+            const response = await agent.get('/api/gitlab/3/projects/434');
+            expect(response.status).toEqual(404);
+            expect(response.body).toEqual({});
         });
     });
 });
