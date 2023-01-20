@@ -25,7 +25,8 @@
     ],
     "scripts": {
         "start": "backstage-cli package start",
-        "build": "yarn tsc && backstage-cli package build",
+        "types": "tsc",
+        "build": "yarn types && backstage-cli package build",
         "lint": "backstage-cli package lint",
         "test": "backstage-cli package test",
         "test:ci": "backstage-cli package test --watch false",

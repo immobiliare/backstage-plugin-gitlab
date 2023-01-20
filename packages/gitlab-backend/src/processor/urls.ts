@@ -1,5 +1,4 @@
 import { join } from 'path';
-import type { GitLabIntegrationConfig } from '@backstage/integration';
 
 // Converts
 // from: https://gitlab.com/groupA/teams/teamA/subgroupA/repoA/-/blob/branch/filepath

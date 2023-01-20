@@ -35,7 +35,7 @@ createDevApp()
                 return response || null;
             };
             return {
-                build: (gitlabInstance: string) => cli,
+                build: () => cli,
             };
         },
     })

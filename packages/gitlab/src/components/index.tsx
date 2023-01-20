@@ -8,9 +8,11 @@ import {
     MissingAnnotationEmptyState,
 } from '@backstage/core-components';
 
-import { GITLAB_ANNOTATION_PROJECT_ID, GITLAB_ANNOTATION_PROJECT_SLUG } from './gitlabAppData';
+import {
+    GITLAB_ANNOTATION_PROJECT_ID,
+    GITLAB_ANNOTATION_PROJECT_SLUG,
+} from './gitlabAppData';
 export * from './gitlabAppData';
-
 
 export const isGitlabAvailable = (entity: Entity) =>
     isGitlabProjectIDAnnotationAvailable(entity) ||
