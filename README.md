@@ -267,7 +267,6 @@ export const apis: AnyApiFactory[] = [
         factory: ({ configApi, discoveryApi }) =>
             CustomGitlabCIClient.setupAPI({
                 discoveryApi,
-                baseUrl: configApi.getOptionalString('gitlab.baseUrl'),
                 codeOwnersPath: configApi.getOptionalString(
                     'gitlab.defaultCodeOwnersPath'
                 ),

@@ -19,30 +19,25 @@ import {
 
 export class GitlabCIClient implements GitlabCIApi {
     discoveryApi: DiscoveryApi;
-    baseUrl: string;
     codeOwnersPath: string;
     gitlabInstance: string;
 
     constructor({
         discoveryApi,
-        baseUrl = 'https://gitlab.com/',
         codeOwnersPath,
         gitlabInstance,
     }: {
         discoveryApi: DiscoveryApi;
-        baseUrl?: string;
         codeOwnersPath?: string;
         gitlabInstance: string;
     }) {
         this.discoveryApi = discoveryApi;
-        this.baseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
         this.codeOwnersPath = codeOwnersPath || 'CODEOWNERS';
         this.gitlabInstance = gitlabInstance;
     }
 
     static setupAPI({
         discoveryApi,
-        baseUrl = 'https://gitlab.com/',
         codeOwnersPath,
     }: {
         discoveryApi: DiscoveryApi;
@@ -53,7 +48,6 @@ export class GitlabCIClient implements GitlabCIApi {
             build: (gitlabInstance: string) =>
                 new this({
                     discoveryApi,
-                    baseUrl,
                     codeOwnersPath,
                     gitlabInstance,
                 }),

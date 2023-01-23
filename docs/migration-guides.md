@@ -102,3 +102,31 @@ gitlab:
     # Default: ['Component']
     allowedKinds: ['Component', `Resource`]
 ```
+
+6. If you have extended the GitLab API for the support of a new or old GitLab version:
+
+`packages/app/src/api.ts`
+
+```diff
+import { GitlabCIApiRef } from '@immobiliarelabs/backstage-plugin-gitlab';
+import { CustomGitlabCIClient } from '@immobiliarelabs/backstage-plugin-gitlab';
+import { discoveryApiRef, configApiRef } from '@backstage/core-plugin-api';
+import { CustomGitlabCIClient } from 'packages/app/src/myCustomClient.ts';
+
+export const apis: AnyApiFactory[] = [
+    createApiFactory({
+        api: GitlabCIApiRef,
+        deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
+        factory: ({ configApi, discoveryApi }) =>
+-             new CustomGitlabCIClient({
++             CustomGitlabCIClient.setupAPI({
+                discoveryApi,
+-               baseUrl: configApi.getOptionalString('gitlab.baseUrl'),
+-               proxyPath: configApi.getOptionalString('gitlab.proxyPath'),
+                codeOwnersPath: configApi.getOptionalString(
+                    'gitlab.defaultCodeOwnersPath'
+                ),
+            }),
+    }),
+];
+```

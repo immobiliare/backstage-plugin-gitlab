@@ -25,7 +25,6 @@ export const gitlabPlugin = createPlugin({
             factory: ({ configApi, discoveryApi }) =>
                 GitlabCIClient.setupAPI({
                     discoveryApi,
-                    baseUrl: configApi.getOptionalString('gitlab.baseUrl'),
                     codeOwnersPath: configApi.getOptionalString(
                         'gitlab.defaultCodeOwnersPath'
                     ),
