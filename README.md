@@ -18,7 +18,9 @@
 -   [Features](#features)
 -   [Screenshots](#screenshots)
 -   [Setup](#setup)
+-   [Annotations](#annotations)
 -   [Old/New GitLab Versions](#oldnew-gitlab-versions)
+-   [Migration Guides](#migration-guides)
 -   [Support & Contribute](#support--contribute)
 -   [License](#license)
 <!-- tocstop -->
@@ -151,6 +153,8 @@ export default async function createPlugin(
 }
 ```
 
+This allows auto-filling of the annotations.
+
 6. Add the `gitlab` route by creating the file `packages/backend/src/plugins/gitlab.ts`:
 
 `packages/backend/src/plugins/gitlab.ts`
@@ -176,8 +180,8 @@ then you have to add the route as follows:
 `packages/backend/src/index.ts`
 
 ```ts
-import gitlab from './plugins/gitlab';
 // packages/backend/src/index.ts
+import gitlab from './plugins/gitlab';
 
 async function main() {
     //...
@@ -190,7 +194,11 @@ async function main() {
 
 7. (**Optional**): You can also add plugin configurations in `app-config.yaml` file:
 
+`app-config.yaml`
+
 ```yaml
+# app-config.yaml
+# ...
 gitlab:
     # Default path for CODEOWNERS file
     # Default: CODEOWNERS
@@ -285,6 +293,10 @@ export class CustomGitlabCIClient extends GitlabCIClient {
 ```
 
 see [here](./src/api/GitlabCIClient.ts).
+
+## Migration guides
+
+If you have an old gitlab-plugin version, you can consult the [migration guide](./docs/migration-guides.md).
 
 ## Support & Contribute
 
