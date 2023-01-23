@@ -14,12 +14,13 @@
 ## Table of contents
 
 <!-- toc -->
-  * [Features](#features)
-  * [Screenshots](#screenshots)
-  * [Setup](#setup)
-  * [Old/New GitLab Versions](#oldnew-gitlab-versions)
-  * [Support & Contribute](#support--contribute)
-  * [License](#license)
+
+-   [Features](#features)
+-   [Screenshots](#screenshots)
+-   [Setup](#setup)
+-   [Old/New GitLab Versions](#oldnew-gitlab-versions)
+-   [Support & Contribute](#support--contribute)
+-   [License](#license)
 <!-- tocstop -->
 
 ## Features
@@ -36,6 +37,7 @@
 -   Pagination for Merge Requests
 -   Merge Requests Statistics
 -   Support for Olds/New GitLab APIs version
+-   Support for multi GitLab Instance
 
 ## Screenshots
 
@@ -49,10 +51,12 @@
 ```bash
 # From your Backstage root directory
 cd packages/app
-yarn add @immobiliarelabs/backstage-plugin-gitlab
+yarn add @immobiliarelabs/backstage-plugin-gitlab @immobiliarelabs/backstage-plugin-gitlab-backend
 ```
 
 2. Add a new GitLab tab to the entity page.
+
+`packages/app/src/components/catalog/EntityPage.tsx`
 
 ```tsx
 // packages/app/src/components/catalog/EntityPage.tsx
@@ -77,7 +81,9 @@ const serviceEntityPage = (
 );
 ```
 
-3. Add the GitLab cards to the Overview tab on the entity page(Optional).
+3. (**Optional**) Add the GitLab cards to the Overview tab on the entity page.
+
+`packages/app/src/components/catalog/EntityPage.tsx`
 
 ```tsx
 // packages/app/src/components/catalog/EntityPage.tsx
@@ -111,8 +117,8 @@ const overviewContent = (
 );
 ```
 
-4. Add integration:
-   In `app-config.yaml` add the integration for gitlab:
+4. Add the integration:
+   `app-config.yaml` add the integration for gitlab:
 
 ```yaml
 integrations:
@@ -121,32 +127,84 @@ integrations:
           token: ${GITLAB_TOKEN}
 ```
 
-5. Add proxy config:
+**Note:** You can have more than one GitLab instance.
 
-```yaml
-'/gitlabci':
-    target: '${GITLAB_URL}/api/v4'
-    allowedMethods: ['GET']
-    headers:
-        PRIVATE-TOKEN: '${GITLAB_TOKEN}'
+5. Add the GitLab Filler Processor:
+
+`packages/backend/src/plugins/catalog.ts`
+
+```ts
+// packages/backend/src/plugins/catalog.ts
+import { GitlabFillerProcessor } from '@immobiliarelabs/backstage-plugin-gitlab-backend';
+
+export default async function createPlugin(
+    env: PluginEnvironment
+): Promise<Router> {
+    const builder = await CatalogBuilder.create(env);
+    //...
+    // Add this line
+    builder.addProcessor(new GitlabFillerProcessor(env.config));
+    //...
+    const { processingEngine, router } = await builder.build();
+    await processingEngine.start();
+    return router;
+}
 ```
 
--   Default GitLab URL: `https://gitlab.com`
--   GitLab Token should be with of scope `read_api` and can be generated from this [URL](https://gitlab.com/-/profile/personal_access_tokens)
+6. Add the `gitlab` route by creating the file `packages/backend/src/plugins/gitlab.ts`:
 
-6. (**Optional**): You can also add plugin configurations in `app-config.yaml` file:
+`packages/backend/src/plugins/gitlab.ts`
+
+```ts
+// packages/backend/src/plugins/gitlab.ts
+import { PluginEnvironment } from '../types';
+import { Router } from 'express-serve-static-core';
+import { createRouter } from '@immobiliarelabs/backstage-plugin-gitlab-backend';
+
+export default async function createPlugin(
+    env: PluginEnvironment
+): Promise<Router> {
+    return createRouter({
+        logger: env.logger,
+        config: env.config,
+    });
+}
+```
+
+then you have to add the route as follows:
+
+`packages/backend/src/index.ts`
+
+```ts
+import gitlab from './plugins/gitlab';
+// packages/backend/src/index.ts
+
+async function main() {
+    //...
+    const gitlabEnv = useHotMemoize(module, () => createEnv('gitlab'));
+    //...
+    apiRouter.use('/gitlab', await gitlab(gitlabEnv));
+    //...
+}
+```
+
+7. (**Optional**): You can also add plugin configurations in `app-config.yaml` file:
 
 ```yaml
 gitlab:
     # Default path for CODEOWNERS file
     # Default: CODEOWNERS
     defaultCodeOwnersPath: .gitlab/CODEOWNERS
-    # Proxy path
-    # Default: /gitlabci
-    proxyPath: /gitlabci
+    # Entity Kinds to witch the plugin works, if you want to render gitlab
+    # information for one Kind you have to add it in this list.
+    # Default: ['Component']
+    allowedKinds: ['Component', `Resource`]
+
 ```
 
-7. Add a `gitlab.com/project-id` annotation to your respective `catalog-info.yaml` files, on the [format](https://backstage.io/docs/architecture-decisions/adrs-adr002#format)
+## Annotations
+
+By default, the plugin automatically shows the project info corresponding to the location of the `catalog.yaml` file. But you could need some time to force another project, you can do it with the annotations `gitlab.com/project-id` or `gitlab.com/project-slug`:
 
 ```yaml
 # Example catalog-info.yaml entity definition file
@@ -158,6 +216,22 @@ metadata:
         gitlab.com/project-id: 'project-id' #1234. This must be in quotes and can be found under Settings --> General
         # or
         gitlab.com/project-slug: 'project-slug' # group_name/project_name
+spec:
+    type: service
+    # ...
+```
+
+### Code owners file
+
+The plugins support also the `gitlab.com/codeowners-path` annotation:
+
+```yaml
+# Example catalog-info.yaml entity definition file
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    # ...
+    annotations:
         # You can change the CODEOWNERS path
         # if it is not passed default specified in `app-config.yaml` is used
         gitlab.com/codeowners-path: 'somewhere/CODEOWNERS'
@@ -166,11 +240,9 @@ spec:
     # ...
 ```
 
-**Note:** `spec.type` can take values in ['website','library','service'] but to render GitLab Entity, Catalog must be of type `service`
-
 ## Old/New GitLab Versions
 
-If you have an old GitLab version, or a new one, we allow you to extend the GitLab Client as follow:
+If you have an old GitLab version, or a new one, we allow you to extend the GitLab Client as follows:
 
 `packages/app/src/api.ts`
 
@@ -185,10 +257,9 @@ export const apis: AnyApiFactory[] = [
         api: GitlabCIApiRef,
         deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
         factory: ({ configApi, discoveryApi }) =>
-            new CustomGitlabCIClient({
+            CustomGitlabCIClient.setupAPI({
                 discoveryApi,
                 baseUrl: configApi.getOptionalString('gitlab.baseUrl'),
-                proxyPath: configApi.getOptionalString('gitlab.proxyPath'),
                 codeOwnersPath: configApi.getOptionalString(
                     'gitlab.defaultCodeOwnersPath'
                 ),
@@ -214,7 +285,6 @@ export class CustomGitlabCIClient extends GitlabCIClient {
 ```
 
 see [here](./src/api/GitlabCIClient.ts).
-
 
 ## Support & Contribute
 

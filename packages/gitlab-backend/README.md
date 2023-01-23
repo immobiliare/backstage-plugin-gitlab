@@ -1,14 +1,5 @@
-# gitlab-annotation-filler
+# @immobiliarelabs/backstage-plugin-gitlab-backend
 
-Welcome to the gitlab-annotation-filler backend plugin!
+> Backstage plugin to interact with GitLab
 
-_This plugin was created through the Backstage CLI_
-
-## Getting started
-
-Your plugin has been added to the example app in this repository, meaning you'll be able to access it by running `yarn
-start` in the root directory, and then navigating to [/gitlab-annotation-filler](http://localhost:3000/gitlab-annotation-filler).
-
-You can also serve the plugin in isolation by running `yarn start` in the plugin directory.
-This method of serving the plugin provides quicker iteration speed and a faster startup and hot reloads.
-It is only meant for local development, and the setup for it can be found inside the [/dev](/dev) directory.
+This plugin is coupled with [@immobiliarelabs/backstage-plugin-gitlab](https://github.com/immobiliare/backstage-plugin-gitlab), read the [docs](https://github.com/immobiliare/backstage-plugin-gitlab) to use it.

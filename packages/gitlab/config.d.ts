@@ -7,11 +7,5 @@ export interface Config {
          * @visibility frontend
          */
         defaultCodeOwnersPath?: string;
-        /**
-         * Proxy path
-         * @default "/gitlabci"
-         * @visibility frontend
-         */
-        proxyPath?: string;
     };
 }
