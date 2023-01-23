@@ -30,7 +30,7 @@
         "style:prettier": "prettier \"packages/**/*.ts\" --list-different --write",
         "build": "npx lerna run build",
         "bootstrap": "npx lerna bootstrap",
-        "publish:ci": "lerna publish from-package --yes",
+        "publish:ci": "lerna publish from-package --yes --pre-dist-tag alpha",
         "test": "lerna run test:ci",
         "version:release": "lerna version --yes --conventional-commits --conventional-graduate --create-release github --message 'chore(release): publish'",
         "version:prerelease": "lerna version --yes --force-publish --conventional-commits --conventional-prerelease --create-release github --message 'chore(prerelease): publish'",
