@@ -11,6 +11,7 @@ You can migrate by following these steps:
 `app-config.yaml`
 
 ```diff
+proxy:
 - '/gitlabci':
 -     target: '${GITLAB_URL}/api/v4'
 -     allowedMethods: ['GET']
