@@ -1,10 +1,10 @@
 import React from 'react';
 import { Avatar, Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { PersonData } from '../../../../types';
+import { PeopleCardEntityData } from '../../../../types';
 
 type Props = {
-    person: PersonData;
+    peopleCardEntity: PeopleCardEntityData;
 };
 
 const LightTooltip = withStyles({
@@ -16,14 +16,14 @@ const LightTooltip = withStyles({
     },
 })(Tooltip);
 
-export const Person = ({ person }: Props) => {
+export const PeopleCardEntity = ({ peopleCardEntity }: Props) => {
     return (
-        <LightTooltip title={person.name}>
-            <a href={person.web_url} target="_blank">
+        <LightTooltip title={peopleCardEntity.name}>
+            <a href={peopleCardEntity.web_url} target="_blank">
                 <Avatar
-                    key={person.name}
-                    alt={person.name}
-                    src={person.avatar_url}
+                    key={peopleCardEntity.name}
+                    alt={peopleCardEntity.name}
+                    src={peopleCardEntity.avatar_url}
                 />
             </a>
         </LightTooltip>

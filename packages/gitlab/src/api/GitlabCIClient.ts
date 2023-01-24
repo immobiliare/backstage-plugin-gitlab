@@ -1,6 +1,6 @@
 import { DiscoveryApi } from '@backstage/core-plugin-api';
 import {
-    PersonData,
+    PeopleCardEntityData,
     MergeRequest,
     PipelineObject,
     FileOwnership,
@@ -132,8 +132,8 @@ export class GitlabCIClient implements GitlabCIApi {
 
     //TODO: Merge with getUserDetail
     private async getUserProfilesData(
-        contributorsData: PersonData[]
-    ): Promise<PersonData[]> {
+        contributorsData: PeopleCardEntityData[]
+    ): Promise<PeopleCardEntityData[]> {
         for (let i = 0; contributorsData && i < contributorsData.length; i++) {
             const userProfile: any = await this.callApi<
                 Record<string, unknown>[]
@@ -141,28 +141,47 @@ export class GitlabCIClient implements GitlabCIApi {
                 search: contributorsData[i].email,
             });
             if (userProfile) {
-                userProfile.forEach((userProfileElement: PersonData) => {
-                    if (userProfileElement.name == contributorsData[i].name) {
-                        contributorsData[i].avatar_url =
-                            userProfileElement?.avatar_url;
+                userProfile.forEach(
+                    (userProfileElement: PeopleCardEntityData) => {
+                        if (
+                            userProfileElement.name == contributorsData[i].name
+                        ) {
+                            contributorsData[i].avatar_url =
+                                userProfileElement?.avatar_url;
+                        }
                     }
-                });
+                );
             }
         }
         return contributorsData;
     }
 
-    private async getUserDetail(username: string): Promise<PersonData> {
+    private async getUserDetail(
+        username: string
+    ): Promise<PeopleCardEntityData> {
         if (username.startsWith('@')) {
             username = username.slice(1);
         }
         const userDetail = (
-            await this.callApi<PersonData[]>('users', { username })
+            await this.callApi<PeopleCardEntityData[]>('users', { username })
         )?.[0];
 
         if (!userDetail) throw new Error(`user ${username} does not exist`);
 
         return userDetail;
+    }
+    private async getGroupDetail(name: string): Promise<PeopleCardEntityData> {
+        if (name.startsWith('@')) {
+            name = name.slice(1);
+        }
+        const groupDetail = await this.callApi<PeopleCardEntityData>(
+            `groups/${encodeURIComponent(name)}`,
+            {}
+        );
+
+        if (!groupDetail) throw new Error(`group ${name} does not exist`);
+
+        return groupDetail;
     }
 
     async getMergeRequestsSummary(
@@ -193,7 +212,7 @@ export class GitlabCIClient implements GitlabCIApi {
     async getContributorsSummary(
         projectID?: string
     ): Promise<ContributorsSummary | undefined> {
-        const contributorsData = await this.callApi<PersonData[]>(
+        const contributorsData = await this.callApi<PeopleCardEntityData[]>(
             'projects/' + projectID + '/repository/contributors',
             { sort: 'desc' }
         );
@@ -243,7 +262,7 @@ export class GitlabCIClient implements GitlabCIApi {
         projectID?: string,
         branch = 'HEAD',
         filePath?: string
-    ): Promise<PersonData[]> {
+    ): Promise<PeopleCardEntityData[]> {
         filePath = filePath || this.codeOwnersPath;
         // Removing starting './'
         if (filePath.startsWith('./')) filePath = filePath.slice(2);
@@ -263,13 +282,27 @@ export class GitlabCIClient implements GitlabCIApi {
         const uniqueOwners = [
             ...new Set(dataOwners.flatMap((owner) => owner.owners)),
         ];
-        const owners: PersonData[] = await Promise.all(
-            uniqueOwners.map(async (owner) => {
-                const ownerData: PersonData = await this.getUserDetail(owner);
-                return ownerData;
-            })
-        );
-
+        const ownersSettledResult: PromiseSettledResult<PeopleCardEntityData>[] =
+            await Promise.allSettled(
+                uniqueOwners.map(async (owner) => {
+                    try {
+                        const ownerData: PeopleCardEntityData =
+                            await this.getUserDetail(owner);
+                        return ownerData;
+                    } catch (error) {
+                        const ownerData: PeopleCardEntityData =
+                            await this.getGroupDetail(owner);
+                        return ownerData;
+                    }
+                })
+            );
+        const owners = ownersSettledResult
+            .filter((result) => result.status === 'fulfilled')
+            .map(
+                (result) =>
+                    (result as PromiseFulfilledResult<PeopleCardEntityData>)
+                        .value
+            );
         return owners;
     }
 
