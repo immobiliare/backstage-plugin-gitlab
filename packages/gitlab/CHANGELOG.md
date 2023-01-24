@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-alpha.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v3.0.0-alpha.0...v3.0.0-alpha.1) (2023-01-24)
+
+### Features
+
+-   removed baseUrl ([55289a4](https://github.com/immobiliare/backstage-plugin-gitlab/commit/55289a46f6e6cb4d60d70b4dff0c9047493cb0f2))
+
+### BREAKING CHANGES
+
+-   removed baseUrl and proxyPath
+
 # [3.0.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v2.1.1...v3.0.0-alpha.0) (2023-01-23)
 
 ### Bug Fixes
