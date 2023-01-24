@@ -41,7 +41,6 @@ export class GitlabCIClient implements GitlabCIApi {
         codeOwnersPath,
     }: {
         discoveryApi: DiscoveryApi;
-        baseUrl?: string;
         codeOwnersPath?: string;
     }) {
         return {
