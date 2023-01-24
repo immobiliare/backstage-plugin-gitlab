@@ -101,7 +101,7 @@ describe('Processor', () => {
         expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual('0');
     });
 
-    it('The processor does not update annotation if the annotations exist', async () => {
+    it('The processor does not update GITLAB_PROJECT_SLUG if the annotations GITLAB_PROJECT_ID or GITLAB_PROJECT_SLUG exist', async () => {
         const processor = new GitlabFillerProcessor(config);
         const projectId = '3922';
         const entity: Entity = {
@@ -126,11 +126,42 @@ describe('Processor', () => {
         expect(
             entity.metadata?.annotations?.[GITLAB_PROJECT_SLUG]
         ).toBeUndefined();
-        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toBeUndefined();
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual('0');
 
         expect(entity.metadata?.annotations?.[GITLAB_PROJECT_ID]).toEqual(
             projectId
         );
+    });
+
+    it('The processor does not update GITLAB_INSTANCE if the annotation exist', async () => {
+        const processor = new GitlabFillerProcessor(config);
+        const entity: Entity = {
+            apiVersion: 'backstage.io/v1alpha1',
+            kind: 'Component',
+            metadata: {
+                name: 'backstage',
+                annotations: {
+                    [GITLAB_INSTANCE]: '1',
+                },
+            },
+        };
+        await processor.postProcessEntity(
+            entity,
+            {
+                type: 'url',
+                target: 'https://my.custom-gitlab.com/backstage/backstage/blob/next/catalog.yaml',
+            },
+            () => undefined
+        );
+
+        expect(entity.metadata?.annotations?.[GITLAB_PROJECT_SLUG]).toEqual(
+            'backstage/backstage'
+        );
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual('1');
+
+        expect(
+            entity.metadata?.annotations?.[GITLAB_PROJECT_ID]
+        ).toBeUndefined();
     });
 
     it('The processor does not update annotation if the location is not a gitlab instance', async () => {

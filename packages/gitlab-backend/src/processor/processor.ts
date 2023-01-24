@@ -41,21 +41,22 @@ export class GitlabFillerProcessor implements CatalogProcessor {
         location: LocationSpec,
         _emit: CatalogProcessorEmit
     ): Promise<Entity> {
-        if (
-            location.type === 'url' &&
-            // TODO: make annotation constants
-            !entity.metadata.annotations?.[GITLAB_PROJECT_ID] &&
-            !entity.metadata.annotations?.[GITLAB_PROJECT_SLUG] &&
-            !entity.metadata.annotations?.[GITLAB_INSTANCE] &&
-            this.allowedKinds.has(entity.kind.toLowerCase()) &&
-            this.isValidGitlabHost(location.target)
-        ) {
+        // Check if it is a GitLab Host
+        if (this.isValidLocation(location) && this.isAllowedEntity(entity)) {
             if (!entity.metadata.annotations) entity.metadata.annotations = {};
-            entity.metadata.annotations[GITLAB_PROJECT_SLUG] = getProjectPath(
-                location.target
-            );
-            entity.metadata.annotations[GITLAB_INSTANCE] =
-                this.getGitlabInstance(location.target);
+            // Generate Project Slug if not specified
+            if (
+                !entity.metadata.annotations?.[GITLAB_PROJECT_ID] &&
+                !entity.metadata.annotations?.[GITLAB_PROJECT_SLUG]
+            ) {
+                entity.metadata.annotations[GITLAB_PROJECT_SLUG] =
+                    getProjectPath(location.target);
+            }
+            // Discover gitlab instance
+            if (!entity.metadata.annotations?.[GITLAB_INSTANCE]) {
+                entity.metadata.annotations[GITLAB_INSTANCE] =
+                    this.getGitlabInstance(location.target);
+            }
         }
 
         return entity;
@@ -74,9 +75,16 @@ export class GitlabFillerProcessor implements CatalogProcessor {
         return index.toString(10);
     }
 
-    private isValidGitlabHost(target: string) {
+    private isAllowedEntity(entity: Entity): boolean {
+        return this.allowedKinds.has(entity.kind.toLowerCase());
+    }
+
+    private isValidLocation({ target, type }: LocationSpec): boolean {
+        if (type !== 'url') return false;
+
         const url = new URL(target);
 
+        // Check if it is valid gitlab Host
         return this.gitLabIntegrationsConfig.some((config) => {
             const baseUrl = new URL(config.baseUrl);
             return url.origin === baseUrl.origin;
