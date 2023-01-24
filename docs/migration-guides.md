@@ -29,7 +29,7 @@ gitlab:
 yarn add @immobiliarelabs/backstage-plugin-gitlab-backend
 ```
 
-3. Add the GitLab Filler Processor:
+3. Add the GitLab Filler Processor, this allows auto-filling of the annotations like the project id and slug:
 
 `packages/backend/src/plugins/catalog.ts`
 
@@ -50,8 +50,6 @@ export default async function createPlugin(
     return router;
 }
 ```
-
-This allows auto-filling of the annotations.
 
 4. Add the `gitlab` route by creating the file `packages/backend/src/plugins/gitlab.ts`:
 
