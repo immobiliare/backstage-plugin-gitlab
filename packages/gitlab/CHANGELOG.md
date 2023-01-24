@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-alpha.2](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v3.0.0-alpha.1...v3.0.0-alpha.2) (2023-01-24)
+
+### Bug Fixes
+
+-   removed baseUrl from types ([878ff81](https://github.com/immobiliare/backstage-plugin-gitlab/commit/878ff8139b33ada4ca4b6c4278069b947e9cdf70))
+-   **yarn:** fix yarn version ([587a086](https://github.com/immobiliare/backstage-plugin-gitlab/commit/587a0860df800e8cf2766aaaab8f82ac6fd30263))
+
+### Features
+
+-   **peopleCard:** added groups support to ownersfile ([23b6b14](https://github.com/immobiliare/backstage-plugin-gitlab/commit/23b6b1465978a3acd3c32c9c646454894c3ebd52))
+
+### BREAKING CHANGES
+
+-   **peopleCard:** Renamed Type PersonData into PeopleCardEntityData
+
 # [3.0.0-alpha.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v3.0.0-alpha.0...v3.0.0-alpha.1) (2023-01-24)
 
 ### Features
