@@ -291,7 +291,7 @@ export class CustomGitlabCIClient extends GitlabCIClient {
 }
 ```
 
-see [here](./src/api/GitlabCIClient.ts).
+see [here](./packages/gitlab/src/api/GitlabCIClient.ts).
 
 ## Migration guides
 
