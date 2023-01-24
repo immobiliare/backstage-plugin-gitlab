@@ -1,11 +1,12 @@
-export type PersonData = {
+export type PeopleCardEntityData = {
     name: string;
-    email: string;
+    email?: string;
     avatar_url: string;
     id: number;
-    state: string;
-    username: string;
+    state?: string;
+    username?: string;
     web_url: string;
+    full_path?: string;
 };
 
 export type PeopleLink = {

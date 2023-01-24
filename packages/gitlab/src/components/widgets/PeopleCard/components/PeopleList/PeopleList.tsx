@@ -1,14 +1,14 @@
 import React from 'react';
 import { Grid, Box } from '@material-ui/core';
 import { Link } from '@backstage/core-components';
-import { Person } from '../Person';
-import { PersonData, PeopleLink } from '../../../../types';
+import { PeopleCardEntity } from '../PeopleCardEntity';
+import { PeopleCardEntityData, PeopleLink } from '../../../../types';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowIcon from '@material-ui/icons/ArrowForward';
 
 interface PeopleListProps {
     title: string;
-    peopleObj: PersonData[];
+    peopleObj: PeopleCardEntityData[];
     deepLink?: PeopleLink;
 }
 
@@ -61,9 +61,9 @@ export const PeopleList = ({ title, peopleObj, deepLink }: PeopleListProps) => {
                 )}
             </Box>
             <Grid container spacing={1} justifyContent="flex-start">
-                {peopleObj?.map((person: PersonData) => (
-                    <Grid key={person.name} item>
-                        <Person person={person} />
+                {peopleObj?.map((peopleCardEntity: PeopleCardEntityData) => (
+                    <Grid key={peopleCardEntity.name} item>
+                        <PeopleCardEntity peopleCardEntity={peopleCardEntity} />
                     </Grid>
                 ))}
             </Grid>

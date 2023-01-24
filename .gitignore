@@ -136,4 +136,8 @@ site
 # Sensitive credentials
 *-credentials.yaml
 
+#yarn
+.yarn/
+.yarnrc.yml
+
 

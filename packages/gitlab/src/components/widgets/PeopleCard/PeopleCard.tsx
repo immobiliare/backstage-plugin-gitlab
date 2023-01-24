@@ -12,7 +12,7 @@ import {
     gitlabInstance,
 } from '../../gitlabAppData';
 import { PeopleList } from './components/PeopleList';
-import { PersonData, ProjectDetail } from '../../types';
+import { PeopleCardEntityData, ProjectDetail } from '../../types';
 import { Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,8 +41,8 @@ export const PeopleCard = ({}) => {
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(gitlab_instance || '0');
     /* TODO: to change the below logic to get contributors data*/
     const { value, loading, error } = useAsync(async (): Promise<{
-        contributors: PersonData[] | undefined;
-        owners: PersonData[] | undefined;
+        contributors: PeopleCardEntityData[] | undefined;
+        owners: PeopleCardEntityData[] | undefined;
         projectDetails: ProjectDetail;
     }> => {
         const projectDetails: any = await GitlabCIAPI.getProjectDetails(
@@ -50,14 +50,14 @@ export const PeopleCard = ({}) => {
         );
         const projectId = project_id || projectDetails?.id;
         const gitlabObj = await GitlabCIAPI.getContributorsSummary(projectId);
-        const contributorData: PersonData[] | undefined =
+        const contributorData: PeopleCardEntityData[] | undefined =
             gitlabObj?.getContributorsData;
         const projectDetailsData: ProjectDetail = {
             project_web_url: projectDetails?.web_url,
             project_default_branch: projectDetails?.default_branch,
         };
         // CODE OWNERS
-        let codeOwners: PersonData[] | undefined = [];
+        let codeOwners: PeopleCardEntityData[] | undefined = [];
         try {
             codeOwners = await GitlabCIAPI.getCodeOwners(
                 projectId,

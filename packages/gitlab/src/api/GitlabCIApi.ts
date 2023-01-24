@@ -1,6 +1,6 @@
 import { createApiRef } from '@backstage/core-plugin-api';
 import {
-    PersonData,
+    PeopleCardEntityData,
     MergeRequest,
     PipelineObject,
     IssueObject,
@@ -11,7 +11,7 @@ export interface PipelineSummary {
 }
 
 export interface ContributorsSummary {
-    getContributorsData: PersonData[];
+    getContributorsData: PeopleCardEntityData[];
 }
 
 export interface MergeRequestsSummary {
@@ -66,7 +66,7 @@ export type GitlabCIApi = {
         projectID?: string,
         branch?: string,
         filePath?: string
-    ): Promise<PersonData[]>;
+    ): Promise<PeopleCardEntityData[]>;
 
     getContributorsLink(
         projectWebUrl: string | undefined,
