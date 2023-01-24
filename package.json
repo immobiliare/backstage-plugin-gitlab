@@ -23,7 +23,8 @@
         "node": ">=18.0.0"
     },
     "volta": {
-        "node": "18.12.1"
+        "node": "18.12.1",
+        "yarn": "1.22.19"
     },
     "scripts": {
         "style:lint": "eslint packages --ext .ts",

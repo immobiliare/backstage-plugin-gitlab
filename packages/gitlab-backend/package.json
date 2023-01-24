@@ -57,7 +57,8 @@
         "supertest": "^6.2.4"
     },
     "volta": {
-        "node": "18.12.1"
+        "node": "18.12.1",
+        "yarn": "1.22.19"
     },
     "files": [
         "dist",
