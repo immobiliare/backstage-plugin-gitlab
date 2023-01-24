@@ -131,7 +131,7 @@ integrations:
 
 **Note:** You can have more than one GitLab instance.
 
-5. Add the GitLab Filler Processor:
+5. Add the GitLab Filler Processor, this allows auto-filling of the annotations like the project id and slug:
 
 `packages/backend/src/plugins/catalog.ts`
 
