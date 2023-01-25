@@ -13,18 +13,17 @@ jobs:
             - uses: webiny/action-conventional-commits@v1.1.0
 
     test:
-        strategy:
-            matrix:
-                os: [ubuntu-latest, macos-latest, windows-latest]
-                node-version: [16.x, 18.x]
-        runs-on: ${{ matrix.os }}
+        runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
             - uses: actions/setup-node@v3
               with:
-                  node-version: ${{ matrix.node-version }}
+                  node-version: 18.x
 
             - name: Install dependencies
-              run: npm it
+              run: yarn
+
+            - name: Test
+              run: yarn test

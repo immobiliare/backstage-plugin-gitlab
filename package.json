@@ -1,94 +1,40 @@
 {
-    "name": "@immobiliarelabs/backstage-plugin-gitlab",
-    "version": "2.1.1",
-    "main": "dist/index.esm.js",
-    "types": "dist/index.d.ts",
-    "license": "Apache-2.0",
-    "publishConfig": {
-        "access": "public",
-        "main": "dist/index.esm.js",
-        "types": "dist/index.d.ts"
-    },
-    "backstage": {
-        "role": "frontend-plugin"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/immobiliare/backstage-plugin-gitlab"
-    },
-    "keywords": [
-        "backstage",
-        "gitlab",
-        "ci/cd",
-        "immobiliare",
-        "immobiliarelabs"
+    "name": "root",
+    "private": true,
+    "workspaces": [
+        "packages/*"
     ],
-    "scripts": {
-        "start": "backstage-cli package start",
-        "build": "yarn tsc && backstage-cli package build",
-        "lint": "backstage-cli package lint",
-        "test": "backstage-cli package test",
-        "clean": "backstage-cli package clean",
-        "prepack": "backstage-cli package prepack",
-        "postpack": "backstage-cli package postpack",
-        "prepare": ""
-    },
-    "dependencies": {
-        "@backstage/core-components": "^0.12.2",
-        "@backstage/core-plugin-api": "^1.0.0",
-        "@backstage/plugin-catalog-react": "^1.2.3",
-        "@backstage/theme": "^0.2.14",
-        "@material-ui/core": "^4.12.2",
-        "@material-ui/icons": "^4.9.1",
-        "@material-ui/lab": "4.0.0-alpha.61",
-        "dayjs": "^1.11.7",
-        "react-use": "^17.2.4"
-    },
-    "peerDependencies": {
-        "react": "^16.13.1 || ^17.0.0",
-        "react-dom": "^16.13.1 || ^17.0.0",
-        "react-router": "6.0.0-beta.0 || ^6.3.0",
-        "react-router-dom": "6.0.0-beta.0 || ^6.3.0"
-    },
     "devDependencies": {
-        "@backstage/cli": "^0.21.1",
-        "@backstage/core-app-api": "^1.0.0",
-        "@backstage/dev-utils": "^1.0.8",
-        "@backstage/plugin-catalog-react": "^1.2.3",
-        "@backstage/test-utils": "^1.0.0",
-        "@commitlint/cli": "^17.0.0",
-        "@commitlint/config-conventional": "^17.0.0",
-        "@nuxtjs/eslint-config-typescript": "^12.0.0",
-        "@saithodev/semantic-release-backmerge": "^2.0.0",
-        "@semantic-release/changelog": "^6.0.1",
-        "@semantic-release/commit-analyzer": "^9.0.1",
-        "@semantic-release/git": "^10.0.1",
-        "@semantic-release/github": "^8.0.2",
-        "@semantic-release/npm": "^9.0.0",
-        "@semantic-release/release-notes-generator": "^10.0.2",
-        "@testing-library/jest-dom": "^5.12.0",
-        "@testing-library/react": "^12.1.2",
-        "@testing-library/user-event": "^14.3.0",
-        "@types/jest": "^27.4.0",
-        "@types/node": "^17.0.13",
-        "cross-fetch": "^3.1.4",
+        "@commitlint/cli": "^17.1.2",
+        "@commitlint/config-conventional": "^17.1.0",
+        "@typescript-eslint/eslint-plugin": "^5.36.0",
+        "@typescript-eslint/parser": "^5.36.0",
+        "eslint": "^8.23.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.2.1",
-        "husky": "^8.0.0",
-        "msw": "^0.44.2",
-        "prettier": "^2.0.5",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2",
-        "react-router": "^6.4.5",
-        "react-router-dom": "^6.4.5"
+        "husky": "^8.0.1",
+        "is-ci": "^3.0.1",
+        "lerna": "^6.0.3",
+        "lint-staged": "^13.0.3",
+        "markdown-toc": "^1.2.0",
+        "prettier": "^2.7.1"
     },
-    "files": [
-        "dist",
-        "config.d.ts"
-    ],
+    "engines": {
+        "node": ">=18.0.0"
+    },
     "volta": {
-        "node": "18.13.0",
-        "npm": "8.19.3"
+        "node": "18.12.1",
+        "yarn": "1.22.19"
     },
-    "configSchema": "config.d.ts"
+    "scripts": {
+        "style:lint": "eslint packages --ext .ts",
+        "style:prettier": "prettier \"packages/**/*.ts\" --list-different --write",
+        "build": "npx lerna run build",
+        "bootstrap": "npx lerna bootstrap",
+        "publish:ci": "lerna publish from-package --yes --pre-dist-tag alpha",
+        "test": "lerna run test:ci",
+        "version:release": "lerna version --yes --conventional-commits --conventional-graduate --create-release github --message 'chore(release): publish'",
+        "version:prerelease": "lerna version --yes --force-publish --conventional-commits --conventional-prerelease --create-release github --message 'chore(prerelease): publish'",
+        "prepare": "node prepare.js || echo 'Skipping prepare'"
+    }
 }
