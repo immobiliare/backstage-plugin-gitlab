@@ -175,7 +175,7 @@ export class GitlabCIClient implements GitlabCIApi {
         }
         const groupDetail = await this.callApi<PeopleCardEntityData>(
             `groups/${encodeURIComponent(name)}`,
-            {}
+            { with_projects: 'false' }
         );
 
         if (!groupDetail) throw new Error(`group ${name} does not exist`);
