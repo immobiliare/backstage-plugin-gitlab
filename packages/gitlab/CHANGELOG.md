@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v3.0.0-alpha.2...v3.0.0) (2023-01-25)
+
+### Bug Fixes
+
+-   reduce gitlab groups request size ([287a40e](https://github.com/immobiliare/backstage-plugin-gitlab/commit/287a40e1ae433cf5f130a56fd90dba9872c3d5ca))
+
 # [3.0.0-alpha.2](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v3.0.0-alpha.1...v3.0.0-alpha.2) (2023-01-24)
 
 ### Bug Fixes
