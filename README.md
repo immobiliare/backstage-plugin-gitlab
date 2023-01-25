@@ -48,12 +48,12 @@
 
 ## Setup
 
-1. If you have a standalone app (you didn't clone this repo), then do
+1. Install packages:
 
 ```bash
 # From your Backstage root directory
-cd packages/app
-yarn add @immobiliarelabs/backstage-plugin-gitlab @immobiliarelabs/backstage-plugin-gitlab-backend
+yarn --cwd packages/app add @immobiliarelabs/backstage-plugin-gitlab
+yarn --cwd packages/backend add @immobiliarelabs/backstage-plugin-gitlab-backend
 ```
 
 2. Add a new GitLab tab to the entity page.
@@ -206,7 +206,7 @@ gitlab:
     # Entity Kinds to witch the plugin works, if you want to render gitlab
     # information for one Kind you have to add it in this list.
     # Default: ['Component']
-    allowedKinds: ['Component', `Resource`]
+    allowedKinds: ['Component', 'Resource']
 
 ```
 

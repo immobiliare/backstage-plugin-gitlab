@@ -26,7 +26,8 @@ gitlab:
 2. Install the backend package:
 
 ```shell
-yarn add @immobiliarelabs/backstage-plugin-gitlab-backend
+# From your Backstage root directory
+yarn --cwd packages/backend add @immobiliarelabs/backstage-plugin-gitlab-backend
 ```
 
 3. Add the GitLab Filler Processor, this allows auto-filling of the annotations like the project id and slug:
@@ -99,7 +100,7 @@ gitlab:
     # Entity Kinds to witch the plugin works, if you want to render gitlab
     # information for one Kind you have to add it in this list.
     # Default: ['Component']
-    allowedKinds: ['Component', `Resource`]
+    allowedKinds: ['Component', 'Resource']
 ```
 
 6. If you have extended the GitLab API for the support of a new or old GitLab version:
