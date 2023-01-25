@@ -6,5 +6,5 @@ This plugin is coupled with [@immobiliarelabs/backstage-plugin-gitlab-backend](h
 
 ## Screenshots
 
-<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/backstage_gitlab_pipeline_information.png"  alt="Contributors Languages Pipeline Status"/>
-<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/src/assets/backstage_gitlab_mr_and_issues.png"  alt="Merge Request Information"/>
+<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/assets/backstage_gitlab_pipeline_information.png"  alt="Contributors Languages Pipeline Status"/>
+<img src="https://raw.githubusercontent.com/immobiliare/backstage-plugin-gitlab/main/assets/backstage_gitlab_mr_and_issues.png"  alt="Merge Request Information"/>
