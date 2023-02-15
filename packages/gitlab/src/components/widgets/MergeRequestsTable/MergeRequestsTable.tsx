@@ -43,7 +43,7 @@ export const DenseTable = ({ mergeRequests }: any) => {
             title={title}
             options={{ search: true, paging: true }}
             columns={columns}
-            data={data}
+            data={data || []}
         />
     );
 };

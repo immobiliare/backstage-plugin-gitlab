@@ -24,26 +24,28 @@ export const DenseTable = ({ pipelineObjects }: any) => {
     ];
     const title = 'Gitlab Pipelines: ' + pipelineObjects?.project_name;
 
-    const data = pipelineObjects.data.map((pipelineObject: PipelineObject) => {
-        return {
-            id: pipelineObject.id,
-            status: pipelineObject.status,
-            ref: pipelineObject.ref,
-            web_url: pipelineObject.web_url,
-            created_date: getElapsedTime(pipelineObject.created_at),
-            duration: getDuration(
-                pipelineObject.created_at,
-                pipelineObject.updated_at
-            ),
-        };
-    });
+    const data = pipelineObjects?.data?.map(
+        (pipelineObject: PipelineObject) => {
+            return {
+                id: pipelineObject.id,
+                status: pipelineObject.status,
+                ref: pipelineObject.ref,
+                web_url: pipelineObject.web_url,
+                created_date: getElapsedTime(pipelineObject.created_at),
+                duration: getDuration(
+                    pipelineObject.created_at,
+                    pipelineObject.updated_at
+                ),
+            };
+        }
+    );
 
     return (
         <Table
             title={title}
             options={{ search: true, paging: true }}
             columns={columns}
-            data={data}
+            data={data || []}
         />
     );
 };
