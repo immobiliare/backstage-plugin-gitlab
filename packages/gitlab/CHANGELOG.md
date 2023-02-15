@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.2](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v3.0.1...v3.0.2) (2023-02-15)
+
+### Bug Fixes
+
+-   **table:** added empty array to table data in mr and pipeline tables ([a7c9862](https://github.com/immobiliare/backstage-plugin-gitlab/commit/a7c9862027c53e03b184731ae8312bd35aedf7bc))
+
 ## [3.0.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v3.0.0...v3.0.1) (2023-01-25)
 
 **Note:** Version bump only for package @immobiliarelabs/backstage-plugin-gitlab
