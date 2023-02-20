@@ -300,7 +300,7 @@ If you have an old gitlab-plugin version, you can consult the [migration guide](
 
 Made with ❤️ by [ImmobiliareLabs](https://github.com/immobiliare) & [Contributors](./CONTRIBUTING.md#contributors)
 
-We'd love for you to contribute to Backstage GitLab Plugin!
+We'd love for you to contribute to Backstage GitLab Plugin! [Here](./CONTRIBUTING.md) some tips on how to contribute.
 If you have any questions on how to use Backstage GitLab Plugin, bugs and enhancement please feel free to reach out by opening a [GitHub Issue](https://github.com/immobiliare/backstage-plugin-gitlab/issues).
 
 ## License
