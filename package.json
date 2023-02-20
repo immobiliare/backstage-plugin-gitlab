@@ -33,6 +33,7 @@
         "bootstrap": "npx lerna bootstrap",
         "publish:ci": "lerna publish from-package --yes --pre-dist-tag alpha",
         "test": "lerna run test:ci",
+        "start": "npx lerna --scope @immobiliarelabs/backstage-plugin-gitlab run start",
         "version:release": "lerna version --yes --conventional-commits --conventional-graduate --create-release github --message 'chore(release): publish'",
         "version:prerelease": "lerna version --yes --force-publish --conventional-commits --conventional-prerelease --create-release github --message 'chore(prerelease): publish'",
         "prepare": "node prepare.js || echo 'Skipping prepare'"
