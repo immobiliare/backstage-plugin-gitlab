@@ -1,4 +1,4 @@
-import { DiscoveryApi } from '@backstage/core-plugin-api';
+import { DiscoveryApi, IdentityApi } from '@backstage/core-plugin-api';
 import {
     PeopleCardEntityData,
     MergeRequest,
@@ -19,34 +19,41 @@ import {
 
 export class GitlabCIClient implements GitlabCIApi {
     discoveryApi: DiscoveryApi;
+    identityApi: IdentityApi;
     codeOwnersPath: string;
     gitlabInstance: string;
 
     constructor({
         discoveryApi,
+        identityApi,
         codeOwnersPath,
         gitlabInstance,
     }: {
         discoveryApi: DiscoveryApi;
+        identityApi: IdentityApi;
         codeOwnersPath?: string;
         gitlabInstance: string;
     }) {
         this.discoveryApi = discoveryApi;
         this.codeOwnersPath = codeOwnersPath || 'CODEOWNERS';
         this.gitlabInstance = gitlabInstance;
+        this.identityApi = identityApi;
     }
 
     static setupAPI({
         discoveryApi,
+        identityApi,
         codeOwnersPath,
     }: {
         discoveryApi: DiscoveryApi;
+        identityApi: IdentityApi;
         codeOwnersPath?: string;
     }) {
         return {
             build: (gitlabInstance: string) =>
                 new this({
                     discoveryApi,
+                    identityApi,
                     codeOwnersPath,
                     gitlabInstance,
                 }),
@@ -60,8 +67,14 @@ export class GitlabCIClient implements GitlabCIApi {
         const apiUrl = `${await this.discoveryApi.getBaseUrl('gitlab')}/${
             this.gitlabInstance
         }`;
+        const token = (await this.identityApi.getCredentials()).token;
+        const options = token ? {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        } : {};
         const response = await fetch(
-            `${apiUrl}/${path}?${new URLSearchParams(query).toString()}`
+            `${apiUrl}/${path}?${new URLSearchParams(query).toString()}`, options
         );
         if (response.status === 200) {
             if (
