@@ -2,6 +2,7 @@ import {
     createComponentExtension,
     createPlugin,
     createRoutableExtension,
+    identityApiRef,
 } from '@backstage/core-plugin-api';
 
 import {
@@ -21,10 +22,11 @@ export const gitlabPlugin = createPlugin({
     apis: [
         createApiFactory({
             api: GitlabCIApiRef,
-            deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
-            factory: ({ configApi, discoveryApi }) =>
+            deps: { configApi: configApiRef, discoveryApi: discoveryApiRef, identityApi: identityApiRef },
+            factory: ({ configApi, discoveryApi, identityApi }) =>
                 GitlabCIClient.setupAPI({
                     discoveryApi,
+                    identityApi,
                     codeOwnersPath: configApi.getOptionalString(
                         'gitlab.defaultCodeOwnersPath'
                     ),
