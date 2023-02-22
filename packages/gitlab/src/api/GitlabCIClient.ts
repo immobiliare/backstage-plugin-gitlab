@@ -138,7 +138,7 @@ export class GitlabCIClient implements GitlabCIApi {
                 Record<string, unknown>[]
             >('users', {
                 search: contributorsData[i].email,
-                without_project_bots: true,
+                without_project_bots: 'true',
             });
             if (userProfile) {
                 userProfile.forEach(
