@@ -22,7 +22,11 @@ export const gitlabPlugin = createPlugin({
     apis: [
         createApiFactory({
             api: GitlabCIApiRef,
-            deps: { configApi: configApiRef, discoveryApi: discoveryApiRef, identityApi: identityApiRef },
+            deps: {
+                configApi: configApiRef,
+                discoveryApi: discoveryApiRef,
+                identityApi: identityApiRef,
+            },
             factory: ({ configApi, discoveryApi, identityApi }) =>
                 GitlabCIClient.setupAPI({
                     discoveryApi,

@@ -36,6 +36,9 @@ export async function createRouter(
                 pathRewrite: {
                     [`^/api/gitlab/${i}`]: apiUrl.pathname,
                 },
+                onProxyReq: (proxyReq) => {
+                    proxyReq.removeHeader('Authorization');
+                },
             })
         );
     }
