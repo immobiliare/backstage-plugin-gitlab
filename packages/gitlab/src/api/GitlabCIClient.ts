@@ -68,13 +68,16 @@ export class GitlabCIClient implements GitlabCIApi {
             this.gitlabInstance
         }`;
         const token = (await this.identityApi.getCredentials()).token;
-        const options = token ? {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        } : {};
+        const options = token
+            ? {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+              }
+            : {};
         const response = await fetch(
-            `${apiUrl}/${path}?${new URLSearchParams(query).toString()}`, options
+            `${apiUrl}/${path}?${new URLSearchParams(query).toString()}`,
+            options
         );
         if (response.status === 200) {
             if (
