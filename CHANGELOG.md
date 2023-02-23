@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v3.0.2...v4.0.0-alpha.0) (2023-02-22)
+
+### Features
+
+-   Add authentication header if needed ([dea3a59](https://github.com/immobiliare/backstage-plugin-gitlab/commit/dea3a59d64f52cff69ac5fbd2bd42b3502635ec6))
+-   disable project bots from being returned from the /users get request, corrected the mock data as to what it was before ([8f0be47](https://github.com/immobiliare/backstage-plugin-gitlab/commit/8f0be4794ee73302c1ab474af4cf6c486ae39441))
+-   without_project_bots to the users API call, this should exclude bots from projects and groups and in the contributors card ([d8de182](https://github.com/immobiliare/backstage-plugin-gitlab/commit/d8de182f61cec358eb43b4d2fd4eb4452d0ab80b))
+
+### BREAKING CHANGES
+
+-   the GitlabCIClient constructor has a new parameter identityApi
+
 ## [3.0.2](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v3.0.1...v3.0.2) (2023-02-15)
 
 ### Bug Fixes
