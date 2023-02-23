@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v4.0.0-alpha.0...v4.0.0) (2023-02-23)
+
+### Bug Fixes
+
+-   removed backstage Authorization header to the forwarded backstage request ([e72aafa](https://github.com/immobiliare/backstage-plugin-gitlab/commit/e72aafab889ba1a3af000819daf73107c12ea566))
+
 # [4.0.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v3.0.2...v4.0.0-alpha.0) (2023-02-22)
 
 **Note:** Version bump only for package @immobiliarelabs/backstage-plugin-gitlab-backend
