@@ -43,7 +43,6 @@
         "express": "^4.17.3",
         "express-promise-router": "^4.1.0",
         "http-proxy-middleware": "^2.0.6",
-        "node-fetch": "^2.6.7",
         "winston": "^3.2.1",
         "yn": "^4.0.0"
     },
