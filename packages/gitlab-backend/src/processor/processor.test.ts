@@ -190,4 +190,34 @@ describe('Processor', () => {
             entity.metadata?.annotations?.[GITLAB_PROJECT_ID]
         ).toBeUndefined();
     });
+
+    it('The processor should check if an entity is allowed before the target check', async () => {
+        const processor = new GitlabFillerProcessor(config);
+        const entity: Entity = {
+            apiVersion: 'backstage.io/v1alpha1',
+            kind: 'Component',
+            metadata: {
+                name: 'backstage',
+            },
+        };
+        await expect(
+            processor.postProcessEntity(
+                entity,
+                {
+                    type: 'url',
+                    // Target is not a URL
+                    target: 'my.custom-gitlab.com/backstage/backstage/blob/next/catalog.yaml',
+                },
+                () => undefined
+            )
+        ).resolves.toEqual(entity);
+
+        expect(
+            entity.metadata?.annotations?.[GITLAB_PROJECT_SLUG]
+        ).toBeUndefined();
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toBeUndefined();
+        expect(
+            entity.metadata?.annotations?.[GITLAB_PROJECT_ID]
+        ).toBeUndefined();
+    });
 });
