@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v4.0.0...v4.0.1) (2023-03-06)
+
+### Bug Fixes
+
+-   handle error when target is not well formatted url ([ca49ad4](https://github.com/immobiliare/backstage-plugin-gitlab/commit/ca49ad45fce3b54e6baa5d1455e65a9936fdaee5))
+
 # [4.0.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v4.0.0-alpha.0...v4.0.0) (2023-02-23)
 
 ### Bug Fixes
