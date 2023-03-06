@@ -42,7 +42,7 @@ export class GitlabFillerProcessor implements CatalogProcessor {
         _emit: CatalogProcessorEmit
     ): Promise<Entity> {
         // Check if it is a GitLab Host
-        if (this.isValidLocation(location) && this.isAllowedEntity(entity)) {
+        if (this.isAllowedEntity(entity) && this.isValidLocation(location)) {
             if (!entity.metadata.annotations) entity.metadata.annotations = {};
             // Generate Project Slug if not specified
             if (
@@ -82,8 +82,12 @@ export class GitlabFillerProcessor implements CatalogProcessor {
     private isValidLocation({ target, type }: LocationSpec): boolean {
         if (type !== 'url') return false;
 
-        const url = new URL(target);
-
+        let url: URL;
+        try {
+            url = new URL(target);
+        } catch (e) {
+            return false;
+        }
         // Check if it is valid gitlab Host
         return this.gitLabIntegrationsConfig.some((config) => {
             const baseUrl = new URL(config.baseUrl);
