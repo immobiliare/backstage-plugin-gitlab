@@ -42,7 +42,7 @@ export class GitlabFillerProcessor implements CatalogProcessor {
         _emit: CatalogProcessorEmit
     ): Promise<Entity> {
         // Check if it is a GitLab Host
-        if (this.isAllowedEntity(entity) && this.isValidLocation(location)) {
+        if (this.isValidLocation(location) && this.isAllowedEntity(entity)) {
             if (!entity.metadata.annotations) entity.metadata.annotations = {};
             // Generate Project Slug if not specified
             if (
