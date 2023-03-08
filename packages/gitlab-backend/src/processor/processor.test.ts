@@ -50,7 +50,9 @@ describe('Processor', () => {
         expect(entity.metadata?.annotations?.[GITLAB_PROJECT_SLUG]).toEqual(
             'backstage/backstage'
         );
-        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual('0');
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual(
+            'my.custom-gitlab.com'
+        );
     });
 
     it('Processor creates the right annotation for second instance', async () => {
@@ -74,7 +76,9 @@ describe('Processor', () => {
         expect(entity.metadata?.annotations?.[GITLAB_PROJECT_SLUG]).toEqual(
             'backstage/backstage'
         );
-        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual('1');
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual(
+            'my.second-custom-gitlab.com'
+        );
     });
 
     it('Processor creates the right annotation for old gitlab instance', async () => {
@@ -98,7 +102,9 @@ describe('Processor', () => {
         expect(entity.metadata?.annotations?.[GITLAB_PROJECT_SLUG]).toEqual(
             'backstage/backstage'
         );
-        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual('0');
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual(
+            'my.custom-gitlab.com'
+        );
     });
 
     it('The processor does not update GITLAB_PROJECT_SLUG if the annotations GITLAB_PROJECT_ID or GITLAB_PROJECT_SLUG exist', async () => {
@@ -126,7 +132,9 @@ describe('Processor', () => {
         expect(
             entity.metadata?.annotations?.[GITLAB_PROJECT_SLUG]
         ).toBeUndefined();
-        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual('0');
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual(
+            'my.custom-gitlab.com'
+        );
 
         expect(entity.metadata?.annotations?.[GITLAB_PROJECT_ID]).toEqual(
             projectId
@@ -141,7 +149,7 @@ describe('Processor', () => {
             metadata: {
                 name: 'backstage',
                 annotations: {
-                    [GITLAB_INSTANCE]: '1',
+                    [GITLAB_INSTANCE]: 'my.custom-gitlab.com',
                 },
             },
         };
@@ -157,7 +165,9 @@ describe('Processor', () => {
         expect(entity.metadata?.annotations?.[GITLAB_PROJECT_SLUG]).toEqual(
             'backstage/backstage'
         );
-        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual('1');
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual(
+            'my.custom-gitlab.com'
+        );
 
         expect(
             entity.metadata?.annotations?.[GITLAB_PROJECT_ID]
