@@ -99,7 +99,7 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
     const gitlab_instance = gitlabInstance();
 
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(
-        gitlab_instance || '0'
+        gitlab_instance || 'gitlab.com'
     );
     /* TODO: to change the below logic to get contributors data*/
     const { value, loading, error } = useAsync(async (): Promise<{

@@ -79,7 +79,9 @@ describe('createRouter', () => {
             const agent = request.agent(app);
             // this is set to let msw pass test requests through the mock server
             agent.set('User-Agent', 'supertest');
-            const response = await agent.get('/api/gitlab/0/projects/434');
+            const response = await agent.get(
+                '/api/gitlab/non-existing-example.com/projects/434'
+            );
             expect(response.status).toEqual(200);
             expect(response.body).toEqual({
                 headers: {
@@ -96,7 +98,9 @@ describe('createRouter', () => {
             const agent = request.agent(app);
             // this is set to let msw pass test requests through the mock server
             agent.set('User-Agent', 'supertest');
-            const response = await agent.get('/api/gitlab/1/projects/434');
+            const response = await agent.get(
+                '/api/gitlab/non-existing-example-2.com/projects/434'
+            );
             expect(response.status).toEqual(200);
             expect(response.body).toEqual({
                 headers: {
@@ -125,7 +129,7 @@ describe('createRouter', () => {
             ]) {
                 // @ts-ignore
                 const response = await agent?.[method](
-                    '/api/gitlab/1/projects/434'
+                    '/api/gitlab/non-existing-example-2.com/projects/434'
                 );
                 expect(response.status).toEqual(404);
                 expect(response.body).toEqual({});
@@ -136,7 +140,9 @@ describe('createRouter', () => {
             const agent = request.agent(app);
             // this is set to let msw pass test requests through the mock server
             agent.set('User-Agent', 'supertest');
-            const response = await agent.get('/api/gitlab/3/projects/434');
+            const response = await agent.get(
+                '/api/gitlab/does.not.exist/projects/434'
+            );
             expect(response.status).toEqual(404);
             expect(response.body).toEqual({});
         });

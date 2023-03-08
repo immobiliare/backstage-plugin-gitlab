@@ -1,6 +1,9 @@
 import { errorHandler } from '@backstage/backend-common';
 import { Config } from '@backstage/config';
-import { readGitLabIntegrationConfigs } from '@backstage/integration';
+import {
+    readGitLabIntegrationConfigs,
+    GitLabIntegrationConfig,
+} from '@backstage/integration';
 import express from 'express';
 import Router from 'express-promise-router';
 import { Logger } from 'winston';
@@ -16,16 +19,17 @@ export async function createRouter(
 ): Promise<express.Router> {
     const { logger, config } = options;
 
-    const gitlabIntegrations = readGitLabIntegrationConfigs(
-        config.getConfigArray('integrations.gitlab')
-    );
+    const gitlabIntegrations: GitLabIntegrationConfig[] =
+        readGitLabIntegrationConfigs(
+            config.getConfigArray('integrations.gitlab')
+        );
 
     const router = Router();
 
-    for (const [i, { apiBaseUrl, token }] of gitlabIntegrations.entries()) {
+    for (const { host, apiBaseUrl, token } of gitlabIntegrations) {
         const apiUrl = new URL(apiBaseUrl);
         router.use(
-            `/${i}`,
+            `/${host}`,
             createProxyMiddleware((_pathname, req) => req.method === 'GET', {
                 target: apiUrl.origin,
                 changeOrigin: true,
@@ -34,7 +38,7 @@ export async function createRouter(
                 },
                 logProvider: () => logger,
                 pathRewrite: {
-                    [`^/api/gitlab/${i}`]: apiUrl.pathname,
+                    [`^/api/gitlab/${host}`]: apiUrl.pathname,
                 },
                 onProxyReq: (proxyReq) => {
                     proxyReq.removeHeader('Authorization');
