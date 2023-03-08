@@ -4,6 +4,7 @@ import {
     MergeRequest,
     PipelineObject,
     FileOwnership,
+    ReleaseData,
 } from '../components/types';
 import { parseCodeOwners } from '../components/utils';
 import { IssueObject } from './../components/types';
@@ -15,6 +16,7 @@ import {
     MergeRequestsStatusSummary,
     MergeRequestsSummary,
     PipelineSummary,
+    ReleasesSummary,
 } from './GitlabCIApi';
 
 export class GitlabCIClient implements GitlabCIApi {
@@ -251,6 +253,18 @@ export class GitlabCIClient implements GitlabCIApi {
         );
         return {
             getLanguagesData: languageObjects!,
+        };
+    }
+
+    async getReleasesSummary(
+        projectID: string
+    ): Promise<ReleasesSummary | undefined> {
+        const releaseObjects = await this.callApi<ReleaseData[]>(
+            'projects/' + projectID + '/releases',
+            {}
+        );
+        return {
+            getReleasesData: releaseObjects!,
         };
     }
 

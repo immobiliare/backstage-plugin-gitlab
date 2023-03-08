@@ -5089,6 +5089,1125 @@ export const mockedGitlabReqToRes: Record<string, any> = {
             approvals_before_merge: null,
         },
     ],
+    'projects/10174980/releases?': [
+        {
+            name: 'v0.14.0',
+            tag_name: 'v0.14.0',
+            description:
+                "## [0.14.0] - 2022-01-07\n\n### Added\n\n- Setting for disabling flashing lights\n- Spectate mode for moderators.\n- Currently playing music track and artist now shows in the debug menu.\n- Added a setting to influence the gap between music track plays.\n- Added a Craft All button.\n- Server: Vacuum database on startup\n- SeaChapel, greek/latin inspired dungeon for ocean biome coasts\n- Entity view distance setting added (shown in graphics and network tabs). This setting controls\n  the distance at which entities are synced to the client and which entities are displayed in.\n  This is clamped to be no more than the current overall view distance setting.\n- View distance settings that are lowered by the server limit (or other factors) now display an\n  extra ghost slider cursor when set above the limit (instead of snapping back to the limit).\n  Limits on the view distance by the server no longer affect the settings saved on the client.\n- HQX upscaling shader for people playing on low internal resolutions\n- Pets can now be traded with.\n- Crafting recipe for black lantern\n- Added redwood and dead trees\n- Water will now move according to its apparent flow direction\n- Added screen-space reflection and refraction shaders\n- Added reflection quality setting\n- UI: Added a poise indicator to the player's status bars\n- FxUpscale AA mode for higher quality graphics at reduced internal resolutions\n- Graphics presets\n- Sword\n- Doors now animate opening when entities are near them.\n- Musical instruments can now be crafted, looted and played\n- NPCs now move to their target's last known position.\n- Experience bar below the hotbar\n- Bridges.\n- Tool for exporting PNG images of all in-game models (`cargo img-export`)\n- Calendar event soundtracks.\n\n### Changed\n\n- Use fluent for translations\n- First tab on Login screen triggers username focus\n- Certain NPCs will now attack when alone with victim\n- /kill_npcs no longer leaves drops behind and also has bug causing it to not destroy entities\n  fixed.\n- Default present mode changed to Fifo (aka 'Vsync capped').\n- Old \"Entity View Distance\" setting renamed to \"Entity Detail Distance\" (since this controls the\n  distance at which lower detail models are used for entities).\n- Present mode options renamed for clarity: Fifo -\u003e 'Vsync capped', Mailbox -\u003e 'Vsync uncapped',\n  Immediate -\u003e 'Vsync off'.\n- Item pickup UI now displays items that members of your group pick up.\n- Improved shiny water shaders\n- Tweaked armor stats\n- Move bag icon to skillbar\n- Improved inventory sorting by Category\n\n### Removed\n\n### Fixed\n\n- Fixed npc not handling interactions while fighting (especially merchants in trade)\n- Fixed bug where you would still be burning after dying in lava.\n- Workaround for rayon bug that caused lag spikes in slowjobs\n- Fixed crash due to zooming out very far\n- Client properly knows trade was cancelled when exiting to the character screen (and no longer\n  tries to display the trade window when rejoining)\n- Cancel trades for an entity when it is deleted (note this doesn't effect trades between players\n  since their entities are not removed).\n- Fixed bug where the view distance selection was not immediately applied to entity syncing when\n  first joining a server and when changing the view distance (previously this required moving to a\n  new chunk for the initial setting or subsequent change to apply).\n- Moderators and admins are no longer blocked from logging in when there are too many players.\n- FXAA now behaves correctly at non-1.0x internal resolutions\n- Pets no longer aggro on pet owners after being healed\n- Pets no longer lose their intrinsic weapons/armour when loaded on login.\n- Fixed npcs using `/say` instead of `/tell`\n- Camera jittering in third person has been significantly reduced\n- Many water shader issues have been fixed\n- Flee if attacked even if attacker is not close.\n- `/time` command will never rewind time, only advance it to not break rtsim",
+            created_at: '2023-01-06T18:36:03.201Z',
+            released_at: '2023-01-06T23:00:00.000Z',
+            upcoming_release: false,
+            author: {
+                id: 276442,
+                username: 'xMAC94x',
+                name: 'Marcel',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/276442/avatar.png',
+                web_url: 'https://gitlab.com/xMAC94x',
+            },
+            commit: {
+                id: '185dccc1cc1498d810de907b26699c85bfd1bac0',
+                short_id: '185dccc1',
+                created_at: '2023-01-06T18:27:46.000+00:00',
+                parent_ids: [
+                    'd1e9e8967672d4f4a13a55d110c27033c0f65ab0',
+                    '25906e05dfae035d594a8cf1acd78196f5657698',
+                ],
+                title: "Merge branch 'xMAC94x/release-numbers' into 'master'",
+                message:
+                    "Merge branch 'xMAC94x/release-numbers' into 'master'\n\nChange the version number to 0.14\n\nSee merge request veloren/veloren!3748",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2023-01-06T18:27:46.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2023-01-06T18:27:46.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/185dccc1cc1498d810de907b26699c85bfd1bac0',
+            },
+            milestones: [
+                {
+                    id: 2927487,
+                    iid: 13,
+                    project_id: 10174980,
+                    title: '0.14',
+                    description: '',
+                    state: 'closed',
+                    created_at: '2023-01-01T19:05:57.466Z',
+                    updated_at: '2023-01-25T22:05:36.515Z',
+                    due_date: null,
+                    start_date: null,
+                    expired: false,
+                    web_url:
+                        'https://gitlab.com/veloren/veloren/-/milestones/13',
+                    issue_stats: { total: 0, closed: 0 },
+                },
+            ],
+            commit_path:
+                '/veloren/veloren/-/commit/185dccc1cc1498d810de907b26699c85bfd1bac0',
+            tag_path: '/veloren/veloren/-/tags/v0.14.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.14.0/veloren-v0.14.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.14.0/veloren-v0.14.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.14.0/veloren-v0.14.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.14.0/veloren-v0.14.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [
+                {
+                    sha: '2276b92d24d85a7a0fcc7236cfd5b1b21b81e02de60d',
+                    filepath:
+                        'https://gitlab.com/veloren/veloren/-/releases/v0.14.0/evidences/3968182.json',
+                    collected_at: '2023-01-06T22:00:06.363Z',
+                },
+            ],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.14.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.14.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.14.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.14.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.14.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.14.0',
+            },
+        },
+        {
+            name: 'v0.13.0',
+            tag_name: 'v0.13.0',
+            description:
+                "## [0.13.0] - 2022-07-23\n\n### Added\n- Chat commands to mute and unmute players\n- Waypoints saved between sessions and shared with group members.\n- New rocks\n- Weapon trails\n- Hostile agent will now abort pursuing their target based on multiple metrics\n- Admin command to reload all chunks on the server\n- Furniture and waypoints in site2 towns\n- Text input for trading\n- Themed Site CliffTown, hoodoo/arabic inspired stone structures inhabited by mountaineer NPCs.\n- NPCs now have rudimentary personalities\n- Added Belarusian translation\n- Add FOV check for agents scanning for targets they are hostile to\n- Implemented an LoD system for objects, making trees visible far beyond the view distance\n- Add stealth stat on Bag UI\n- Water caves\n- Modular weapons\n- Added Thai translation\n- Skiing and ice skating\n- Added loot ownership for NPC drops\n- Bamboo collectibles now spawn near rivers\n- Chest sprites can longer be exploded\n- Smoke varies by temperature, humidity, time of day and house\n- Added loot ownership for drops from mining\n- Added an option for experience number accumulation.\n- Added an option for damage number rounding (when greater than or equal to 1.0).\n- Added sliders for incoming/non-incoming damage accumulation duration.\n- New ambience sounds\n- Slider for ambience volume\n- Weather generated on server is sent to clients, and seen on clients as rain/clouds.\n- Updated Brazilian Portuguese Translation\n- Lightning storms\n- More varied ambient birdcalls\n- Cave biomes\n- Updated the Polish translation\n\n### Changed\n\n- Improved site placement\n- [Server] Kick clients who send messages on the wrong stream\n- Reworked Merchant trade price calculation, Merchants offer more wares\n- Enable new giant trees, changed what entities spawn at them\n- Stealth is now shown as a percentage in Stats Diary UI\n- Stealth effects from sneaking and armor are evaluated independently. Armor now has effects even when not sneaking\n- Zoom-in effect when aiming bow is now optional\n- Non-Humanoid NPCs now pick up consumables when less than full health and use them to heal up.\n- Changed module component modifier costs to the following scheme, based on base material: 1 -\u003e 2 -\u003e 5 -\u003e 10 -\u003e 15 -\u003e 25\n- Damage from the same source dealt in the same tick will now be grouped up.\n- Critical hits are now shown differently in the damage numbers.\n- Fall damage and some (extra) buffs/debuffs now show up in the damage numbers.\n- Optimized sprite processing decreasing the startup time of voxygen (and long freezes when trying\n  to enter the world when this hasn't finished).\n- Metadata added to music files. Listen to the soundtrack more easily!\n- Overhauled caves: they're now a multi-layer network spanning the entire world\n\n### Removed\n- Removed the options for single and cumulated damage.\n\n### Fixed\n- Fixed bug that would sometimes cause taking a screenshot to panic because a buffer was mapped at the wrong time.\n- Players can no longer push waypoints around\n- Sites will now also be placed near the edge of the map\n- Fix a bug causing NPCs to jitter on interaction and randomly run away.\n- Harvester boss arenas should be more accessible and easier to exit\n- Fix agents not idling\n- Fixed an error where '{amount} Exp' floater did not use existing localizations\n- Fix villagers seeing cultists and familiar enemies through objects.\n- Menacing agents are now less spammy with their menacing messages\n- Fixed the title screen FPS cap not applying when the background FPS limit was set higher than 60 FPS\n- Fixed an issue where the hurt animation would \"jump\" whenever you lost/gained health.\n- Fixed a bug where multiple damage sources in the same tick would show up as a singular attack.\n- Fixed an issue where, if the same amount of healing and damage was received in the same tick, nothing would be shown.\n- UI sfx now play from UI instead of from camera (allowing stereo sfx)\n- Most sfx now correctly play when camera is underwater\n- All sounds now stop upon quitting to main menu\n- Combat music now loops and ends properly\n- Modular weapons now have a selling price\n- Closing a subwindow now only regrabs the cursor if no other subwindow requires it.",
+            created_at: '2022-07-23T16:33:23.424Z',
+            released_at: '2022-07-23T16:32:09.426Z',
+            upcoming_release: false,
+            author: {
+                id: 276442,
+                username: 'xMAC94x',
+                name: 'Marcel',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/276442/avatar.png',
+                web_url: 'https://gitlab.com/xMAC94x',
+            },
+            commit: {
+                id: '34ae5b9df73f367fa34350337ebba71711f48b86',
+                short_id: '34ae5b9d',
+                created_at: '2022-07-23T13:15:01.000+00:00',
+                parent_ids: [
+                    '72b0b260045c54786e9dc1dae66839b8dcd3387c',
+                    'bfcc2cb802acd3a9555cbc32e9015e64598c1a66',
+                ],
+                title: "Merge branch 'xMAC94x/release-numbers' into 'master'",
+                message:
+                    "Merge branch 'xMAC94x/release-numbers' into 'master'\n\nChange the version number to 0.13\n\nSee merge request veloren/veloren!3490",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2022-07-23T13:15:01.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2022-07-23T13:15:01.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/34ae5b9df73f367fa34350337ebba71711f48b86',
+            },
+            milestones: [
+                {
+                    id: 2482027,
+                    iid: 12,
+                    project_id: 10174980,
+                    title: 'r0.13',
+                    description: '',
+                    state: 'closed',
+                    created_at: '2022-02-21T19:18:36.334Z',
+                    updated_at: '2022-08-28T08:59:23.056Z',
+                    due_date: '2022-07-23',
+                    start_date: '2022-02-19',
+                    expired: true,
+                    web_url:
+                        'https://gitlab.com/veloren/veloren/-/milestones/12',
+                    issue_stats: { total: 15, closed: 5 },
+                },
+            ],
+            commit_path:
+                '/veloren/veloren/-/commit/34ae5b9df73f367fa34350337ebba71711f48b86',
+            tag_path: '/veloren/veloren/-/tags/v0.13.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.13.0/veloren-v0.13.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.13.0/veloren-v0.13.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.13.0/veloren-v0.13.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.13.0/veloren-v0.13.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [
+                {
+                    sha: '3955f0f3d6228241f443be43ed9b2dedcd23eaabcead',
+                    filepath:
+                        'https://gitlab.com/veloren/veloren/-/releases/v0.13.0/evidences/3050854.json',
+                    collected_at: '2022-07-23T17:00:01.457Z',
+                },
+            ],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.13.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.13.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.13.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.13.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.13.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.13.0',
+            },
+        },
+        {
+            name: 'v0.12.0',
+            tag_name: 'v0.12.0',
+            description:
+                "## [0.12.0] - 2022-02-19\r\n\r\n### Added\r\n\r\n- Added a setting to always show health and energy bars\r\n- Added a crafting station icon to the crafting menu sidebar for items that could be crafted at a crafting station\r\n- Added a setting to disable the hotkey hints\r\n- Added a credits screen in the main menu which shows attributions for assets\r\n- Shrubs, a system for spawning smaller tree-like plants into the world.\r\n- Waterfalls\r\n- Sailing boat (currently requires spawning in)\r\n- Added a filter search function for crafting menu, use \"input:_____\" to search for recipe inputs\r\n- Added catalan (Catalonia) language translation\r\n- Sneaking with weapons drawn\r\n- Stealth stat values on (some) armors\r\n- All new dismantling interface found at your nearest dismantling staion\r\n- Wearable headgear, including hood, crown, bandanas\r\n- Bomb sprites (can be exploded with arrows or other explosions)\r\n- Campfire waypoints in towns\r\n- Arbitrary volume entities\r\n- New outfit for merchants\r\n- Nightly linux Aarch64 builds are now produced (distribution via airshipper will follow soon)\r\n- Worldgen wildlife density modifier in features.ron\r\n- Rivers now make ambient sounds (again)\r\n- Added a setting to see own speech bubbles\r\n- Added an option to allow players to remove keybindings\r\n- Piercing damage now ignores an amount of protection equal to damage value\r\n- Slashing damage now reduces target's energy by an amount equal to damage dealt to target post-mitigation\r\n- Crushing damage now does poise damage to a target equal to the amount mitigated by armor\r\n- UI to select abilities and assign to hotbar\r\n- Position of abilities on hotbar is now persisted through the server\r\n- Interation hints now appear for sprites and entities\r\n- Players can now mount and ride pets\r\n- Experimental shaders, that can be enabled in Voxygen's settings (see the book for more information)\r\n- Keybinding customization to set waypoint on Map\r\n- Added arthropods\r\n- A 'point light glow' effect, making lanterns and other point lights more visually pronounced\r\n- Generate random name for site2 sites\r\n- Shader dithering to remove banding from scenes with large colour gradients\r\n- Convert giant trees to site2\r\n- Add new upgraded travelers\r\n- Wallrunning\r\n\r\n### Changed\r\n\r\n- Made dungeon tiers 3, 4, and 5 more common\r\n- Put date at the begining of the log file instead of the end to allow MIME type recognition\r\n- Tweaked CR and exp calculation formula\r\n- Sprite spawn rates\r\n- The Interact button can be used on campfires to sit\r\n- Made map icons fade out when near the edge of the map display\r\n- Roughly doubled the speed of entity vs terrain physics checks\r\n- Updated client facing error messages to be localizable strings\r\n- Nerfed some skill values\r\n- Tweaked critical chance of legendary weapons\r\n- Agents using fireball projectiles aim at the feet instead of the eyes\r\n- Explosions can now have a nonzero minimum falloff\r\n- EXP on kill is now shared based on damage contribution\r\n- Dungeons have somewhat proper scaling. The higher the dungeon the harder it gets, Cultist staying unchanged while Mino is now at its level.\r\n- Parallelized entity sync system on the server\r\n- Item color backgrounds are now lighter\r\n- All items that used the PNG file format now have a VOX file instead\r\n- Yeti loot table modified\r\n- Phoenix feathers are now Legendary quality\r\n- Green/Red lantern now shine their respective color instead of the default lantern color\r\n- Poise damage dealt to a target that is in a stunned state is now converted to health damage at an efficiency dependent on the severity of the stunned state\r\n- You are now immune to poise damage for 1 second after leaving a stunned state\r\n- Removed or reduced poise damage from most abilities\r\n- Made the hotbar link to items by item definition id and component composition instead of specific inventory slots.\r\n- Made loot boxes drop items instead of doing nothing in order to loot forcing\r\n- Refactored agent code file structure\r\n- Changed the way light strength is rendered by moving processing from shader code (GPU) to CPU code\r\n- Bumped tracing-subscriber to resolve [RUSTSEC-2022-0006](https://rustsec.org/advisories/RUSTSEC-2022-0006)\r\n- Made /home command a mod+ exclusive\r\n- Friendly creatures will now defend each other\r\n- Creatures will now defend their pets\r\n- [WorldGen] Change path colors\r\n- Render item drops instead of placeholder textures\r\n\r\n### Removed\r\n\r\n- Removed unused PNG files\r\n- Removed bomb_pile\r\n\r\n### Fixed\r\n\r\n- The menu map now properly handles dragging the map, zooming, and setting the waypoint when hovering icons\r\n- Falling through an airship in flight should no longer be possible (although many issues with airship physics remain)\r\n- Avoided black hexagons when bloom is enabled by suppressing NaN/Inf pixels during the first bloom blur pass\r\n- Many know water generation problems\r\n- Trading over long distances using ghost characters or client-side exploits is no longer possible\r\n- Merchant cost percentages displayed as floored, whole numbers\r\n- Bodies of water no longer contain black chunks on the voxel minimap.\r\n- Agents can flee once again, and more appropriately\r\n- Items in hotbar no longer change when sorting inventory\r\n- Lantern color changes when swapping lanterns\r\n- NPCs no longer wander off cliffs\r\n- Guards will defend villagers instead of simply threatening the attacker\r\n- Seafaring ships no longer spawn on dry land",
+            created_at: '2022-02-19T08:51:16.536Z',
+            released_at: '2022-02-19T08:51:16.536Z',
+            upcoming_release: false,
+            author: {
+                id: 276442,
+                username: 'xMAC94x',
+                name: 'Marcel',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/276442/avatar.png',
+                web_url: 'https://gitlab.com/xMAC94x',
+            },
+            commit: {
+                id: 'b5bac97c2e533bc61faf39ab0a43a037aa5a5ccf',
+                short_id: 'b5bac97c',
+                created_at: '2022-02-18T23:41:06.000+00:00',
+                parent_ids: [
+                    'caf46a3f8d24dc75211f839566f85237b35657a1',
+                    '802b9e7914cd1aed55cc0c5a30ae295d726962ed',
+                ],
+                title: "Merge branch 'xMAC94x/release-numbers' into 'master'",
+                message:
+                    "Merge branch 'xMAC94x/release-numbers' into 'master'\n\nChange the version number to 0.12\n\nSee merge request veloren/veloren!3219",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2022-02-18T23:41:06.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2022-02-18T23:41:06.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/b5bac97c2e533bc61faf39ab0a43a037aa5a5ccf',
+            },
+            commit_path:
+                '/veloren/veloren/-/commit/b5bac97c2e533bc61faf39ab0a43a037aa5a5ccf',
+            tag_path: '/veloren/veloren/-/tags/v0.12.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.12.0/veloren-v0.12.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.12.0/veloren-v0.12.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.12.0/veloren-v0.12.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.12.0/veloren-v0.12.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [
+                {
+                    sha: 'fcf8e003bdabf2372e320b846032098c9fc2d1cd08ad',
+                    filepath:
+                        'https://gitlab.com/veloren/veloren/-/releases/v0.12.0/evidences/2193965.json',
+                    collected_at: '2022-02-19T09:00:01.468Z',
+                },
+            ],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.12.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.12.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.12.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.12.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.12.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.12.0',
+            },
+        },
+        {
+            name: 'v0.11.0',
+            tag_name: 'v0.11.0',
+            description:
+                "## [0.11.0] - 2021-09-11\r\n\r\n### Added\r\n\r\n- Added a skill tree for mining, which gains xp from mining ores and gems.\r\n- Added debug line info to release builds, enhancing the usefulness of panic backtraces\r\n- NPCs and animals can now make sounds in response to certain events\r\n- Players can press H to greet others\r\n- Ability to toggle chat visibility\r\n- Added gem rings with various stat improvements.\r\n- Animations for using consumables.\r\n- New danari character customizations\r\n- Bald hairstyles for humans and danari\r\n- AI for sceptre wielders and sceptre cultists in Tier 5 dungeons\r\n- HUD debug info now displays current biome and site\r\n- Quotes and escape codes can be used in command arguments\r\n- Toggle chat with a shortcut (default is F5)\r\n- Pets are now saved on logout 🐕 🦎 🐼\r\n- Dualwielded, one-handed swords as starting weapons (Will be replaced by daggers in the future!)\r\n- Healing sceptre crafting recipe\r\n- NPCs can now warn players before engaging in combat\r\n- Custom error message when a supported graphics backend can not be found\r\n- Add server setting with PvE/PvP switch\r\n- Can now tilt glider while only wielding it\r\n- Experimental terrain persistence (see server documentation)\r\n- Add GPU filtering using WGPU_ADAPTER environment variable\r\n- Explosions no longer change block colours within safe zones\r\n- The 'spot' system, which generates smaller site-like structures and scenarios\r\n- Chestnut and cedar tree varieties\r\n- Shooting sprites, such as apples and hives, can knock them out of trees\r\n- Sprite pickup animations\r\n- Add VELOREN_ASSETS_OVERRIDE variable for specifying folder to partially override assets.\r\n- Cultist raiders\r\n- Bloom Slider\r\n\r\n### Changed\r\n\r\n- Entity-entity pushback is no longer applied in forced movement states like rolling and leaping.\r\n- Updated audio library (rodio 0.13 -\u003e 0.14).\r\n- Improve entity-terrain physics performance by reducing the number of voxel lookups.\r\n- Clay Golem uses shockwave only after specific fraction of health and other difficulty adjustments.\r\n- Made strafing slightly slower\r\n- Food now has limited regeneration strength but longer duration.\r\n- Harvester boss now has new abilities and AI\r\n- Death particles and SFX\r\n- Default keybindings were made more consistent\r\n- Adjusted Yeti difficulty\r\n- Now most of the food gives Saturation in the process of eating\r\n- Mushroom Curry gives long-lasting Regeneration buff\r\n- Trades now consider if items can stack in full inventories.\r\n- The types of animals that can be tamed as pets are now limited to certain species, pending further balancing of pets\r\n- Made server-cli admin add/remove command use positional arguments again\r\n- Usage of \"stamina\" replaced with \"energy\"\r\n- Glider dimensions now depend on character height\r\n- Glider dimensions somewhat increased overall\r\n- Dungeon difficulty level starts at 1 instead of 0\r\n- The radius of the safe zone around the starting town has been doubled\r\n- NPCs can sometimes drop no loot at all\r\n\r\n### Removed\r\n\r\n- Enemies no longer spawn in dungeon boss room\r\n- Melee critical hit no longer applies after reduction by armour\r\n- Enemies no more spawn in dungeon boss room\r\n- Melee critical hit no more applies after reduction by armour\r\n- Removed Healing Sceptre as a starting weapon as it is considered an advanced weapon\r\n- The ability to pickup sprites through walls\r\n\r\n### Fixed\r\n\r\n- Crafting Stations aren't exploadable anymore\r\n- Cases where no audio output could be produced before.\r\n- Significantly improved the performance of playing sound effects\r\n- Dismantle and Material crafting tabs don't have duplicated recipes\r\n- Campfires now despawn when underwater\r\n- Players no longer spawn underground if their waypoint is underground\r\n- Map will now zoom around the cursor's position and drag correctly\r\n- No more jittering while running down slopes with the glider out\r\n- Axe normal attack rewards energy without skill points\r\n- Gliders no longer suffer from unreasonable amounts of induced drag\r\n- Camera is now clipping a lot less",
+            created_at: '2021-09-10T20:06:55.786Z',
+            released_at: '2021-09-10T20:06:55.786Z',
+            upcoming_release: false,
+            author: {
+                id: 276442,
+                username: 'xMAC94x',
+                name: 'Marcel',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/276442/avatar.png',
+                web_url: 'https://gitlab.com/xMAC94x',
+            },
+            commit: {
+                id: 'e4716147a7356eb13088e7d74ace3ccdcb5cd900',
+                short_id: 'e4716147',
+                created_at: '2021-09-10T20:02:36.000+00:00',
+                parent_ids: [
+                    '37a6ea7abc056f03ec01494d1dfabc3017c3d436',
+                    '7913e6a9ba9e9ca160a426aaca8295e30e4c2592',
+                ],
+                title: "Merge branch 'xMAC94x/release-numbers' into 'master'",
+                message:
+                    "Merge branch 'xMAC94x/release-numbers' into 'master'\n\nChange the version number to 0.11\n\nSee merge request veloren/veloren!2826",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2021-09-10T20:02:36.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2021-09-10T20:02:36.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/e4716147a7356eb13088e7d74ace3ccdcb5cd900',
+            },
+            commit_path:
+                '/veloren/veloren/-/commit/e4716147a7356eb13088e7d74ace3ccdcb5cd900',
+            tag_path: '/veloren/veloren/-/tags/v0.11.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.11.0/veloren-v0.11.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.11.0/veloren-v0.11.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.11.0/veloren-v0.11.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.11.0/veloren-v0.11.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [
+                {
+                    sha: 'bd7d92b2dfc9f3464bd641fedfb32a63c750a336220d',
+                    filepath:
+                        'https://gitlab.com/veloren/veloren/-/releases/v0.11.0/evidences/1448987.json',
+                    collected_at: '2021-09-10T21:00:02.086Z',
+                },
+            ],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.11.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.11.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.11.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.11.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.11.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.11.0',
+            },
+        },
+        {
+            name: 'v0.10.0',
+            tag_name: 'v0.10.0',
+            description:
+                '\r\n## [0.10.0] - 2021-06-12\r\n\r\n### Added\r\n\r\n- New Skills for Climbing: Climbing Speed and Climbing Cost\r\n- Pickaxes (can be used to collect gems and mine weak rock)\r\n- You can now jump out of rolls for a slight jump boost\r\n- Dungeons now have multiple kinds of stairs.\r\n- Trades now display item prices in tooltips.\r\n- Admin designated build areas\r\n- Indicator text to collectable terrain sprites\r\n- You can now autorequest exact change by ctrl-clicking in a trade, and can quick-add individual items with shift-click.\r\n- Buy and sell prices in tooltips when trading with a merchant now have colors.\r\n- Attacks now emit sound effects from the target on hit.\r\n- Crafting menu tabs\r\n- Auto camera setting, making the game easier to play with one hand\r\n- Topographic map option\r\n- Search bars for social and crafting window\r\n- RTsim travellers now follow paths between towns\r\n- "Poise" renamed to "Stun resilience"\r\n- Stun resilience stat display\r\n- Villagers and guards now spawn with potions, and know how to use them.\r\n- Combat music in dungeons when within range of enemies.\r\n- New Command: "kit", place a set of items into your inventory\r\n- Added --sql-log-mode profile/trace parameter to veloren-server-cli\r\n- Added /disconnect_all_players admin command\r\n- Added disconnectall CLI command\r\n- One handed weapons can now be used and found in the world\r\n- Players can now opt-in to server-authoritiative physics in gameplay settings.\r\n- Added `/server_physics` admin command.\r\n- Sort inventory button\r\n- Option to change the master volume when window is unfocused\r\n- Crafting stations in towns\r\n- Option to change the master volume when window is unfocused\r\n- Entities now have mass\r\n- Entities now have density\r\n- Buoyancy is calculated from the difference in density between an entity and surrounding fluid\r\n- Drag is now calculated based on physical properties\r\n- Terrain chunks are now deflate-compressed when sent over the network.\r\n- Missing translations can be displayed in English.\r\n- New large birds npcs\r\n- Day period dependant wildlife spawns\r\n- You can now block and parry with melee weapons\r\n- Lift is now calculated for gliders based on dimensions (currently same for all)\r\n- Specific music tracks can now play exclusively in towns.\r\n- Custom map markers can be placed now\r\n- Fundamentals/prototype for wiring system\r\n- Mountain peak and lake markers on the map\r\n- There\'s now a checkbox in the graphics tab to opt-in to receiving lossily-compressed terrain colors.\r\n- /buff command which allows you to cast a buff on player\r\n- Warn the user with an animated red text in the second phase of a trade in which a party is offering nothing.\r\n- /skill_preset command which allows you to apply skill presets\r\n- Added timed bans and ban history.\r\n- Added non-admin moderators with limit privileges and updated the security model to reflect this.\r\n- Added a minimap mode that visualizes terrain within a chunk.\r\n- Chat tabs\r\n- NPC\'s now hear certain sounds\r\n- Renamed Animal Trainers to Beastmasters and gave them their own set of armor to wear\r\n- ChargedRanged attacks (such as some bow attacks) use an FOV zoom effect to indicate charge.\r\n- Add chest to each dungeon with unique loot\r\n- Added a new option in the graphics menu to enable GPU timing (not always supported). The timing values can be viewed in the HUD debug info (F3) and will be saved as chrome trace files in the working directory when taking a screenshot.\r\n- Added new Present Mode option in the graphics menu. Selecting Fifo (i.e. vsync) or Mailbox can be used to eliminate screen tearing.\r\n- Quality color indicators next to recipe names in crafting menu\r\n- New cave visuals: Ridges, pits, new sprites, colors\r\n- Veins in caves to dig through to uncover ore\r\n- Armor material system with 6 armor sets each in hide, mail and cloth categories\r\n- New armor stats including max energy, energy reward, critical hit damage\r\n- Meat drops from animals\r\n- New ores, plants and hides to be looted from the world and processed into craft ingredients\r\n- Added more crafting stations, loom, spinning wheel, tanning rack, forge\r\n\r\n### Changed\r\n\r\n- Admins can now grant normal players plots to place blocks within\r\n- Diamonds are now much more than twice as expensive as twigs.\r\n- Permission to build is no longer tied to being an admin\r\n- Separated character randomization buttons into appearance and name.\r\n- Reworked mindflayer to have unique attacks\r\n- Glowing remains are now `Armor` instead of `Ingredients`.\r\n- Generated a new world map\r\n- Overhauled clouds for more verticality and performance\r\n- New tooltip for items with stats comparison\r\n- Improved bow feedback, added arrow particles\r\n- Retiered most sceptres and staves\r\n- Loot tables can now recursively reference loot tables\r\n- "max_sfx_channels" default now set to 30\r\n- Merchants now have stacks of stackable items instead of just one per slot\r\n- Bag tooltips only show slots now\r\n- Removed infinite armour values from most admin items\r\n- Item tooltips during trades will now inform the user of what ctrl-click and shift-click do\r\n- International keyboards can now display more key names on Linux and Windows instead of `Unknown`.\r\n- There is now a brief period after a character leaves the world where they cannot rejoin until their data is saved\r\n- Certain uses of client-authoritative physics now subject the player to server-authoritative physics.\r\n- Dodge roll iframes and staff explosion are now unlocked by default, with points refunded for existing characters.\r\n- Dash melee now stops after hitting something. Infinite dash also now replaced with dash through.\r\n- Collisions, knockbacks, jumping and drag are now physical forces applied to the entity\'s body mass\r\n- Turning rate has been made more consistent across angles\r\n- Gravity has been lowered so that physics can work more reasonably\r\n- Jump has been decreased in height but extended in length as a result of the new gravity\r\n- Fall damage has been adjusted with the new gravity in mind\r\n- Projectiles now generally have a different arc because they no longer have their own gravity modifier\r\n- Increased agent system target search efficiency speeding up the server\r\n- Added more parallelization to terrain serialization and removed extra cloning speeding up the server\r\n- Energy now recharges while gliding\r\n- Debug Kit is split to "admin_cosmetics" and "debug"\r\n- Potion Kit is renamed to "consumables" and gives potions and mushroom curry\r\n- Cultist Kit gives cape, rings and necklace in addition to armour and weapons.\r\n- Reworked minotaur to have unique attacks.\r\n- Wiring is now turing complete\r\n- Better active/inactive master sound slider logic\r\n- Cultist Husk no longer drops weapons and armor\r\n- Animal Trainers now spawn in tier-5 dungeon and not in tier-3\r\n- Reworked clay golem to have unique attacks.\r\n- Merchants now use `/tell` instead of `/say` to communicate prices\r\n- Entities catch on fire if they stand too close to campfires\r\n- Water extinguishes entities on fire\r\n- Item pickups are shown in separate window and inventory-full shows above item\r\n- Reworked bow\r\n- Switched to the `wgpu` graphics library giving us support for vulkan, dx12, metal, and dx11 (support for opengl is lost for the moment). This improves the graphics performance for many users.\r\n- Reworked sprite rendering to vastly reduce the CPU work. Large sprite view distances are now much more performant.\r\n- Optimized rendering of quads (most of the graphics in the game) using an index buffer, decreasing the number of vertices that need to be processed by 33%.\r\n- Moved the rest of screenshot work into the background. Screenshoting no longer induces large pauses.\r\n- Reworked tidal warrior to have unique attacks\r\n- Reworked yeti to have unique attacks\r\n- Widened recipe name list in crafting menu\r\n- Reworked animal loot tables\r\n- NPC hitboxes better fit their model.\r\n\r\n### Removed\r\n\r\n- Removed command: "debug", use "/kit debug" instead\r\n- Gravity component has been removed\r\n- In-air movement has been removed\r\n- Energy cost of deploying the glider has been removed\r\n- Removed steel and cultist loot tables\r\n\r\n### Fixed\r\n\r\n- Server kicks old client when a user is trying to log in again (often the case when a user\'s original connection gets dropped)\r\n- Added a raycast check to beams to prevent their effect applying through walls\r\n- Flying agents raycast more angles to check for obstacles.\r\n- Mouse Cursor now locks to the center of the screen when menu is not open\r\n- Social window no longer moves when group is open\r\n- Combat rating no longer takes buffs into account\r\n- Minimap icons are now displayed in both map modes\r\n- Server now denies any running trades when a user exits to the character selection screen.\r\n- Sfx volume changes now also change the ambient sounds volume\r\n- Staff fire shockwave ability no longer has an unlimited vertical range\r\n- Skillbar buttons correctly account for skill points when checking if player has enough stamina for the ability.\r\n- Burning Debuff icon is now displayed correctly.\r\n- Villagers in safezones no longer spam messages upon seeing an enemy\r\n- Wolf AI will no longer circle into walls and will instead use the power of raycasts to stop early\r\n- Squirrels are no longer immune to arrows at some angles.\r\n- /spawn command\'s auto-complete now works for species names\r\n- Mindflayer AI now correctly summons husks at certain HP thresholds.\r\n- Far away NPCs respond to being damaged by a projectile\r\n- Fixed terrain clipping with glider\r\n- Fixed an issue where prices weren\'t properly making their way from econsim to the actual trade values.\r\n- Fixed entities with voxel colliders being off by one physics tick for collision.\r\n- Airships no longer oscillate dramatically into the sky due to mistaking velocity for acceleration.\r\n- The login and character selection screens no longer cause high GPU usage when the framerate limit is set to Unlimited.\r\n',
+            created_at: '2021-06-12T09:22:57.132Z',
+            released_at: '2021-06-12T09:22:57.132Z',
+            upcoming_release: false,
+            author: {
+                id: 276442,
+                username: 'xMAC94x',
+                name: 'Marcel',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/276442/avatar.png',
+                web_url: 'https://gitlab.com/xMAC94x',
+            },
+            commit: {
+                id: 'cf2bdb20f184d85b3a300a5db2e5bde2cd2f51dd',
+                short_id: 'cf2bdb20',
+                created_at: '2021-06-12T08:55:34.000+00:00',
+                parent_ids: [
+                    'f578c56db751d37f053d404073a18f8453cd17c3',
+                    '4167621f5d40ba306f5faa97d64919e4053cac00',
+                ],
+                title: "Merge branch 'xMAC94x/release_numbers' into 'master'",
+                message:
+                    "Merge branch 'xMAC94x/release_numbers' into 'master'\n\nChange the version number to 0.10\n\nSee merge request veloren/veloren!2428",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2021-06-12T08:55:34.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2021-06-12T08:55:34.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/cf2bdb20f184d85b3a300a5db2e5bde2cd2f51dd',
+            },
+            commit_path:
+                '/veloren/veloren/-/commit/cf2bdb20f184d85b3a300a5db2e5bde2cd2f51dd',
+            tag_path: '/veloren/veloren/-/tags/v0.10.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.10.0/veloren-v0.10.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.10.0/veloren-v0.10.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.10.0/veloren-v0.10.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.10.0/veloren-v0.10.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [
+                {
+                    sha: '920ea72bf1d61e3cd3bfc21401c10be690508bececcd',
+                    filepath:
+                        'https://gitlab.com/veloren/veloren/-/releases/v0.10.0/evidences/1137649.json',
+                    collected_at: '2021-06-12T10:00:01.353Z',
+                },
+            ],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.10.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.10.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.10.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.10.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.10.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.10.0',
+            },
+        },
+        {
+            name: 'v0.9.0',
+            tag_name: 'v0.9.0',
+            description:
+                '\r\n## [0.9.0] - 2021-03-20\r\n\r\n### Added\r\n\r\n- Plugin can now retrieve data from ECS\r\n- Added chat commands for inviting, kicking, leaving, and promoting in groups\r\n- Aura system\r\n- Campfire resting heal\r\n- Initial support for game plugins, both server-side and client-side\r\n- Reflective LoD water\r\n- Map indicators for group members\r\n- Hot-reloading for i18n, sounds, loot lotteries, and more\r\n- Initial support for alternate style keyboards\r\n- Flying birds travel the world\r\n- Plugin system now based on Wasmer 1.0.0\r\n- Added 4x Bag loadout slots, used for upgrading inventory space\r\n- Added an additional Ring loadout slot\r\n- The inventory can now be expanded to fill the whole window\r\n- Added /dropall admin command (drops all inventory items on the ground)\r\n- Skill trees\r\n- Lactose tolerant golems\r\n- 6 different gems. (Topaz, Amethyst, Sapphire, Emerald, Ruby and Diamond)\r\n- Poise system\r\n- Snow particles\r\n- Basic NPC interaction\r\n- Lights in dungeons\r\n- Trading system (bound to the `R` key by default, currently only works with players)\r\n- Support for dual wielding (not accessible as animations still needed)\r\n- Support for modular weapons.\r\n- Saturation buff (healing from food) now queues\r\n- Coral reefs, kelp forests, and seagrass\r\n- Talk animation\r\n- New bosses in 5 lower dungeons\r\n- New enemies in 5 lower dungeons\r\n- Added on join event in plugins\r\n- Item stacking and splitting\r\n- Procedural trees (currently only oaks and pines are procedural)\r\n- Cliffs on steep slopes\r\n- Giant tree sites\r\n- Reset button for graphics settings\r\n- Gave weapons critical strike {chance, multiplier} stats\r\n- A system to add glow and reflection effects to figures (i.e: characters, armour, weapons, etc.)\r\n- Merchants will trade wares with players\r\n- Airships that can be mounted and flown, and also walked on (`/airship` admin command)\r\n\r\n### Changed\r\n\r\n- Doubled range of ScaleMode slider when set to Custom\r\n- Glider can now be deployed mid-air at the cost of some stamina based on fall speed\r\n- Translations are now folders with multiple files instead of a huge single file\r\n- Default inventory slots reduced to 18 - existing characters given 3x 6-slot bags as compensation\r\n- Protection rating was moved to the top left of the loadout view\r\n- Changed camera smoothing to be off by default.\r\n- Footstep SFX is now dependant on distance moved, not time since last play\r\n- Adjusted most NPCs hitboxes to better fit their models.\r\n- Changed crafting recipes involving shiny gems to use diamonds instead.\r\n- Cave scatter now includes all 6 gems.\r\n- Adjusted Stonework Defender loot table to remove mindflayer drops (bag, staff, glider).\r\n- Made humanoid NPCs use gliders (if equipped) when falling\r\n- Changed default controller key bindings\r\n- Improved network efficiency by ≈ factor 10 by using tokio.\r\n- Added item tooltips to trade window.\r\n- "Quest" given to new players converted to being a short tutorial\r\n- Items can be requested from the counterparty\'s inventory during trade.\r\n- Savanna grasses restricted to savanna, cacti to desert.\r\n- Fireworks recursively shoot more fireworks.\r\n- Improved static light rendering and illumination\r\n- Improved the tree spawning model to allow for overlapping forests\r\n- Changed sunlight (and, in general, static light) propagation through blocks to allow for more material properties\r\n- Overhauled the sceptre\r\n- Make the /time command relative to the current day\r\n- Spatial partitioning via a grid for entity versus entity collisions was added which can more than halve the total tick time at higher entity counts (\u003e ~1000)\r\n- Improved efficency of entity versus terrain collisions (they now take less than half the time)\r\n- The loading screen will now display random animations\r\n\r\n### Removed\r\n\r\n- SSAAx4 option\r\n- The Stats button and associated screen were removed\r\n- Levels\r\n- Shiny Gems (replaced with diamonds)\r\n\r\n### Fixed\r\n\r\n- Fixed a bug that would cause a server crash when a player levelled up or fired\r\n  a projectile in very specific circumstances\r\n- Fixed a bug where buff/debuff UI elements would flicker when you had more than\r\n  one of them active at the same time\r\n- Made zooming work on wayland\r\n- Fixed AI behavior so only humanoids will attempt to roll\r\n- Fixed missing GameInputs (sneak, swimup, swimdown) in controller mapping\r\n- Fixed missing controller actions (dance and crafting)\r\n- Fixed a bug where the stairs to the boss floor in dungeons would sometimes not spawn\r\n- Fixed waypoints being placed underwater\r\n- Objects and golems are not affected by bleed debuff anymore\r\n- Fixed RtSim entity memory loss\r\n- Mandated that merchants not wander away during a trade\r\n- Fixed the villager conception of evil by encouraging them to react violently to characters wearing cultist gear\r\n',
+            created_at: '2021-03-21T16:14:20.268Z',
+            released_at: '2021-03-21T16:14:20.268Z',
+            upcoming_release: false,
+            author: {
+                id: 276442,
+                username: 'xMAC94x',
+                name: 'Marcel',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/276442/avatar.png',
+                web_url: 'https://gitlab.com/xMAC94x',
+            },
+            commit: {
+                id: '1afe3b7de53804b3650d7762810cdc54213eb5db',
+                short_id: '1afe3b7d',
+                created_at: '2021-03-20T12:48:05.000+00:00',
+                parent_ids: [
+                    'ac4d753fc921cfba83d34369b305b19d4ccae295',
+                    '2733ba2e27646fcd1c2d591459a204e82f877a77',
+                ],
+                title: "Merge branch 'xMAC94x/release_numbers' into 'master'",
+                message:
+                    "Merge branch 'xMAC94x/release_numbers' into 'master'\n\nChange the version number to 0.9\n\nSee merge request veloren/veloren!1948",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2021-03-20T12:48:05.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2021-03-20T12:48:05.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/1afe3b7de53804b3650d7762810cdc54213eb5db',
+            },
+            commit_path:
+                '/veloren/veloren/-/commit/1afe3b7de53804b3650d7762810cdc54213eb5db',
+            tag_path: '/veloren/veloren/-/tags/v0.9.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.9.0/veloren-v0.9.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.9.0/veloren-v0.9.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.9.0/veloren-v0.9.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.9.0/veloren-v0.9.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [
+                {
+                    sha: '20359c3bd13e120c96cdb0d0eff8a211b53f59bc744d',
+                    filepath:
+                        'https://gitlab.com/veloren/veloren/-/releases/v0.9.0/evidences/863738.json',
+                    collected_at: '2021-03-21T17:00:01.678Z',
+                },
+            ],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.9.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.9.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.9.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.9.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.9.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.9.0',
+            },
+        },
+        {
+            name: 'v0.8.0',
+            tag_name: 'v0.8.0',
+            description:
+                '\r\n### Added\r\n\r\n- New level of detail feature, letting you see all the world\'s terrain at any view distance.\r\n- Point and directional lights now cast realistic shadows, using shadow mapping.\r\n- Added leaf and chimney particles\r\n- Some more combat sound effects\r\n- Beehives and bees\r\n- Fireflies\r\n- Fullscreen modes now show two options (exclusive and borderless)\r\n- Added banlist and `/ban`, `/unban`, and `/kick` commands for admins\r\n- A new dungeon boss (venture there and discover it yourself)\r\n- Adaptive stride setup for more dynamic run behavior\r\n- Theropod body\r\n- Several new animals\r\n- Item quality indicators\r\n- Added a jump/burst attack for the bow to the skillbar\r\n- Gave the axe a third attack\r\n- A new secondary charged melee attack for the hammer\r\n- Added Dutch translations\r\n- Buff system\r\n- Sneaking lets you be closer to enemies without being detected\r\n- Flight\r\n- Roll dodges melee attacks, and reduces the height of your hitbox\r\n- Persistent waypoints (start from the last camp fire you visited)\r\n- NPCs use all three weapon skills in combat\r\n- Speed stat to weapons which affects weapon attack speed\r\n- Saving of the last selected character in the character selection screen\r\n- Autoselecting the newly created character\r\n- Deselecting when the selected character is deleted\r\n- Upscaling support\r\n- Added "Persist Combo from Combo Melee State" when rolling mid-combo\r\n- You can no longer spam hammer and bow special when stamina is 0\r\n- Biome and site specific music system\r\n- Ambient SFX emitted from terrain blocks\r\n- Campfire SFX\r\n- Wind SFX system\r\n- Added Norwegian language\r\n- Roll can now interrupt attacks\r\n- Birch forests\r\n- Willow forests\r\n- More significant temperature variation across the world\r\n- Initial implementation of real-time world simulation\r\n- Travellers that explore the world\r\n- HDR rendering\r\n- Map site icons\r\n- Map panning\r\n- Innumerable minor improvements to world generation\r\n- Variable dungeon difficulty\r\n- Aurora Borealis (localised entirely within the kitchen)\r\n- Block-based voxel lighting\r\n- Animals now have customized attacks and AI\r\n\r\n### Changed\r\n\r\n- The world map has been refactored to support arbitrary sizes and compute horizon maps.\r\n- Veloren\'s lighting has been completely overhauled.\r\n- The graphics options were made much more flexible and configurable.\r\n- Many shader optimizations.\r\n- Voxel model creation was switched to use greedy meshing, improving performance.\r\n- Animation and terrain math were switched to use SIMD where possible, improving performance.\r\n- The way we cache glyphs was refactored, fixed, and optimized.\r\n- Colors for models and figures were adjusted to account for the saturation hack.\r\n- Overhauled world colours\r\n- Improved projectile physics\r\n- Improved overhead aiming\r\n- Improved first person aiming\r\n- Figure meshing no longer blocks the main thread.\r\n- Overhauled persistence layer including no longer storing serialized JSON items in the database\r\n- Overhauled representation of blocks to permit fluid and sprite coexistence\r\n- Overhauled sword\r\n- Reworked healing sceptre\r\n- Split out the sections of the server settings that can be edited and saved by the server.\r\n- Revamped structure of where settings, logs, and game saves are stored so that almost everything is in one place.\r\n- Moved hammer leap attack to skillbar\r\n- Reworked fire staff\r\n- Overhauled cloud shaders to add mist, light attenuation, an approximation of rayleigh scattering, etc.\r\n- Allowed collecting nearby blocks without aiming at them\r\n- Made voxygen wait until singleplayer server is initialized before attempting to connect, removing the chance for it to give up on connecting if the server takes a while to start\r\n- Log where userdata folder is located\r\n- Switched to a Whittaker map for better tree spawning patterns\r\n- Switched to procedural snow cover on trees\r\n- Significantly improved terrain generation performance\r\n- Significantly stabilized the game clock, to produce more "constant" TPS\r\n- Transitioned main menu and character selection screen to a using iced for the ui (fixes paste keybinding on macos, removes password field limits, adds tabbing between input fields in the main menu, adds language selection in the main menu)\r\n- Made settings less likely to reset when the format changes\r\n- Adjusted some keybindings\r\n- Consumables can now trigger multiple effects and buffs\r\n- Overhauled overworld spawns depending on chunk attributes\r\n- Improved cloud and water shader quality\r\n\r\n### Removed\r\n\r\n- MSAA has been removed due to incompatibility with greedy meshing.\r\n- Removed a saturation hack that led to colors being improperly displayed.\r\n\r\n### Fixed\r\n\r\n- Fixed a bug where leaving the Settings menu by pressing "N" in single player kept the game paused.\r\n- Fixed a bug where the closest item would be picked up instead of a selected item.\r\n- Fixed a bug where camera zoom in and zoom out distance didn\'t match.\r\n- Fixed a bug where a nearby item would also be collected when collecting collectible blocks\r\n- Fixed a bug where firing fast projectile at a downwards angle caused them to veer off at a higher angle\r\n- Fixed a bug where ui scale in the login menu was not updated when changed in-game\r\n- Fixed a bug which caused campfires and other stuff to duplicate\r\n- Significantly improved water movement AI to stop entities getting stuck\r\n- Prevented entities, sprites and particles being lit when not visible to the sun',
+            created_at: '2020-11-28T11:33:53.280Z',
+            released_at: '2020-11-28T11:33:53.280Z',
+            upcoming_release: false,
+            author: {
+                id: 276442,
+                username: 'xMAC94x',
+                name: 'Marcel',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/276442/avatar.png',
+                web_url: 'https://gitlab.com/xMAC94x',
+            },
+            commit: {
+                id: 'bce6e1c6e953c4531519ee4c4138ea0a7e34bb78',
+                short_id: 'bce6e1c6',
+                created_at: '2020-11-28T11:12:06.000+00:00',
+                parent_ids: [
+                    '9065d0ca02a16ad1ce23bf7dcd48f06e7cce19f2',
+                    'ca1601a980d6f0971191685a9a174152694191cd',
+                ],
+                title: "Merge branch 'xMAC94x/release_numbers' into 'master'",
+                message:
+                    "Merge branch 'xMAC94x/release_numbers' into 'master'\n\nChange the version number to 0.8\n\nSee merge request veloren/veloren!1570",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2020-11-28T11:12:06.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2020-11-28T11:12:06.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/bce6e1c6e953c4531519ee4c4138ea0a7e34bb78',
+            },
+            commit_path:
+                '/veloren/veloren/-/commit/bce6e1c6e953c4531519ee4c4138ea0a7e34bb78',
+            tag_path: '/veloren/veloren/-/tags/v0.8.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.8.0/veloren-v0.8.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.8.0/veloren-v0.8.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.8.0/veloren-v0.8.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.8.0/veloren-v0.8.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [
+                {
+                    sha: '1120e3522efeeb827d800ef0108a75010bd006f1fb2d',
+                    filepath:
+                        'https://gitlab.com/veloren/veloren/-/releases/v0.8.0/evidences/549837.json',
+                    collected_at: '2020-11-28T12:00:01.233Z',
+                },
+            ],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.8.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.8.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.8.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.8.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.8.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.8.0',
+            },
+        },
+        {
+            name: 'v0.7.0',
+            tag_name: 'v0.7.0',
+            description:
+                "### Added\r\n\r\n- Display item name over loot/dropped items\r\n- Added Lottery system for loot\r\n- Added context-sensitive crosshair\r\n- Announce alias changes to all clients\r\n- Dance animation\r\n- Speech bubbles appear when nearby players talk\r\n- NPCs call for help when attacked\r\n- Eyebrows and shapes can now be selected\r\n- Character name and level information to chat, social tab and `/players` command\r\n- Added inventory, armour and weapon saving\r\n- Show where screenshots are saved in the chat\r\n- Added basic auto walk\r\n- Added weapon/attack sound effects\r\n- M2 attack for bow\r\n- Hotbar persistence\r\n- Alpha version Disclaimer\r\n- Server whitelist\r\n- Optional server-side maximum view distance\r\n- MOTD on login\r\n- Added group chat `/join_group` `/group`\r\n- Added faction chat `/join_faction` `/faction`\r\n- Added regional, local, and global chat (`/region`, `/say`, and `/world`, respectively)\r\n- Added command shortcuts for each of the above chat modes (`/g`, `/f`, `/r`, `/s`, and `/w`, respectively and `/t` for `/tell`)\r\n- Ability to wield 2 × 1h weapons and shields (Note: 1h weapons \u0026 shields are not currently avaliable, see [!1095](https://gitlab.com/veloren/veloren/-/merge_requests/1095) for more info)\r\n- Zoomable Map\r\n- M2 attack for hammer\r\n- Spawnable training dummies\r\n- New quadruped_low body for reptile-likes\r\n- Added new animals\r\n- Better pathfinding\r\n- Bombs\r\n- Training dummy items\r\n- Added spin attack for axe\r\n- Creature specific stats\r\n- Minimap compass\r\n- Initial crafting system implementation\r\n- Protection stat to armor that reduces incoming damage\r\n- Loading-Screen tips\r\n- Feeding animation for some animals\r\n- Power stat to weapons which affects weapon damage\r\n- Add detection of entities under the cursor\r\n- Functional group-system with exp-sharing and disabled damage to group members\r\n- Some Campfire, fireball \u0026 bomb; particle, light \u0026 sound effects.\r\n- Added firework recipe\r\n- Added setting to change resolution\r\n- Rare (unfinished) castles\r\n- Caves with monsters and treasure\r\n- Furniture and decals in towns\r\n\r\n### Changed\r\n\r\n- Improved camera aiming\r\n- Made civsim, sites, etc. deterministic from the same seed\r\n- Improved animations by adding orientation variation\r\n- new tail bone for quad_small body\r\n- slim the game size through lossless asset optimization\r\n- Lanterns now stop glowing if you throw a lit one out of your inventory\r\n- Fixed a crash caused by certain audio devices on OSX\r\n- Bow animations now show held arrows\r\n- Fixed a bug where walk/run sfx played while a character rolled/dodged\r\n- Energy regen resets on last ability use instead of on wield\r\n- Fixed unable to use ability; Secondary and ability3 (fire rod) will now automatically wield\r\n- Gliding is now a toggle that can be triggered from the ground\r\n- Replaced `log` with `tracing` in all crates\r\n- Switch to a new network backend that will allow several improvements in the future\r\n- Connection screen fails after 4 minutes if it can't connect to the server instead of 80 minutes\r\n- Rebuilt quadruped_medium/quadruped_small animation and assets\r\n- Disabled destruction of most blocks by explosions\r\n- Disable damage to pets\r\n- Made pets healable\r\n- Rebalanced fire staff\r\n- Animals are more effective in combat\r\n- Pathfinding is much smoother and pets are cleverer\r\n- Animals run/turn at different speeds\r\n- Updated windowing library (winit 0.19 -\u003e 0.22)\r\n- Bow M2 is now a charged attack that scales the longer it's held\r\n- Fixed window resizing on Mac OS X.\r\n- Dehardcoded many item variants\r\n- Tooltips avoid the mouse better and disappear when hovered\r\n- Improved social window functions and visuals\r\n- Changed agent behaviour to allow fleeing\r\n- Waypoints now spawn on dungeon staircases\r\n\r\n### Removed\r\n\r\n- Wield requirement to swap loadout; fixes issue with unable swap loadout outside of combat\r\n- Disclaimer wall of text on first startup\r\n",
+            created_at: '2020-08-15T14:00:32.318Z',
+            released_at: '2020-08-15T14:00:32.318Z',
+            upcoming_release: false,
+            author: {
+                id: 276442,
+                username: 'xMAC94x',
+                name: 'Marcel',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/276442/avatar.png',
+                web_url: 'https://gitlab.com/xMAC94x',
+            },
+            commit: {
+                id: '8f8b20c9139fbe1ddfb1937e3264e592d42f4fd0',
+                short_id: '8f8b20c9',
+                created_at: '2020-08-15T10:27:31.000+00:00',
+                parent_ids: [
+                    '63cf5aa69cd439c0c972ed078ae2bad38c4d3ace',
+                    'ed68bff135a80546dfc545230c1af6aba983395a',
+                ],
+                title: "Merge branch 'xMAC94x/release_numbers' into 'master'",
+                message:
+                    "Merge branch 'xMAC94x/release_numbers' into 'master'\n\nChange the version number to 0.7\n\nSee merge request veloren/veloren!1296",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2020-08-15T10:27:31.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2020-08-15T10:27:31.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/8f8b20c9139fbe1ddfb1937e3264e592d42f4fd0',
+            },
+            commit_path:
+                '/veloren/veloren/-/commit/8f8b20c9139fbe1ddfb1937e3264e592d42f4fd0',
+            tag_path: '/veloren/veloren/-/tags/v0.7.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.7.0/veloren-v0.7.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.7.0/veloren-v0.7.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.7.0/veloren-v0.7.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.7.0/veloren-v0.7.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [
+                {
+                    sha: '3b2bb08e1ae4a08e0f191b12fc232199d0dad0b64eed',
+                    filepath:
+                        'https://gitlab.com/veloren/veloren/-/releases/v0.7.0/evidences/306248.json',
+                    collected_at: '2020-08-15T14:00:32.468Z',
+                },
+            ],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.7.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.7.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.7.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.7.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.7.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.7.0',
+            },
+        },
+        {
+            name: 'v0.6.0',
+            tag_name: 'v0.6.0',
+            description:
+                '### Added\r\n\r\n- Added music system\r\n- Added zoomable and rotatable minimap\r\n- Added rotating orientation marker to main-map\r\n- Added daily Mac builds\r\n- Allow spawning individual pet species, not just generic body kinds\r\n- Configurable fonts\r\n- Configurable keybindings from the Controls menu\r\n- Translation status tracking\r\n- Added gamma setting\r\n- Added new orc hairstyles\r\n- Added SFX for wielding/unwielding weapons\r\n- Fixed NPCs attacking the player forever after killing them\r\n- Added SFX for collecting, dropping and using inventory items\r\n- New attack animation\r\n- Weapon control system\r\n- Game pauses when in single player and pause menu\r\n- Added authentication system (to play on the official server register on https://account.veloren.net)\r\n- Added gamepad/controller support\r\n- Added player feedback when attempting to pickup an item with a full inventory\r\n- Added free look\r\n- Added Italian translation\r\n- Added Portuguese translation\r\n- Added Turkish translation\r\n- Complete rewrite of the combat system into a state machine\r\n- Abilities like Dash and Triplestrike\r\n- Armor can now be equipped as items\r\n- Fireball explosions\r\n- Inventory supports stacking\r\n- Many new armors and weapons to find in chests\r\n- Fleshed out "attack" animation into alpha, beta and spin type attacks\r\n- Fleshed out range attack into charging and shooting animations for staff/bow\r\n- Customized attack animation for hammers and axes\r\n- Added German translation\r\n- Added a silhouette for players when they are occluded\r\n- Added transparency to the player when zooming in\r\n- Made armor and hotbar slots actually function\r\n- Added dragging and right-click to use functionality to inventory, armor \u0026 hotbar slots\r\n- Added capes, lanterns, tabards, rings, helmets \u0026 necklaces as equippable armor\r\n- 6 new music tracks\r\n- Added basic world and civilization simulation\r\n- Added overhauled towns\r\n- Added fields, crops and scarecrows\r\n- Added paths\r\n- Added bridges\r\n- Added procedural house generation\r\n- Added lampposts\r\n- Added NPCs that spawn in towns\r\n- Added simple dungeons\r\n- Added sub-voxel noise effect\r\n- Added waypoints next to dungeons\r\n- Made players spawn in towns\r\n- Added non-uniform block heights\r\n- Added `/sudo` command\r\n- Added a Level of Detail (LoD) system for terrain sprites and entities\r\n- Added owl, hyena, parrot, cockatrice, red dragon NPCs\r\n- Added dungeon entrances\r\n- Villagers tools and clothing\r\n- Cultists clothing\r\n- You can start the game by pressing "enter" from the character selection menu\r\n- Added server-side character saving\r\n- Player now starts with a lantern. Equipping/unequipping a lantern has the same effect as the `/lantern` command\r\n- Added tab completion in chat for player names and chat commands\r\n- Added server persistence for character stats\r\n- Added a popup when setting your character\'s waypoint\r\n- Added dungeon arenas\r\n- Added dungeon bosses and rare boss loot\r\n\r\n### Changed\r\n\r\n- The /give_item command can now specify the amount of items. Syntax is now `/give_item \u003cname\u003e [num]`\r\n- Brighter / higher contrast main-map\r\n- Removed highlighting of non-collectible sprites\r\n- Fixed /give_exp ignoring player argument\r\n- Extend run sfx to small animals to prevent sneak attacks by geese.\r\n- Decreased clientside latency of ServerEvent mediated effects (e.g. projectiles, inventory operations, etc)\r\n- Started changing the visual theme of the UI\r\n- Merge of the Bag and Character-Screen\r\n- Merge of the Map and Questlog\r\n- Overhauled icon art\r\n- Asset cleanup to lower client-size\r\n- Rewrote the humanoid skeleton to be more ideal for attack animations\r\n- Arrows can no longer hurt their owners\r\n- Increased overall character scale\r\n- `/sudo player /tp` is short for `/sudo player /tp me`\r\n- The `/object` command can create any object in comp::object::Body\r\n- The `/help` command takes an optional argument. `/help /sudo` will show you information about only the sudo command.\r\n\r\n### Removed',
+            created_at: '2020-05-15T23:44:25.926Z',
+            released_at: '2020-05-15T23:44:25.925Z',
+            upcoming_release: false,
+            author: {
+                id: 276442,
+                username: 'xMAC94x',
+                name: 'Marcel',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/276442/avatar.png',
+                web_url: 'https://gitlab.com/xMAC94x',
+            },
+            commit: {
+                id: '9693fd33aea86a9155125af51a282a7c78522c73',
+                short_id: '9693fd33',
+                created_at: '2020-05-15T23:33:35.000+00:00',
+                parent_ids: [
+                    '307cbaddb3dfb79046d79224a90ba4d10cb32dc8',
+                    '4876dd492dd2efff94cde3a97f813595d1bac85a',
+                ],
+                title: "Merge branch 'xMAC94x/release-numbers' into 'master'",
+                message:
+                    "Merge branch 'xMAC94x/release-numbers' into 'master'\n\nxmac94x/release numbers\n\nSee merge request veloren/veloren!999",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2020-05-15T23:33:35.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2020-05-15T23:33:35.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/9693fd33aea86a9155125af51a282a7c78522c73',
+            },
+            commit_path:
+                '/veloren/veloren/-/commit/9693fd33aea86a9155125af51a282a7c78522c73',
+            tag_path: '/veloren/veloren/-/tags/v0.6.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.6.0/veloren-v0.6.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.6.0/veloren-v0.6.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.6.0/veloren-v0.6.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.6.0/veloren-v0.6.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.6.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.6.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.6.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.6.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.6.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.6.0',
+            },
+        },
+        {
+            name: 'v0.5.0',
+            tag_name: 'v0.5.0',
+            description:
+                '### Added\r\n\r\n* Added new debug item\r\n* Bows give experience by projectiles having an owner\r\n* Allow cancelling chunk generation\r\n* Include licence in assets\r\n* Added dropping items\r\n* Added initial region system implementation\r\n* Added /giveitem command\r\n* Strip Linux executables\r\n* Added moon\r\n* Added clouds\r\n* Added tarpaulin coverage\r\n* Added ability to jump while underwater\r\n* Added proper SFX system\r\n* Added changelog\r\n* Added animated Map and Minimap position indicator\r\n* Added visuals to indicate strength compared to the player\r\n* Added Scrolling Combat Text (SCT) \u0026 Settings for it\r\n* Added a Death Screen and Hurt Screen\r\n* Added randomly selected Loading Screen background images\r\n* Added options to disable clouds and to use cheaper water rendering\r\n* Added client-side character saving\r\n* Added a localization system to provide multi-language support to voxygen\r\n* Added French language for Voxygen\r\n* Added rivers and lakes which follow realistic physical paths.\r\n* Added a sophisticated erosion system for world generation which dramatically changes the world layout.\r\n* Added tracking of sediment vs. bedrock, which is visually reflected in the world.\r\n* Added map saving and loading for altitude and bedrock, with built in versioning for forwards compatibility.\r\n* Added a default map, which is used to speed up starting single player.\r\n* Added a 3D renderered map, which is also used by the server to send the map to the client.\r\n* Added fullscreen and window size to settings so that they can be persisted\r\n* Added coverage based scaling for pixel art\r\n* 28 new mobs\r\n* Added waypoints\r\n* Added pathfinding to NPCs\r\n* Overhauled NPC AI\r\n* Pets now attack enemies and defend their owners\r\n* Added collars to tame wild animals\r\n\r\n### Changed\r\n\r\n* Controls pane in settings window now shows actual configured keys\r\n* Fixed scroll wheel and roll keys on OS X\r\n* Fixed near and far view planes\r\n* Improvements to armor names\r\n* Animation fixes to line up with true positions\r\n* Proper message for command permission check failure\r\n* Improved meshing\r\n* Improved dusk\r\n* Improved movement and climbing\r\n* Improved water rendering and chunk render order\r\n* Moved computations to terrain fragment shaders\r\n* Fixed title music\r\n* Made rolling less violent when changing directions\r\n* Fixed singleplayer crash\r\n* Improved error information in client and server\r\n* Store items as RON files\r\n* Updated download info in readme\r\n* Fixed cloud performance\r\n* Fixed region display name\r\n* Fixed the bow fire rate\r\n* Healthbars now flash on critical health\r\n* Fixed ghosts when going back to character screen\r\n* Fixed not being able to unmount\r\n* Fixed non-humanoids being able to climb and glide\r\n* Made shadows and lights use interpolated positions\r\n* Changed "Create Character" button position\r\n* Made clouds bigger, more performant and prettier\r\n* Terrain meshing optimized further\r\n* Tree leaves no longer color blended\r\n* Actual character stats displayed in character window\r\n* Made significant changes to the noise functions used for world generation.\r\n* Improved colors during world generation.\r\n* Significantly reduced the use of warp during world generation.\r\n* Parallelized and otherwise sped up significant parts of world generation.\r\n* Various performance improvements to world generation.\r\n* Nametags now a fixed size and shown in a limited range\r\n* Non-humanoid skeletons now utilize configs for hotloading, and skeletal attributes.\r\n* Names of NPCs spawned in the wild now include their species.\r\n\r\n### Removed\r\n\r\n* Remove heaptrack as it is now deprecated',
+            created_at: '2020-02-03T16:23:54.156Z',
+            released_at: '2020-02-03T16:23:54.154Z',
+            upcoming_release: false,
+            author: {
+                id: 505534,
+                username: 'Songtronix',
+                name: 'Songtronix',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/505534/avatar.png',
+                web_url: 'https://gitlab.com/Songtronix',
+            },
+            commit: {
+                id: 'f97bf5b3ec18d7664b4e905a9de407a4cadfa3e1',
+                short_id: 'f97bf5b3',
+                created_at: '2020-01-31T17:20:55.000+00:00',
+                parent_ids: [
+                    '4f62efe2ff8024fc93f4c91822cbfdb93e80eb41',
+                    'e960c2233bcfc3c0f6f4dee9e068d4fa9419ef20',
+                ],
+                title: "Merge branch 'xMAC94x/release-numbers' into 'master'",
+                message:
+                    "Merge branch 'xMAC94x/release-numbers' into 'master'\n\nChange the version number to 0.5\n\nSee merge request veloren/veloren!775",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2020-01-31T17:20:55.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2020-01-31T17:20:55.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/f97bf5b3ec18d7664b4e905a9de407a4cadfa3e1',
+            },
+            commit_path:
+                '/veloren/veloren/-/commit/f97bf5b3ec18d7664b4e905a9de407a4cadfa3e1',
+            tag_path: '/veloren/veloren/-/tags/v0.5.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.5.0/veloren-v0.5.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.5.0/veloren-v0.5.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.5.0/veloren-v0.5.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.5.0/veloren-v0.5.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [
+                {
+                    sha: 'f132cce5a5e90eb9b28bc933138c8472d0a3efd1b62d',
+                    filepath:
+                        'https://gitlab.com/veloren/veloren/-/releases/v0.5.0/evidences/136429.json',
+                    collected_at: '2020-02-03T16:23:54.343Z',
+                },
+            ],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.5.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.5.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.5.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.5.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.5.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.5.0',
+            },
+        },
+        {
+            name: 'v0.4.0',
+            tag_name: 'v0.4.0',
+            description:
+                '* Added adjustable FOV slider\r\n* Added /explosion command\r\n* Added first person switch\r\n* Added singleplayer server settings\r\n* Added admin check for commands\r\n* Started asset reloading system\r\n* Added SRGB conversion in shaders\r\n* Added adminify to give temp admin privilages',
+            created_at: '2020-01-20T17:13:33.072Z',
+            released_at: '2020-01-20T17:13:33.069Z',
+            upcoming_release: false,
+            author: {
+                id: 505534,
+                username: 'Songtronix',
+                name: 'Songtronix',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/505534/avatar.png',
+                web_url: 'https://gitlab.com/Songtronix',
+            },
+            commit: {
+                id: 'ee5142c6d10031cbf8cfa071ee0bbaa0aa45a93e',
+                short_id: 'ee5142c6',
+                created_at: '2019-10-10T14:05:18.000+00:00',
+                parent_ids: [
+                    'eac90af8af210eb0a8973f1d5d6146c309ecc3e6',
+                    '20c520a04439bb93c92ca699d8e9436486196531',
+                ],
+                title: "Merge branch 'xMAC94x/release-numbers' into 'master'",
+                message:
+                    "Merge branch 'xMAC94x/release-numbers' into 'master'\n\nChange the version number to 0.4\n\nSee merge request veloren/veloren!579",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2019-10-10T14:05:18.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2019-10-10T14:05:18.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/ee5142c6d10031cbf8cfa071ee0bbaa0aa45a93e',
+            },
+            commit_path:
+                '/veloren/veloren/-/commit/ee5142c6d10031cbf8cfa071ee0bbaa0aa45a93e',
+            tag_path: '/veloren/veloren/-/tags/v0.4.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.4.0/veloren-v0.4.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.4.0/veloren-v0.4.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.4.0/veloren-v0.4.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.4.0/veloren-v0.4.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [
+                {
+                    sha: '986abb54e4ca001ebe38e3c3f10c642676fb831e908d',
+                    filepath:
+                        'https://gitlab.com/veloren/veloren/-/releases/v0.4.0/evidences/116794.json',
+                    collected_at: '2020-01-20T17:13:33.120Z',
+                },
+            ],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.4.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.4.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.4.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.4.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.4.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.4.0',
+            },
+        },
+        {
+            name: 'v0.3.0',
+            tag_name: 'v0.3.0',
+            description:
+                '+ XP and leveling\r\n+ Better combat, movement, and animations\r\n+ Enemies, bosses\r\n+ Better world generation, more biomes\r\n+ Build mode\r\n+ Caves, lanterns, lights, dungeons\r\n+ Character customization, multiple races\r\n+ Inventories (WIP)\r\n+ Day/night, better shaders, voxel shadows\r\n+ Many performance optimizations',
+            created_at: '2019-09-08T14:33:48.107Z',
+            released_at: '2019-09-08T14:33:48.105Z',
+            upcoming_release: false,
+            author: {
+                id: 495727,
+                username: 'AngelOnFira',
+                name: 'Forest Anderson',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/495727/avatar.png',
+                web_url: 'https://gitlab.com/AngelOnFira',
+            },
+            commit: {
+                id: 'ef049607e008223d6f9d8a021dd00e1eeef44b5e',
+                short_id: 'ef049607',
+                created_at: '2019-08-04T18:14:48.000+02:00',
+                parent_ids: ['fcc54f047633ee90d60021c3acfd0464d478f368'],
+                title: 'really really fix .gitlab-ci windows release build wasnt uploading artifacts',
+                message:
+                    'really really fix .gitlab-ci windows release build wasnt uploading artifacts\n',
+                author_name: 'Marcel Märtens',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2019-08-04T18:14:48.000+02:00',
+                committer_name: 'Marcel Märtens',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2019-08-04T18:14:48.000+02:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/ef049607e008223d6f9d8a021dd00e1eeef44b5e',
+            },
+            commit_path:
+                '/veloren/veloren/-/commit/ef049607e008223d6f9d8a021dd00e1eeef44b5e',
+            tag_path: '/veloren/veloren/-/tags/v0.3.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.3.0/veloren-v0.3.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.3.0/veloren-v0.3.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.3.0/veloren-v0.3.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.3.0/veloren-v0.3.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.3.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.3.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.3.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.3.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.3.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.3.0',
+            },
+        },
+        {
+            name: 'v0.2.0',
+            tag_name: 'v0.2.0',
+            description:
+                "Release 0.2 has mostly been focused on rewriting the engine. It also includes pretty cool features such as:\r\n* Hang Gliding\r\n* Pets: Pig and Wolf. They can be spawned with /pig and /wolf commands.\r\n* Name tags: You can finally know who is this guy with the blue shirt!\r\n* Singleplayer: No need to start a server just to play alone\r\n* Character customization: It isn't fully complete but still allows you to look different than others\r\n* Music!\r\n* Major performance improvements related to the fact that we rewrote the entire game\r\n* 0% chance to get a deadlock\r\n* Animations: You finally can move your limbs!\r\n* Combat: You can finally swing your sword that has been on your back. Enemies are coming soon, but you can always fight with other players\r\n* When a server dies the game no longer crashes - you will be just kicked to the main menu\r\n ",
+            created_at: '2019-05-28T12:51:26.753Z',
+            released_at: '2019-05-28T12:51:26.753Z',
+            upcoming_release: false,
+            author: {
+                id: 2579434,
+                username: 'DrShongos',
+                name: 'DrShongos',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/2579434/avatar.png',
+                web_url: 'https://gitlab.com/DrShongos',
+            },
+            commit: {
+                id: '837d314dbd19e31f962558086f2c597cc4a0725d',
+                short_id: '837d314d',
+                created_at: '2019-05-28T10:45:24.000+00:00',
+                parent_ids: [
+                    'a2950c89d938b45a136091248bb2c08b5ae5782e',
+                    'fbf1eaf27d2aacdaaa44a0333e3fdd0b3f76dd97',
+                ],
+                title: "Merge branch 'event-chat-messages' into 'master'",
+                message:
+                    "Merge branch 'event-chat-messages' into 'master'\n\nEvent chat messages\n\nSee merge request veloren/veloren!188",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2019-05-28T10:45:24.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2019-05-28T10:45:24.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/837d314dbd19e31f962558086f2c597cc4a0725d',
+            },
+            commit_path:
+                '/veloren/veloren/-/commit/837d314dbd19e31f962558086f2c597cc4a0725d',
+            tag_path: '/veloren/veloren/-/tags/v0.2.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.2.0/veloren-v0.2.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.2.0/veloren-v0.2.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.2.0/veloren-v0.2.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v0.2.0/veloren-v0.2.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.2.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.2.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.2.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v0.2.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.2.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v0.2.0',
+            },
+        },
+    ],
     'projects/10174980/repository/files/CODEOWNERS/raw?ref=master': `
 */Cargo.toml @xMAC94x
 Cargo.toml @notexistinguser76356
