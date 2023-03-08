@@ -1,60 +1,59 @@
 app:
-  title: Backstage Example App
-  baseUrl: http://localhost:3000
-  #datadogRum:
-  #  clientToken: '123456789'
-  #  applicationId: qwerty
-  #   site: # datadoghq.eu default = datadoghq.com
-  #   env: # optional
-  support:
-    url: https://github.com/backstage/backstage/issues # Used by common ErrorPage
-    items: # Used by common SupportButton component
-      - title: Issues
-        icon: github
-        links:
-          - url: https://github.com/backstage/backstage/issues
-            title: GitHub Issues
-      - title: Discord Chatroom
-        icon: chat
-        links:
-          - url: https://discord.gg/MUpMjP2
-            title: '#backstage'
+    title: Backstage Example App
+    baseUrl: http://localhost:3000
+    #datadogRum:
+    #  clientToken: '123456789'
+    #  applicationId: qwerty
+    #   site: # datadoghq.eu default = datadoghq.com
+    #   env: # optional
+    support:
+        url: https://github.com/backstage/backstage/issues # Used by common ErrorPage
+        items: # Used by common SupportButton component
+            - title: Issues
+              icon: github
+              links:
+                  - url: https://github.com/backstage/backstage/issues
+                    title: GitHub Issues
+            - title: Discord Chatroom
+              icon: chat
+              links:
+                  - url: https://discord.gg/MUpMjP2
+                    title: '#backstage'
 
 backend:
-  # Used for enabling authentication, secret is shared by all backend plugins
-  # See https://backstage.io/docs/tutorials/backend-to-backend-auth for
-  # information on the format
-  # auth:
-  #   keys:
-  #     - secret: ${BACKEND_SECRET}
-  baseUrl: http://localhost:7007
-  listen:
-    port: 7007
-  database:
-    client: better-sqlite3
-    connection: ':memory:'
-  cache:
-    store: memory
-  cors:
-    origin: http://localhost:3000
-    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
-    credentials: true
-  csp:
-    connect-src: ["'self'", 'http:', 'https:']
-    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
-    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
-  reading:
-    allow:
-      - host: example.com
-      - host: '*.mozilla.org'
-      - host: gitlab.com
-  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+    # Used for enabling authentication, secret is shared by all backend plugins
+    # See https://backstage.io/docs/tutorials/backend-to-backend-auth for
+    # information on the format
+    # auth:
+    #   keys:
+    #     - secret: ${BACKEND_SECRET}
+    baseUrl: http://localhost:7007
+    listen:
+        port: 7007
+    database:
+        client: better-sqlite3
+        connection: ':memory:'
+    cache:
+        store: memory
+    cors:
+        origin: http://localhost:3000
+        methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+        credentials: true
+    csp:
+        connect-src: ["'self'", 'http:', 'https:']
+        # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+        # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+    reading:
+        allow:
+            - host: example.com
+            - host: '*.mozilla.org'
+            - host: gitlab.com
+    # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
 integrations:
-  gitlab:
-    - host: gitlab.com
-
+    gitlab:
+        - host: gitlab.com
 
 gitlab:
-  defaultCodeOwnersPath: .gitlab/CODEOWNERS
-  proxyPath: /gitlabci
+    defaultCodeOwnersPath: .gitlab/CODEOWNERS
+    proxyPath: /gitlabci

@@ -18,10 +18,12 @@
 -   [Screenshots](#screenshots)
 -   [Setup](#setup)
 -   [Annotations](#annotations)
+    -   [Code owners file](#code-owners-file)
 -   [Old/New GitLab Versions](#oldnew-gitlab-versions)
--   [Migration Guides](#migration-guides)
+-   [Migration guides](#migration-guides)
 -   [Support & Contribute](#support--contribute)
 -   [License](#license)
+
 <!-- tocstop -->
 
 ## Features
@@ -206,7 +208,6 @@ gitlab:
     # information for one Kind you have to add it in this list.
     # Default: ['Component']
     allowedKinds: ['Component', 'Resource']
-
 ```
 
 ## Annotations
