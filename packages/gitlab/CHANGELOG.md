@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v4.0.1...v5.0.0-alpha.0) (2023-03-08)
+
+### Features
+
+-   **api:** identify gitlab instances by hostname ([dff875d](https://github.com/immobiliare/backstage-plugin-gitlab/commit/dff875d2c3e7750b7ca8a48ce0bd04ff2db8c283)), closes [#118](https://github.com/immobiliare/backstage-plugin-gitlab/issues/118)
+-   **releasescard:** add releases widget ([8f25374](https://github.com/immobiliare/backstage-plugin-gitlab/commit/8f25374b464a32db9c4511707ac44f7b6f0117bb))
+
+### BREAKING CHANGES
+
+-   **api:** Annotations `gitlab.com/instance` require the hostname of the gitlab instance, replacing index numbers. The processor now creates annotations with hostnames. GitLabCIApiRef calls using /api/gitlab/{number}/ are not resolved and return 404 not found.
+
+Signed-off-by: Manuel Stein <manuel.stein@nokia-bell-labs.com>
+
+-   **releasescard:** GitlabCIApi type has the new method getReleaseSummary
+
+Signed-off-by: Manuel Stein <manuel.stein@nokia-bell-labs.com>
+
 ## [4.0.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v4.0.0...v4.0.1) (2023-03-06)
 
 **Note:** Version bump only for package @immobiliarelabs/backstage-plugin-gitlab
