@@ -4,6 +4,7 @@ import {
     MergeRequest,
     PipelineObject,
     IssueObject,
+    ReleaseData,
 } from '../components/types';
 
 export interface PipelineSummary {
@@ -28,6 +29,10 @@ export interface LanguagesSummary {
 
 export interface IssuesSummary {
     getIssuesData: IssueObject[];
+}
+
+export interface ReleasesSummary {
+    getReleasesData: ReleaseData[];
 }
 
 export const GitlabCIApiRef = createApiRef<GitlabCIBuilder>({
@@ -67,6 +72,7 @@ export type GitlabCIApi = {
         branch?: string,
         filePath?: string
     ): Promise<PeopleCardEntityData[]>;
+    getReleasesSummary(projectID: string): Promise<ReleasesSummary | undefined>;
 
     getContributorsLink(
         projectWebUrl: string | undefined,
