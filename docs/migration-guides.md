@@ -2,7 +2,7 @@
 
 ## v2 -> v3
 
-Now, this plugin has the backend part that allows the use of multiple GitLab integrations and has the Processor that deprecates the annotations `gitlab.com/project-id` and `gitlab.com/project-slug` that are not more needed because they are now automatically filled by it. 
+Now, this plugin has the backend part that allows the use of multiple GitLab integrations and has the Processor that deprecates the annotations `gitlab.com/project-id` and `gitlab.com/project-slug` that are not more needed because they are now automatically filled by it.
 
 You can migrate by following these steps:
 
