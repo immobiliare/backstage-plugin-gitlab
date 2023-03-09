@@ -106,6 +106,18 @@ export const EntityGitlabPipelinesTable = gitlabPlugin.provide(
     })
 );
 
+export const EntityGitlabReleasesCard = gitlabPlugin.provide(
+    createComponentExtension({
+        name: 'EntityGitlabReleasesCard',
+        component: {
+            lazy: () =>
+                import('./components/widgets/index').then(
+                    (m) => m.ReleasesCard
+                ),
+        },
+    })
+);
+
 export const EntityGitlabIssuesTable = gitlabPlugin.provide(
     createComponentExtension({
         name: 'EntityGitlabIssuesTable',

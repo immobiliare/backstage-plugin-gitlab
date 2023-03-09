@@ -18,10 +18,12 @@
 -   [Screenshots](#screenshots)
 -   [Setup](#setup)
 -   [Annotations](#annotations)
+    -   [Code owners file](#code-owners-file)
 -   [Old/New GitLab Versions](#oldnew-gitlab-versions)
--   [Migration Guides](#migration-guides)
+-   [Migration guides](#migration-guides)
 -   [Support & Contribute](#support--contribute)
 -   [License](#license)
+
 <!-- tocstop -->
 
 ## Features
@@ -29,6 +31,7 @@
 -   List top 20 builds for a project
 -   List top 20 Merge Requests for a project
 -   List top 20 Issues for a project
+-   List last releases
 -   View Code Owners for a project
 -   View Contributors for a project
 -   View Languages used for a project
@@ -108,6 +111,7 @@ const overviewContent = (
                 <Grid item md={6}>
                     <EntityGitlabPeopleCard />
                     <EntityGitlabLanguageCard />
+                    <EntityGitlabReleasesCard />
                     <EntityGitlabMergeRequestStatsCard />
                     <EntityGitlabPipelinesTable />
                     <EntityGitlabMergeRequestsTable />
@@ -206,7 +210,6 @@ gitlab:
     # information for one Kind you have to add it in this list.
     # Default: ['Component']
     allowedKinds: ['Component', 'Resource']
-
 ```
 
 ## Annotations

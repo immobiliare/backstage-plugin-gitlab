@@ -1,6 +1,9 @@
 import type { Entity } from '@backstage/catalog-model';
 import { Config } from '@backstage/config';
-import { readGitLabIntegrationConfigs } from '@backstage/integration';
+import {
+    readGitLabIntegrationConfigs,
+    GitLabIntegrationConfig,
+} from '@backstage/integration';
 import { getProjectPath } from './urls';
 import type {
     CatalogProcessor,
@@ -12,7 +15,6 @@ import {
     GITLAB_PROJECT_SLUG,
 } from './../annotations';
 import type { LocationSpec } from '@backstage/plugin-catalog-common';
-import type { GitLabIntegrationConfig } from '@backstage/integration';
 
 /** @public */
 export class GitlabFillerProcessor implements CatalogProcessor {
@@ -41,57 +43,53 @@ export class GitlabFillerProcessor implements CatalogProcessor {
         location: LocationSpec,
         _emit: CatalogProcessorEmit
     ): Promise<Entity> {
-        // Check if it is a GitLab Host
-        if (this.isValidLocation(location) && this.isAllowedEntity(entity)) {
-            if (!entity.metadata.annotations) entity.metadata.annotations = {};
-            // Generate Project Slug if not specified
-            if (
-                !entity.metadata.annotations?.[GITLAB_PROJECT_ID] &&
-                !entity.metadata.annotations?.[GITLAB_PROJECT_SLUG]
-            ) {
-                entity.metadata.annotations[GITLAB_PROJECT_SLUG] =
-                    getProjectPath(location.target);
-            }
-            // Discover gitlab instance
-            if (!entity.metadata.annotations?.[GITLAB_INSTANCE]) {
-                entity.metadata.annotations[GITLAB_INSTANCE] =
-                    this.getGitlabInstance(location.target);
+        // Check if we should process its kind first
+        if (this.isAllowedEntity(entity)) {
+            // Check if it has a GitLab integration
+            const gitlabInstance = this.getGitlabInstance(location.target);
+            if (gitlabInstance) {
+                if (!entity.metadata.annotations)
+                    entity.metadata.annotations = {};
+
+                // Set GitLab Instance
+                if (!entity.metadata.annotations?.[GITLAB_INSTANCE]) {
+                    entity.metadata.annotations![GITLAB_INSTANCE] =
+                        gitlabInstance;
+                }
+
+                // Generate Project Slug from location URL if neither Project ID nor Project Slug are specified
+                if (
+                    !entity.metadata.annotations?.[GITLAB_PROJECT_ID] &&
+                    !entity.metadata.annotations?.[GITLAB_PROJECT_SLUG]
+                ) {
+                    entity.metadata.annotations![GITLAB_PROJECT_SLUG] =
+                        getProjectPath(location.target);
+                }
             }
         }
 
         return entity;
     }
 
-    private getGitlabInstance(target: string): string {
-        const url = new URL(target);
-
-        // TODO: handle the possibility to have a baseUrl with a path
-        const index = this.gitLabIntegrationsConfig.findIndex(
-            ({ baseUrl }) => baseUrl === url.origin
-        );
-
-        if (index < 0) return '0';
-
-        return index.toString(10);
-    }
-
-    private isAllowedEntity(entity: Entity): boolean {
-        return this.allowedKinds.has(entity.kind.toLowerCase());
-    }
-
-    private isValidLocation({ target, type }: LocationSpec): boolean {
-        if (type !== 'url') return false;
-
+    private getGitlabInstance(target: string): string | undefined {
         let url: URL;
         try {
             url = new URL(target);
         } catch (e) {
-            return false;
+            return undefined;
         }
-        // Check if it is valid gitlab Host
-        return this.gitLabIntegrationsConfig.some((config) => {
-            const baseUrl = new URL(config.baseUrl);
-            return url.origin === baseUrl.origin;
+
+        const gitlabConfig = this.gitLabIntegrationsConfig.find((config) => {
+            const baseUrl = config.baseUrl
+                ? new URL(config.baseUrl)
+                : new URL(`https://${config.host}`);
+            return baseUrl.origin === url.origin;
         });
+
+        return gitlabConfig?.host;
+    }
+
+    private isAllowedEntity(entity: Entity): boolean {
+        return this.allowedKinds.has(entity.kind.toLowerCase());
     }
 }

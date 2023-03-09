@@ -6,6 +6,7 @@ export {
     EntityGitlabMergeRequestsTable,
     EntityGitlabMergeRequestStatsCard,
     EntityGitlabPipelinesTable,
+    EntityGitlabReleasesCard,
     gitlabPlugin,
 } from './plugin';
 export * from './api';

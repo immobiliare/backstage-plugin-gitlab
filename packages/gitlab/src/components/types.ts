@@ -1,3 +1,10 @@
+export type ReleaseData = {
+    tag_name: string;
+    description: string;
+    name: string;
+    created_at: string;
+};
+
 export type PeopleCardEntityData = {
     name: string;
     email?: string;
