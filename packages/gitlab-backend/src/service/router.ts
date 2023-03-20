@@ -41,7 +41,11 @@ export async function createRouter(
                     [`^/api/gitlab/${host}`]: apiUrl.pathname,
                 },
                 onProxyReq: (proxyReq) => {
-                    proxyReq.removeHeader('Authorization');
+                    try {
+                      proxyReq.removeHeader("Authorization");
+                    } catch (e) {
+                      console.log((e instanceof Error).message);
+                    }
                 },
             })
         );
