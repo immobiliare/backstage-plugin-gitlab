@@ -12,6 +12,7 @@ createDevApp()
         api: GitlabCIApiRef,
         deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
         factory: ({ configApi }) => {
+            //@ts-ignore
             const cli = GitlabCIClient.setupAPI({
                 discoveryApi: {
                     getBaseUrl: () => Promise.resolve('https://gitlab.com'),
