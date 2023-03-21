@@ -44,7 +44,7 @@ export async function createRouter(
                     try {
                       proxyReq.removeHeader("Authorization");
                     } catch (e) {
-                      console.log((e instanceof Error).message);
+                      console.log((e as Error).message);
                     }
                 },
             })
