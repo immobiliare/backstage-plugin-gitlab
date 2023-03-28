@@ -214,7 +214,7 @@ gitlab:
 
 ## Annotations
 
-By default, the plugin automatically shows the project info corresponding to the location of the `catalog.yaml` file. But you could need some time to force another project, you can do it with the annotations `gitlab.com/project-id` or `gitlab.com/project-slug`:
+By default, the plugin automatically shows the project info corresponding to the location of the `catalog.yaml` file. But you could need some time to force another project. The GitLab instance defaults to `gitlab.com` and can use any configured [GitLab integration host](https://backstage.io/docs/integrations/gitlab/locations) with the annotation `gitlab.com/instance`. The project can be set using with the annotations `gitlab.com/project-id` or `gitlab.com/project-slug`:
 
 ```yaml
 # Example catalog-info.yaml entity definition file
@@ -223,8 +223,11 @@ kind: Component
 metadata:
     # ...
     annotations:
+        # Select the GitLab integration by its host name
+        gitlab.com/instance: 'hostname' # defaults to 'gitlab.com'
+        # and select the project by its GitLab ID (number in string)
         gitlab.com/project-id: 'project-id' #1234. This must be in quotes and can be found under Settings --> General
-        # or
+        # or its project slug
         gitlab.com/project-slug: 'project-slug' # group_name/project_name
 spec:
     type: service
