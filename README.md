@@ -108,12 +108,22 @@ const overviewContent = (
     <Grid container spacing={3} alignItems="stretch">
         <EntitySwitch>
             <EntitySwitch.Case if={isGitlabAvailable}>
-                <Grid item md={6}>
+                <Grid item sm={12} md={3} lg={3}>
                     <EntityGitlabPeopleCard />
+                </Grid>
+                <Grid item sm={12} md={3} lg={3}>
                     <EntityGitlabLanguageCard />
-                    <EntityGitlabReleasesCard />
+                </Grid>
+                <Grid item sm={12} md={3} lg={3}>
                     <EntityGitlabMergeRequestStatsCard />
+                </Grid>
+                <Grid item sm={12} md={3} lg={3}>
+                    <EntityGitlabReleasesCard />
+                </Grid>
+                <Grid item md={12}>
                     <EntityGitlabPipelinesTable />
+                </Grid>
+                <Grid item md={12}>
                     <EntityGitlabMergeRequestsTable />
                 </Grid>
             </EntitySwitch.Case>
