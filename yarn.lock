@@ -1316,9 +1316,9 @@
     yup "^0.32.9"
 
 "@backstage/config@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@backstage/config/-/config-1.0.6.tgz#551ffe6793aec29f7d7f9e5ba1bb010ba6ed0b00"
-  integrity sha512-ZN3ABydLRZNTtL9FXPpvw678CJ/G2UtGHrX/Cq6Tfd9QJ6/wjMTagTe/KibxGh6lxIG+VGU+BOAqt6mHgMDopA==
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@backstage/config/-/config-1.0.7.tgz#f6929fb5af80ca36fae8b385f957f9c0a64a72a6"
+  integrity sha512-8Fh3QJl0PltQZ9nCNr9UsYoRNCbfhJQR+1z1JUur7hTgJ/yCVnVPmESrpBWR27NCT7IBNtRv0jZhzj/BYZfFgA==
   dependencies:
     "@backstage/types" "^1.0.2"
     lodash "^4.17.21"
