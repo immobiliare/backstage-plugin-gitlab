@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v5.0.0...v5.0.1-alpha.0) (2023-04-07)
+
+### Bug Fixes
+
+-   catching the error from http-proxy-middleware ([7c5f429](https://github.com/immobiliare/backstage-plugin-gitlab/commit/7c5f429f681df6ed324fb78bb894c2d677e8f615)), closes [#143](https://github.com/immobiliare/backstage-plugin-gitlab/issues/143)
+
 # [5.0.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v5.0.0-alpha.0...v5.0.0) (2023-03-09)
 
 **Note:** Version bump only for package root
