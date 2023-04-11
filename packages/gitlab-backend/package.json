@@ -44,7 +44,7 @@
         "express-promise-router": "^4.1.0",
         "http-proxy-middleware": "^2.0.6",
         "winston": "^3.2.1",
-        "yn": "^4.0.0"
+        "yn": "^5.0.0"
     },
     "devDependencies": {
         "@backstage/catalog-model": "^1.1.5",
