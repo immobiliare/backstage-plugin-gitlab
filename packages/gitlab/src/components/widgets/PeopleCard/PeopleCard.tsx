@@ -38,7 +38,9 @@ export const PeopleCard = ({}) => {
     const gitlab_instance = gitlabInstance();
     const codeowners_path = gitlabCodeOwnerPath();
 
-    const GitlabCIAPI = useApi(GitlabCIApiRef).build(gitlab_instance || 'gitlab.com');
+    const GitlabCIAPI = useApi(GitlabCIApiRef).build(
+        gitlab_instance || 'gitlab.com'
+    );
     /* TODO: to change the below logic to get contributors data*/
     const { value, loading, error } = useAsync(async (): Promise<{
         contributors: PeopleCardEntityData[] | undefined;
