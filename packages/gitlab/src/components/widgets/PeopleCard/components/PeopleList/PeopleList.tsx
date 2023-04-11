@@ -62,7 +62,10 @@ export const PeopleList = ({ title, peopleObj, deepLink }: PeopleListProps) => {
             </Box>
             <Grid container spacing={1} justifyContent="flex-start">
                 {peopleObj?.map((peopleCardEntity: PeopleCardEntityData) => (
-                    <Grid key={peopleCardEntity.name} item>
+                    <Grid
+                        key={peopleCardEntity.email || peopleCardEntity.name}
+                        item
+                    >
                         <PeopleCardEntity peopleCardEntity={peopleCardEntity} />
                     </Grid>
                 ))}

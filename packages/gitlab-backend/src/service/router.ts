@@ -42,9 +42,9 @@ export async function createRouter(
                 },
                 onProxyReq: (proxyReq) => {
                     try {
-                      proxyReq.removeHeader("Authorization");
+                        proxyReq.removeHeader('Authorization');
                     } catch (e) {
-                      console.log((e as Error).message);
+                        console.log((e as Error).message);
                     }
                 },
             })
