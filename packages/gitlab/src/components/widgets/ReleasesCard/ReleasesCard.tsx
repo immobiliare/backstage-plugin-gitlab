@@ -196,7 +196,7 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
         >
             <Grid container spacing={2} justifyContent="flex-start">
                 {releases.map((release: ReleaseData) => (
-                    <Grid item>
+                    <Grid item key={release.tag_name}>
                         <Link
                             href={
                                 project_web_url +
