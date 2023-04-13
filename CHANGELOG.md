@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.2](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v5.0.1...v5.0.2) (2023-04-13)
+
+### Bug Fixes
+
+-   removeHeader throws an error ([9a30295](https://github.com/immobiliare/backstage-plugin-gitlab/commit/9a302957d78664bc5146ce1334f54d0e7ed0e908))
+
 ## [5.0.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v5.0.1-alpha.1...v5.0.1) (2023-04-11)
 
 **Note:** Version bump only for package root
