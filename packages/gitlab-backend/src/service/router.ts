@@ -8,6 +8,7 @@ import express from 'express';
 import Router from 'express-promise-router';
 import { Logger } from 'winston';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import { IncomingMessage } from 'http';
 
 export interface RouterOptions {
     logger: Logger;
@@ -26,11 +27,20 @@ export async function createRouter(
 
     const router = Router();
 
+    // We are filtering the proxy request headers here rather than in
+    // `onProxyReq` because when global-agent is enabled then `onProxyReq`
+    // fires _after_ the agent has already sent the headers to the proxy
+    // target, causing a ERR_HTTP_HEADERS_SENT crash
+    const filter = (_pathname: string, req: IncomingMessage): boolean => {
+        if (req.headers['authorization']) delete req.headers['authorization'];
+        return req.method === 'GET';
+    };
+
     for (const { host, apiBaseUrl, token } of gitlabIntegrations) {
         const apiUrl = new URL(apiBaseUrl);
         router.use(
             `/${host}`,
-            createProxyMiddleware((_pathname, req) => req.method === 'GET', {
+            createProxyMiddleware(filter, {
                 target: apiUrl.origin,
                 changeOrigin: true,
                 headers: {
@@ -39,13 +49,6 @@ export async function createRouter(
                 logProvider: () => logger,
                 pathRewrite: {
                     [`^/api/gitlab/${host}`]: apiUrl.pathname,
-                },
-                onProxyReq: (proxyReq) => {
-                    try {
-                        proxyReq.removeHeader('Authorization');
-                    } catch (e) {
-                        console.log((e as Error).message);
-                    }
                 },
             })
         );
