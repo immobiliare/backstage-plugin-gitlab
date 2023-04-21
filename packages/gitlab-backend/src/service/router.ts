@@ -10,6 +10,14 @@ import { Logger } from 'winston';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { IncomingMessage } from 'http';
 
+function getBasePath(config: Config) {
+    const baseUrl = config.getOptionalString('backend.baseUrl');
+    if (!baseUrl) {
+        return undefined;
+    }
+    return new URL(baseUrl).pathname.replace(/\/$/, '');
+}
+
 export interface RouterOptions {
     logger: Logger;
     config: Config;
@@ -19,6 +27,7 @@ export async function createRouter(
     options: RouterOptions
 ): Promise<express.Router> {
     const { logger, config } = options;
+    const basePath = getBasePath(config) || '';
 
     const gitlabIntegrations: GitLabIntegrationConfig[] =
         readGitLabIntegrationConfigs(
@@ -48,7 +57,7 @@ export async function createRouter(
                 },
                 logProvider: () => logger,
                 pathRewrite: {
-                    [`^/api/gitlab/${host}`]: apiUrl.pathname,
+                    [`^${basePath}/api/gitlab/${host}`]: apiUrl.pathname,
                 },
             })
         );
