@@ -2231,9 +2231,9 @@
     cross-fetch "^3.1.5"
 
 "@backstage/catalog-model@^1.1.5", "@backstage/catalog-model@^1.2.0", "@backstage/catalog-model@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@backstage/catalog-model/-/catalog-model-1.2.1.tgz#ee3fa9ec404cef4a6b639160c7c016fbdd53229f"
-  integrity sha512-pbH67Nov/bgJYIOl78ncjUfCPbjAI+VScfGRhGmcFubqK+w9pygy6Y/sYg10u5NFJxKCoSnbYZehO0451UbqhA==
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@backstage/catalog-model/-/catalog-model-1.3.0.tgz#3d926b4e9d3d871f37e88295788cdce3b4ec17d3"
+  integrity sha512-QFoLho/SvzNepFHDUBL58fdcktAtshQQQ1FABpDbnBR954iQ7MGQlSPP+2uSrQ5wGpZylIjpFnsH3NB/k06i6g==
   dependencies:
     "@backstage/config" "^1.0.7"
     "@backstage/errors" "^1.1.5"
