@@ -2440,13 +2440,14 @@
     zod "~3.18.0"
 
 "@backstage/core-plugin-api@^1.0.0", "@backstage/core-plugin-api@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@backstage/core-plugin-api/-/core-plugin-api-1.5.0.tgz#1188c89d8149b5805645e16bb67f2167da79dd85"
-  integrity sha512-IEbzBk128loMecy+btbMCd9FpVYg/THSRDe2qMpr9b/Ve21PJNRy5CMoX/P/4Nkplifp3nxWBBVusTgWneaG4Q==
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@backstage/core-plugin-api/-/core-plugin-api-1.5.1.tgz#c295f14d38321c116378af6a9cebf84d83bb8d39"
+  integrity sha512-egGEhKYMAFyjw9LZU6zeJ2rDUgcgXGWjBoSUXok6+b3Ya7jDjNVWzhOWyQ/6gSmFG3c/W5+hnF4UmPjIkyYmiw==
   dependencies:
     "@backstage/config" "^1.0.7"
     "@backstage/types" "^1.0.2"
-    "@backstage/version-bridge" "^1.0.3"
+    "@backstage/version-bridge" "^1.0.4"
+    "@types/react" "^16.13.1 || ^17.0.0"
     history "^5.0.0"
     prop-types "^15.7.2"
     zen-observable "^0.10.0"
@@ -2763,10 +2764,12 @@
   resolved "https://registry.npmjs.org/@backstage/types/-/types-1.0.2.tgz"
   integrity sha512-wE4AAP3je00UlVNV5faIto414aOUNv30CmvNmxgImNKelPRYJsMEicM9slwkrNMyFLqTMITeXJvQvMofUk3Wxg==
 
-"@backstage/version-bridge@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/@backstage/version-bridge/-/version-bridge-1.0.3.tgz"
-  integrity sha512-b+r0LKjciyVgrw/nrEEqY/zxMwT4GzGjoQUY3YgmtNuUeSheVHf2uwq++nsSfy3ZXZwvyTX0uR3c2YDB3q/Sig==
+"@backstage/version-bridge@^1.0.3", "@backstage/version-bridge@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@backstage/version-bridge/-/version-bridge-1.0.4.tgz#04623e5a57a6df9f84237f62b999d2503f874150"
+  integrity sha512-rIsZpdqGzlhgqj/7tXk6qxsCzOoLBpNYYB3d5zkodNFbjVnQlz8qLYir68Q9z7mznhScr8wNaCCZSlGvxznN5g==
+  dependencies:
+    "@types/react" "^16.13.1 || ^17.0.0"
 
 "@balena/dockerignore@^1.0.2":
   version "1.0.2"
@@ -5477,10 +5480,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^17":
-  version "17.0.52"
-  resolved "https://registry.npmjs.org/@types/react/-/react-17.0.52.tgz"
-  integrity sha512-vwk8QqVODi0VaZZpDXQCmEmiOuyjEFPY7Ttaw5vjM112LOq37yz1CDJGrRJwA1fYEq4Iitd5rnjd1yWAc/bT+A==
+"@types/react@*", "@types/react@^16.13.1 || ^17.0.0", "@types/react@^17":
+  version "17.0.58"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.58.tgz#c8bbc82114e5c29001548ebe8ed6c4ba4d3c9fb0"
+  integrity sha512-c1GzVY97P0fGxwGxhYq989j4XwlcHQoto6wQISOC2v6wm3h0PORRWJFHlkRjfGsiG3y1609WdQ+J+tKxvrEd6A==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
