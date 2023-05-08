@@ -4,7 +4,7 @@ import { Entity } from '@backstage/catalog-model';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { GitlabCI } from './GitlabCI';
 import {
-    Button,
+    LinkButton,
     MissingAnnotationEmptyState,
 } from '@backstage/core-components';
 
@@ -39,13 +39,13 @@ export const Router = () => {
             <MissingAnnotationEmptyState
                 annotation={GITLAB_ANNOTATION_PROJECT_SLUG}
             />
-            <Button
+            <LinkButton
                 variant="contained"
                 color="primary"
                 to="https://github.com/immobiliare/backstage-plugin-gitlab/blob/main/README.md"
             >
                 Read Gitlab Plugin Docs
-            </Button>
+            </LinkButton>
         </>
     );
 };

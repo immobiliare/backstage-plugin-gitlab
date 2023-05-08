@@ -64,7 +64,9 @@ const MergeRequestStats = (props: Props) => {
     const project_slug = gitlabProjectSlug();
     const gitlab_instance = gitlabInstance();
 
-    const GitlabCIAPI = useApi(GitlabCIApiRef).build(gitlab_instance || 'gitlab.com');
+    const GitlabCIAPI = useApi(GitlabCIApiRef).build(
+        gitlab_instance || 'gitlab.com'
+    );
     const mergeStat: MergeRequestStatsCount = {
         avgTimeUntilMerge: 0,
         closedCount: 0,
