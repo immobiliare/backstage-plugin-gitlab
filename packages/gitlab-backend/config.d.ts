@@ -7,5 +7,11 @@ export interface Config {
          * @visibility backend
          */
         allowedKinds?: string[];
+        /**
+         * This parameter controls SSL Certs verification
+         * @default true
+         * @visibility backend
+         */
+        proxySecure?: boolean;
     };
 }
