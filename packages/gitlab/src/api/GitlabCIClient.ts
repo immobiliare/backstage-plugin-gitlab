@@ -24,20 +24,24 @@ export class GitlabCIClient implements GitlabCIApi {
     identityApi: IdentityApi;
     codeOwnersPath: string;
     gitlabInstance: string;
+    readmePath: string;
 
     constructor({
         discoveryApi,
         identityApi,
         codeOwnersPath,
+        readmePath,
         gitlabInstance,
     }: {
         discoveryApi: DiscoveryApi;
         identityApi: IdentityApi;
         codeOwnersPath?: string;
+        readmePath?: string;
         gitlabInstance: string;
     }) {
         this.discoveryApi = discoveryApi;
         this.codeOwnersPath = codeOwnersPath || 'CODEOWNERS';
+        this.readmePath = readmePath || 'README.md';
         this.gitlabInstance = gitlabInstance;
         this.identityApi = identityApi;
     }
@@ -46,10 +50,12 @@ export class GitlabCIClient implements GitlabCIApi {
         discoveryApi,
         identityApi,
         codeOwnersPath,
+        readmePath,
     }: {
         discoveryApi: DiscoveryApi;
         identityApi: IdentityApi;
         codeOwnersPath?: string;
+        readmePath?: string;
     }) {
         return {
             build: (gitlabInstance: string) =>
@@ -57,6 +63,7 @@ export class GitlabCIClient implements GitlabCIApi {
                     discoveryApi,
                     identityApi,
                     codeOwnersPath,
+                    readmePath,
                     gitlabInstance,
                 }),
         };
@@ -336,6 +343,27 @@ export class GitlabCIClient implements GitlabCIApi {
                         .value
             );
         return owners;
+    }
+
+    async getReadme(
+        projectID?: string,
+        branch = 'HEAD',
+        filePath?: string
+    ): Promise<string | undefined> {
+        filePath = filePath || this.readmePath;
+        // Removing starting './'
+        if (filePath.startsWith('./')) filePath = filePath.slice(2);
+
+        const readmeStr = await this.callApi<string>(
+            `projects/${projectID}/repository/files/${encodeURI(filePath)}/raw`,
+            { ref: branch }
+        );
+
+        if (!readmeStr) {
+            throw Error(`README file not found`);
+        }
+
+        return readmeStr;
     }
 
     getContributorsLink(

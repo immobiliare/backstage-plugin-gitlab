@@ -14,6 +14,7 @@
 
 <!-- toc -->
 
+-   [Table of contents](#table-of-contents)
 -   [Features](#features)
 -   [Screenshots](#screenshots)
 -   [Setup](#setup)
@@ -21,7 +22,7 @@
     -   [Code owners file](#code-owners-file)
 -   [Old/New GitLab Versions](#oldnew-gitlab-versions)
 -   [Migration guides](#migration-guides)
--   [Support & Contribute](#support--contribute)
+-   [Support \& Contribute](#support--contribute)
 -   [License](#license)
 
 <!-- tocstop -->
@@ -216,6 +217,9 @@ gitlab:
     # Default path for CODEOWNERS file
     # Default: CODEOWNERS
     defaultCodeOwnersPath: .gitlab/CODEOWNERS
+    # Default path for README file
+    # Default: README.md
+    defaultReadmePath: .gitlab/README.md
     # Entity Kinds to witch the plugin works, if you want to render gitlab
     # information for one Kind you have to add it in this list.
     # Default: ['Component']
@@ -281,6 +285,9 @@ export const apis: AnyApiFactory[] = [
                 discoveryApi,
                 codeOwnersPath: configApi.getOptionalString(
                     'gitlab.defaultCodeOwnersPath'
+                ),
+                readmePath: configApi.getOptionalString(
+                    'gitlab.defaultReadmePath'
                 ),
             }),
     }),

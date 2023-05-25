@@ -83,4 +83,10 @@ export type GitlabCIApi = {
         projectDefaultBranch: string | undefined,
         codeOwnersPath: string
     ): string;
+
+    getReadme(
+        projectID?: string,
+        branch?: string,
+        filePath?: string
+    ): Promise<string | undefined>;
 };

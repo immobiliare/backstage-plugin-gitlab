@@ -126,6 +126,9 @@ export const apis: AnyApiFactory[] = [
                 codeOwnersPath: configApi.getOptionalString(
                     'gitlab.defaultCodeOwnersPath'
                 ),
+                readmePath: configApi.getOptionalString(
+                    'gitlab.defaultReadmePath'
+                ),
             }),
     }),
 ];

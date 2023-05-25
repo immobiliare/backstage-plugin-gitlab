@@ -27,6 +27,7 @@ export const GITLAB_ANNOTATION_PROJECT_ID = 'gitlab.com/project-id';
 export const GITLAB_ANNOTATION_PROJECT_SLUG = 'gitlab.com/project-slug';
 export const GITLAB_ANNOTATION_INSTANCE = 'gitlab.com/instance';
 export const GITLAB_ANNOTATION_CODEOWNERS_PATH = 'gitlab.com/codeowners-path';
+export const GITLAB_ANNOTATION_README_PATH = 'gitlab.com/readme-path';
 const defaultGitlabIntegration = {
     hostname: 'gitlab.com',
     baseUrl: 'https://gitlab.com/api/v4',
@@ -91,4 +92,13 @@ export const gitlabCodeOwnerPath = () => {
         entity.metadata.annotations?.[GITLAB_ANNOTATION_CODEOWNERS_PATH] ?? '';
 
     return codeowners_path;
+};
+
+export const gitlabReadmePath = () => {
+    const { entity } = useEntity();
+
+    const readme_path =
+        entity.metadata.annotations?.[GITLAB_ANNOTATION_README_PATH] ?? '';
+
+    return readme_path;
 };
