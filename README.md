@@ -220,6 +220,9 @@ gitlab:
     # information for one Kind you have to add it in this list.
     # Default: ['Component']
     allowedKinds: ['Component', 'Resource']
+    # This parameter controls SSL Certs verification
+    # Default: true
+    proxySecure: false
 ```
 
 ## Annotations
