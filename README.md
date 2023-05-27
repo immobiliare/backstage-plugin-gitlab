@@ -14,7 +14,6 @@
 
 <!-- toc -->
 
--   [Table of contents](#table-of-contents)
 -   [Features](#features)
 -   [Screenshots](#screenshots)
 -   [Setup](#setup)
@@ -22,7 +21,7 @@
     -   [Code owners file](#code-owners-file)
 -   [Old/New GitLab Versions](#oldnew-gitlab-versions)
 -   [Migration guides](#migration-guides)
--   [Support \& Contribute](#support--contribute)
+-   [Support & Contribute](#support--contribute)
 -   [License](#license)
 
 <!-- tocstop -->
@@ -37,6 +36,7 @@
 -   View Contributors for a project
 -   View Languages used for a project
 -   View Pipeline status for a project
+-   View README for a project
 -   Works for both project and personal tokens
 -   Pagination for builds
 -   Pagination for Merge Requests
@@ -60,6 +60,8 @@ yarn --cwd packages/backend add @immobiliarelabs/backstage-plugin-gitlab-backend
 ```
 
 2. Add a new GitLab tab to the entity page.
+
+> NOTE: By default the EntityGitlabContent does not load the README, see the Optional section.
 
 `packages/app/src/components/catalog/EntityPage.tsx`
 
@@ -97,10 +99,11 @@ import {
     isGitlabAvailable,
     EntityGitlabContent,
     EntityGitlabLanguageCard,
-    EntityGitlabPeopleCard,
     EntityGitlabMergeRequestsTable,
     EntityGitlabMergeRequestStatsCard,
+    EntityGitlabPeopleCard,
     EntityGitlabPipelinesTable,
+    EntityGitlabReadmeCard,
 } from '@immobiliarelabs/backstage-plugin-gitlab';
 
 //Farther down at the overviewContent declaration
@@ -109,6 +112,9 @@ const overviewContent = (
     <Grid container spacing={3} alignItems="stretch">
         <EntitySwitch>
             <EntitySwitch.Case if={isGitlabAvailable}>
+                <Grid item md={12}>
+                    <EntityGitlabReadmeCard />
+                </Grid>
                 <Grid item sm={12} md={3} lg={3}>
                     <EntityGitlabPeopleCard />
                 </Grid>

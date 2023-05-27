@@ -9,16 +9,12 @@ import {
     MergeRequestStats,
     PipelinesTable,
     ReleasesCard,
-    ReadmeCard,
 } from '../widgets';
 
 export const GitlabCI = () => (
     <Page themeId="tool">
         <Content>
             <Grid container spacing={6} direction="row" alignItems="stretch">
-                <Grid item md={12}>
-                    <ReadmeCard />
-                </Grid>
                 <Grid item sm={12} md={3} lg={3}>
                     <PeopleCard />
                 </Grid>
