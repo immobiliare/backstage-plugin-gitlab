@@ -137,7 +137,9 @@ site
 *-credentials.yaml
 
 #yarn
-.yarn/
-.yarnrc.yml
+**/.yarn/*
 
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
 

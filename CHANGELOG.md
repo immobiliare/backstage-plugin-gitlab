@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v5.1.0...v5.2.0-alpha.0) (2023-05-29)
+
+### Features
+
+-   **added-secure-prop-to-proxy-config:** added new parameter 'secure' to be able to handle ([0aa8943](https://github.com/immobiliare/backstage-plugin-gitlab/commit/0aa8943a2410018fefa76bc2295153173df254c1))
+-   load README from the project repository ([3eaf058](https://github.com/immobiliare/backstage-plugin-gitlab/commit/3eaf05849bffd015a5bd47b9e10d6be9e2f619ed))
+
 # [5.1.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v5.1.0-alpha.0...v5.1.0) (2023-05-08)
 
 **Note:** Version bump only for package root

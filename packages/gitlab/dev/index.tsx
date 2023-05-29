@@ -20,6 +20,9 @@ createDevApp()
                 codeOwnersPath: configApi.getOptionalString(
                     'gitlab.defaultCodeOwnersPath'
                 ),
+                readmePath: configApi.getOptionalString(
+                    'gitlab.defaultReadmePath'
+                ),
             }).build('0');
 
             // Here we mock the client requests to GitLab
@@ -48,6 +51,7 @@ createDevApp()
                         annotations: {
                             'gitlab.com/project-id': `${projectId}`,
                             'gitlab.com/codeowners-path': `CODEOWNERS`,
+                            'gitlab.com/readme-path': `README.md`,
                         },
                         name: 'backstage',
                     },

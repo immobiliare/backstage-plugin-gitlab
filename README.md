@@ -36,6 +36,7 @@
 -   View Contributors for a project
 -   View Languages used for a project
 -   View Pipeline status for a project
+-   View README for a project
 -   Works for both project and personal tokens
 -   Pagination for builds
 -   Pagination for Merge Requests
@@ -59,6 +60,8 @@ yarn --cwd packages/backend add @immobiliarelabs/backstage-plugin-gitlab-backend
 ```
 
 2. Add a new GitLab tab to the entity page.
+
+> NOTE: By default the EntityGitlabContent does not load the README, see the Optional section.
 
 `packages/app/src/components/catalog/EntityPage.tsx`
 
@@ -96,10 +99,11 @@ import {
     isGitlabAvailable,
     EntityGitlabContent,
     EntityGitlabLanguageCard,
-    EntityGitlabPeopleCard,
     EntityGitlabMergeRequestsTable,
     EntityGitlabMergeRequestStatsCard,
+    EntityGitlabPeopleCard,
     EntityGitlabPipelinesTable,
+    EntityGitlabReadmeCard,
 } from '@immobiliarelabs/backstage-plugin-gitlab';
 
 //Farther down at the overviewContent declaration
@@ -108,6 +112,9 @@ const overviewContent = (
     <Grid container spacing={3} alignItems="stretch">
         <EntitySwitch>
             <EntitySwitch.Case if={isGitlabAvailable}>
+                <Grid item md={12}>
+                    <EntityGitlabReadmeCard />
+                </Grid>
                 <Grid item sm={12} md={3} lg={3}>
                     <EntityGitlabPeopleCard />
                 </Grid>
@@ -216,10 +223,16 @@ gitlab:
     # Default path for CODEOWNERS file
     # Default: CODEOWNERS
     defaultCodeOwnersPath: .gitlab/CODEOWNERS
+    # Default path for README file
+    # Default: README.md
+    defaultReadmePath: .gitlab/README.md
     # Entity Kinds to witch the plugin works, if you want to render gitlab
     # information for one Kind you have to add it in this list.
     # Default: ['Component']
     allowedKinds: ['Component', 'Resource']
+    # This parameter controls SSL Certs verification
+    # Default: true
+    proxySecure: false
 ```
 
 ## Annotations
@@ -281,6 +294,9 @@ export const apis: AnyApiFactory[] = [
                 discoveryApi,
                 codeOwnersPath: configApi.getOptionalString(
                     'gitlab.defaultCodeOwnersPath'
+                ),
+                readmePath: configApi.getOptionalString(
+                    'gitlab.defaultReadmePath'
                 ),
             }),
     }),

@@ -34,6 +34,9 @@ export const gitlabPlugin = createPlugin({
                     codeOwnersPath: configApi.getOptionalString(
                         'gitlab.defaultCodeOwnersPath'
                     ),
+                    readmePath: configApi.getOptionalString(
+                        'gitlab.defaultReadmePath'
+                    ),
                 }),
         }),
     ],
@@ -124,6 +127,16 @@ export const EntityGitlabIssuesTable = gitlabPlugin.provide(
         component: {
             lazy: () =>
                 import('./components/widgets/index').then((m) => m.IssuesTable),
+        },
+    })
+);
+
+export const EntityGitlabReadmeCard = gitlabPlugin.provide(
+    createComponentExtension({
+        name: 'EntityGitlabReadmeCard',
+        component: {
+            lazy: () =>
+                import('./components/widgets/index').then((m) => m.ReadmeCard),
         },
     })
 );
