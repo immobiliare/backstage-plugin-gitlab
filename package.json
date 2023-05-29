@@ -17,16 +17,14 @@
         "lerna": "^6.0.3",
         "lint-staged": "^13.0.3",
         "markdown-toc": "^1.2.0",
-        "prettier": "^2.7.1"
+        "prettier": "^2.7.1",
+        "typescript": "~5.0.0"
     },
     "engines": {
         "node": ">=18.0.0"
     },
-    "volta": {
-        "node": "18.16.0",
-        "yarn": "1.22.19"
-    },
     "scripts": {
+        "type": "tsc --noEmit",
         "style:lint": "eslint packages --ext .ts",
         "style:prettier": "prettier \"packages/**/*.ts\" --list-different --write",
         "build": "npx lerna run build",
@@ -36,6 +34,8 @@
         "start": "npx lerna --scope @immobiliarelabs/backstage-plugin-gitlab run start",
         "version:release": "lerna version --yes --conventional-commits --conventional-graduate --create-release github --message 'chore(release): publish'",
         "version:prerelease": "lerna version --yes --force-publish --conventional-commits --conventional-prerelease --create-release github --message 'chore(prerelease): publish'",
+        "postinstall": "node prepare.js || echo 'Skipping prepare'",
         "prepare": "node prepare.js || echo 'Skipping prepare'"
-    }
+    },
+    "packageManager": "yarn@3.5.1"
 }
