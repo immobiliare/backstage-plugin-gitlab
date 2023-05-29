@@ -7,5 +7,11 @@ export interface Config {
          * @visibility frontend
          */
         defaultCodeOwnersPath?: string;
+        /**
+         * Default path for README file
+         * @default "README.md"
+         * @visibility frontend
+         */
+        defaultReadmePath?: string;
     };
 }

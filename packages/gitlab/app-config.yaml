@@ -56,4 +56,5 @@ integrations:
 
 gitlab:
     defaultCodeOwnersPath: .gitlab/CODEOWNERS
+    defaultReadmePath: .gitlab/README.md
     proxyPath: /gitlabci
