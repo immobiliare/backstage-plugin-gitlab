@@ -8,7 +8,7 @@ import { getProjectPath } from './urls';
 import type {
     CatalogProcessor,
     CatalogProcessorEmit,
-} from '@backstage/plugin-catalog-backend';
+} from '@backstage/plugin-catalog-node';
 import {
     GITLAB_INSTANCE,
     GITLAB_PROJECT_ID,

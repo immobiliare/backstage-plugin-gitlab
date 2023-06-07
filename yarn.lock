@@ -3223,52 +3223,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-catalog-backend@npm:^1.7.1":
-  version: 1.9.1
-  resolution: "@backstage/plugin-catalog-backend@npm:1.9.1"
-  dependencies:
-    "@backstage/backend-common": ^0.18.5
-    "@backstage/backend-plugin-api": ^0.5.2
-    "@backstage/backend-tasks": ^0.5.2
-    "@backstage/catalog-client": ^1.4.1
-    "@backstage/catalog-model": ^1.3.0
-    "@backstage/config": ^1.0.7
-    "@backstage/errors": ^1.1.5
-    "@backstage/integration": ^1.4.5
-    "@backstage/plugin-catalog-common": ^1.0.13
-    "@backstage/plugin-catalog-node": ^1.3.6
-    "@backstage/plugin-permission-common": ^0.7.5
-    "@backstage/plugin-permission-node": ^0.7.8
-    "@backstage/plugin-scaffolder-common": ^1.3.0
-    "@backstage/plugin-search-backend-module-catalog": ^0.1.1
-    "@backstage/plugin-search-common": ^1.2.3
-    "@backstage/types": ^1.0.2
-    "@opentelemetry/api": ^1.3.0
-    "@types/express": ^4.17.6
-    codeowners-utils: ^1.0.2
-    core-js: ^3.6.5
-    express: ^4.17.1
-    express-promise-router: ^4.1.0
-    fast-json-stable-stringify: ^2.1.0
-    fs-extra: 10.1.0
-    git-url-parse: ^13.0.0
-    glob: ^7.1.6
-    knex: ^2.0.0
-    lodash: ^4.17.21
-    luxon: ^3.0.0
-    minimatch: ^5.0.0
-    node-fetch: ^2.6.7
-    p-limit: ^3.0.2
-    prom-client: ^14.0.1
-    uuid: ^8.0.0
-    winston: ^3.2.1
-    yaml: ^2.0.0
-    yn: ^4.0.0
-    zod: ^3.21.4
-  checksum: 60fe078616d364fb5d20f2fba530452fb75b1b1598df77c15f197a9f84a1274409259f2817e32001ab176c3a1cafd46e7d4d331e89b13a2a543c80ff53966e85
-  languageName: node
-  linkType: hard
-
 "@backstage/plugin-catalog-common@npm:^1.0.10, @backstage/plugin-catalog-common@npm:^1.0.13":
   version: 1.0.13
   resolution: "@backstage/plugin-catalog-common@npm:1.0.13"
@@ -3379,56 +3333,6 @@ __metadata:
     react-dom: ^16.13.1 || ^17.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
   checksum: c431772c887c52302ad640233fea16fab44dcc16436cf234e337602dcb47fd9e4afbc9eb89223199016e71f7f4a45276e3095bdc2ef1bf49e5c368cccfc87d06
-  languageName: node
-  linkType: hard
-
-"@backstage/plugin-scaffolder-common@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "@backstage/plugin-scaffolder-common@npm:1.3.0"
-  dependencies:
-    "@backstage/catalog-model": ^1.3.0
-    "@backstage/plugin-permission-common": ^0.7.5
-    "@backstage/types": ^1.0.2
-  checksum: e61a38b1cde4aed5f41ec320b22ae96178f42313821de14f2130cabb9a206c3729d14e2e2abedc3f75a8871f3599fffae41361d6d26719ec6351f1503a1aee09
-  languageName: node
-  linkType: hard
-
-"@backstage/plugin-search-backend-module-catalog@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "@backstage/plugin-search-backend-module-catalog@npm:0.1.1"
-  dependencies:
-    "@backstage/backend-common": ^0.18.5
-    "@backstage/backend-plugin-api": ^0.5.2
-    "@backstage/backend-tasks": ^0.5.2
-    "@backstage/catalog-client": ^1.4.1
-    "@backstage/catalog-model": ^1.3.0
-    "@backstage/config": ^1.0.7
-    "@backstage/plugin-catalog-common": ^1.0.13
-    "@backstage/plugin-permission-common": ^0.7.5
-    "@backstage/plugin-search-backend-node": ^1.2.1
-    "@backstage/plugin-search-common": ^1.2.3
-  checksum: 5bed7ac470f0368ce8e775c8e35b0ca86027b90b4fd75b0e614e6ee175b5ef9df764d9de435da7731c71aca7635c9a99706072554e5da315274a075a4a2b48f4
-  languageName: node
-  linkType: hard
-
-"@backstage/plugin-search-backend-node@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "@backstage/plugin-search-backend-node@npm:1.2.1"
-  dependencies:
-    "@backstage/backend-common": ^0.18.5
-    "@backstage/backend-plugin-api": ^0.5.2
-    "@backstage/backend-tasks": ^0.5.2
-    "@backstage/config": ^1.0.7
-    "@backstage/errors": ^1.1.5
-    "@backstage/plugin-permission-common": ^0.7.5
-    "@backstage/plugin-search-common": ^1.2.3
-    "@types/lunr": ^2.3.3
-    lodash: ^4.17.21
-    lunr: ^2.3.9
-    ndjson: ^2.0.0
-    uuid: ^8.3.2
-    winston: ^3.2.1
-  checksum: c7fcf2c5064af8dac347d126a825f26edd86fbbacc1008c9d6bbb0779ed33bac0dd92209df11349f02ed12adecff4162c660a7ed49941138fa46c396a279668a
   languageName: node
   linkType: hard
 
@@ -4260,8 +4164,8 @@ __metadata:
     "@backstage/cli": ^0.22.1
     "@backstage/config": ^1.0.6
     "@backstage/integration": ^1.4.2
-    "@backstage/plugin-catalog-backend": ^1.7.1
     "@backstage/plugin-catalog-common": ^1.0.10
+    "@backstage/plugin-catalog-node": ^1.3.6
     "@types/express": "*"
     "@types/supertest": ^2.0.12
     express: ^4.17.3
@@ -5976,13 +5880,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/api@npm:^1.3.0":
-  version: 1.4.1
-  resolution: "@opentelemetry/api@npm:1.4.1"
-  checksum: e783c40d1a518abf9c4c5d65223237c1392cd9a6c53ac6e2c3ef0c05ff7266e3dfc4fd9874316dae0dcb7a97950878deb513bcbadfaad653d48f0215f2a0911b
-  languageName: node
-  linkType: hard
-
 "@parcel/watcher@npm:2.0.4":
   version: 2.0.4
   resolution: "@parcel/watcher@npm:2.0.4"
@@ -7226,13 +7123,6 @@ __metadata:
   version: 4.14.194
   resolution: "@types/lodash@npm:4.14.194"
   checksum: 113f34831c461469d91feca2dde737f88487732898b4d25e9eb23b087bb193985f864d1e1e0f3b777edc5022e460443588b6000a3b2348c966f72d17eedc35ea
-  languageName: node
-  linkType: hard
-
-"@types/lunr@npm:^2.3.3":
-  version: 2.3.4
-  resolution: "@types/lunr@npm:2.3.4"
-  checksum: 251dfefec4a24831999b052968f93b0f2066992554a1ff5ea3c6f7a581691b26e03d9d892293d2042bbf48dd9885c8f706e52e63ec2258878547c86b7283618e
   languageName: node
   linkType: hard
 
@@ -9014,13 +8904,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bintrees@npm:1.0.2":
-  version: 1.0.2
-  resolution: "bintrees@npm:1.0.2"
-  checksum: 56a52b7d3634e30002b1eda740d2517a22fa8e9e2eb088e919f37c030a0ed86e364ab59e472fc770fc8751308054bb1c892979d150e11d9e11ac33bcc1b5d16e
-  languageName: node
-  linkType: hard
-
 "bl@npm:^4.0.3, bl@npm:^4.1.0":
   version: 4.1.0
   resolution: "bl@npm:4.1.0"
@@ -9919,18 +9802,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codeowners-utils@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "codeowners-utils@npm:1.0.2"
-  dependencies:
-    cross-spawn: ^7.0.2
-    find-up: ^4.1.0
-    ignore: ^5.1.4
-    locate-path: ^5.0.0
-  checksum: 1e1c1f271ad4d4b4b25f6d19fc61f177f010bfb95de9af26662bb09c2f4f5572c1f3c8e9552aff15924f1c97058812bd5b5064d1eea721cc70e17490dae3fb02
-  languageName: node
-  linkType: hard
-
 "coffee-script@npm:^1.12.4":
   version: 1.12.7
   resolution: "coffee-script@npm:1.12.7"
@@ -10503,13 +10374,6 @@ __metadata:
   version: 3.30.2
   resolution: "core-js-pure@npm:3.30.2"
   checksum: e0e012fe94e38663d837410baac62efe05d0c7431e3fbaa70c65f51eb980da9c3add225eca04208d576bc0d92cefeca9a4f7671a65fd84fd7dfc92d8618dddfd
-  languageName: node
-  linkType: hard
-
-"core-js@npm:^3.6.5":
-  version: 3.30.2
-  resolution: "core-js@npm:3.30.2"
-  checksum: 73d47e2b9d9f502800973982d08e995bbf04832e20b04e04be31dd7607247158271315e9328788a2408190e291c7ffbefad141167b1e57dea9f983e1e723541e
   languageName: node
   linkType: hard
 
@@ -17697,13 +17561,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lunr@npm:^2.3.9":
-  version: 2.3.9
-  resolution: "lunr@npm:2.3.9"
-  checksum: 176719e24fcce7d3cf1baccce9dd5633cd8bdc1f41ebe6a180112e5ee99d80373fe2454f5d4624d437e5a8319698ca6837b9950566e15d2cae5f2a543a3db4b8
-  languageName: node
-  linkType: hard
-
 "luxon@npm:^3.0.0, luxon@npm:^3.2.1":
   version: 3.3.0
   resolution: "luxon@npm:3.3.0"
@@ -19047,21 +18904,6 @@ __metadata:
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
   checksum: 23ad088b08f898fc9b53011d7bb78ec48e79de7627e01ab5518e806033861bef68d5b0cd0e2205c2f36690ac9571ff6bcb05eb777ced2eeda8d4ac5b44592c3d
-  languageName: node
-  linkType: hard
-
-"ndjson@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "ndjson@npm:2.0.0"
-  dependencies:
-    json-stringify-safe: ^5.0.1
-    minimist: ^1.2.5
-    readable-stream: ^3.6.0
-    split2: ^3.0.0
-    through2: ^4.0.0
-  bin:
-    ndjson: cli.js
-  checksum: f847a51a2275b8a6a1bfdb24095183836b71c3085670161678c9922bc59644f04e53ced385e549a5565fdc44c28e206bd3f2199d12525028f843a86b680c4446
   languageName: node
   linkType: hard
 
@@ -21353,15 +21195,6 @@ __metadata:
   version: 0.11.10
   resolution: "process@npm:0.11.10"
   checksum: bfcce49814f7d172a6e6a14d5fa3ac92cc3d0c3b9feb1279774708a719e19acd673995226351a082a9ae99978254e320ccda4240ddc474ba31a76c79491ca7c3
-  languageName: node
-  linkType: hard
-
-"prom-client@npm:^14.0.1":
-  version: 14.2.0
-  resolution: "prom-client@npm:14.2.0"
-  dependencies:
-    tdigest: ^0.1.1
-  checksum: d4c04e57616c72643dd02862d0d4bde09cf8869a19d0aef5e7b785e6e27d02439b66cdc165e3492f62d579fa91579183820870cc757a09b99399d2d02f46b9f1
   languageName: node
   linkType: hard
 
@@ -24474,15 +24307,6 @@ __metadata:
   version: 3.0.2
   resolution: "tarn@npm:3.0.2"
   checksum: 27a69658f02504979c5b02e500522e78ec12ef893b90cb00fdef794f9d847a92ed78f6c0ad12e82b8919519bded6a8d6d0000442cd0c6d6ea83cd9b7297729af
-  languageName: node
-  linkType: hard
-
-"tdigest@npm:^0.1.1":
-  version: 0.1.2
-  resolution: "tdigest@npm:0.1.2"
-  dependencies:
-    bintrees: 1.0.2
-  checksum: 44de8246752b6f8c2924685f969fd3d94c36949f22b0907e99bef2b2220726dd8467f4730ea96b06040b9aa2587c0866049640039d1b956952dfa962bc2075a3
   languageName: node
   linkType: hard
 
