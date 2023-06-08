@@ -7,13 +7,20 @@ import {
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { GitlabCIApiRef } from '../../../api';
+import { GitlabCIApiRef, PipelineSummary } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { createStatusColumn, createWebURLColumn } from './columns';
-import { PipelineObject } from '../../types';
 import { getDuration, getElapsedTime } from '../../utils';
 
-export const DenseTable = ({ pipelineObjects }: any) => {
+export type PipelineDenseTableProps = {
+    projectName: string;
+    summary: PipelineSummary;
+};
+
+export const PipelineDenseTable = ({
+    projectName,
+    summary,
+}: PipelineDenseTableProps) => {
     const columns: TableColumn[] = [
         { title: 'Pipeline_ID', field: 'id' },
         createStatusColumn(),
@@ -22,23 +29,21 @@ export const DenseTable = ({ pipelineObjects }: any) => {
         { title: 'Created At', field: 'created_date' },
         { title: 'Duration', field: 'duration' },
     ];
-    const title = 'Gitlab Pipelines: ' + pipelineObjects?.project_name;
+    const title = 'Gitlab Pipelines: ' + projectName;
 
-    const data = pipelineObjects?.data?.map(
-        (pipelineObject: PipelineObject) => {
-            return {
-                id: pipelineObject.id,
-                status: pipelineObject.status,
-                ref: pipelineObject.ref,
-                web_url: pipelineObject.web_url,
-                created_date: getElapsedTime(pipelineObject.created_at),
-                duration: getDuration(
-                    pipelineObject.created_at,
-                    pipelineObject.updated_at
-                ),
-            };
-        }
-    );
+    const data = summary.map((pipelineObject) => {
+        return {
+            id: pipelineObject.id,
+            status: pipelineObject.status,
+            ref: pipelineObject.ref,
+            web_url: pipelineObject.web_url,
+            created_date: getElapsedTime(pipelineObject.created_at),
+            duration: getDuration(
+                pipelineObject.created_at,
+                pipelineObject.updated_at
+            ),
+        };
+    });
 
     return (
         <Table
@@ -59,26 +64,35 @@ export const PipelinesTable = ({}) => {
         gitlab_instance || 'gitlab.com'
     );
 
-    const { value, loading, error } = useAsync(async (): Promise<
-        PipelineObject[]
-    > => {
-        const projectDetails: any = await GitlabCIAPI.getProjectDetails(
-            project_slug
+    const { value, loading, error } = useAsync(async () => {
+        const projectDetails = await GitlabCIAPI.getProjectDetails(
+            project_slug || project_id
         );
-        const projectId = project_id || projectDetails?.id;
-        const gitlabObj = await GitlabCIAPI.getPipelineSummary(projectId);
-        const data = gitlabObj?.getPipelinesData;
-        const renderData: any = { data };
+        if (!projectDetails)
+            throw new Error('wrong project_slug or project_id');
+        const projectId = project_id || projectDetails.id;
 
-        renderData.project_name = await GitlabCIAPI.getProjectName(projectId);
-        return renderData;
+        const [summary, projectName] = await Promise.all([
+            GitlabCIAPI.getPipelineSummary(projectId),
+            GitlabCIAPI.getProjectName(projectId),
+        ]);
+
+        if (!summary || !projectName)
+            throw new Error(
+                'Merge request summary or project_name are undefined!'
+            );
+        return { summary, projectName };
     }, []);
 
     if (loading) {
         return <Progress />;
     } else if (error) {
         return <Alert severity="error">{error.message}</Alert>;
+    } else if (!value) {
+        return (
+            <Alert severity="error">{'pipeline value is not defined!'}</Alert>
+        );
     }
 
-    return <DenseTable pipelineObjects={value || []} />;
+    return <PipelineDenseTable {...value} />;
 };

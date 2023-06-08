@@ -7,13 +7,21 @@ import {
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { GitlabCIApiRef } from '../../../api';
+import { GitlabCIApiRef, MergeRequestsSummary } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { MergeRequest } from '../../types';
 import { getElapsedTime, getDuration } from '../../utils';
 import { createTitleColumn } from './columns';
 
-export const DenseTable = ({ mergeRequests }: any) => {
+type MergeRequestDenseTableProps = {
+    data: MergeRequestsSummary;
+    projectName: string;
+};
+
+export const MergeRequestDenseTable = ({
+    data,
+    projectName,
+}: MergeRequestDenseTableProps) => {
     const columns: TableColumn[] = [
         { title: 'ID', field: 'id' },
         createTitleColumn(),
@@ -22,8 +30,8 @@ export const DenseTable = ({ mergeRequests }: any) => {
         { title: 'Created At', field: 'created_date' },
         { title: 'Duration', field: 'duration' },
     ];
-    const title = 'Gitlab Merge Request Status: ' + mergeRequests?.project_name;
-    const data = mergeRequests?.data?.map((mergeRequest: MergeRequest) => {
+    const title = 'Gitlab Merge Request Status: ' + projectName;
+    const mappedData = data.map((mergeRequest: MergeRequest) => {
         return {
             id: mergeRequest.id,
             state: mergeRequest.state,
@@ -43,7 +51,7 @@ export const DenseTable = ({ mergeRequests }: any) => {
             title={title}
             options={{ search: true, paging: true }}
             columns={columns}
-            data={data || []}
+            data={mappedData || []}
         />
     );
 };
@@ -57,25 +65,43 @@ export const MergeRequestsTable = ({}) => {
         gitlab_instance || 'gitlab.com'
     );
 
-    const { value, loading, error } = useAsync(async (): Promise<
-        MergeRequest[]
-    > => {
-        const projectDetails: any = await GitlabCIAPI.getProjectDetails(
-            project_slug
+    const { value, loading, error } = useAsync(async (): Promise<{
+        data: MergeRequest[];
+        projectName: string;
+    }> => {
+        const projectDetails = await GitlabCIAPI.getProjectDetails(
+            project_slug || project_id
         );
-        const projectId = project_id || projectDetails?.id;
-        const gitlabObj = await GitlabCIAPI.getMergeRequestsSummary(projectId);
-        const data = gitlabObj?.getMergeRequestsData;
-        const renderData: any = { data };
-        renderData.project_name = await GitlabCIAPI.getProjectName(projectId);
-        return renderData;
+
+        if (!projectDetails)
+            throw new Error('wrong project_slug or project_id');
+
+        const projectId = project_id || projectDetails.id;
+
+        const [summary, projectName] = await Promise.all([
+            GitlabCIAPI.getMergeRequestsSummary(projectId),
+            GitlabCIAPI.getProjectName(projectId),
+        ]);
+
+        if (!summary || !projectName)
+            throw new Error(
+                'Merge request summary or project_name are undefined!'
+            );
+
+        return { data: summary, projectName };
     }, []);
 
     if (loading) {
         return <Progress />;
     } else if (error) {
         return <Alert severity="error">{error.message}</Alert>;
+    } else if (!value) {
+        return (
+            <Alert severity="error">
+                {'Merge request data are not available.'}
+            </Alert>
+        );
     }
 
-    return <DenseTable mergeRequests={value || []} />;
+    return <MergeRequestDenseTable {...value} />;
 };

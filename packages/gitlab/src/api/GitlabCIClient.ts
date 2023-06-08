@@ -5,6 +5,7 @@ import {
     PipelineObject,
     FileOwnership,
     ReleaseData,
+    ProjectDetails,
 } from '../components/types';
 import { parseCodeOwners } from '../components/utils';
 import { IssueObject } from './../components/types';
@@ -71,8 +72,8 @@ export class GitlabCIClient implements GitlabCIApi {
 
     protected async callApi<T>(
         path: string,
-        query: { [key in string]: any }
-    ): Promise<T | null> {
+        query: { [key in string]: string }
+    ): Promise<T | undefined> {
         const apiUrl = `${await this.discoveryApi.getBaseUrl('gitlab')}/${
             this.gitlabInstance
         }`;
@@ -99,55 +100,47 @@ export class GitlabCIClient implements GitlabCIApi {
                 return response.text() as unknown as T;
             }
         }
-        return null;
+        return undefined;
     }
 
     async getPipelineSummary(
-        projectID?: string
+        projectID?: string | number
     ): Promise<PipelineSummary | undefined> {
-        const pipelineObjects = await this.callApi<PipelineObject[]>(
-            'projects/' + projectID + '/pipelines',
-            {}
-        );
-        const projectObj: any = await this.callApi<Record<string, unknown>>(
-            'projects/' + projectID,
-            {}
-        );
-        if (pipelineObjects) {
+        const [pipelineObjects, projectObj] = await Promise.all([
+            this.callApi<PipelineObject[]>(
+                'projects/' + projectID + '/pipelines',
+                {}
+            ),
+            this.callApi<Record<string, string>>('projects/' + projectID, {}),
+        ]);
+        if (pipelineObjects && projectObj) {
             pipelineObjects.forEach((element: PipelineObject) => {
-                element.project_name = projectObj?.name;
+                element.project_name = projectObj.name;
             });
         }
-        return {
-            getPipelinesData: pipelineObjects!,
-        };
+        return pipelineObjects || undefined;
     }
 
     async getIssuesSummary(
-        projectId: string
+        projectId: string | number
     ): Promise<IssuesSummary | undefined> {
-        const issuesObject = await this.callApi<IssueObject[]>(
-            `projects/${projectId}/issues`,
-            {}
-        );
-
-        const projectObj: any = await this.callApi<Record<string, unknown>>(
-            'projects/' + projectId,
-            {}
-        );
-        if (issuesObject) {
+        const [issuesObject, projectObj] = await Promise.all([
+            this.callApi<IssueObject[]>(`projects/${projectId}/issues`, {}),
+            this.callApi<Record<string, string>>('projects/' + projectId, {}),
+        ]);
+        if (issuesObject && projectObj) {
             issuesObject.forEach((element: IssueObject) => {
-                element.project_name = projectObj?.name;
+                element.project_name = projectObj.name;
             });
         }
 
-        return {
-            getIssuesData: issuesObject!,
-        };
+        return issuesObject || undefined;
     }
 
-    async getProjectName(projectID?: string): Promise<string | undefined> {
-        const projectObj: any = await this.callApi<Record<string, unknown>>(
+    async getProjectName(
+        projectID?: string | number
+    ): Promise<string | undefined> {
+        const projectObj = await this.callApi<Record<string, string>>(
             'projects/' + projectID,
             {}
         );
@@ -159,23 +152,20 @@ export class GitlabCIClient implements GitlabCIApi {
         contributorsData: PeopleCardEntityData[]
     ): Promise<PeopleCardEntityData[]> {
         for (let i = 0; contributorsData && i < contributorsData.length; i++) {
-            const userProfile: any = await this.callApi<
-                Record<string, unknown>[]
-            >('users', {
-                search: contributorsData[i].email,
-                without_project_bots: 'true',
-            });
+            const userProfile = await this.callApi<Record<string, string>[]>(
+                'users',
+                {
+                    search: contributorsData[i].email || '',
+                    without_project_bots: 'true',
+                }
+            );
             if (userProfile) {
-                userProfile.forEach(
-                    (userProfileElement: PeopleCardEntityData) => {
-                        if (
-                            userProfileElement.name == contributorsData[i].name
-                        ) {
-                            contributorsData[i].avatar_url =
-                                userProfileElement?.avatar_url;
-                        }
+                userProfile.forEach((userProfileElement) => {
+                    if (userProfileElement.name == contributorsData[i].name) {
+                        contributorsData[i].avatar_url =
+                            userProfileElement?.avatar_url;
                     }
-                );
+                });
             }
         }
         return contributorsData;
@@ -212,93 +202,70 @@ export class GitlabCIClient implements GitlabCIApi {
     }
 
     async getMergeRequestsSummary(
-        projectID?: string
+        projectID?: string | number
     ): Promise<MergeRequestsSummary | undefined> {
-        const mergeRquestsList = await this.callApi<MergeRequest[]>(
+        return this.callApi<MergeRequest[]>(
             'projects/' + projectID + '/merge_requests',
             {}
         );
-        return {
-            getMergeRequestsData: mergeRquestsList!,
-        };
     }
 
     async getMergeRequestsStatusSummary(
-        projectID?: string,
+        projectID?: string | number,
         count?: number
     ): Promise<MergeRequestsStatusSummary | undefined> {
-        const mergeRequestsList = await this.callApi<MergeRequest[]>(
+        return this.callApi<MergeRequest[]>(
             'projects/' + projectID + '/merge_requests',
-            { per_page: count }
+            { per_page: (count ?? 20).toString(10) }
         );
-        return {
-            getMergeRequestsStatusData: mergeRequestsList!,
-        };
     }
 
     async getContributorsSummary(
-        projectID?: string
+        projectID?: string | number
     ): Promise<ContributorsSummary | undefined> {
         const contributorsData = await this.callApi<PeopleCardEntityData[]>(
             'projects/' + projectID + '/repository/contributors',
             { sort: 'desc' }
         );
+
         const updatedContributorsData = await this.getUserProfilesData(
             contributorsData!
         );
-        return {
-            getContributorsData: updatedContributorsData!,
-        };
+
+        return updatedContributorsData;
     }
 
     async getLanguagesSummary(
-        projectID?: string
+        projectID?: string | number
     ): Promise<LanguagesSummary | undefined> {
-        const languageObjects = await this.callApi<Record<string, unknown>>(
+        return this.callApi<Record<string, number>>(
             'projects/' + projectID + '/languages',
             {}
         );
-        return {
-            getLanguagesData: languageObjects!,
-        };
     }
 
     async getReleasesSummary(
-        projectID: string
+        projectID: string | number
     ): Promise<ReleasesSummary | undefined> {
-        const releaseObjects = await this.callApi<ReleaseData[]>(
+        return this.callApi<ReleaseData[]>(
             'projects/' + projectID + '/releases',
             {}
         );
-        return {
-            getReleasesData: releaseObjects!,
-        };
     }
 
-    async getProjectDetails(projectSlug?: string): Promise<any | undefined> {
-        let projectDetails: any;
-        if (projectSlug) {
-            projectDetails = await this.callApi<Record<string, unknown>>(
-                'projects/' + encodeURIComponent(projectSlug),
-                {}
-            );
-        }
-        return projectDetails;
-    }
+    async getProjectDetails(
+        projectSlug: string
+    ): Promise<ProjectDetails | undefined> {
+        if (!projectSlug) return undefined;
 
-    async retryPipelineBuild(
-        projectID?: string,
-        pipelineID?: string
-    ): Promise<any | undefined> {
-        const retryBuild = await this.callApi<Record<string, unknown>>(
-            'projects/' + projectID + '/pipelines/' + pipelineID + '/retry',
+        return this.callApi<ProjectDetails>(
+            'projects/' + encodeURIComponent(projectSlug),
             {}
         );
-        return retryBuild;
     }
 
     async getCodeOwners(
-        projectID?: string,
+        projectID?: string | number,
         branch = 'HEAD',
         filePath?: string
     ): Promise<PeopleCardEntityData[]> {
@@ -346,7 +313,7 @@ export class GitlabCIClient implements GitlabCIApi {
     }
 
     async getReadme(
-        projectID?: string,
+        projectID?: string | number,
         branch = 'HEAD',
         filePath?: string
     ): Promise<string | undefined> {

@@ -30,7 +30,7 @@ createDevApp()
             // @ts-ignore
             cli.callApi = async function (
                 path: string,
-                query: { [key in string]: any }
+                query: { [key in string]: string }
             ) {
                 const response =
                     mockedGitlabReqToRes[
