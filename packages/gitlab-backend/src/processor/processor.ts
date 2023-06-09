@@ -41,6 +41,7 @@ export class GitlabFillerProcessor implements CatalogProcessor {
     async postProcessEntity(
         entity: Entity,
         location: LocationSpec,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         _emit: CatalogProcessorEmit
     ): Promise<Entity> {
         // Check if we should process its kind first

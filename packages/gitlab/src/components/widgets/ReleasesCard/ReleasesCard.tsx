@@ -28,7 +28,7 @@ import {
     gitlabProjectSlug,
     gitlabInstance,
 } from '../../gitlabAppData';
-import { ReleaseData, ProjectDetail } from '../../types';
+import { ReleaseData } from '../../types';
 import { rcompare, valid, prerelease } from 'semver';
 
 const useStyles = makeStyles((theme) => ({
@@ -102,28 +102,26 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
         gitlab_instance || 'gitlab.com'
     );
     /* TODO: to change the below logic to get contributors data*/
-    const { value, loading, error } = useAsync(async (): Promise<{
-        releases: ReleaseData[];
-        projectDetails: ProjectDetail;
-    }> => {
-        const projectDetails: any = await GitlabCIAPI.getProjectDetails(
+    const { value, loading, error } = useAsync(async () => {
+        const projectDetails = await GitlabCIAPI.getProjectDetails(
             project_slug || project_id
         );
-        const projectDetailsData: ProjectDetail = {
-            project_web_url: projectDetails?.web_url,
-            project_default_branch: projectDetails?.default_branch,
-        };
-        const projectId = project_id || projectDetails?.id;
-        const gitlabObj = await GitlabCIAPI.getReleasesSummary(projectId);
-        const releaseData: ReleaseData[] | undefined =
-            gitlabObj?.getReleasesData;
+
+        if (!projectDetails)
+            throw new Error('wrong project_slug or project_id');
+
+        const projectId = project_id || projectDetails.id;
+        const releaseData = await GitlabCIAPI.getReleasesSummary(projectId);
+
+        if (!releaseData) throw new Error('Release data are undefined!');
+
         return {
-            releases: releaseData!,
-            projectDetails: projectDetailsData!,
+            releases: releaseData,
+            projectDetails,
         };
     }, []);
 
-    const project_web_url = value?.projectDetails.project_web_url;
+    const project_web_url = value?.projectDetails.web_url;
 
     if (loading) {
         return <Progress />;

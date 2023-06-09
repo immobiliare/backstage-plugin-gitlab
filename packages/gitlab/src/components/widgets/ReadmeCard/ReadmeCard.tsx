@@ -15,7 +15,6 @@ import {
     gitlabReadmePath,
     gitlabInstance,
 } from '../../gitlabAppData';
-import { ProjectDetail } from '../../types';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -40,19 +39,19 @@ export const ReadmeCard = ({}) => {
     const { value, loading, error } = useAsync(async (): Promise<{
         readme: string | undefined;
     }> => {
-        const projectDetails: any = await GitlabCIAPI.getProjectDetails(
+        const projectDetails = await GitlabCIAPI.getProjectDetails(
             project_slug || project_id
         );
-        const projectId = project_id || projectDetails?.id;
-        const projectDetailsData: ProjectDetail = {
-            project_web_url: projectDetails?.web_url,
-            project_default_branch: projectDetails?.default_branch,
-        };
+
+        if (!projectDetails)
+            throw new Error('wrong project_slug or project_id');
+
+        const projectId = project_id || projectDetails.id;
         let readmeData: string | undefined = undefined;
         try {
             readmeData = await GitlabCIAPI.getReadme(
                 projectId,
-                projectDetailsData.project_default_branch,
+                projectDetails.default_branch,
                 readme_path
             );
         } catch (error) {

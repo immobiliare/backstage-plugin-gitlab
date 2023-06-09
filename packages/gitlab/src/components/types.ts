@@ -88,9 +88,25 @@ export type UserDetail = {
     web_url: string;
 };
 
-export type ProjectDetail = {
-    project_web_url: string;
-    project_default_branch: string;
+export type ProjectDetails = {
+    id: number;
+    description?: string;
+    name?: string;
+    name_with_namespace?: string;
+    path?: string;
+    path_with_namespace?: string;
+    created_at?: string;
+    default_branch?: string;
+    ssh_url_to_repo?: string;
+    http_url_to_repo?: string;
+    web_url?: string;
+    avatar_url?: string;
+    star_count?: number;
+    last_activity_at?: string;
+};
+
+export type Languages = {
+    [key: string]: number;
 };
 
 export type MergeRequestState = 'opened' | 'closed' | 'all';

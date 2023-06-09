@@ -71,16 +71,26 @@ export const IssuesTable = ({}) => {
         data: IssueObject[];
         projectName: string;
     }> => {
-        const projectDetails: any = await GitlabCIAPI.getProjectDetails(
-            project_slug
+        const projectDetails = await GitlabCIAPI.getProjectDetails(
+            project_slug || project_id
         );
-        const projectId = project_id || projectDetails?.id;
-        const projectName = await GitlabCIAPI.getProjectName(projectId);
-        const gitlabIssuesObject = await GitlabCIAPI.getIssuesSummary(
-            projectId
-        );
-        const data = gitlabIssuesObject?.getIssuesData;
-        const renderData: any = { data, projectName };
+        if (!projectDetails)
+            throw new Error('wrong project_slug or project_id');
+
+        const projectId = project_id || projectDetails.id;
+
+        const [summary, projectName] = await Promise.all([
+            GitlabCIAPI.getIssuesSummary(projectId),
+            GitlabCIAPI.getProjectName(projectId),
+        ]);
+
+        if (!summary || !projectName) {
+            throw new Error('project name or gitlab issues are undefined!');
+        }
+        const renderData = {
+            data: summary,
+            projectName,
+        };
 
         return renderData;
     }, []);
