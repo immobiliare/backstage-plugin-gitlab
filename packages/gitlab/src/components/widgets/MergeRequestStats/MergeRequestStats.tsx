@@ -15,16 +15,16 @@ import {
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { GitlabCIApiRef, MergeRequestsStatusSummary } from '../../../api';
+import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import {
     InfoCard,
     StructuredMetadataTable,
     InfoCardVariants,
 } from '@backstage/core-components';
-import { MergeRequest } from '../../types';
 import dayjs from 'dayjs';
 import { Entity } from '@backstage/catalog-model';
+import { MergeRequestSchema } from '@gitbeaker/rest';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -52,12 +52,12 @@ type Props = {
     variant?: InfoCardVariants;
 };
 
-function evalStats(mergeRequestStatusData: MergeRequestsStatusSummary) {
+function evalStats(mergeRequestStatusData: MergeRequestSchema[]) {
     let sumOfDiff = 0;
     let closedCount = 0;
     let mergedCount = 0;
 
-    mergeRequestStatusData?.forEach((element: MergeRequest) => {
+    mergeRequestStatusData?.forEach((element) => {
         sumOfDiff += element.merged_at
             ? new Date(element.merged_at).getTime() -
               new Date(element.created_at).getTime()

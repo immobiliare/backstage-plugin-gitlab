@@ -9,9 +9,9 @@ import {
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { IssueObject } from '../../types';
 import { getElapsedTime } from '../../utils';
 import { AuthorColumn, IssueStateIndicator, IssueTitle } from './columns';
+import type { IssueSchema } from '@gitbeaker/rest';
 
 // export type IssueObject = {
 //   id: string;
@@ -29,10 +29,10 @@ export const DenseTable = ({
     issuesObjects,
     projectName,
 }: {
-    issuesObjects: IssueObject[];
+    issuesObjects: IssueSchema[];
     projectName: string | undefined;
 }) => {
-    const columns: TableColumn<IssueObject>[] = [
+    const columns: TableColumn<IssueSchema>[] = [
         { title: 'Issue ID', field: 'id' },
         { title: 'Title', render: IssueTitle },
         { title: 'Author', render: AuthorColumn },
@@ -68,7 +68,7 @@ export const IssuesTable = ({}) => {
     );
 
     const { value, loading, error } = useAsync(async (): Promise<{
-        data: IssueObject[];
+        data: IssueSchema[];
         projectName: string;
     }> => {
         const projectDetails = await GitlabCIAPI.getProjectDetails(

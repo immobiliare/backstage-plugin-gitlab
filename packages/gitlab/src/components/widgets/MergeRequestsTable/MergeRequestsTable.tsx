@@ -7,14 +7,14 @@ import {
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { GitlabCIApiRef, MergeRequestsSummary } from '../../../api';
+import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
-import { MergeRequest } from '../../types';
 import { getElapsedTime, getDuration } from '../../utils';
 import { createTitleColumn } from './columns';
+import type { MergeRequestSchema } from '@gitbeaker/rest';
 
 type MergeRequestDenseTableProps = {
-    data: MergeRequestsSummary;
+    data: MergeRequestSchema[];
     projectName: string;
 };
 
@@ -31,7 +31,7 @@ export const MergeRequestDenseTable = ({
         { title: 'Duration', field: 'duration' },
     ];
     const title = 'Gitlab Merge Request Status: ' + projectName;
-    const mappedData = data.map((mergeRequest: MergeRequest) => {
+    const mappedData = data.map((mergeRequest) => {
         return {
             id: mergeRequest.id,
             state: mergeRequest.state,
@@ -66,7 +66,7 @@ export const MergeRequestsTable = ({}) => {
     );
 
     const { value, loading, error } = useAsync(async (): Promise<{
-        data: MergeRequest[];
+        data: MergeRequestSchema[];
         projectName: string;
     }> => {
         const projectDetails = await GitlabCIAPI.getProjectDetails(

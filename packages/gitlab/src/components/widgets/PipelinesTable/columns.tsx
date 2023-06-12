@@ -8,7 +8,7 @@ import {
     StatusError,
 } from '@backstage/core-components';
 import { TableColumn } from '@backstage/core-components';
-import { PipelineObject } from '../../types';
+import type { PipelineSchema } from '@gitbeaker/rest';
 
 export const GitlabCIStateIndicator = ({
     state,
@@ -33,7 +33,7 @@ export const GitlabCIStateIndicator = ({
 export function createStatusColumn(): TableColumn<Record<string, unknown>> {
     return {
         title: 'Status',
-        render: (row: Partial<PipelineObject>) => (
+        render: (row: Partial<PipelineSchema>) => (
             <Box display="flex" alignItems="center">
                 <GitlabCIStateIndicator state={row.status} />
                 <Typography variant="caption">{row.status}</Typography>
@@ -45,7 +45,7 @@ export function createStatusColumn(): TableColumn<Record<string, unknown>> {
 export function createWebURLColumn(): TableColumn<Record<string, unknown>> {
     return {
         title: 'Web URL',
-        render: (row: Partial<PipelineObject>) => (
+        render: (row: Partial<PipelineSchema>) => (
             <Link
                 href={`${row.web_url}`}
                 target="_blank"

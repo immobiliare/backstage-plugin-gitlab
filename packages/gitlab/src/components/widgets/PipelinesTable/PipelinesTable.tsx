@@ -7,14 +7,15 @@ import {
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { GitlabCIApiRef, PipelineSummary } from '../../../api';
+import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { createStatusColumn, createWebURLColumn } from './columns';
 import { getDuration, getElapsedTime } from '../../utils';
+import type { PipelineSchema } from '@gitbeaker/rest';
 
 export type PipelineDenseTableProps = {
     projectName: string;
-    summary: PipelineSummary;
+    summary: PipelineSchema[];
 };
 
 export const PipelineDenseTable = ({

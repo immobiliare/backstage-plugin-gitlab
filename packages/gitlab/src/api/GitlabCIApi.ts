@@ -1,26 +1,19 @@
 import { createApiRef } from '@backstage/core-plugin-api';
-import {
-    PeopleCardEntityData,
-    MergeRequest,
-    PipelineObject,
-    IssueObject,
-    ReleaseData,
-    ProjectDetails,
-    Languages,
-} from '../components/types';
+import { PeopleCardEntityData, Languages } from '../components/types';
+import type {
+    IssueSchema,
+    MergeRequestSchema,
+    PipelineSchema,
+    ProjectSchema,
+    ReleaseSchema,
+    RepositoryContributorSchema,
+    UserSchema,
+} from '@gitbeaker/rest';
 
-export type PipelineSummary = PipelineObject[];
-export type ContributorsSummary = PeopleCardEntityData[];
-
-export type MergeRequestsSummary = MergeRequest[];
-
-export type MergeRequestsStatusSummary = MergeRequest[];
+export type ContributorsSummary = (RepositoryContributorSchema &
+    Partial<UserSchema>)[];
 
 export type LanguagesSummary = Languages;
-
-export type IssuesSummary = IssueObject[];
-
-export type ReleasesSummary = ReleaseData[];
 
 export const GitlabCIApiRef = createApiRef<GitlabCIBuilder>({
     id: 'plugin.gitlabci.service',
@@ -33,25 +26,25 @@ export type GitlabCIBuilder = {
 export type GitlabCIApi = {
     getPipelineSummary(
         projectID: string | number
-    ): Promise<PipelineSummary | undefined>;
+    ): Promise<PipelineSchema[] | undefined>;
     getContributorsSummary(
         projectID: string | number
     ): Promise<ContributorsSummary | undefined>;
     getMergeRequestsSummary(
         projectID: string | number
-    ): Promise<MergeRequestsSummary | undefined>;
+    ): Promise<MergeRequestSchema[] | undefined>;
     getMergeRequestsStatusSummary(
         projectID: string | number,
         count: number
-    ): Promise<MergeRequestsStatusSummary | undefined>;
+    ): Promise<MergeRequestSchema[] | undefined>;
     getProjectName(projectID: string | number): Promise<string | undefined>;
     getLanguagesSummary(
         projectID: string | number
     ): Promise<LanguagesSummary | undefined>;
-    getProjectDetails(projectSlug: string): Promise<ProjectDetails | undefined>;
+    getProjectDetails(projectSlug: string): Promise<ProjectSchema | undefined>;
     getIssuesSummary(
         projectID: string | number
-    ): Promise<IssuesSummary | undefined>;
+    ): Promise<IssueSchema[] | undefined>;
     getCodeOwners(
         projectID?: string | number,
         branch?: string,
@@ -59,7 +52,7 @@ export type GitlabCIApi = {
     ): Promise<PeopleCardEntityData[]>;
     getReleasesSummary(
         projectID: string | number
-    ): Promise<ReleasesSummary | undefined>;
+    ): Promise<ReleaseSchema[] | undefined>;
 
     getContributorsLink(
         projectWebUrl: string | undefined,

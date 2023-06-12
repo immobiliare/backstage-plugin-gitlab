@@ -36,7 +36,7 @@ createDevApp()
                     mockedGitlabReqToRes[
                         `${path}?${new URLSearchParams(query).toString()}`
                     ];
-                return response || null;
+                return response || undefined;
             };
             return {
                 build: () => cli,
