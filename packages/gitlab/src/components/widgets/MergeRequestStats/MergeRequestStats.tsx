@@ -92,9 +92,12 @@ const MergeRequestStats = (props: Props) => {
         );
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
-        const projectId = project_id || projectDetails.id;
+
         const mergeRequestStatusData =
-            await GitlabCIAPI.getMergeRequestsStatusSummary(projectId, count);
+            await GitlabCIAPI.getMergeRequestsStatusSummary(
+                projectDetails.id,
+                count
+            );
 
         if (!mergeRequestStatusData)
             throw new Error('getMergeRequestsStatusSummary error');

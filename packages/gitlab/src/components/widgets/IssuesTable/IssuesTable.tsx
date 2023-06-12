@@ -77,19 +77,14 @@ export const IssuesTable = ({}) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        const projectId = project_id || projectDetails.id;
+        const summary = await GitlabCIAPI.getIssuesSummary(projectDetails.id);
 
-        const [summary, projectName] = await Promise.all([
-            GitlabCIAPI.getIssuesSummary(projectId),
-            GitlabCIAPI.getProjectName(projectId),
-        ]);
-
-        if (!summary || !projectName) {
-            throw new Error('project name or gitlab issues are undefined!');
+        if (!summary) {
+            throw new Error('gitlab issues is undefined!');
         }
         const renderData = {
             data: summary,
-            projectName,
+            projectName: projectDetails.name,
         };
 
         return renderData;

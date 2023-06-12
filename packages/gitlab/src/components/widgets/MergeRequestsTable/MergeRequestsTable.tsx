@@ -76,19 +76,13 @@ export const MergeRequestsTable = ({}) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        const projectId = project_id || projectDetails.id;
+        const summary = await GitlabCIAPI.getMergeRequestsSummary(
+            projectDetails.id
+        );
 
-        const [summary, projectName] = await Promise.all([
-            GitlabCIAPI.getMergeRequestsSummary(projectId),
-            GitlabCIAPI.getProjectName(projectId),
-        ]);
+        if (!summary) throw new Error('Merge request summary is undefined!');
 
-        if (!summary || !projectName)
-            throw new Error(
-                'Merge request summary or project_name are undefined!'
-            );
-
-        return { data: summary, projectName };
+        return { data: summary, projectName: projectDetails.name };
     }, []);
 
     if (loading) {

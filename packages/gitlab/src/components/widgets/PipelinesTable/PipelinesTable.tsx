@@ -71,18 +71,11 @@ export const PipelinesTable = ({}) => {
         );
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
-        const projectId = project_id || projectDetails.id;
 
-        const [summary, projectName] = await Promise.all([
-            GitlabCIAPI.getPipelineSummary(projectId),
-            GitlabCIAPI.getProjectName(projectId),
-        ]);
+        const summary = await GitlabCIAPI.getPipelineSummary(projectDetails.id);
 
-        if (!summary || !projectName)
-            throw new Error(
-                'Merge request summary or project_name are undefined!'
-            );
-        return { summary, projectName };
+        if (!summary) throw new Error('Merge request summary is undefined!');
+        return { summary, projectName: projectDetails.name };
     }, []);
 
     if (loading) {

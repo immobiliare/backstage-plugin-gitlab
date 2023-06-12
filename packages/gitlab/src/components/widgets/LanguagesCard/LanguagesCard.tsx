@@ -64,8 +64,9 @@ export const LanguagesCard = ({}) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        const projectId = project_id || projectDetails.id;
-        const summary = await GitlabCIAPI.getLanguagesSummary(projectId);
+        const summary = await GitlabCIAPI.getLanguagesSummary(
+            projectDetails.id
+        );
         if (!summary) throw new Error('Languages summary is not defined!');
 
         return summary;

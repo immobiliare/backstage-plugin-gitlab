@@ -54,17 +54,15 @@ export const PeopleCard = ({}) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        const projectId = project_id || projectDetails.id;
-
         const contributorData = await GitlabCIAPI.getContributorsSummary(
-            projectId
+            projectDetails.id
         );
 
         // CODE OWNERS
         let codeOwners: PeopleCardEntityData[] | undefined = [];
         try {
             codeOwners = await GitlabCIAPI.getCodeOwners(
-                projectId,
+                projectDetails.id,
                 projectDetails?.default_branch,
                 codeowners_path
             );

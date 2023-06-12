@@ -110,8 +110,9 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        const projectId = project_id || projectDetails.id;
-        const releaseData = await GitlabCIAPI.getReleasesSummary(projectId);
+        const releaseData = await GitlabCIAPI.getReleasesSummary(
+            projectDetails.id
+        );
 
         if (!releaseData) throw new Error('Release data are undefined!');
 
