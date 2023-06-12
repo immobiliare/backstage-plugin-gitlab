@@ -46,11 +46,10 @@ export const ReadmeCard = ({}) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        const projectId = project_id || projectDetails.id;
         let readmeData: string | undefined = undefined;
         try {
             readmeData = await GitlabCIAPI.getReadme(
-                projectId,
+                projectDetails.id,
                 projectDetails.default_branch,
                 readme_path
             );

@@ -12,8 +12,9 @@ import {
     gitlabInstance,
 } from '../../gitlabAppData';
 import { PeopleList } from './components/PeopleList';
-import { PeopleCardEntityData, ProjectDetails } from '../../types';
+import { PeopleCardEntityData } from '../../types';
 import { Divider } from '@material-ui/core';
+import { ProjectSchema } from '@gitbeaker/rest';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -45,7 +46,7 @@ export const PeopleCard = ({}) => {
     const { value, loading, error } = useAsync(async (): Promise<{
         contributors: PeopleCardEntityData[] | undefined;
         owners: PeopleCardEntityData[] | undefined;
-        projectDetails: ProjectDetails;
+        projectDetails: ProjectSchema;
     }> => {
         const projectDetails = await GitlabCIAPI.getProjectDetails(
             project_slug || project_id
@@ -53,17 +54,15 @@ export const PeopleCard = ({}) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        const projectId = project_id || projectDetails.id;
-
         const contributorData = await GitlabCIAPI.getContributorsSummary(
-            projectId
+            projectDetails.id
         );
 
         // CODE OWNERS
         let codeOwners: PeopleCardEntityData[] | undefined = [];
         try {
             codeOwners = await GitlabCIAPI.getCodeOwners(
-                projectId,
+                projectDetails.id,
                 projectDetails?.default_branch,
                 codeowners_path
             );

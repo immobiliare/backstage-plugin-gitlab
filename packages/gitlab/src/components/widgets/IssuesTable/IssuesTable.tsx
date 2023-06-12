@@ -9,9 +9,9 @@ import {
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { IssueObject } from '../../types';
 import { getElapsedTime } from '../../utils';
 import { AuthorColumn, IssueStateIndicator, IssueTitle } from './columns';
+import type { IssueSchema } from '@gitbeaker/rest';
 
 // export type IssueObject = {
 //   id: string;
@@ -29,10 +29,10 @@ export const DenseTable = ({
     issuesObjects,
     projectName,
 }: {
-    issuesObjects: IssueObject[];
+    issuesObjects: IssueSchema[];
     projectName: string | undefined;
 }) => {
-    const columns: TableColumn<IssueObject>[] = [
+    const columns: TableColumn<IssueSchema>[] = [
         { title: 'Issue ID', field: 'id' },
         { title: 'Title', render: IssueTitle },
         { title: 'Author', render: AuthorColumn },
@@ -68,7 +68,7 @@ export const IssuesTable = ({}) => {
     );
 
     const { value, loading, error } = useAsync(async (): Promise<{
-        data: IssueObject[];
+        data: IssueSchema[];
         projectName: string;
     }> => {
         const projectDetails = await GitlabCIAPI.getProjectDetails(
@@ -77,19 +77,14 @@ export const IssuesTable = ({}) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        const projectId = project_id || projectDetails.id;
+        const summary = await GitlabCIAPI.getIssuesSummary(projectDetails.id);
 
-        const [summary, projectName] = await Promise.all([
-            GitlabCIAPI.getIssuesSummary(projectId),
-            GitlabCIAPI.getProjectName(projectId),
-        ]);
-
-        if (!summary || !projectName) {
-            throw new Error('project name or gitlab issues are undefined!');
+        if (!summary) {
+            throw new Error('gitlab issues is undefined!');
         }
         const renderData = {
             data: summary,
-            projectName,
+            projectName: projectDetails.name,
         };
 
         return renderData;

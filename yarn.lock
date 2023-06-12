@@ -4074,6 +4074,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gitbeaker/core@npm:^39.0.0":
+  version: 39.0.0
+  resolution: "@gitbeaker/core@npm:39.0.0"
+  dependencies:
+    "@gitbeaker/requester-utils": ^39.0.0
+    qs: ^6.11.1
+    xcase: ^2.0.1
+  checksum: f4aa912923e0a29c6057994fa7ef640fb5bf3aefdf5cd96b00555c697f38569e19b2092f95515e54831176c19eb1530c23d75db79e267745a96090c51c857329
+  languageName: node
+  linkType: hard
+
+"@gitbeaker/requester-utils@npm:^39.0.0":
+  version: 39.0.0
+  resolution: "@gitbeaker/requester-utils@npm:39.0.0"
+  dependencies:
+    qs: ^6.11.1
+    xcase: ^2.0.1
+  checksum: 59f165e777c13ab3ff53df7c68ccc85815417db5248cbcf51697f4b133679621fa21c317f4e82a931beb1b47ad888106a9c950bd36fa3bf7dc2fa30a154bc5c5
+  languageName: node
+  linkType: hard
+
+"@gitbeaker/rest@npm:^39.0.0":
+  version: 39.0.0
+  resolution: "@gitbeaker/rest@npm:39.0.0"
+  dependencies:
+    "@gitbeaker/core": ^39.0.0
+    "@gitbeaker/requester-utils": ^39.0.0
+  checksum: 90df432902512c49bb332bee8d1c572cbd23f83e1f7665f754c1a2375be02f04dbefe5e9df54b4e6299e0672f842616d5b832669554a741c65c9ee81056062e6
+  languageName: node
+  linkType: hard
+
 "@google-cloud/paginator@npm:^3.0.7":
   version: 3.0.7
   resolution: "@google-cloud/paginator@npm:3.0.7"
@@ -4192,6 +4223,7 @@ __metadata:
     "@backstage/theme": ^0.2.14
     "@commitlint/cli": ^17.0.0
     "@commitlint/config-conventional": ^17.0.0
+    "@gitbeaker/rest": ^39.0.0
     "@material-ui/core": ^4.12.2
     "@material-ui/icons": ^4.9.1
     "@material-ui/lab": 4.0.0-alpha.61
@@ -21404,7 +21436,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.11.0, qs@npm:^6.9.4":
+"qs@npm:^6.11.0, qs@npm:^6.11.1, qs@npm:^6.9.4":
   version: 6.11.2
   resolution: "qs@npm:6.11.2"
   dependencies:
@@ -26123,6 +26155,13 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: 53e991bbf928faf5dc6efac9b8eb9ab6497c69feeb94f963d648b7a3530a720b19ec2e0ec037344257e05a4f35bd9ad04d9de6f289615ffb133282031b18c61c
+  languageName: node
+  linkType: hard
+
+"xcase@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "xcase@npm:2.0.1"
+  checksum: 1d407306593f1049ebb5d3b7b86b0d40b4b108be428cf4d17c57454ef5444c962555c387384c121d83a6bcf7a9b6b04a51cc4b76786bfb0fac8d0a108b5b7ef8
   languageName: node
   linkType: hard
 

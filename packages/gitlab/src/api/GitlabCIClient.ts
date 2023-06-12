@@ -1,24 +1,22 @@
 import { DiscoveryApi, IdentityApi } from '@backstage/core-plugin-api';
-import {
-    PeopleCardEntityData,
-    MergeRequest,
-    PipelineObject,
-    FileOwnership,
-    ReleaseData,
-    ProjectDetails,
-} from '../components/types';
+import { PeopleCardEntityData, FileOwnership } from '../components/types';
 import { parseCodeOwners } from '../components/utils';
-import { IssueObject } from './../components/types';
 import {
     ContributorsSummary,
     GitlabCIApi,
-    IssuesSummary,
     LanguagesSummary,
-    MergeRequestsStatusSummary,
-    MergeRequestsSummary,
-    PipelineSummary,
-    ReleasesSummary,
 } from './GitlabCIApi';
+
+import type {
+    GroupSchema,
+    IssueSchema,
+    MergeRequestSchema,
+    PipelineSchema,
+    ProjectSchema,
+    ReleaseSchema,
+    RepositoryContributorSchema,
+    UserSchema,
+} from '@gitbeaker/rest';
 
 export class GitlabCIClient implements GitlabCIApi {
     discoveryApi: DiscoveryApi;
@@ -105,16 +103,16 @@ export class GitlabCIClient implements GitlabCIApi {
 
     async getPipelineSummary(
         projectID?: string | number
-    ): Promise<PipelineSummary | undefined> {
+    ): Promise<PipelineSchema[] | undefined> {
         const [pipelineObjects, projectObj] = await Promise.all([
-            this.callApi<PipelineObject[]>(
+            this.callApi<PipelineSchema[]>(
                 'projects/' + projectID + '/pipelines',
                 {}
             ),
             this.callApi<Record<string, string>>('projects/' + projectID, {}),
         ]);
         if (pipelineObjects && projectObj) {
-            pipelineObjects.forEach((element: PipelineObject) => {
+            pipelineObjects.forEach((element) => {
                 element.project_name = projectObj.name;
             });
         }
@@ -123,13 +121,13 @@ export class GitlabCIClient implements GitlabCIApi {
 
     async getIssuesSummary(
         projectId: string | number
-    ): Promise<IssuesSummary | undefined> {
+    ): Promise<IssueSchema[] | undefined> {
         const [issuesObject, projectObj] = await Promise.all([
-            this.callApi<IssueObject[]>(`projects/${projectId}/issues`, {}),
+            this.callApi<IssueSchema[]>(`projects/${projectId}/issues`, {}),
             this.callApi<Record<string, string>>('projects/' + projectId, {}),
         ]);
         if (issuesObject && projectObj) {
-            issuesObject.forEach((element: IssueObject) => {
+            issuesObject.forEach((element) => {
                 element.project_name = projectObj.name;
             });
         }
@@ -140,7 +138,7 @@ export class GitlabCIClient implements GitlabCIApi {
     async getProjectName(
         projectID?: string | number
     ): Promise<string | undefined> {
-        const projectObj = await this.callApi<Record<string, string>>(
+        const projectObj = await this.callApi<ProjectSchema>(
             'projects/' + projectID,
             {}
         );
@@ -149,36 +147,36 @@ export class GitlabCIClient implements GitlabCIApi {
 
     //TODO: Merge with getUserDetail
     private async getUserProfilesData(
-        contributorsData: PeopleCardEntityData[]
-    ): Promise<PeopleCardEntityData[]> {
-        for (let i = 0; contributorsData && i < contributorsData.length; i++) {
-            const userProfile = await this.callApi<Record<string, string>[]>(
-                'users',
-                {
-                    search: contributorsData[i].email || '',
+        contributorsData: RepositoryContributorSchema[]
+    ): Promise<ContributorsSummary> {
+        return Promise.all(
+            contributorsData.map(async (contributor) => {
+                const userProfile = await this.callApi<UserSchema[]>('users', {
+                    search: contributor.email,
                     without_project_bots: 'true',
-                }
-            );
-            if (userProfile) {
-                userProfile.forEach((userProfileElement) => {
-                    if (userProfileElement.name == contributorsData[i].name) {
-                        contributorsData[i].avatar_url =
-                            userProfileElement?.avatar_url;
-                    }
                 });
-            }
-        }
-        return contributorsData;
+
+                const user = userProfile?.find(
+                    (v) => v.name === contributor.name
+                );
+
+                if (user) {
+                    return {
+                        ...contributor,
+                        ...user,
+                    };
+                }
+                return contributor;
+            })
+        );
     }
 
-    private async getUserDetail(
-        username: string
-    ): Promise<PeopleCardEntityData> {
+    private async getUserDetail(username: string): Promise<UserSchema> {
         if (username.startsWith('@')) {
             username = username.slice(1);
         }
         const userDetail = (
-            await this.callApi<PeopleCardEntityData[]>('users', {
+            await this.callApi<UserSchema[]>('users', {
                 username,
             })
         )?.[0];
@@ -187,11 +185,11 @@ export class GitlabCIClient implements GitlabCIApi {
 
         return userDetail;
     }
-    private async getGroupDetail(name: string): Promise<PeopleCardEntityData> {
+    private async getGroupDetail(name: string): Promise<GroupSchema> {
         if (name.startsWith('@')) {
             name = name.slice(1);
         }
-        const groupDetail = await this.callApi<PeopleCardEntityData>(
+        const groupDetail = await this.callApi<GroupSchema>(
             `groups/${encodeURIComponent(name)}`,
             { with_projects: 'false' }
         );
@@ -203,8 +201,8 @@ export class GitlabCIClient implements GitlabCIApi {
 
     async getMergeRequestsSummary(
         projectID?: string | number
-    ): Promise<MergeRequestsSummary | undefined> {
-        return this.callApi<MergeRequest[]>(
+    ): Promise<MergeRequestSchema[] | undefined> {
+        return this.callApi<MergeRequestSchema[]>(
             'projects/' + projectID + '/merge_requests',
             {}
         );
@@ -213,8 +211,8 @@ export class GitlabCIClient implements GitlabCIApi {
     async getMergeRequestsStatusSummary(
         projectID?: string | number,
         count?: number
-    ): Promise<MergeRequestsStatusSummary | undefined> {
-        return this.callApi<MergeRequest[]>(
+    ): Promise<MergeRequestSchema[] | undefined> {
+        return this.callApi<MergeRequestSchema[]>(
             'projects/' + projectID + '/merge_requests',
             { per_page: (count ?? 20).toString(10) }
         );
@@ -223,10 +221,11 @@ export class GitlabCIClient implements GitlabCIApi {
     async getContributorsSummary(
         projectID?: string | number
     ): Promise<ContributorsSummary | undefined> {
-        const contributorsData = await this.callApi<PeopleCardEntityData[]>(
-            'projects/' + projectID + '/repository/contributors',
-            { sort: 'desc' }
-        );
+        const contributorsData = await this.callApi<
+            RepositoryContributorSchema[]
+        >('projects/' + projectID + '/repository/contributors', {
+            sort: 'desc',
+        });
 
         const updatedContributorsData = await this.getUserProfilesData(
             contributorsData!
@@ -246,8 +245,8 @@ export class GitlabCIClient implements GitlabCIApi {
 
     async getReleasesSummary(
         projectID: string | number
-    ): Promise<ReleasesSummary | undefined> {
-        return this.callApi<ReleaseData[]>(
+    ): Promise<ReleaseSchema[] | undefined> {
+        return this.callApi<ReleaseSchema[]>(
             'projects/' + projectID + '/releases',
             {}
         );
@@ -255,10 +254,10 @@ export class GitlabCIClient implements GitlabCIApi {
 
     async getProjectDetails(
         projectSlug: string
-    ): Promise<ProjectDetails | undefined> {
+    ): Promise<ProjectSchema | undefined> {
         if (!projectSlug) return undefined;
 
-        return this.callApi<ProjectDetails>(
+        return this.callApi<ProjectSchema>(
             'projects/' + encodeURIComponent(projectSlug),
             {}
         );
@@ -292,8 +291,7 @@ export class GitlabCIClient implements GitlabCIApi {
             await Promise.allSettled(
                 uniqueOwners.map(async (owner) => {
                     try {
-                        const ownerData: PeopleCardEntityData =
-                            await this.getUserDetail(owner);
+                        const ownerData = await this.getUserDetail(owner);
                         return ownerData;
                     } catch (error) {
                         const ownerData: PeopleCardEntityData =

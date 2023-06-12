@@ -28,8 +28,8 @@ import {
     gitlabProjectSlug,
     gitlabInstance,
 } from '../../gitlabAppData';
-import { ReleaseData } from '../../types';
 import { rcompare, valid, prerelease } from 'semver';
+import { ReleaseSchema } from '@gitbeaker/rest';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -70,12 +70,12 @@ export interface ReleasesCardProps {
 
 function makeFilter(
     show: string
-): (value: ReleaseData, index: number, array: ReleaseData[]) => boolean {
+): (value: ReleaseSchema, index: number, array: ReleaseSchema[]) => boolean {
     switch (show) {
         case 'patch':
-            return (value: ReleaseData) => {
+            return (value) => {
                 try {
-                    return prerelease(value.tag_name) == null;
+                    return prerelease(value.tag_name) === null;
                 } catch (error) {
                     return true;
                 }
@@ -110,8 +110,9 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        const projectId = project_id || projectDetails.id;
-        const releaseData = await GitlabCIAPI.getReleasesSummary(projectId);
+        const releaseData = await GitlabCIAPI.getReleasesSummary(
+            projectDetails.id
+        );
 
         if (!releaseData) throw new Error('Release data are undefined!');
 
@@ -136,7 +137,7 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
     // shortest prefix match to dedupe the list, i.e.
     // prefer full releases, e.g. when v1.2.3 exists, we drop all pre-releases v1.2.3-*
     // prefer the latest in a series of pre-releases
-    let releases: ReleaseData[] = [];
+    let releases: ReleaseSchema[] = [];
     // sort (e.g. v1.2.3 comes before v1.2.3-alpha-4.5) and walk through list of releases
     // NOTE: rcompare sorts descending, but full release comes before release candidates (v1.2.3 before v1.2.3-alpha-4.5)
     // use string comparison for non-compliant tags
@@ -175,7 +176,7 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
         })
         .slice(0, limit);
 
-    if (releases.length == 0) {
+    if (releases.length === 0) {
         return <></>;
     }
 
@@ -193,7 +194,7 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
             className={classes.infoCard}
         >
             <Grid container spacing={2} justifyContent="flex-start">
-                {releases.map((release: ReleaseData) => (
+                {releases.map((release) => (
                     <Grid item key={release.tag_name}>
                         <Link
                             href={

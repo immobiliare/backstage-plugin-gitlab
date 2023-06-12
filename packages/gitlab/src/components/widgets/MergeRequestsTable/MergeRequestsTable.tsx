@@ -7,14 +7,14 @@ import {
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { GitlabCIApiRef, MergeRequestsSummary } from '../../../api';
+import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
-import { MergeRequest } from '../../types';
 import { getElapsedTime, getDuration } from '../../utils';
 import { createTitleColumn } from './columns';
+import type { MergeRequestSchema } from '@gitbeaker/rest';
 
 type MergeRequestDenseTableProps = {
-    data: MergeRequestsSummary;
+    data: MergeRequestSchema[];
     projectName: string;
 };
 
@@ -31,7 +31,7 @@ export const MergeRequestDenseTable = ({
         { title: 'Duration', field: 'duration' },
     ];
     const title = 'Gitlab Merge Request Status: ' + projectName;
-    const mappedData = data.map((mergeRequest: MergeRequest) => {
+    const mappedData = data.map((mergeRequest) => {
         return {
             id: mergeRequest.id,
             state: mergeRequest.state,
@@ -66,7 +66,7 @@ export const MergeRequestsTable = ({}) => {
     );
 
     const { value, loading, error } = useAsync(async (): Promise<{
-        data: MergeRequest[];
+        data: MergeRequestSchema[];
         projectName: string;
     }> => {
         const projectDetails = await GitlabCIAPI.getProjectDetails(
@@ -76,19 +76,13 @@ export const MergeRequestsTable = ({}) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        const projectId = project_id || projectDetails.id;
+        const summary = await GitlabCIAPI.getMergeRequestsSummary(
+            projectDetails.id
+        );
 
-        const [summary, projectName] = await Promise.all([
-            GitlabCIAPI.getMergeRequestsSummary(projectId),
-            GitlabCIAPI.getProjectName(projectId),
-        ]);
+        if (!summary) throw new Error('Merge request summary is undefined!');
 
-        if (!summary || !projectName)
-            throw new Error(
-                'Merge request summary or project_name are undefined!'
-            );
-
-        return { data: summary, projectName };
+        return { data: summary, projectName: projectDetails.name };
     }, []);
 
     if (loading) {

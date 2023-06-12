@@ -7,14 +7,15 @@ import {
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { GitlabCIApiRef, PipelineSummary } from '../../../api';
+import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { createStatusColumn, createWebURLColumn } from './columns';
 import { getDuration, getElapsedTime } from '../../utils';
+import type { PipelineSchema } from '@gitbeaker/rest';
 
 export type PipelineDenseTableProps = {
     projectName: string;
-    summary: PipelineSummary;
+    summary: PipelineSchema[];
 };
 
 export const PipelineDenseTable = ({
@@ -70,18 +71,11 @@ export const PipelinesTable = ({}) => {
         );
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
-        const projectId = project_id || projectDetails.id;
 
-        const [summary, projectName] = await Promise.all([
-            GitlabCIAPI.getPipelineSummary(projectId),
-            GitlabCIAPI.getProjectName(projectId),
-        ]);
+        const summary = await GitlabCIAPI.getPipelineSummary(projectDetails.id);
 
-        if (!summary || !projectName)
-            throw new Error(
-                'Merge request summary or project_name are undefined!'
-            );
-        return { summary, projectName };
+        if (!summary) throw new Error('Merge request summary is undefined!');
+        return { summary, projectName: projectDetails.name };
     }, []);
 
     if (loading) {

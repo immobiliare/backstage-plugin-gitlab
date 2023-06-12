@@ -8,10 +8,10 @@ import {
 import { Box, Typography } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import React from 'react';
-import { IssueObject } from '../../types';
+import type { IssueSchema } from '@gitbeaker/rest';
 
 export const IssueStateIndicator = (
-    issueObject: IssueObject
+    issueObject: IssueSchema
 ): TableColumn<Record<string, unknown>> => {
     switch (issueObject.state) {
         case 'opened':
@@ -24,7 +24,7 @@ export const IssueStateIndicator = (
 };
 
 export function IssueTitle(
-    issueObject: IssueObject
+    issueObject: IssueSchema
 ): TableColumn<Record<string, unknown>> {
     return (
         <Typography variant="body2" noWrap>
@@ -38,7 +38,7 @@ export function IssueTitle(
 }
 
 export function AuthorColumn(
-    issueObject: IssueObject
+    issueObject: IssueSchema
 ): TableColumn<Record<string, unknown>> {
     return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
