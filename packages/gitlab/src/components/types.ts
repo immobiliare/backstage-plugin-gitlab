@@ -1,3 +1,5 @@
+import type { MouseEventHandler } from 'react';
+
 export type PeopleCardEntityData = {
     name: string;
     email?: string;
@@ -12,7 +14,7 @@ export type PeopleCardEntityData = {
 export type PeopleLink = {
     link: string;
     title: string;
-    onClick: (e: any) => void;
+    onClick: MouseEventHandler;
 };
 
 export type FileOwnership = {

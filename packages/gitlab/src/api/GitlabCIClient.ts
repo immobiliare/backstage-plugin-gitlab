@@ -1,5 +1,5 @@
 import { DiscoveryApi, IdentityApi } from '@backstage/core-plugin-api';
-import { PeopleCardEntityData, FileOwnership } from '../components/types';
+import { PeopleCardEntityData } from '../components/types';
 import { parseCodeOwners } from '../components/utils';
 import {
     ContributorsSummary,
@@ -264,7 +264,7 @@ export class GitlabCIClient implements GitlabCIApi {
     }
 
     async getCodeOwners(
-        projectID?: string | number,
+        projectID: string | number,
         branch = 'HEAD',
         filePath?: string
     ): Promise<PeopleCardEntityData[]> {
@@ -281,11 +281,10 @@ export class GitlabCIClient implements GitlabCIApi {
             throw Error(`Code owners file not found`);
         }
 
-        const codeOwners = parseCodeOwners(codeOwnersStr || '');
+        const codeOwners = parseCodeOwners(codeOwnersStr);
 
-        const dataOwners: FileOwnership[] = codeOwners;
         const uniqueOwners = [
-            ...new Set(dataOwners.flatMap((owner) => owner.owners)),
+            ...new Set(codeOwners.flatMap((owner) => owner.owners)),
         ];
         const ownersSettledResult: PromiseSettledResult<PeopleCardEntityData>[] =
             await Promise.allSettled(
@@ -294,9 +293,7 @@ export class GitlabCIClient implements GitlabCIApi {
                         const ownerData = await this.getUserDetail(owner);
                         return ownerData;
                     } catch (error) {
-                        const ownerData: PeopleCardEntityData =
-                            await this.getGroupDetail(owner);
-                        return ownerData;
+                        return this.getGroupDetail(owner);
                     }
                 })
             );
@@ -311,7 +308,7 @@ export class GitlabCIClient implements GitlabCIApi {
     }
 
     async getReadme(
-        projectID?: string | number,
+        projectID: string | number,
         branch = 'HEAD',
         filePath?: string
     ): Promise<string | undefined> {
@@ -332,16 +329,16 @@ export class GitlabCIClient implements GitlabCIApi {
     }
 
     getContributorsLink(
-        projectWebUrl: string | undefined,
-        projectDefaultBranch: string | undefined
+        projectWebUrl: string,
+        projectDefaultBranch: string
     ): string {
         return `${projectWebUrl}/-/graphs/${projectDefaultBranch}`;
     }
 
     getOwnersLink(
-        projectWebUrl: string | undefined,
-        projectDefaultBranch: string | undefined,
-        codeOwnersPath: string
+        projectWebUrl: string,
+        projectDefaultBranch: string,
+        codeOwnersPath?: string
     ): string {
         return `${projectWebUrl}/-/blob/${projectDefaultBranch}/${
             codeOwnersPath || this.codeOwnersPath
