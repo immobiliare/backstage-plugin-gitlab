@@ -12,7 +12,7 @@ import {
     gitlabInstance,
 } from '../../gitlabAppData';
 import { PeopleList } from './components/PeopleList';
-import { PeopleCardEntityData } from '../../types';
+import { PeopleCardEntityData, PeopleLink } from '../../types';
 import { Divider } from '@material-ui/core';
 import { ProjectSchema } from '@gitbeaker/rest';
 
@@ -78,32 +78,37 @@ export const PeopleCard = ({}) => {
 
     const project_web_url = value?.projectDetails?.web_url;
     const project_default_branch = value?.projectDetails?.default_branch;
-    const contributorsLink = GitlabCIAPI.getContributorsLink(
-        project_web_url,
-        project_default_branch
-    );
-    const ownersLink = GitlabCIAPI.getOwnersLink(
-        project_web_url,
-        project_default_branch,
-        codeowners_path
-    );
 
-    const contributorsDeepLink = {
-        link: contributorsLink,
-        title: 'go to Contributors',
-        onClick: (e: Event) => {
-            e.preventDefault();
-            window.open(contributorsLink);
-        },
-    };
-    const ownersDeepLink = {
-        link: ownersLink,
-        title: 'go to Owners File',
-        onClick: (e: Event) => {
-            e.preventDefault();
-            window.open(ownersLink);
-        },
-    };
+    let contributorsDeepLink: PeopleLink | undefined;
+    let ownersDeepLink: PeopleLink | undefined;
+    if (project_web_url && project_default_branch) {
+        const contributorsLink = GitlabCIAPI.getContributorsLink(
+            project_web_url,
+            project_default_branch
+        );
+        contributorsDeepLink = {
+            link: contributorsLink,
+            title: 'go to Contributors',
+            onClick: (e) => {
+                e.preventDefault();
+                window.open(contributorsLink);
+            },
+        };
+
+        const ownersLink = GitlabCIAPI.getOwnersLink(
+            project_web_url,
+            project_default_branch,
+            codeowners_path
+        );
+        ownersDeepLink = {
+            link: ownersLink,
+            title: 'go to Owners File',
+            onClick: (e) => {
+                e.preventDefault();
+                window.open(ownersLink);
+            },
+        };
+    }
 
     if (loading) {
         return <Progress />;

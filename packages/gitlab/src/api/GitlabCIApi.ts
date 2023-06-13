@@ -46,7 +46,7 @@ export type GitlabCIApi = {
         projectID: string | number
     ): Promise<IssueSchema[] | undefined>;
     getCodeOwners(
-        projectID?: string | number,
+        projectID: string | number,
         branch?: string,
         filePath?: string
     ): Promise<PeopleCardEntityData[]>;
@@ -55,17 +55,17 @@ export type GitlabCIApi = {
     ): Promise<ReleaseSchema[] | undefined>;
 
     getContributorsLink(
-        projectWebUrl: string | undefined,
-        projectDefaultBranch: string | undefined
+        projectWebUrl: string,
+        projectDefaultBranch: string
     ): string;
     getOwnersLink(
-        projectWebUrl: string | undefined,
-        projectDefaultBranch: string | undefined,
-        codeOwnersPath: string
+        projectWebUrl: string,
+        projectDefaultBranch: string,
+        codeOwnersPath?: string
     ): string;
 
     getReadme(
-        projectID?: string | number,
+        projectID: string | number,
         branch?: string,
         filePath?: string
     ): Promise<string | undefined>;
