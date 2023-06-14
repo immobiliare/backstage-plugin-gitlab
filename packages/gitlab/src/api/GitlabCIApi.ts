@@ -1,39 +1,19 @@
 import { createApiRef } from '@backstage/core-plugin-api';
-import {
-    PeopleCardEntityData,
-    MergeRequest,
-    PipelineObject,
-    IssueObject,
-    ReleaseData,
-} from '../components/types';
+import { PeopleCardEntityData, Languages } from '../components/types';
+import type {
+    IssueSchema,
+    MergeRequestSchema,
+    PipelineSchema,
+    ProjectSchema,
+    ReleaseSchema,
+    RepositoryContributorSchema,
+    UserSchema,
+} from '@gitbeaker/rest';
 
-export interface PipelineSummary {
-    getPipelinesData: PipelineObject[];
-}
+export type ContributorsSummary = (RepositoryContributorSchema &
+    Partial<UserSchema>)[];
 
-export interface ContributorsSummary {
-    getContributorsData: PeopleCardEntityData[];
-}
-
-export interface MergeRequestsSummary {
-    getMergeRequestsData: MergeRequest[];
-}
-
-export interface MergeRequestsStatusSummary {
-    getMergeRequestsStatusData: MergeRequest[];
-}
-
-export interface LanguagesSummary {
-    getLanguagesData: any;
-}
-
-export interface IssuesSummary {
-    getIssuesData: IssueObject[];
-}
-
-export interface ReleasesSummary {
-    getReleasesData: ReleaseData[];
-}
+export type LanguagesSummary = Languages;
 
 export const GitlabCIApiRef = createApiRef<GitlabCIBuilder>({
     id: 'plugin.gitlabci.service',
@@ -44,48 +24,48 @@ export type GitlabCIBuilder = {
 };
 
 export type GitlabCIApi = {
-    getPipelineSummary(projectID: string): Promise<PipelineSummary | undefined>;
+    getPipelineSummary(
+        projectID: string | number
+    ): Promise<PipelineSchema[] | undefined>;
     getContributorsSummary(
-        projectID: string
+        projectID: string | number
     ): Promise<ContributorsSummary | undefined>;
     getMergeRequestsSummary(
-        projectID: string
-    ): Promise<MergeRequestsSummary | undefined>;
+        projectID: string | number
+    ): Promise<MergeRequestSchema[] | undefined>;
     getMergeRequestsStatusSummary(
-        projectID: string,
+        projectID: string | number,
         count: number
-    ): Promise<MergeRequestsStatusSummary | undefined>;
-    getProjectName(projectID: string): Promise<string | undefined>;
+    ): Promise<MergeRequestSchema[] | undefined>;
+    getProjectName(projectID: string | number): Promise<string | undefined>;
     getLanguagesSummary(
-        projectID: string
+        projectID: string | number
     ): Promise<LanguagesSummary | undefined>;
-    retryPipelineBuild(
-        projectID: string,
-        pipelineID: string
-    ): Promise<Record<string, unknown> | undefined>;
-    getProjectDetails(
-        projectSlug: string
-    ): Promise<Record<string, unknown> | undefined>;
-    getIssuesSummary(projectID: string): Promise<IssuesSummary | undefined>;
+    getProjectDetails(projectSlug: string): Promise<ProjectSchema | undefined>;
+    getIssuesSummary(
+        projectID: string | number
+    ): Promise<IssueSchema[] | undefined>;
     getCodeOwners(
-        projectID?: string,
+        projectID: string | number,
         branch?: string,
         filePath?: string
     ): Promise<PeopleCardEntityData[]>;
-    getReleasesSummary(projectID: string): Promise<ReleasesSummary | undefined>;
+    getReleasesSummary(
+        projectID: string | number
+    ): Promise<ReleaseSchema[] | undefined>;
 
     getContributorsLink(
-        projectWebUrl: string | undefined,
-        projectDefaultBranch: string | undefined
+        projectWebUrl: string,
+        projectDefaultBranch: string
     ): string;
     getOwnersLink(
-        projectWebUrl: string | undefined,
-        projectDefaultBranch: string | undefined,
-        codeOwnersPath: string
+        projectWebUrl: string,
+        projectDefaultBranch: string,
+        codeOwnersPath?: string
     ): string;
 
     getReadme(
-        projectID?: string,
+        projectID: string | number,
         branch?: string,
         filePath?: string
     ): Promise<string | undefined>;

@@ -30,13 +30,13 @@ createDevApp()
             // @ts-ignore
             cli.callApi = async function (
                 path: string,
-                query: { [key in string]: any }
+                query: { [key in string]: string }
             ) {
                 const response =
                     mockedGitlabReqToRes[
                         `${path}?${new URLSearchParams(query).toString()}`
                     ];
-                return response || null;
+                return response || undefined;
             };
             return {
                 build: () => cli,

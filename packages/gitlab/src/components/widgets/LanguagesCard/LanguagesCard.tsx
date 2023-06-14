@@ -12,6 +12,7 @@ import {
 } from '../../gitlabAppData';
 import { Chip, Tooltip } from '@material-ui/core';
 import { colors } from './colors';
+import { Languages } from '../../types';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -43,10 +44,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export type Language = {
-    [key: string]: number;
-};
-
 export const LanguagesCard = ({}) => {
     const classes = useStyles();
     let barWidth = 0;
@@ -59,14 +56,20 @@ export const LanguagesCard = ({}) => {
         gitlab_instance || 'gitlab.com'
     );
 
-    const { value, loading, error } = useAsync(async (): Promise<Language> => {
-        const projectDetails: any = await GitlabCIAPI.getProjectDetails(
-            project_slug
+    const { value, loading, error } = useAsync(async (): Promise<Languages> => {
+        const projectDetails = await GitlabCIAPI.getProjectDetails(
+            project_slug || project_id
         );
-        const projectId = project_id || projectDetails?.id;
-        const gitlabObj = await GitlabCIAPI.getLanguagesSummary(projectId);
-        const data = gitlabObj?.getLanguagesData;
-        return data;
+
+        if (!projectDetails)
+            throw new Error('wrong project_slug or project_id');
+
+        const summary = await GitlabCIAPI.getLanguagesSummary(
+            projectDetails.id
+        );
+        if (!summary) throw new Error('Languages summary is not defined!');
+
+        return summary;
     });
 
     if (loading) {
@@ -82,35 +85,31 @@ export const LanguagesCard = ({}) => {
     return value ? (
         <InfoCard title="Languages">
             <div className={classes.barContainer}>
-                {Object.entries(value as Language).map(
-                    (language, index: number) => {
-                        barWidth = barWidth + language[1];
-                        languageTitle = language[0] + ' ' + language[1] + '%';
-                        return (
-                            <Tooltip
-                                title={languageTitle}
-                                placement="bottom-end"
+                {Object.entries(value).map((language, index: number) => {
+                    barWidth = barWidth + language[1];
+                    languageTitle = language[0] + ' ' + language[1] + '%';
+                    return (
+                        <Tooltip
+                            title={languageTitle}
+                            placement="bottom-end"
+                            key={language[0]}
+                        >
+                            <div
+                                className={classes.bar}
                                 key={language[0]}
-                            >
-                                <div
-                                    className={classes.bar}
-                                    key={language[0]}
-                                    style={{
-                                        marginTop: index === 0 ? '0' : `-16px`,
-                                        zIndex:
-                                            Object.keys(value).length - index,
-                                        backgroundColor:
-                                            colors[language[0]]?.color ||
-                                            '#333',
-                                        width: `${barWidth}%`,
-                                    }}
-                                />
-                            </Tooltip>
-                        );
-                    }
-                )}
+                                style={{
+                                    marginTop: index === 0 ? '0' : `-16px`,
+                                    zIndex: Object.keys(value).length - index,
+                                    backgroundColor:
+                                        colors[language[0]]?.color || '#333',
+                                    width: `${barWidth}%`,
+                                }}
+                            />
+                        </Tooltip>
+                    );
+                })}
             </div>
-            {Object.entries(value as Language).map((language) => (
+            {Object.entries(value).map((language) => (
                 <Chip
                     classes={{
                         label: classes.label,

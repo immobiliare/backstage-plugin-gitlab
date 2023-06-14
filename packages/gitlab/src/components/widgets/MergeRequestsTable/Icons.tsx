@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles, Tooltip } from '@material-ui/core';
-import { MergeRequest } from '../../types';
-
+import type { MergeRequestSchema } from '@gitbeaker/rest';
 const useStyles = makeStyles(() => ({
     open: {
         fill: '#22863a',
@@ -68,7 +67,7 @@ const StatusMerged = () => {
     );
 };
 
-export const getStatusIconType = (row: MergeRequest) => {
+export const getStatusIconType = (row: MergeRequestSchema) => {
     switch (true) {
         case row.state === 'opened':
             return (

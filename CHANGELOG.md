@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0-alpha.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.0.0-alpha.0...v6.0.0-alpha.1) (2023-06-13)
+
+**Note:** Version bump only for package root
+
+# [6.0.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v5.2.1-alpha.0...v6.0.0-alpha.0) (2023-06-12)
+
+### Features
+
+-   migrated all type to gitbeaker ([8e644e3](https://github.com/immobiliare/backstage-plugin-gitlab/commit/8e644e3c095dc7be6cdb6be17ef525f0075109fb))
+
+### BREAKING CHANGES
+
+-   all types are changed follow gitbeaker standards, if you are using these types you are to migrate them
+
+## [5.2.1-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v5.2.0...v5.2.1-alpha.0) (2023-06-09)
+
+**Note:** Version bump only for package root
+
 # [5.2.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v5.2.0-alpha.0...v5.2.0) (2023-05-29)
 
 **Note:** Version bump only for package root

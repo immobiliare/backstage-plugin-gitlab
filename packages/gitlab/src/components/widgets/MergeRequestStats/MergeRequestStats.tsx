@@ -22,9 +22,9 @@ import {
     StructuredMetadataTable,
     InfoCardVariants,
 } from '@backstage/core-components';
-import { MergeRequest } from '../../types';
 import dayjs from 'dayjs';
 import { Entity } from '@backstage/catalog-model';
+import { MergeRequestSchema } from '@gitbeaker/rest';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -47,15 +47,33 @@ export type MergeRequestStatsCount = {
     mergedCount: number;
 };
 
-export type MergeStats = {
-    avgTimeUntilMerge: string;
-    mergedToTotalRatio: string;
-};
-
 type Props = {
     entity?: Entity;
     variant?: InfoCardVariants;
 };
+
+function evalStats(mergeRequestStatusData: MergeRequestSchema[]) {
+    let sumOfDiff = 0;
+    let closedCount = 0;
+    let mergedCount = 0;
+
+    mergeRequestStatusData?.forEach((element) => {
+        sumOfDiff += element.merged_at
+            ? new Date(element.merged_at).getTime() -
+              new Date(element.created_at).getTime()
+            : 0;
+        mergedCount += element.merged_at ? 1 : 0;
+        closedCount += element.closed_at ? 1 : 0;
+    });
+
+    const avgTimeUntilMergeDiff = dayjs.duration(sumOfDiff / mergedCount);
+
+    return {
+        avgTimeUntilMerge: avgTimeUntilMergeDiff,
+        mergedCount,
+        closedCount,
+    };
+}
 
 const MergeRequestStats = (props: Props) => {
     const [count, setCount] = useState<number>(20);
@@ -67,60 +85,38 @@ const MergeRequestStats = (props: Props) => {
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(
         gitlab_instance || 'gitlab.com'
     );
-    const mergeStat: MergeRequestStatsCount = {
-        avgTimeUntilMerge: 0,
-        closedCount: 0,
-        mergedCount: 0,
-    };
-    const { value, loading, error } =
-        useAsync(async (): Promise<MergeStats> => {
-            const projectDetails: any = await GitlabCIAPI.getProjectDetails(
-                project_slug
-            );
-            const projectId = project_id || projectDetails?.id;
-            const gitlabObj = await GitlabCIAPI.getMergeRequestsStatusSummary(
-                projectId,
+
+    const { value, loading, error } = useAsync(async () => {
+        const projectDetails = await GitlabCIAPI.getProjectDetails(
+            project_slug || project_id
+        );
+        if (!projectDetails)
+            throw new Error('wrong project_slug or project_id');
+
+        const mergeRequestStatusData =
+            await GitlabCIAPI.getMergeRequestsStatusSummary(
+                projectDetails.id,
                 count
             );
-            const data = gitlabObj?.getMergeRequestsStatusData;
-            const renderData: any = { data };
-            renderData.project_name = await GitlabCIAPI.getProjectName(
-                projectId
-            );
-            if (renderData.data) {
-                renderData.data.forEach((element: MergeRequest) => {
-                    mergeStat.avgTimeUntilMerge += element.merged_at
-                        ? new Date(element.merged_at).getTime() -
-                          new Date(element.created_at).getTime()
-                        : 0;
-                    mergeStat.mergedCount += element.merged_at ? 1 : 0;
-                    mergeStat.closedCount += element.closed_at ? 1 : 0;
-                });
-            }
 
-            if (mergeStat.mergedCount === 0)
-                return {
-                    avgTimeUntilMerge: 'Never',
-                    mergedToTotalRatio: '0%',
-                };
+        if (!mergeRequestStatusData)
+            throw new Error('getMergeRequestsStatusSummary error');
 
-            const avgTimeUntilMergeDiff = dayjs.duration(
-                mergeStat.avgTimeUntilMerge / mergeStat.mergedCount
-            );
+        const stats = evalStats(mergeRequestStatusData);
 
-            const avgTimeUntilMerge = avgTimeUntilMergeDiff.humanize();
-
-            /*if(mergeStat.closedCount === 0) return {
-            avgTimeUntilMerge: avgTimeUntilMerge,
-            mergedToClosedRatio: '0%',
-        }*/
+        if (stats.mergedCount === 0)
             return {
-                avgTimeUntilMerge: avgTimeUntilMerge,
-                mergedToTotalRatio: `${Math.round(
-                    (mergeStat.mergedCount / count) * 100
-                )}%`,
+                avgTimeUntilMerge: 'Never',
+                mergedToTotalRatio: '0%',
             };
-        }, [count]);
+
+        return {
+            avgTimeUntilMerge: stats.avgTimeUntilMerge.humanize(),
+            mergedToTotalRatio: `${Math.round(
+                (stats.mergedCount / count) * 100
+            )}%`,
+        };
+    }, [count]);
 
     if (loading) {
         return <Progress />;

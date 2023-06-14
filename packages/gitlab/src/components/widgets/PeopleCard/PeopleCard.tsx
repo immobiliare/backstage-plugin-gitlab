@@ -12,8 +12,9 @@ import {
     gitlabInstance,
 } from '../../gitlabAppData';
 import { PeopleList } from './components/PeopleList';
-import { PeopleCardEntityData, ProjectDetail } from '../../types';
+import { PeopleCardEntityData, PeopleLink } from '../../types';
 import { Divider } from '@material-ui/core';
+import { ProjectSchema } from '@gitbeaker/rest';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -45,25 +46,24 @@ export const PeopleCard = ({}) => {
     const { value, loading, error } = useAsync(async (): Promise<{
         contributors: PeopleCardEntityData[] | undefined;
         owners: PeopleCardEntityData[] | undefined;
-        projectDetails: ProjectDetail;
+        projectDetails: ProjectSchema;
     }> => {
-        const projectDetails: any = await GitlabCIAPI.getProjectDetails(
+        const projectDetails = await GitlabCIAPI.getProjectDetails(
             project_slug || project_id
         );
-        const projectId = project_id || projectDetails?.id;
-        const gitlabObj = await GitlabCIAPI.getContributorsSummary(projectId);
-        const contributorData: PeopleCardEntityData[] | undefined =
-            gitlabObj?.getContributorsData;
-        const projectDetailsData: ProjectDetail = {
-            project_web_url: projectDetails?.web_url,
-            project_default_branch: projectDetails?.default_branch,
-        };
+        if (!projectDetails)
+            throw new Error('wrong project_slug or project_id');
+
+        const contributorData = await GitlabCIAPI.getContributorsSummary(
+            projectDetails.id
+        );
+
         // CODE OWNERS
         let codeOwners: PeopleCardEntityData[] | undefined = [];
         try {
             codeOwners = await GitlabCIAPI.getCodeOwners(
-                projectId,
-                projectDetailsData.project_default_branch,
+                projectDetails.id,
+                projectDetails?.default_branch,
                 codeowners_path
             );
         } catch (error) {
@@ -72,38 +72,43 @@ export const PeopleCard = ({}) => {
         return {
             contributors: contributorData!,
             owners: codeOwners,
-            projectDetails: projectDetailsData!,
+            projectDetails,
         };
     }, []);
 
-    const project_web_url = value?.projectDetails.project_web_url;
-    const project_default_branch = value?.projectDetails.project_default_branch;
-    const contributorsLink = GitlabCIAPI.getContributorsLink(
-        project_web_url,
-        project_default_branch
-    );
-    const ownersLink = GitlabCIAPI.getOwnersLink(
-        project_web_url,
-        project_default_branch,
-        codeowners_path
-    );
+    const project_web_url = value?.projectDetails?.web_url;
+    const project_default_branch = value?.projectDetails?.default_branch;
 
-    const contributorsDeepLink = {
-        link: contributorsLink,
-        title: 'go to Contributors',
-        onClick: (e: Event) => {
-            e.preventDefault();
-            window.open(contributorsLink);
-        },
-    };
-    const ownersDeepLink = {
-        link: ownersLink,
-        title: 'go to Owners File',
-        onClick: (e: Event) => {
-            e.preventDefault();
-            window.open(ownersLink);
-        },
-    };
+    let contributorsDeepLink: PeopleLink | undefined;
+    let ownersDeepLink: PeopleLink | undefined;
+    if (project_web_url && project_default_branch) {
+        const contributorsLink = GitlabCIAPI.getContributorsLink(
+            project_web_url,
+            project_default_branch
+        );
+        contributorsDeepLink = {
+            link: contributorsLink,
+            title: 'go to Contributors',
+            onClick: (e) => {
+                e.preventDefault();
+                window.open(contributorsLink);
+            },
+        };
+
+        const ownersLink = GitlabCIAPI.getOwnersLink(
+            project_web_url,
+            project_default_branch,
+            codeowners_path
+        );
+        ownersDeepLink = {
+            link: ownersLink,
+            title: 'go to Owners File',
+            onClick: (e) => {
+                e.preventDefault();
+                window.open(ownersLink);
+            },
+        };
+    }
 
     if (loading) {
         return <Progress />;
