@@ -4559,7 +4559,6 @@ __metadata:
     eslint-config-prettier: ^8.5.0
     eslint-plugin-prettier: ^4.2.1
     husky: ^8.0.0
-    msw: ^1.0.0
     prettier: ^2.0.5
     react: ^17.0.2
     react-dom: ^17.0.2

@@ -1,6 +1,6 @@
 {
     "name": "@immobiliarelabs/backstage-plugin-gitlab",
-    "version": "6.0.0",
+    "version": "6.0.1-alpha.0",
     "main": "dist/index.esm.js",
     "types": "dist/index.d.ts",
     "license": "Apache-2.0",
@@ -81,7 +81,6 @@
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.2.1",
         "husky": "^8.0.0",
-        "msw": "^1.0.0",
         "prettier": "^2.0.5",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
