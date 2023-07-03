@@ -4550,7 +4550,7 @@ __metadata:
     "@testing-library/react": ^12.1.2
     "@testing-library/user-event": ^14.3.0
     "@types/jest": ^29.5.1
-    "@types/node": ^18.13.0
+    "@types/node": ^20.3.3
     "@types/react": "*"
     "@types/react-dom": "*"
     "@types/semver": ^7.3.12
@@ -7730,10 +7730,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.11.17, @types/node@npm:^18.11.18, @types/node@npm:^18.13.0":
+"@types/node@npm:^18.11.17, @types/node@npm:^18.11.18":
   version: 18.16.14
   resolution: "@types/node@npm:18.16.14"
   checksum: c11cb3c787236414efe58240ae71854971592554d82ff9d201876ce7cafd51c37aaa001c63602d002e8238614d7331bd6d48ac4c1c0caa826799980b6846fb08
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.3.3":
+  version: 20.3.3
+  resolution: "@types/node@npm:20.3.3"
+  checksum: 7a0d00800451ca8cd8df63a8cc218c697edadb3143bf46cd6afeb974542a6a1665c3679459be0016c29216ccfed6616b7e55851747527dfa71c5608d9157528c
   languageName: node
   linkType: hard
 
