@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { ReleasesCard } from './ReleasesCard';
+export { ReleasesCard, type ReleasesCardProps } from './ReleasesCard';
