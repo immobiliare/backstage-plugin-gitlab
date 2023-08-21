@@ -5091,11 +5091,84 @@ export const mockedGitlabReqToRes: Record<string, any> = {
     ],
     'projects/10174980/releases?': [
         {
+            name: '@exampe/plugin-xx@0.1.1',
+            tag_name: '@exampe/plugin-xx@0.1.1',
+            description:
+                '### Patch Changes\n\n*   dd6cc79: chore: update backstage versions\n',
+            created_at: '2023-05-10T08:14:22.918Z',
+            released_at: '2023-05-10T08:14:22.918Z',
+            author: {
+                id: 86,
+                name: 'exampebot',
+                username: 'exampebot',
+                state: 'active',
+                avatar_url:
+                    'https://secure.gravatar.com/avatar/d93536a941e18924cb3519cdcdd34662?s=80\u0026d=identicon',
+                web_url: 'https://gitlab.exampe.cn/exampebot',
+            },
+            commit: {
+                id: 'aba69a1b5d4b96be735000eec99a1c94e8f4227b',
+                short_id: 'aba69a1b',
+                created_at: '2023-05-10T06:53:58.000+00:00',
+                parent_ids: ['dd6cc790d66ce65d96476709d78fc8f4b42bb558'],
+                title: 'chore: release plugin(s)',
+                message: 'chore: release plugin(s)\n',
+                author_name: 'exampebot',
+                author_email: 'exampek8s@exampe.io',
+                authored_date: '2023-05-10T06:53:58.000+00:00',
+                committer_name: 'exampebot',
+                committer_email: 'exampek8s@exampe.io',
+                committed_date: '2023-05-10T06:53:58.000+00:00',
+                web_url:
+                    'https://gitlab.exampe.cn/developer-platform/test/-/commit/aba69a1b5d4b96be735000eec99a1c94e8f4227b',
+            },
+            upcoming_release: false,
+            commit_path:
+                '/developer-platform/test/-/commit/aba69a1b5d4b96be735000eec99a1c94e8f4227b',
+            tag_path:
+                '/developer-platform/test/-/tags/@exampe%2Fplugin-xx@0.1.1',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.exampe.cn/developer-platform/test/-/archive/@exampe/plugin-xx@0.1.1/test-@exampe-plugin-xx@0.1.1.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.exampe.cn/developer-platform/test/-/archive/@exampe/plugin-xx@0.1.1/test-@exampe-plugin-xx@0.1.1.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.exampe.cn/developer-platform/test/-/archive/@exampe/plugin-xx@0.1.1/test-@exampe-plugin-xx@0.1.1.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.exampe.cn/developer-platform/test/-/archive/@exampe/plugin-xx@0.1.1/test-@exampe-plugin-xx@0.1.1.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [
+                {
+                    sha: '96d63eed03a3d0ea27bf0e466303eb015a0f1febf5ad',
+                    filepath:
+                        'https://gitlab.exampe.cn/developer-platform/test/-/releases/%2540exampe%252Fplugin-xx%25400.1.1/evidences/94.json',
+                    collected_at: '2023-05-10T08:14:24.465Z',
+                },
+            ],
+            _links: {
+                self: 'https://gitlab.exampe.cn/developer-platform/test/-/releases/%2540exampe%252Fplugin-xx%25400.1.1',
+                edit_url:
+                    'https://gitlab.exampe.cn/developer-platform/test/-/releases/%2540exampe%252Fplugin-xx%25400.1.1/edit',
+            },
+        },
+        {
             name: 'v0.14.0',
             tag_name: 'v0.14.0',
             description:
                 "## [0.14.0] - 2022-01-07\n\n### Added\n\n- Setting for disabling flashing lights\n- Spectate mode for moderators.\n- Currently playing music track and artist now shows in the debug menu.\n- Added a setting to influence the gap between music track plays.\n- Added a Craft All button.\n- Server: Vacuum database on startup\n- SeaChapel, greek/latin inspired dungeon for ocean biome coasts\n- Entity view distance setting added (shown in graphics and network tabs). This setting controls\n  the distance at which entities are synced to the client and which entities are displayed in.\n  This is clamped to be no more than the current overall view distance setting.\n- View distance settings that are lowered by the server limit (or other factors) now display an\n  extra ghost slider cursor when set above the limit (instead of snapping back to the limit).\n  Limits on the view distance by the server no longer affect the settings saved on the client.\n- HQX upscaling shader for people playing on low internal resolutions\n- Pets can now be traded with.\n- Crafting recipe for black lantern\n- Added redwood and dead trees\n- Water will now move according to its apparent flow direction\n- Added screen-space reflection and refraction shaders\n- Added reflection quality setting\n- UI: Added a poise indicator to the player's status bars\n- FxUpscale AA mode for higher quality graphics at reduced internal resolutions\n- Graphics presets\n- Sword\n- Doors now animate opening when entities are near them.\n- Musical instruments can now be crafted, looted and played\n- NPCs now move to their target's last known position.\n- Experience bar below the hotbar\n- Bridges.\n- Tool for exporting PNG images of all in-game models (`cargo img-export`)\n- Calendar event soundtracks.\n\n### Changed\n\n- Use fluent for translations\n- First tab on Login screen triggers username focus\n- Certain NPCs will now attack when alone with victim\n- /kill_npcs no longer leaves drops behind and also has bug causing it to not destroy entities\n  fixed.\n- Default present mode changed to Fifo (aka 'Vsync capped').\n- Old \"Entity View Distance\" setting renamed to \"Entity Detail Distance\" (since this controls the\n  distance at which lower detail models are used for entities).\n- Present mode options renamed for clarity: Fifo -\u003e 'Vsync capped', Mailbox -\u003e 'Vsync uncapped',\n  Immediate -\u003e 'Vsync off'.\n- Item pickup UI now displays items that members of your group pick up.\n- Improved shiny water shaders\n- Tweaked armor stats\n- Move bag icon to skillbar\n- Improved inventory sorting by Category\n\n### Removed\n\n### Fixed\n\n- Fixed npc not handling interactions while fighting (especially merchants in trade)\n- Fixed bug where you would still be burning after dying in lava.\n- Workaround for rayon bug that caused lag spikes in slowjobs\n- Fixed crash due to zooming out very far\n- Client properly knows trade was cancelled when exiting to the character screen (and no longer\n  tries to display the trade window when rejoining)\n- Cancel trades for an entity when it is deleted (note this doesn't effect trades between players\n  since their entities are not removed).\n- Fixed bug where the view distance selection was not immediately applied to entity syncing when\n  first joining a server and when changing the view distance (previously this required moving to a\n  new chunk for the initial setting or subsequent change to apply).\n- Moderators and admins are no longer blocked from logging in when there are too many players.\n- FXAA now behaves correctly at non-1.0x internal resolutions\n- Pets no longer aggro on pet owners after being healed\n- Pets no longer lose their intrinsic weapons/armour when loaded on login.\n- Fixed npcs using `/say` instead of `/tell`\n- Camera jittering in third person has been significantly reduced\n- Many water shader issues have been fixed\n- Flee if attacked even if attacker is not close.\n- `/time` command will never rewind time, only advance it to not break rtsim",
-            created_at: '2023-01-06T18:36:03.201Z',
+            created_at: '2023-01-01T18:36:03.201Z',
             released_at: '2023-01-06T23:00:00.000Z',
             upcoming_release: false,
             author: {
@@ -5191,6 +5264,109 @@ export const mockedGitlabReqToRes: Record<string, any> = {
                 opened_merge_requests_url:
                     'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v0.14.0\u0026scope=all\u0026state=opened',
                 self: 'https://gitlab.com/veloren/veloren/-/releases/v0.14.0',
+            },
+        },
+        {
+            name: 'v1.0.0',
+            tag_name: 'v1.0.0',
+            description:
+                "## [0.14.0] - 2022-01-07\n\n### Added\n\n- Setting for disabling flashing lights\n- Spectate mode for moderators.\n- Currently playing music track and artist now shows in the debug menu.\n- Added a setting to influence the gap between music track plays.\n- Added a Craft All button.\n- Server: Vacuum database on startup\n- SeaChapel, greek/latin inspired dungeon for ocean biome coasts\n- Entity view distance setting added (shown in graphics and network tabs). This setting controls\n  the distance at which entities are synced to the client and which entities are displayed in.\n  This is clamped to be no more than the current overall view distance setting.\n- View distance settings that are lowered by the server limit (or other factors) now display an\n  extra ghost slider cursor when set above the limit (instead of snapping back to the limit).\n  Limits on the view distance by the server no longer affect the settings saved on the client.\n- HQX upscaling shader for people playing on low internal resolutions\n- Pets can now be traded with.\n- Crafting recipe for black lantern\n- Added redwood and dead trees\n- Water will now move according to its apparent flow direction\n- Added screen-space reflection and refraction shaders\n- Added reflection quality setting\n- UI: Added a poise indicator to the player's status bars\n- FxUpscale AA mode for higher quality graphics at reduced internal resolutions\n- Graphics presets\n- Sword\n- Doors now animate opening when entities are near them.\n- Musical instruments can now be crafted, looted and played\n- NPCs now move to their target's last known position.\n- Experience bar below the hotbar\n- Bridges.\n- Tool for exporting PNG images of all in-game models (`cargo img-export`)\n- Calendar event soundtracks.\n\n### Changed\n\n- Use fluent for translations\n- First tab on Login screen triggers username focus\n- Certain NPCs will now attack when alone with victim\n- /kill_npcs no longer leaves drops behind and also has bug causing it to not destroy entities\n  fixed.\n- Default present mode changed to Fifo (aka 'Vsync capped').\n- Old \"Entity View Distance\" setting renamed to \"Entity Detail Distance\" (since this controls the\n  distance at which lower detail models are used for entities).\n- Present mode options renamed for clarity: Fifo -\u003e 'Vsync capped', Mailbox -\u003e 'Vsync uncapped',\n  Immediate -\u003e 'Vsync off'.\n- Item pickup UI now displays items that members of your group pick up.\n- Improved shiny water shaders\n- Tweaked armor stats\n- Move bag icon to skillbar\n- Improved inventory sorting by Category\n\n### Removed\n\n### Fixed\n\n- Fixed npc not handling interactions while fighting (especially merchants in trade)\n- Fixed bug where you would still be burning after dying in lava.\n- Workaround for rayon bug that caused lag spikes in slowjobs\n- Fixed crash due to zooming out very far\n- Client properly knows trade was cancelled when exiting to the character screen (and no longer\n  tries to display the trade window when rejoining)\n- Cancel trades for an entity when it is deleted (note this doesn't effect trades between players\n  since their entities are not removed).\n- Fixed bug where the view distance selection was not immediately applied to entity syncing when\n  first joining a server and when changing the view distance (previously this required moving to a\n  new chunk for the initial setting or subsequent change to apply).\n- Moderators and admins are no longer blocked from logging in when there are too many players.\n- FXAA now behaves correctly at non-1.0x internal resolutions\n- Pets no longer aggro on pet owners after being healed\n- Pets no longer lose their intrinsic weapons/armour when loaded on login.\n- Fixed npcs using `/say` instead of `/tell`\n- Camera jittering in third person has been significantly reduced\n- Many water shader issues have been fixed\n- Flee if attacked even if attacker is not close.\n- `/time` command will never rewind time, only advance it to not break rtsim",
+            created_at: '2023-01-01T18:36:03.201Z',
+            released_at: '2023-01-01T23:00:00.000Z',
+            upcoming_release: false,
+            author: {
+                id: 276442,
+                username: 'xMAC94x',
+                name: 'Marcel',
+                state: 'active',
+                avatar_url:
+                    'https://gitlab.com/uploads/-/system/user/avatar/276442/avatar.png',
+                web_url: 'https://gitlab.com/xMAC94x',
+            },
+            commit: {
+                id: '185dccc1cc1498d810de907b26699c85bfd1bac0',
+                short_id: '185dccc1',
+                created_at: '2023-01-01T18:27:46.000+00:00',
+                parent_ids: [
+                    'd1e9e8967672d4f4a13a55d110c27033c0f65ab0',
+                    '25906e05dfae035d594a8cf1acd78196f5657698',
+                ],
+                title: "Merge branch 'xMAC94x/release-numbers' into 'master'",
+                message:
+                    "Merge branch 'xMAC94x/release-numbers' into 'master'\n\nChange the version number to 0.14\n\nSee merge request veloren/veloren!3748",
+                author_name: 'Marcel',
+                author_email: 'marcel.cochem@googlemail.com',
+                authored_date: '2023-01-01T18:27:46.000+00:00',
+                committer_name: 'Marcel',
+                committer_email: 'marcel.cochem@googlemail.com',
+                committed_date: '2023-01-01T18:27:46.000+00:00',
+                trailers: {},
+                web_url:
+                    'https://gitlab.com/veloren/veloren/-/commit/185dccc1cc1498d810de907b26699c85bfd1bac0',
+            },
+            milestones: [
+                {
+                    id: 2927487,
+                    iid: 13,
+                    project_id: 10174980,
+                    title: '0.14',
+                    description: '',
+                    state: 'closed',
+                    created_at: '2023-01-01T19:05:57.466Z',
+                    updated_at: '2023-01-25T22:05:36.515Z',
+                    due_date: null,
+                    start_date: null,
+                    expired: false,
+                    web_url:
+                        'https://gitlab.com/veloren/veloren/-/milestones/13',
+                    issue_stats: { total: 0, closed: 0 },
+                },
+            ],
+            commit_path:
+                '/veloren/veloren/-/commit/185dccc1cc1498d810de907b26699c85bfd1bac0',
+            tag_path: '/veloren/veloren/-/tags/v1.0.0',
+            assets: {
+                count: 4,
+                sources: [
+                    {
+                        format: 'zip',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v1.0.0/veloren-v1.0.0.zip',
+                    },
+                    {
+                        format: 'tar.gz',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v1.0.0/veloren-v1.0.0.tar.gz',
+                    },
+                    {
+                        format: 'tar.bz2',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v1.0.0/veloren-v1.0.0.tar.bz2',
+                    },
+                    {
+                        format: 'tar',
+                        url: 'https://gitlab.com/veloren/veloren/-/archive/v1.0.0/veloren-v1.0.0.tar',
+                    },
+                ],
+                links: [],
+            },
+            evidences: [
+                {
+                    sha: '2276b92d24d85a7a0fcc7236cfd5b1b21b81e02de60d',
+                    filepath:
+                        'https://gitlab.com/veloren/veloren/-/releases/v1.0.0/evidences/3968182.json',
+                    collected_at: '2023-01-01T22:00:06.363Z',
+                },
+            ],
+            _links: {
+                closed_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v1.0.0\u0026scope=all\u0026state=closed',
+                closed_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v1.0.0\u0026scope=all\u0026state=closed',
+                merged_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v1.0.0\u0026scope=all\u0026state=merged',
+                opened_issues_url:
+                    'https://gitlab.com/veloren/veloren/-/issues?release_tag=v1.0.0\u0026scope=all\u0026state=opened',
+                opened_merge_requests_url:
+                    'https://gitlab.com/veloren/veloren/-/merge_requests?release_tag=v1.0.0\u0026scope=all\u0026state=opened',
+                self: 'https://gitlab.com/veloren/veloren/-/releases/v1.0.0',
             },
         },
         {

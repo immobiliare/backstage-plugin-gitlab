@@ -9,9 +9,14 @@ import {
     MergeRequestStats,
     PipelinesTable,
     ReleasesCard,
+    ReleasesCardProps,
 } from '../widgets';
 
-export const GitlabCI = () => (
+export type GitlabPageProps = {
+    release?: ReleasesCardProps;
+};
+
+export const GitlabCI = (props: GitlabPageProps) => (
     <Page themeId="tool">
         <Content>
             <Grid container spacing={6} direction="row" alignItems="stretch">
@@ -25,7 +30,7 @@ export const GitlabCI = () => (
                     <MergeRequestStats />
                 </Grid>
                 <Grid item sm={12} md={3} lg={3}>
-                    <ReleasesCard />
+                    <ReleasesCard {...props.release} />
                 </Grid>
                 <Grid item md={12}>
                     <PipelinesTable />
