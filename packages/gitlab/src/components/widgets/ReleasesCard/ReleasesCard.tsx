@@ -200,7 +200,7 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
                             href={
                                 project_web_url +
                                 '/-/releases/' +
-                                release.tag_name
+                                encodeURIComponent(release.tag_name)
                             }
                             color="inherit"
                             target="_blank"
