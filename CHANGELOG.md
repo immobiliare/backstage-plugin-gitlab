@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.0.1-alpha.0...v6.1.0-alpha.0) (2023-08-21)
+
+### Bug Fixes
+
+-   compatible the release name contain slashes ([b159d23](https://github.com/immobiliare/backstage-plugin-gitlab/commit/b159d231ee74e2c2cff07f69bdd2584e1ded852b))
+-   readme path URI encoding ([2d5ecf4](https://github.com/immobiliare/backstage-plugin-gitlab/commit/2d5ecf4c54151bf678a86647972cd86c8482232a))
+
+### Features
+
+-   add sorting option for release card ([cc1123a](https://github.com/immobiliare/backstage-plugin-gitlab/commit/cc1123ab3cc85879b2131f3d69af68e761067c04))
+
 ## [6.0.1-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.0.0...v6.0.1-alpha.0) (2023-07-03)
 
 **Note:** Version bump only for package root
