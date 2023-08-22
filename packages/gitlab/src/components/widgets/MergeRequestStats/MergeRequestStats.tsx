@@ -157,7 +157,7 @@ const MergeRequestStats = (props: Props) => {
             </Box>
         </InfoCard>
     ) : (
-        <InfoCard title="Merge Request Statistics" />
+        <InfoCard title="Merge Request Statistics" variant={props.variant} />
     );
 };
 
