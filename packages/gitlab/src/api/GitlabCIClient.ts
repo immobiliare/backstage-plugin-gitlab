@@ -317,7 +317,9 @@ export class GitlabCIClient implements GitlabCIApi {
         if (filePath.startsWith('./')) filePath = filePath.slice(2);
 
         const readmeStr = await this.callApi<string>(
-            `projects/${projectID}/repository/files/${encodeURIComponent(filePath)}/raw`,
+            `projects/${projectID}/repository/files/${encodeURIComponent(
+                filePath
+            )}/raw`,
             { ref: branch }
         );
 

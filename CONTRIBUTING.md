@@ -54,7 +54,8 @@ $ yarn lint
 
 ## Contributors
 
-[@JellyBellyDev](https://github.com/JellyBellyDev)  
-[@simonecorsi](https://github.com/simonecorsi)  
-[@dnlup](https://github.com/dnlup)  
+[@JellyBellyDev](https://github.com/JellyBellyDev)
+[@simonecorsi](https://github.com/simonecorsi)
+[@dnlup](https://github.com/dnlup)
 [@antoniomuso](https://github.com/antoniomuso)
+[@sergeyshevch](https://github.com/sergeyshevch)

@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
-import { InfoCard, Progress } from '@backstage/core-components';
+import { InfoCard, InfoCardVariants, Progress } from '@backstage/core-components';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useAsync } from 'react-use';
@@ -44,7 +44,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const LanguagesCard = ({}) => {
+type Props = {
+    variant?: InfoCardVariants;
+}
+
+export const LanguagesCard = (props: Props) => {
     const classes = useStyles();
     let barWidth = 0;
     let languageTitle = new String();
@@ -83,7 +87,7 @@ export const LanguagesCard = ({}) => {
     }
 
     return value ? (
-        <InfoCard title="Languages">
+        <InfoCard title="Languages" variant={props.variant}>
             <div className={classes.barContainer}>
                 {Object.entries(value).map((language, index: number) => {
                     barWidth = barWidth + language[1];
@@ -132,6 +136,6 @@ export const LanguagesCard = ({}) => {
             ))}
         </InfoCard>
     ) : (
-        <InfoCard title="Languages" />
+        <InfoCard title="Languages" variant={props.variant} />
     );
 };

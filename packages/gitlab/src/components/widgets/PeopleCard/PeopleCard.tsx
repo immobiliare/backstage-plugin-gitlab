@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
-import { InfoCard, Progress } from '@backstage/core-components';
+import { InfoCard, InfoCardVariants, Progress } from '@backstage/core-components';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useAsync } from 'react-use';
@@ -32,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const PeopleCard = ({}) => {
+type Props = {
+    variant?: InfoCardVariants;
+}
+
+export const PeopleCard = (props: Props) => {
     const classes = useStyles();
     const project_id = gitlabProjectId();
     const project_slug = gitlabProjectSlug();
@@ -120,7 +124,11 @@ export const PeopleCard = ({}) => {
         );
     }
     return (
-        <InfoCard title="People" className={classes.infoCard}>
+        <InfoCard
+            title="People"
+            className={classes.infoCard}
+            variant={props.variant}
+            >
             {value?.owners && (
                 <>
                     <PeopleList
