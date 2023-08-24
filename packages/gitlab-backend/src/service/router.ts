@@ -46,7 +46,30 @@ export async function createRouter(
         return req.method === 'GET';
     };
 
-    for (const { host, apiBaseUrl, token } of gitlabIntegrations) {
+    const postFilter = (_pathname: string, req: IncomingMessage): boolean => {
+        if (req.headers['authorization']) delete req.headers['authorization'];
+        return req.method === 'POST';
+    };
+
+    for (const { host, apiBaseUrl, baseUrl, token } of gitlabIntegrations) {
+        const graphqlBaseUrl = new URL(baseUrl);
+        router.use(
+            `/${host}/graphql`,
+            createProxyMiddleware(postFilter, {
+                target: graphqlBaseUrl.origin,
+                changeOrigin: true,
+                headers: {
+                    ...(token ? { 'PRIVATE-TOKEN': token } : {}),
+                },
+                secure,
+                logProvider: () => logger,
+                logLevel: 'info',
+                pathRewrite: {
+                    [`^${basePath}/api/gitlab/${host}/graphql`]: `/api/graphql`,
+                },
+            })
+        );
+
         const apiUrl = new URL(apiBaseUrl);
         router.use(
             `/${host}`,

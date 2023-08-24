@@ -23,6 +23,21 @@ export type GitlabCIBuilder = {
     build(gitlabInstance: string): GitlabCIApi;
 };
 
+export type GitlabProjectCoverageResponse = {
+    data: {
+        project: {
+            name: string;
+            webUrl: string;
+            pipelines: {
+                nodes: {
+                    coverage: number;
+                    createdAt: string;
+                }[];
+            };
+        };
+    };
+};
+
 export type GitlabCIApi = {
     getPipelineSummary(
         projectID: string | number
@@ -42,6 +57,9 @@ export type GitlabCIApi = {
         projectID: string | number
     ): Promise<LanguagesSummary | undefined>;
     getProjectDetails(projectSlug: string): Promise<ProjectSchema | undefined>;
+    getProjectCoverage(
+        projectSlug: string
+    ): Promise<GitlabProjectCoverageResponse | undefined>;
     getIssuesSummary(
         projectID: string | number
     ): Promise<IssueSchema[] | undefined>;
@@ -53,7 +71,6 @@ export type GitlabCIApi = {
     getReleasesSummary(
         projectID: string | number
     ): Promise<ReleaseSchema[] | undefined>;
-
     getContributorsLink(
         projectWebUrl: string,
         projectDefaultBranch: string
@@ -63,7 +80,6 @@ export type GitlabCIApi = {
         projectDefaultBranch: string,
         codeOwnersPath?: string
     ): string;
-
     getReadme(
         projectID: string | number,
         branch?: string,
