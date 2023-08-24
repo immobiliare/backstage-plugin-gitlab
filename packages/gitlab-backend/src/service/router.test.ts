@@ -33,6 +33,30 @@ describe('createRouter', () => {
                     })
                 );
             }
+        ),
+        rest.post(
+            'https://non-existing-example.com/api/graphql',
+            (req, res, ctx) => {
+                return res(
+                    ctx.status(200),
+                    ctx.json({
+                        url: req.url.toString(),
+                        headers: req.headers.all(),
+                    })
+                );
+            }
+        ),
+        rest.post(
+            'https://non-existing-example-2.com/api/graphql',
+            (req, res, ctx) => {
+                return res(
+                    ctx.status(200),
+                    ctx.json({
+                        url: req.url.toString(),
+                        headers: req.headers.all(),
+                    })
+                );
+            }
         )
     );
 
@@ -114,6 +138,71 @@ describe('createRouter', () => {
         });
     });
 
+    describe('Graphql requests', () => {
+        it('First instance should work', async () => {
+            const agent = request.agent(app);
+            // this is set to let msw pass test requests through the mock server
+            agent.set('User-Agent', 'supertest');
+            const response = await agent.post(
+                '/api/gitlab/non-existing-example.com/graphql'
+            );
+            expect(response.status).toEqual(200);
+            expect(response.body).toEqual({
+                headers: {
+                    'accept-encoding': 'gzip, deflate',
+                    connection: 'close',
+                    'content-length': '0',
+                    host: 'non-existing-example.com',
+                    'user-agent': 'supertest',
+                },
+                url: 'https://non-existing-example.com/api/graphql',
+            });
+        });
+
+        it('Second instance should work', async () => {
+            const agent = request.agent(app);
+            // this is set to let msw pass test requests through the mock server
+            agent.set('User-Agent', 'supertest');
+            const response = await agent.post(
+                '/api/gitlab/non-existing-example-2.com/graphql'
+            );
+            expect(response.status).toEqual(200);
+            expect(response.body).toEqual({
+                headers: {
+                    'accept-encoding': 'gzip, deflate',
+                    connection: 'close',
+                    'content-length': '0',
+                    host: 'non-existing-example-2.com',
+                    'user-agent': 'supertest',
+                },
+                url: 'https://non-existing-example-2.com/api/graphql',
+            });
+        });
+
+        it('Methods different from POST should reject', async () => {
+            const agent = request.agent(app);
+            // this is set to let msw pass test requests through the mock server
+            agent.set('User-Agent', 'supertest');
+            for (const method of [
+                // Get will be received by main server
+                'delete',
+                'put',
+                'options',
+                'trace',
+                'patch',
+            ]) {
+                // @ts-ignore
+                const response = await agent?.[method](
+                    '/api/gitlab/non-existing-example.com/graphql'
+                );
+
+                console.log(method);
+                expect(response.status).toEqual(404);
+                expect(response.body).toEqual({});
+            }
+        });
+    });
+
     describe('Error requests', () => {
         it('Methods different from GET should reject', async () => {
             const agent = request.agent(app);
@@ -166,6 +255,30 @@ describe('createRouter with baseUrl', () => {
         ),
         rest.get(
             'https://non-existing-example-2.com/api/v4/projects/434',
+            (req, res, ctx) => {
+                return res(
+                    ctx.status(200),
+                    ctx.json({
+                        url: req.url.toString(),
+                        headers: req.headers.all(),
+                    })
+                );
+            }
+        ),
+        rest.post(
+            'https://non-existing-example.com/api/graphql',
+            (req, res, ctx) => {
+                return res(
+                    ctx.status(200),
+                    ctx.json({
+                        url: req.url.toString(),
+                        headers: req.headers.all(),
+                    })
+                );
+            }
+        ),
+        rest.post(
+            'https://non-existing-example-2.com/api/graphql',
             (req, res, ctx) => {
                 return res(
                     ctx.status(200),
@@ -268,6 +381,71 @@ describe('createRouter with baseUrl', () => {
                 '/api/gitlab/non-existing-example.com/projects/434'
             );
             expect(response.status).toEqual(404);
+        });
+    });
+
+    describe('Graphql requests', () => {
+        it('First instance should work', async () => {
+            const agent = request.agent(app);
+            // this is set to let msw pass test requests through the mock server
+            agent.set('User-Agent', 'supertest');
+            const response = await agent.post(
+                `${basePath}/api/gitlab/non-existing-example.com/graphql`
+            );
+            expect(response.status).toEqual(200);
+            expect(response.body).toEqual({
+                headers: {
+                    'accept-encoding': 'gzip, deflate',
+                    connection: 'close',
+                    'content-length': '0',
+                    host: 'non-existing-example.com',
+                    'user-agent': 'supertest',
+                },
+                url: 'https://non-existing-example.com/api/graphql',
+            });
+        });
+
+        it('Second instance should work', async () => {
+            const agent = request.agent(app);
+            // this is set to let msw pass test requests through the mock server
+            agent.set('User-Agent', 'supertest');
+            const response = await agent.post(
+                `${basePath}/api/gitlab/non-existing-example-2.com/graphql`
+            );
+            expect(response.status).toEqual(200);
+            expect(response.body).toEqual({
+                headers: {
+                    'accept-encoding': 'gzip, deflate',
+                    connection: 'close',
+                    'content-length': '0',
+                    host: 'non-existing-example-2.com',
+                    'user-agent': 'supertest',
+                },
+                url: 'https://non-existing-example-2.com/api/graphql',
+            });
+        });
+
+        it('Methods different from POST should reject', async () => {
+            const agent = request.agent(app);
+            // this is set to let msw pass test requests through the mock server
+            agent.set('User-Agent', 'supertest');
+            for (const method of [
+                // Get will be received by main server
+                'delete',
+                'put',
+                'options',
+                'trace',
+                'patch',
+            ]) {
+                // @ts-ignore
+                const response = await agent?.[method](
+                    `${basePath}/api/gitlab/non-existing-example.com/graphql`
+                );
+
+                console.log(method);
+                expect(response.status).toEqual(404);
+                expect(response.body).toEqual({});
+            }
         });
     });
 

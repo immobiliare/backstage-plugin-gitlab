@@ -63,7 +63,6 @@ export async function createRouter(
                 },
                 secure,
                 logProvider: () => logger,
-                logLevel: 'info',
                 pathRewrite: {
                     [`^${basePath}/api/gitlab/${host}/graphql`]: `/api/graphql`,
                 },

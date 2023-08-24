@@ -20,6 +20,11 @@ import type {
 } from '@gitbeaker/rest';
 import dayjs from 'dayjs';
 
+type GraphQLQuery = {
+    variables: Record<string, string>;
+    query: string;
+};
+
 export class GitlabCIClient implements GitlabCIApi {
     discoveryApi: DiscoveryApi;
     identityApi: IdentityApi;
@@ -106,6 +111,20 @@ export class GitlabCIClient implements GitlabCIApi {
             }
         }
         return undefined;
+    }
+
+    protected async callGraphQLApi<T>(
+        query: GraphQLQuery
+    ): Promise<T | undefined> {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(query),
+        };
+
+        return this.callApi<T>('graphql', {}, options);
     }
 
     async getPipelineSummary(
@@ -275,44 +294,29 @@ export class GitlabCIClient implements GitlabCIApi {
     ): Promise<GitlabProjectCoverageResponse | undefined> {
         if (!projectSlug) return undefined;
 
-        return await this.callApi<GitlabProjectCoverageResponse>(
-            'graphql',
-            {},
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    variables: {
-                        projectSlug,
-                        updatedAfter: dayjs()
-                            .subtract(30, 'days')
-                            .format('YYYY-MM-DD'),
-                    },
-                    query: /* GraphQL */ `
-                        query getProjectCoverage(
-                            $projectSlug: ID!
-                            $updatedAfter: Time
-                        ) {
-                            project(fullPath: $projectSlug) {
-                                name
-                                webUrl
-                                pipelines(
-                                    ref: "main"
-                                    updatedAfter: $updatedAfter
-                                ) {
-                                    nodes {
-                                        coverage
-                                        createdAt
-                                    }
-                                }
+        return await this.callGraphQLApi<GitlabProjectCoverageResponse>({
+            variables: {
+                projectSlug,
+                updatedAfter: dayjs().subtract(30, 'days').format('YYYY-MM-DD'),
+            },
+            query: /* GraphQL */ `
+                query getProjectCoverage(
+                    $projectSlug: ID!
+                    $updatedAfter: Time
+                ) {
+                    project(fullPath: $projectSlug) {
+                        name
+                        webUrl
+                        pipelines(ref: "main", updatedAfter: $updatedAfter) {
+                            nodes {
+                                coverage
+                                createdAt
                             }
                         }
-                    `,
-                }),
-            }
-        );
+                    }
+                }
+            `,
+        });
     }
 
     async getCodeOwners(
