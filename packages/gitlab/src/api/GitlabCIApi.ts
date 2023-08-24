@@ -23,6 +23,11 @@ export type GitlabCIBuilder = {
     build(gitlabInstance: string): GitlabCIApi;
 };
 
+export type GraphQLQuery = {
+    variables: Record<string, string>;
+    query: string;
+};
+
 export type GitlabProjectCoverageResponse = {
     data: {
         project: {

@@ -1,5 +1,55 @@
+const graphqlProjectCoverageQuery = `
+    query getProjectCoverage(
+        $projectSlug: ID!
+        $updatedAfter: Time
+    ) {
+        project(fullPath: $projectSlug) {
+            name
+            webUrl
+            pipelines(ref: "main", updatedAfter: $updatedAfter) {
+                nodes {
+                    coverage
+                    createdAt
+                }
+            }
+        }
+    }
+`;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const mockedGitlabReqToRes: Record<string, any> = {
+    [graphqlProjectCoverageQuery]: {
+        data: {
+            project: {
+                name: 'veloren',
+                webUrl: 'https://gitlab.com/veloren/veloren',
+                pipelines: {
+                    nodes: [
+                        {
+                            coverage: 98.4,
+                            createdAt: '2019-01-02T16:18:45.823Z',
+                        },
+                        {
+                            coverage: 97.4,
+                            createdAt: '2019-01-02T16:18:45.823Z',
+                        },
+                        {
+                            coverage: 96.4,
+                            createdAt: '2019-01-02T16:18:45.823Z',
+                        },
+                        {
+                            coverage: 95.4,
+                            createdAt: '2019-01-02T16:18:45.823Z',
+                        },
+                        {
+                            coverage: 94.4,
+                            createdAt: '2019-01-02T16:18:45.823Z',
+                        },
+                    ],
+                },
+            },
+        },
+    },
     'projects/10174980?': {
         id: 10174980,
         description:

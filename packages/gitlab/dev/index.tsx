@@ -5,6 +5,7 @@ import { gitlabPlugin, EntityGitlabContent } from '../src/plugin';
 import { GitlabCIApiRef, GitlabCIClient } from '../src/api';
 import { mockedGitlabReqToRes, projectId } from './mock-gitlab/api-v4-v15.7.0';
 import { configApiRef, discoveryApiRef } from '@backstage/core-plugin-api';
+import { GraphQLQuery } from '../src/api/GitlabCIApi';
 
 createDevApp()
     .registerPlugin(gitlabPlugin)
@@ -41,6 +42,17 @@ createDevApp()
             return {
                 build: () => cli,
             };
+
+            // Here we mock the client requests to GitLab
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            cli.callGraphQLApi = async function (
+                query: GraphQLQuery
+            ) {
+                const response = mockedGitlabReqToRes[query.query];
+
+                return response || undefined;
+            }
         },
     })
     .addPage({

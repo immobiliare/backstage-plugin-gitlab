@@ -5,6 +5,7 @@ import {
     ContributorsSummary,
     GitlabCIApi,
     GitlabProjectCoverageResponse,
+    GraphQLQuery,
     LanguagesSummary,
 } from './GitlabCIApi';
 
@@ -19,11 +20,6 @@ import type {
     UserSchema,
 } from '@gitbeaker/rest';
 import dayjs from 'dayjs';
-
-type GraphQLQuery = {
-    variables: Record<string, string>;
-    query: string;
-};
 
 export class GitlabCIClient implements GitlabCIApi {
     discoveryApi: DiscoveryApi;
