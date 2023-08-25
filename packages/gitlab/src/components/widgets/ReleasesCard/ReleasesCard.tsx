@@ -19,7 +19,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link, Grid } from '@material-ui/core';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import Alert from '@material-ui/lab/Alert';
-import { InfoCard, InfoCardVariants, Progress } from '@backstage/core-components';
+import {
+    InfoCard,
+    InfoCardVariants,
+    Progress,
+} from '@backstage/core-components';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useAsync } from 'react-use';
@@ -114,7 +118,7 @@ export interface ReleasesCardProps {
     /**
      * Determines InfoCard variant
      */
-    variant?: InfoCardVariants
+    variant?: InfoCardVariants;
 }
 
 function makeFilter(
