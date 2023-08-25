@@ -26,6 +26,19 @@ jobs:
 
             - name: Test
               run: yarn tsc --noEmit
+    fmt-checker:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18.x
+            - name: Install dependencies
+              run: yarn install
+            - name: Test
+              run: yarn prettier --check .
     test:
         runs-on: ubuntu-latest
         steps:

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 type Props = {
     variant?: InfoCardVariants;
-}
+};
 
 export const ReadmeCard = (props: Props) => {
     const classes = useStyles();
@@ -77,7 +77,11 @@ export const ReadmeCard = (props: Props) => {
     }
 
     return (
-        <InfoCard title="README" className={classes.infoCard} variant={props.variant}>
+        <InfoCard
+            title="README"
+            className={classes.infoCard}
+            variant={props.variant}
+        >
             <MarkdownContent
                 content={value?.readme || 'No README found'}
                 dialect="gfm"

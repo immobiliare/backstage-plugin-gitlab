@@ -1,7 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
-import { InfoCard, InfoCardVariants, Progress } from '@backstage/core-components';
+import {
+    InfoCard,
+    InfoCardVariants,
+    Progress,
+} from '@backstage/core-components';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useAsync } from 'react-use';
@@ -46,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 type Props = {
     variant?: InfoCardVariants;
-}
+};
 
 export const LanguagesCard = (props: Props) => {
     const classes = useStyles();
