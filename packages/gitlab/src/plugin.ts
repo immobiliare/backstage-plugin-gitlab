@@ -121,6 +121,18 @@ export const EntityGitlabReleasesCard = gitlabPlugin.provide(
     })
 );
 
+export const EntityGitlabCoverageCard = gitlabPlugin.provide(
+    createComponentExtension({
+        name: 'EntityGitlabCoverageCard',
+        component: {
+            lazy: () =>
+                import('./components/widgets/index').then(
+                    (m) => m.CoverageCard
+                ),
+        },
+    })
+);
+
 export const EntityGitlabIssuesTable = gitlabPlugin.provide(
     createComponentExtension({
         name: 'EntityGitlabIssuesTable',

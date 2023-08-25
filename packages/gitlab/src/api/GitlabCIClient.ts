@@ -4,6 +4,8 @@ import { parseCodeOwners } from '../components/utils';
 import {
     ContributorsSummary,
     GitlabCIApi,
+    GitlabProjectCoverageResponse,
+    GraphQLQuery,
     LanguagesSummary,
 } from './GitlabCIApi';
 
@@ -17,6 +19,7 @@ import type {
     RepositoryContributorSchema,
     UserSchema,
 } from '@gitbeaker/rest';
+import dayjs from 'dayjs';
 
 export class GitlabCIClient implements GitlabCIApi {
     discoveryApi: DiscoveryApi;
@@ -70,19 +73,24 @@ export class GitlabCIClient implements GitlabCIApi {
 
     protected async callApi<T>(
         path: string,
-        query: { [key in string]: string }
+        query: { [key in string]: string },
+        options: RequestInit = {}
     ): Promise<T | undefined> {
         const apiUrl = `${await this.discoveryApi.getBaseUrl('gitlab')}/${
             this.gitlabInstance
         }`;
         const token = (await this.identityApi.getCredentials()).token;
-        const options = token
-            ? {
-                  headers: {
-                      Authorization: `Bearer ${token}`,
-                  },
-              }
-            : {};
+
+        if (token) {
+            options = {
+                ...options,
+                headers: {
+                    ...options?.headers,
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+        }
+
         const response = await fetch(
             `${apiUrl}/${path}?${new URLSearchParams(query).toString()}`,
             options
@@ -99,6 +107,20 @@ export class GitlabCIClient implements GitlabCIApi {
             }
         }
         return undefined;
+    }
+
+    protected async callGraphQLApi<T>(
+        query: GraphQLQuery
+    ): Promise<T | undefined> {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(query),
+        };
+
+        return this.callApi<T>('graphql', {}, options);
     }
 
     async getPipelineSummary(
@@ -261,6 +283,39 @@ export class GitlabCIClient implements GitlabCIApi {
             'projects/' + encodeURIComponent(projectSlug),
             {}
         );
+    }
+
+    async getProjectCoverage(
+        projectSlug: string,
+        projectDefaultBranch: string
+    ): Promise<GitlabProjectCoverageResponse | undefined> {
+        if (!projectSlug) return undefined;
+
+        return await this.callGraphQLApi<GitlabProjectCoverageResponse>({
+            variables: {
+                projectSlug,
+                projectDefaultBranch,
+                updatedAfter: dayjs().subtract(30, 'days').format('YYYY-MM-DD'),
+            },
+            query: /* GraphQL */ `
+                query getProjectCoverage(
+                    $projectSlug: ID!
+                    $updatedAfter: Time
+                ) {
+                    project(fullPath: $projectSlug) {
+                        pipelines(
+                            ref: $projectDefaultBranch
+                            updatedAfter: $updatedAfter
+                        ) {
+                            nodes {
+                                coverage
+                                createdAt
+                            }
+                        }
+                    }
+                }
+            `,
+        });
     }
 
     async getCodeOwners(
