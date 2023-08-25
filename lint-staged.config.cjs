@@ -1,5 +1,5 @@
 module.exports = {
-    '*.{js,css,json,md,yaml,yml}': ['prettier --write'],
+    '*.{js,css,json,md,yaml,yml,ts,tsx,cjs}': ['prettier --write'],
     '*.md': (filenames) =>
         filenames.map((filename) => `'markdown-toc -i ${filename}`),
     '*.ts': [
