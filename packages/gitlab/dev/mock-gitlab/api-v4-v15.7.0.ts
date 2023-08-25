@@ -1,49 +1,29 @@
-const graphqlProjectCoverageQuery = `
-    query getProjectCoverage(
-        $projectSlug: ID!
-        $updatedAfter: Time
-    ) {
-        project(fullPath: $projectSlug) {
-            name
-            webUrl
-            pipelines(ref: "main", updatedAfter: $updatedAfter) {
-                nodes {
-                    coverage
-                    createdAt
-                }
-            }
-        }
-    }
-`;
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const mockedGitlabReqToRes: Record<string, any> = {
-    [graphqlProjectCoverageQuery]: {
+    ['query getProjectCoverage(']: {
         data: {
             project: {
-                name: 'veloren',
-                webUrl: 'https://gitlab.com/veloren/veloren',
                 pipelines: {
                     nodes: [
                         {
                             coverage: 98.4,
-                            createdAt: '2019-01-02T16:18:45.823Z',
+                            createdAt: '2022-12-14T11:16:35.267Z',
                         },
                         {
                             coverage: 97.4,
-                            createdAt: '2019-01-02T16:18:45.823Z',
+                            createdAt: '2022-12-15T11:16:35.267Z',
                         },
                         {
                             coverage: 96.4,
-                            createdAt: '2019-01-02T16:18:45.823Z',
+                            createdAt: '2022-12-16T11:16:35.267Z',
                         },
                         {
                             coverage: 95.4,
-                            createdAt: '2019-01-02T16:18:45.823Z',
+                            createdAt: '2022-12-17T11:16:35.267Z',
                         },
                         {
                             coverage: 94.4,
-                            createdAt: '2019-01-02T16:18:45.823Z',
+                            createdAt: '2022-12-18T11:16:35.267Z',
                         },
                     ],
                 },

@@ -39,9 +39,6 @@ createDevApp()
                     ];
                 return response || undefined;
             };
-            return {
-                build: () => cli,
-            };
 
             // Here we mock the client requests to GitLab
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -49,10 +46,18 @@ createDevApp()
             cli.callGraphQLApi = async function (
                 query: GraphQLQuery
             ) {
-                const response = mockedGitlabReqToRes[query.query];
+                const queries = query.query.match(/query [\w]+\(/)
+                if (!queries) return undefined;
+
+
+                const response = mockedGitlabReqToRes[queries[0]];
 
                 return response || undefined;
             }
+
+                        return {
+                build: () => cli,
+            };
         },
     })
     .addPage({

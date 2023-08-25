@@ -31,8 +31,6 @@ export type GraphQLQuery = {
 export type GitlabProjectCoverageResponse = {
     data: {
         project: {
-            name: string;
-            webUrl: string;
             pipelines: {
                 nodes: {
                     coverage: number;
@@ -63,7 +61,8 @@ export type GitlabCIApi = {
     ): Promise<LanguagesSummary | undefined>;
     getProjectDetails(projectSlug: string): Promise<ProjectSchema | undefined>;
     getProjectCoverage(
-        projectSlug: string
+        projectSlug: string,
+        projectDefaultBranch: string
     ): Promise<GitlabProjectCoverageResponse | undefined>;
     getIssuesSummary(
         projectID: string | number

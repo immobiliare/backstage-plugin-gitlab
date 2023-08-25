@@ -191,6 +191,7 @@ describe('createRouter', () => {
                 'trace',
                 'patch',
             ]) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 const response = await agent?.[method](
                     '/api/gitlab/non-existing-example.com/graphql'
@@ -216,6 +217,7 @@ describe('createRouter', () => {
                 'trace',
                 'patch',
             ]) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 const response = await agent?.[method](
                     '/api/gitlab/non-existing-example-2.com/projects/434'
@@ -437,6 +439,7 @@ describe('createRouter with baseUrl', () => {
                 'trace',
                 'patch',
             ]) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 const response = await agent?.[method](
                     `${basePath}/api/gitlab/non-existing-example.com/graphql`
@@ -462,6 +465,7 @@ describe('createRouter with baseUrl', () => {
                 'trace',
                 'patch',
             ]) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 const response = await agent?.[method](
                     `${basePath}/api/gitlab/non-existing-example-2.com/projects/434`

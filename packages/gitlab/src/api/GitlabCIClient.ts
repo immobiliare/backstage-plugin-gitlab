@@ -286,13 +286,15 @@ export class GitlabCIClient implements GitlabCIApi {
     }
 
     async getProjectCoverage(
-        projectSlug: string
+        projectSlug: string,
+        projectDefaultBranch: string
     ): Promise<GitlabProjectCoverageResponse | undefined> {
         if (!projectSlug) return undefined;
 
         return await this.callGraphQLApi<GitlabProjectCoverageResponse>({
             variables: {
                 projectSlug,
+                projectDefaultBranch,
                 updatedAfter: dayjs().subtract(30, 'days').format('YYYY-MM-DD'),
             },
             query: /* GraphQL */ `
@@ -301,9 +303,10 @@ export class GitlabCIClient implements GitlabCIApi {
                     $updatedAfter: Time
                 ) {
                     project(fullPath: $projectSlug) {
-                        name
-                        webUrl
-                        pipelines(ref: "main", updatedAfter: $updatedAfter) {
+                        pipelines(
+                            ref: $projectDefaultBranch
+                            updatedAfter: $updatedAfter
+                        ) {
                             nodes {
                                 coverage
                                 createdAt

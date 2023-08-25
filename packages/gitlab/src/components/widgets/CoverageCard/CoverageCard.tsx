@@ -42,11 +42,21 @@ const CoverageCard = (props: Props) => {
     );
 
     const { value, loading, error } = useAsync(async () => {
-        const coverageDetails = await GitlabCIAPI.getProjectCoverage(
+        const projectDetails = await GitlabCIAPI.getProjectDetails(
             project_slug || project_id
         );
+        if (!projectDetails)
+            throw new Error('wrong project_slug or project_id');
 
-        return coverageDetails;
+        const coverageDetails = await GitlabCIAPI.getProjectCoverage(
+            projectDetails.path_with_namespace,
+            projectDetails.default_branch
+        );
+
+        return {
+            webUrl: projectDetails.web_url,
+            coverageDetails: !!coverageDetails ? coverageDetails.data.project.pipelines.nodes : []
+        };
     }, []);
 
     if (loading) {
@@ -55,10 +65,10 @@ const CoverageCard = (props: Props) => {
         return <Alert severity="error">{error.message}</Alert>;
     }
 
-    const dataset = value
+    const dataset = value?.coverageDetails
         ? [
               ...new Map(
-                  value.data.project.pipelines.nodes
+                  value.coverageDetails
                       .filter((node) => !!node.coverage)
                       .sort((a, b) =>
                           new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1
@@ -76,11 +86,11 @@ const CoverageCard = (props: Props) => {
         <InfoCard
             title="Coverage statistics"
             deepLink={{
-                link: `${value.data.project.webUrl}/-/graphs/main/charts`,
+                link: `${value.webUrl}/-/graphs/main/charts`,
                 title: 'go to Analytics',
                 onClick: (e) => {
                     e.preventDefault();
-                    window.open(`${value.data.project.webUrl}/-/graphs/main/charts`);
+                    window.open(`${value.webUrl}/-/graphs/main/charts`);
                 },
             }}
             variant={props.variant}
@@ -99,7 +109,7 @@ const CoverageCard = (props: Props) => {
                 <div>
                     {' '}
                     <b>Last Coverage: </b>
-                    {`${value.data.project.pipelines.nodes[0].coverage}%`}
+                    {!!value.coverageDetails ? `${value.coverageDetails[0].coverage}%`: "No data"}
                 </div>
             </Box>
         </InfoCard>
