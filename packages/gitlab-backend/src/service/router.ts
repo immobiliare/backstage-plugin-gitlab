@@ -8,7 +8,8 @@ import express from 'express';
 import Router from 'express-promise-router';
 import { Logger } from 'winston';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { IncomingMessage } from 'http';
+import { Request } from 'http-proxy-middleware/dist/types';
+import bodyParser from 'body-parser';
 
 function getBasePath(config: Config) {
     const baseUrl = config.getOptionalString('backend.baseUrl');
@@ -37,25 +38,34 @@ export async function createRouter(
 
     const router = Router();
 
+    // Add body parser middleware because we need to parse the body in the graphqlFilter
+    router.use(bodyParser.json());
+    router.use(bodyParser.urlencoded({ extended: true }));
+    router.use(bodyParser.text());
+
     // We are filtering the proxy request headers here rather than in
     // `onProxyReq` because when global-agent is enabled then `onProxyReq`
     // fires _after_ the agent has already sent the headers to the proxy
     // target, causing a ERR_HTTP_HEADERS_SENT crash
-    const filter = (_pathname: string, req: IncomingMessage): boolean => {
+    const filter = (_pathname: string, req: Request): boolean => {
         if (req.headers['authorization']) delete req.headers['authorization'];
         return req.method === 'GET';
     };
 
-    const postFilter = (_pathname: string, req: IncomingMessage): boolean => {
+    const graphqlFilter = (_pathname: string, req: Request): boolean => {
         if (req.headers['authorization']) delete req.headers['authorization'];
-        return req.method === 'POST';
+
+        return (
+            req.method === 'POST' &&
+            !JSON.stringify(req.body).includes('mutation')
+        );
     };
 
     for (const { host, apiBaseUrl, baseUrl, token } of gitlabIntegrations) {
         const graphqlBaseUrl = new URL(baseUrl);
         router.use(
             `/${host}/graphql`,
-            createProxyMiddleware(postFilter, {
+            createProxyMiddleware(graphqlFilter, {
                 target: graphqlBaseUrl.origin,
                 changeOrigin: true,
                 headers: {

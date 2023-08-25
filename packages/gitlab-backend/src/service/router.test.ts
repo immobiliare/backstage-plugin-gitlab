@@ -197,10 +197,22 @@ describe('createRouter', () => {
                     '/api/gitlab/non-existing-example.com/graphql'
                 );
 
-                console.log(method);
                 expect(response.status).toEqual(404);
                 expect(response.body).toEqual({});
             }
+        });
+
+        it('Mutation queries should be rejected', async () => {
+            const agent = request.agent(app);
+            // this is set to let msw pass test requests through the mock server
+            agent.set('User-Agent', 'supertest');
+            const response = await agent
+                .post('/api/gitlab/non-existing-example-2.com/graphql')
+                .send({
+                    query: 'mutation { createIssue { id } }',
+                });
+            expect(response.status).toEqual(404);
+            expect(response.body).toEqual({});
         });
     });
 
@@ -445,10 +457,24 @@ describe('createRouter with baseUrl', () => {
                     `${basePath}/api/gitlab/non-existing-example.com/graphql`
                 );
 
-                console.log(method);
                 expect(response.status).toEqual(404);
                 expect(response.body).toEqual({});
             }
+        });
+
+        it('Mutation queries should be rejected', async () => {
+            const agent = request.agent(app);
+            // this is set to let msw pass test requests through the mock server
+            agent.set('User-Agent', 'supertest');
+            const response = await agent
+                .post(
+                    `${basePath}/api/gitlab/non-existing-example-2.com/graphql`
+                )
+                .send({
+                    query: 'mutation { createIssue { id } }',
+                });
+            expect(response.status).toEqual(404);
+            expect(response.body).toEqual({});
         });
     });
 
