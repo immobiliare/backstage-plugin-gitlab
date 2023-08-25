@@ -55,7 +55,9 @@ const CoverageCard = (props: Props) => {
 
         return {
             webUrl: projectDetails.web_url,
-            coverageDetails: !!coverageDetails ? coverageDetails.data.project.pipelines.nodes : []
+            coverageDetails: !!coverageDetails
+                ? coverageDetails.data.project.pipelines.nodes
+                : [],
         };
     }, []);
 
@@ -97,19 +99,21 @@ const CoverageCard = (props: Props) => {
         >
             <Box position="relative">
                 <div className={classes.lineChartContainer}>
-                <LineChart
-                    xAxis={[{ scaleType: 'point', dataKey: 'x' }]}
-                    series={[{ dataKey: 'y' }]}
-                    dataset={dataset}
-                    height={300}
-                    margin={{ bottom: 90, top: 20, left: 40, right: 20 }}
-                />
+                    <LineChart
+                        xAxis={[{ scaleType: 'point', dataKey: 'x' }]}
+                        series={[{ dataKey: 'y' }]}
+                        dataset={dataset}
+                        height={300}
+                        margin={{ bottom: 90, top: 20, left: 40, right: 20 }}
+                    />
                 </div>
 
                 <div>
                     {' '}
                     <b>Last Coverage: </b>
-                    {!!value.coverageDetails ? `${value.coverageDetails[0].coverage}%`: "No data"}
+                    {!!value.coverageDetails
+                        ? `${value.coverageDetails[0].coverage}%`
+                        : 'No data'}
                 </div>
             </Box>
         </InfoCard>
