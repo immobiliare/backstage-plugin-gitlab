@@ -93,7 +93,9 @@ export class GitlabCIClient implements GitlabCIApi {
         }
 
         const response = await fetch(
-            `${apiUrl}/${path}?${new URLSearchParams(query).toString()}`,
+            `${apiUrl}${path ? `/${path}` : ''}?${new URLSearchParams(
+                query
+            ).toString()}`,
             options
         );
         if (response.status === 200) {
@@ -121,7 +123,7 @@ export class GitlabCIClient implements GitlabCIApi {
             body: JSON.stringify(query),
         };
 
-        return this.callApi<T>('graphql', {}, 'graphql', options);
+        return this.callApi<T>('', {}, 'graphql', options);
     }
 
     async getPipelineSummary(
