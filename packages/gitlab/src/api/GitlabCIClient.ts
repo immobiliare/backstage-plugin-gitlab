@@ -74,11 +74,12 @@ export class GitlabCIClient implements GitlabCIApi {
     protected async callApi<T>(
         path: string,
         query: { [key in string]: string },
+        APIkind: 'rest' | 'graphql' = 'rest',
         options: RequestInit = {}
     ): Promise<T | undefined> {
-        const apiUrl = `${await this.discoveryApi.getBaseUrl('gitlab')}/${
-            this.gitlabInstance
-        }`;
+        const apiUrl = `${await this.discoveryApi.getBaseUrl(
+            'gitlab'
+        )}/${APIkind}/${this.gitlabInstance}`;
         const token = (await this.identityApi.getCredentials()).token;
 
         if (token) {
@@ -120,7 +121,7 @@ export class GitlabCIClient implements GitlabCIApi {
             body: JSON.stringify(query),
         };
 
-        return this.callApi<T>('graphql', {}, options);
+        return this.callApi<T>('graphql', {}, 'graphql', options);
     }
 
     async getPipelineSummary(
