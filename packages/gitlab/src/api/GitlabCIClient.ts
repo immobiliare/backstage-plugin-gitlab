@@ -301,6 +301,7 @@ export class GitlabCIClient implements GitlabCIApi {
                 query getProjectCoverage(
                     $projectSlug: ID!
                     $updatedAfter: Time
+                    $projectDefaultBranch: String
                 ) {
                     project(fullPath: $projectSlug) {
                         pipelines(
