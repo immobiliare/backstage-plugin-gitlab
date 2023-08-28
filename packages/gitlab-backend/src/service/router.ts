@@ -61,12 +61,13 @@ export async function createRouter(
         );
     };
 
-    for (const { host, apiBaseUrl, baseUrl, token } of gitlabIntegrations) {
-        const graphqlBaseUrl = new URL(baseUrl);
+    for (const { host, apiBaseUrl, token } of gitlabIntegrations) {
+        const apiUrl = new URL(apiBaseUrl);
+
         router.use(
-            `/${host}/graphql`,
+            `/graphql/${host}`,
             createProxyMiddleware(graphqlFilter, {
-                target: graphqlBaseUrl.origin,
+                target: apiUrl.origin,
                 changeOrigin: true,
                 headers: {
                     ...(token ? { 'PRIVATE-TOKEN': token } : {}),
@@ -74,14 +75,13 @@ export async function createRouter(
                 secure,
                 logProvider: () => logger,
                 pathRewrite: {
-                    [`^${basePath}/api/gitlab/${host}/graphql`]: `/api/graphql`,
+                    [`^${basePath}/api/gitlab/graphql/${host}`]: `/api/graphql`,
                 },
             })
         );
 
-        const apiUrl = new URL(apiBaseUrl);
         router.use(
-            `/${host}`,
+            `/rest/${host}`,
             createProxyMiddleware(filter, {
                 target: apiUrl.origin,
                 changeOrigin: true,
@@ -91,7 +91,7 @@ export async function createRouter(
                 secure,
                 logProvider: () => logger,
                 pathRewrite: {
-                    [`^${basePath}/api/gitlab/${host}`]: apiUrl.pathname,
+                    [`^${basePath}/api/gitlab/rest/${host}`]: apiUrl.pathname,
                 },
             })
         );
