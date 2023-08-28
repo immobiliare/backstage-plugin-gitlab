@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0-alpha.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.2.0-alpha.0...v6.2.0-alpha.1) (2023-08-28)
+
+### Bug Fixes
+
+-   graphql query ([cf3aefb](https://github.com/immobiliare/backstage-plugin-gitlab/commit/cf3aefb211da684b07120428a5c4c977acef36dc))
+-   routes intersection ([ea6de8c](https://github.com/immobiliare/backstage-plugin-gitlab/commit/ea6de8cedd623face5153473d68305dbb5282963))
+
 # [6.2.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.1.0...v6.2.0-alpha.0) (2023-08-25)
 
 ### Bug Fixes
