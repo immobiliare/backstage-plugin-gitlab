@@ -55,6 +55,7 @@ const CoverageCard = (props: Props) => {
 
         return {
             webUrl: projectDetails.web_url,
+            defaultBranch: projectDetails.default_branch,
             coverageDetails: !!coverageDetails
                 ? coverageDetails.data.project.pipelines.nodes
                 : [],
@@ -92,7 +93,9 @@ const CoverageCard = (props: Props) => {
                 title: 'go to Analytics',
                 onClick: (e) => {
                     e.preventDefault();
-                    window.open(`${value.webUrl}/-/graphs/main/charts`);
+                    window.open(
+                        `${value.webUrl}/-/graphs/${value?.defaultBranch}/charts`
+                    );
                 },
             }}
             variant={props.variant}
