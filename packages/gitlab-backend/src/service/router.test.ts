@@ -151,7 +151,8 @@ describe('createRouter', () => {
                 headers: {
                     'accept-encoding': 'gzip, deflate',
                     connection: 'close',
-                    'content-length': '0',
+                    'content-length': '2',
+                    'content-type': 'application/json',
                     host: 'non-existing-example.com',
                     'user-agent': 'supertest',
                 },
@@ -171,7 +172,8 @@ describe('createRouter', () => {
                 headers: {
                     'accept-encoding': 'gzip, deflate',
                     connection: 'close',
-                    'content-length': '0',
+                    'content-length': '2',
+                    'content-type': 'application/json',
                     host: 'non-existing-example-2.com',
                     'user-agent': 'supertest',
                 },
@@ -411,7 +413,8 @@ describe('createRouter with baseUrl', () => {
                 headers: {
                     'accept-encoding': 'gzip, deflate',
                     connection: 'close',
-                    'content-length': '0',
+                    'content-length': '2',
+                    'content-type': 'application/json',
                     host: 'non-existing-example.com',
                     'user-agent': 'supertest',
                 },
@@ -431,7 +434,8 @@ describe('createRouter with baseUrl', () => {
                 headers: {
                     'accept-encoding': 'gzip, deflate',
                     connection: 'close',
-                    'content-length': '0',
+                    'content-length': '2',
+                    'content-type': 'application/json',
                     host: 'non-existing-example-2.com',
                     'user-agent': 'supertest',
                 },

@@ -54,7 +54,7 @@ export async function createRouter(
 
     const graphqlFilter = (_pathname: string, req: Request): boolean => {
         if (req.headers['authorization']) delete req.headers['authorization'];
-        return req.method === 'POST' && !req.body.query.includes('mutation');
+        return req.method === 'POST' && !req.body.query?.includes('mutation');
     };
 
     for (const { host, apiBaseUrl, token } of gitlabIntegrations) {
