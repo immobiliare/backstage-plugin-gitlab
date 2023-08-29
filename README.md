@@ -104,6 +104,7 @@ import {
     EntityGitlabPeopleCard,
     EntityGitlabPipelinesTable,
     EntityGitlabReadmeCard,
+    EntityGitlabReleasesCard,
 } from '@immobiliarelabs/backstage-plugin-gitlab';
 
 //Farther down at the overviewContent declaration
