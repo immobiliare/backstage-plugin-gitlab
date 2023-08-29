@@ -8,7 +8,8 @@ import express from 'express';
 import Router from 'express-promise-router';
 import { Logger } from 'winston';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { IncomingMessage } from 'http';
+import { Request } from 'http-proxy-middleware/dist/types';
+import bodyParser from 'body-parser';
 
 function getBasePath(config: Config) {
     const baseUrl = config.getOptionalString('backend.baseUrl');
@@ -37,19 +38,60 @@ export async function createRouter(
 
     const router = Router();
 
+    // Add body parser middleware because we need to parse the body in the graphqlFilter
+    router.use(bodyParser.json());
+    router.use(bodyParser.urlencoded({ extended: true }));
+    router.use(bodyParser.text());
+
     // We are filtering the proxy request headers here rather than in
     // `onProxyReq` because when global-agent is enabled then `onProxyReq`
     // fires _after_ the agent has already sent the headers to the proxy
     // target, causing a ERR_HTTP_HEADERS_SENT crash
-    const filter = (_pathname: string, req: IncomingMessage): boolean => {
+    const filter = (_pathname: string, req: Request): boolean => {
         if (req.headers['authorization']) delete req.headers['authorization'];
         return req.method === 'GET';
     };
 
+    const graphqlFilter = (_pathname: string, req: Request): boolean => {
+        if (req.headers['authorization']) delete req.headers['authorization'];
+        return req.method === 'POST' && !req.body.query?.includes('mutation');
+    };
+
     for (const { host, apiBaseUrl, token } of gitlabIntegrations) {
         const apiUrl = new URL(apiBaseUrl);
+
         router.use(
-            `/${host}`,
+            `/graphql/${host}`,
+            createProxyMiddleware(graphqlFilter, {
+                target: apiUrl.origin,
+                changeOrigin: true,
+                headers: {
+                    ...(token ? { 'PRIVATE-TOKEN': token } : {}),
+                },
+                secure,
+                onProxyReq: (proxyReq, req) => {
+                    // Here we have to convert body into a stream to avoid to break middleware
+                    if (req.body) {
+                        const bodyData = JSON.stringify(req.body);
+                        // incase if content-type is application/x-www-form-urlencoded -> we need to change to application/json
+                        proxyReq.setHeader('Content-Type', 'application/json');
+                        proxyReq.setHeader(
+                            'Content-Length',
+                            Buffer.byteLength(bodyData)
+                        );
+                        // stream the content
+                        proxyReq.write(bodyData);
+                    }
+                },
+                logProvider: () => logger,
+                pathRewrite: {
+                    [`^${basePath}/api/gitlab/graphql/${host}`]: `/api/graphql`,
+                },
+            })
+        );
+
+        router.use(
+            `/rest/${host}`,
             createProxyMiddleware(filter, {
                 target: apiUrl.origin,
                 changeOrigin: true,
@@ -59,7 +101,7 @@ export async function createRouter(
                 secure,
                 logProvider: () => logger,
                 pathRewrite: {
-                    [`^${basePath}/api/gitlab/${host}`]: apiUrl.pathname,
+                    [`^${basePath}/api/gitlab/rest/${host}`]: apiUrl.pathname,
                 },
             })
         );

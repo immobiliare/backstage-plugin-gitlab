@@ -1,5 +1,35 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const mockedGitlabReqToRes: Record<string, any> = {
+    ['query getProjectCoverage(']: {
+        data: {
+            project: {
+                pipelines: {
+                    nodes: [
+                        {
+                            coverage: 98.4,
+                            createdAt: '2022-12-14T11:16:35.267Z',
+                        },
+                        {
+                            coverage: 97.4,
+                            createdAt: '2022-12-15T11:16:35.267Z',
+                        },
+                        {
+                            coverage: 96.4,
+                            createdAt: '2022-12-16T11:16:35.267Z',
+                        },
+                        {
+                            coverage: 95.4,
+                            createdAt: '2022-12-17T11:16:35.267Z',
+                        },
+                        {
+                            coverage: 94.4,
+                            createdAt: '2022-12-18T11:16:35.267Z',
+                        },
+                    ],
+                },
+            },
+        },
+    },
     'projects/10174980?': {
         id: 10174980,
         description:

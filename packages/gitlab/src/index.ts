@@ -8,6 +8,7 @@ export {
     EntityGitlabPipelinesTable,
     EntityGitlabReleasesCard,
     EntityGitlabReadmeCard,
+    EntityGitlabCoverageCard,
     gitlabPlugin,
 } from './plugin';
 export * from './api';

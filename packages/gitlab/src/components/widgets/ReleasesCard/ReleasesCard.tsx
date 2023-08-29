@@ -19,7 +19,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link, Grid } from '@material-ui/core';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import Alert from '@material-ui/lab/Alert';
-import { InfoCard, Progress } from '@backstage/core-components';
+import {
+    InfoCard,
+    InfoCardVariants,
+    Progress,
+} from '@backstage/core-components';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useAsync } from 'react-use';
@@ -110,6 +114,11 @@ export interface ReleasesCardProps {
      * Determines if the sort selector should be shown
      */
     showSortSelector?: boolean;
+
+    /**
+     * Determines InfoCard variant
+     */
+    variant?: InfoCardVariants;
 }
 
 function makeFilter(
@@ -227,6 +236,7 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
                     window.open(`${project_web_url}/-/releases`);
                 },
             }}
+            variant={props.variant}
             className={classes.infoCard}
         >
             <Grid container spacing={2} justifyContent="flex-start">

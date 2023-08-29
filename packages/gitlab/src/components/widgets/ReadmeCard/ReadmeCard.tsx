@@ -5,6 +5,7 @@ import {
     InfoCard,
     Progress,
     MarkdownContent,
+    InfoCardVariants,
 } from '@backstage/core-components';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
@@ -25,7 +26,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const ReadmeCard = ({}) => {
+type Props = {
+    variant?: InfoCardVariants;
+};
+
+export const ReadmeCard = (props: Props) => {
     const classes = useStyles();
     const project_id = gitlabProjectId();
     const project_slug = gitlabProjectSlug();
@@ -72,7 +77,11 @@ export const ReadmeCard = ({}) => {
     }
 
     return (
-        <InfoCard title="README" className={classes.infoCard}>
+        <InfoCard
+            title="README"
+            className={classes.infoCard}
+            variant={props.variant}
+        >
             <MarkdownContent
                 content={value?.readme || 'No README found'}
                 dialect="gfm"

@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0-alpha.3](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.2.0-alpha.2...v6.2.0-alpha.3) (2023-08-29)
+
+### Bug Fixes
+
+-   reconverted body into a stream ([e1c4b8b](https://github.com/immobiliare/backstage-plugin-gitlab/commit/e1c4b8b2d7b0e79940af75636598e449e713f417))
+
+# [6.2.0-alpha.2](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.2.0-alpha.1...v6.2.0-alpha.2) (2023-08-28)
+
+**Note:** Version bump only for package @immobiliarelabs/backstage-plugin-gitlab-backend
+
+# [6.2.0-alpha.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.2.0-alpha.0...v6.2.0-alpha.1) (2023-08-28)
+
+### Bug Fixes
+
+-   routes intersection ([ea6de8c](https://github.com/immobiliare/backstage-plugin-gitlab/commit/ea6de8cedd623face5153473d68305dbb5282963))
+
+# [6.2.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.1.0...v6.2.0-alpha.0) (2023-08-25)
+
+### Bug Fixes
+
+-   Fix review comments ([5cf88d3](https://github.com/immobiliare/backstage-plugin-gitlab/commit/5cf88d3148aa16461bb62c0965d652517fc5db14))
+-   Forbid mutation queries ([455994e](https://github.com/immobiliare/backstage-plugin-gitlab/commit/455994e633d60f86357c9ddff5e88c3d511b3141))
+
+### Features
+
+-   Add Coverage card ([0946e52](https://github.com/immobiliare/backstage-plugin-gitlab/commit/0946e529623bd578e21831bbdbbfcb1072ac739c))
+-   Add tests, refactored gitlab client ([8577210](https://github.com/immobiliare/backstage-plugin-gitlab/commit/8577210eecd4f9271672eab3db5d375705107cf2))
+
 # [6.1.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.1.0-alpha.0...v6.1.0) (2023-08-22)
 
 **Note:** Version bump only for package @immobiliarelabs/backstage-plugin-gitlab-backend

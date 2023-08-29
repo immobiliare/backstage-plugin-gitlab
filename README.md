@@ -249,6 +249,8 @@ metadata:
         gitlab.com/project-id: 'project-id' #1234. This must be in quotes and can be found under Settings --> General
         # or
         gitlab.com/project-slug: 'project-slug' # group_name/project_name
+        # or
+        gitlab.com/instance: gitlab.internal.abcd # abcd, represents local instance used
 spec:
     type: service
     # ...
