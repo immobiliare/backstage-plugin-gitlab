@@ -54,11 +54,7 @@ export async function createRouter(
 
     const graphqlFilter = (_pathname: string, req: Request): boolean => {
         if (req.headers['authorization']) delete req.headers['authorization'];
-
-        return (
-            req.method === 'POST' &&
-            !JSON.stringify(req.body).includes('mutation')
-        );
+        return req.method === 'POST' && !req.body.query.includes('mutation');
     };
 
     for (const { host, apiBaseUrl, token } of gitlabIntegrations) {
@@ -73,6 +69,20 @@ export async function createRouter(
                     ...(token ? { 'PRIVATE-TOKEN': token } : {}),
                 },
                 secure,
+                onProxyReq: (proxyReq, req) => {
+                    // Here we have to convert body into a stream to avoid to break middleware
+                    if (req.body) {
+                        const bodyData = JSON.stringify(req.body);
+                        // incase if content-type is application/x-www-form-urlencoded -> we need to change to application/json
+                        proxyReq.setHeader('Content-Type', 'application/json');
+                        proxyReq.setHeader(
+                            'Content-Length',
+                            Buffer.byteLength(bodyData)
+                        );
+                        // stream the content
+                        proxyReq.write(bodyData);
+                    }
+                },
                 logProvider: () => logger,
                 pathRewrite: {
                     [`^${basePath}/api/gitlab/graphql/${host}`]: `/api/graphql`,
