@@ -112,9 +112,7 @@ export class GitlabCIClient implements GitlabCIApi {
         return undefined;
     }
 
-    protected async callGraphQLApi<T>(
-        query: GraphQLQuery
-    ): Promise<T | undefined> {
+    protected callGraphQLApi<T>(query: GraphQLQuery): Promise<T | undefined> {
         const options = {
             method: 'POST',
             headers: {
@@ -294,7 +292,7 @@ export class GitlabCIClient implements GitlabCIApi {
     ): Promise<GitlabProjectCoverageResponse | undefined> {
         if (!projectSlug) return undefined;
 
-        return await this.callGraphQLApi<GitlabProjectCoverageResponse>({
+        return this.callGraphQLApi<GitlabProjectCoverageResponse>({
             variables: {
                 projectSlug,
                 projectDefaultBranch,

@@ -99,19 +99,26 @@ const CoverageCard = (props: Props) => {
         >
             <Box position="relative">
                 <div className={classes.lineChartContainer}>
-                    <LineChart
-                        xAxis={[{ scaleType: 'point', dataKey: 'x' }]}
-                        series={[{ dataKey: 'y' }]}
-                        dataset={dataset}
-                        height={300}
-                        margin={{ bottom: 90, top: 20, left: 40, right: 20 }}
-                    />
+                    {dataset.length > 0 && (
+                        <LineChart
+                            xAxis={[{ scaleType: 'point', dataKey: 'x' }]}
+                            series={[{ dataKey: 'y' }]}
+                            dataset={dataset}
+                            height={300}
+                            margin={{
+                                bottom: 90,
+                                top: 20,
+                                left: 40,
+                                right: 20,
+                            }}
+                        />
+                    )}
                 </div>
 
                 <div>
                     {' '}
                     <b>Last Coverage: </b>
-                    {!!value.coverageDetails
+                    {dataset.length > 0
                         ? `${value.coverageDetails[0].coverage}%`
                         : 'No data'}
                 </div>
