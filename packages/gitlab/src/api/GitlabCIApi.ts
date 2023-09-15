@@ -41,6 +41,29 @@ export type GitlabProjectCoverageResponse = {
     };
 };
 
+export type GitlabProjectSecurityResponse = {
+    data: {
+        project?: {
+            pipelines?: {
+                nodes?: {
+                    jobs?: {
+                        nodes?: {
+                            artifacts?: {
+                                nodes?: {
+                                    fileType: string;
+                                    downloadPath: string;
+                                    name: string;
+                                    id: string | number;
+                                }[];
+                            };
+                        }[];
+                    };
+                }[];
+            };
+        };
+    };
+};
+
 export type GitlabCIApi = {
     getPipelineSummary(
         projectID: string | number
@@ -64,6 +87,10 @@ export type GitlabCIApi = {
         projectSlug: string,
         projectDefaultBranch: string
     ): Promise<GitlabProjectCoverageResponse | undefined>;
+    getSecurityReport(
+        projectSlug: string,
+        projectDefaultBranch: string
+    ): Promise<string | undefined>;
     getIssuesSummary(
         projectID: string | number
     ): Promise<IssueSchema[] | undefined>;

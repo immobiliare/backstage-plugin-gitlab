@@ -5,6 +5,7 @@ import {
     ContributorsSummary,
     GitlabCIApi,
     GitlabProjectCoverageResponse,
+    GitlabProjectSecurityResponse,
     GraphQLQuery,
     LanguagesSummary,
 } from './GitlabCIApi';
@@ -318,6 +319,53 @@ export class GitlabCIClient implements GitlabCIApi {
                 }
             `,
         });
+    }
+
+    async getSecurityReport(
+        projectSlug: string,
+        projectDefaultBranch: string
+    ): Promise<string | undefined> {
+        if (!projectSlug || !projectDefaultBranch) return undefined;
+
+        const data = await this.callGraphQLApi<GitlabProjectSecurityResponse>({
+            variables: {
+                projectSlug,
+                projectDefaultBranch,
+            },
+            query: `
+            query getSecurityArtifacts (
+                $projectSlug: ID!
+                $projectDefaultBranch: String
+            ) {
+                project(fullPath: $projectSlug) {
+                  pipelines(ref: $projectDefaultBranch, first: 1) {
+                    nodes {
+                      jobs(statuses: SUCCESS, first: 1, securityReportTypes: SAST) {
+                        nodes {
+                          artifacts {
+                            nodes {
+                              fileType
+                              name
+                              downloadPath
+                              id
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              
+            `,
+        });
+
+        const downloadPath =
+            data?.data.project?.pipelines?.nodes?.[0]?.jobs?.nodes?.[0]?.artifacts?.nodes?.find(
+                (n) => n?.fileType === 'SAST'
+            )?.downloadPath;
+
+        return downloadPath;
     }
 
     async getCodeOwners(
