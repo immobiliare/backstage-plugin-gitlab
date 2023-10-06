@@ -148,6 +148,7 @@ integrations:
     gitlab:
         - host: gitlab.com
           token: ${GITLAB_TOKEN}
+          apiBaseUrl: https://gitlab.com/api/v4 # or https://gitlab.xxxxx.xx/api/v4
 ```
 
 **Note:** You can have more than one GitLab instance.
@@ -250,7 +251,7 @@ metadata:
         gitlab.com/project-id: 'project-id' #1234. This must be in quotes and can be found under Settings --> General
         # or
         gitlab.com/project-slug: 'project-slug' # group_name/project_name
-        # or
+        # if you are running your own GitLab instance add this
         gitlab.com/instance: gitlab.internal.abcd # abcd, represents local instance used
 spec:
     type: service
