@@ -12,7 +12,7 @@ jobs:
                   persist-credentials: false
                   fetch-depth: 0
 
-            - uses: actions/setup-node@v3
+            - uses: actions/setup-node@v4
               with:
                   node-version: 18
                   # setting this should create the npmrc with $NODE_AUTH_TOKEN
@@ -51,7 +51,7 @@ jobs:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
             - name: merge main -> next
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   type: now
                   from_branch: main
