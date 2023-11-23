@@ -47,15 +47,17 @@ export class GitlabFillerProcessor implements CatalogProcessor {
         // Check if we should process its kind first
         if (this.isAllowedEntity(entity)) {
             // Check if it has a GitLab integration
-            const gitlabInstance = this.getGitlabInstance(location.target);
-            if (gitlabInstance) {
+            const gitlabInstanceConfig = this.getGitlabInstanceConfig(
+                location.target
+            );
+            if (gitlabInstanceConfig) {
                 if (!entity.metadata.annotations)
                     entity.metadata.annotations = {};
 
                 // Set GitLab Instance
                 if (!entity.metadata.annotations?.[GITLAB_INSTANCE]) {
                     entity.metadata.annotations![GITLAB_INSTANCE] =
-                        gitlabInstance;
+                        gitlabInstanceConfig?.host;
                 }
 
                 // Generate Project Slug from location URL if neither Project ID nor Project Slug are specified
@@ -64,7 +66,10 @@ export class GitlabFillerProcessor implements CatalogProcessor {
                     !entity.metadata.annotations?.[GITLAB_PROJECT_SLUG]
                 ) {
                     entity.metadata.annotations![GITLAB_PROJECT_SLUG] =
-                        getProjectPath(location.target);
+                        getProjectPath(
+                            location.target,
+                            this.getGitlabSubPath(gitlabInstanceConfig)
+                        );
                 }
             }
         }
@@ -72,7 +77,16 @@ export class GitlabFillerProcessor implements CatalogProcessor {
         return entity;
     }
 
-    private getGitlabInstance(target: string): string | undefined {
+    private getGitlabSubPath(
+        config: GitLabIntegrationConfig
+    ): string | undefined {
+        if (config.baseUrl) return new URL(config.baseUrl).pathname;
+        return;
+    }
+
+    private getGitlabInstanceConfig(
+        target: string
+    ): GitLabIntegrationConfig | undefined {
         let url: URL;
         try {
             url = new URL(target);
@@ -87,7 +101,7 @@ export class GitlabFillerProcessor implements CatalogProcessor {
             return baseUrl.origin === url.origin;
         });
 
-        return gitlabConfig?.host;
+        return gitlabConfig;
     }
 
     private isAllowedEntity(entity: Entity): boolean {
