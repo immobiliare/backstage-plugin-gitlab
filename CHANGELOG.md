@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0-alpha.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.3.0-alpha.0...v6.3.0-alpha.1) (2023-11-24)
+
+### Bug Fixes
+
+-   subpath does not evaluate the right url ([5ea6edc](https://github.com/immobiliare/backstage-plugin-gitlab/commit/5ea6edc24cd6152c12bb279e6c9d84a1566d55b3))
+
 # [6.3.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.2.0...v6.3.0-alpha.0) (2023-11-17)
 
 ### Features
