@@ -17,6 +17,9 @@
 -   [Features](#features)
 -   [Screenshots](#screenshots)
 -   [Setup](#setup)
+    -   [Setup Frontend Plugin](#setup-frontend-plugin)
+    -   [Setup Backend Plugin](#setup-backend-plugin)
+    -   [Register To The New Backend System](#register-to-the-new-backend-system)
 -   [Annotations](#annotations)
     -   [Code owners file](#code-owners-file)
 -   [Old/New GitLab Versions](#oldnew-gitlab-versions)
@@ -59,7 +62,9 @@ yarn --cwd packages/app add @immobiliarelabs/backstage-plugin-gitlab
 yarn --cwd packages/backend add @immobiliarelabs/backstage-plugin-gitlab-backend
 ```
 
-2. Add a new GitLab tab to the entity page.
+### Setup Frontend Plugin
+
+1. Add a new GitLab tab to the entity page.
 
 > NOTE: By default the EntityGitlabContent does not load the README, see the Optional section.
 
@@ -88,7 +93,7 @@ const serviceEntityPage = (
 );
 ```
 
-3. (**Optional**) Add the GitLab cards to the Overview tab on the entity page.
+2. (**Optional**) Add the GitLab cards to the Overview tab on the entity page.
 
 `packages/app/src/components/catalog/EntityPage.tsx`
 
@@ -140,7 +145,7 @@ const overviewContent = (
 );
 ```
 
-4. Add the integration:
+3. Add the integration:
    `app-config.yaml` add the integration for gitlab:
 
 ```yaml
@@ -152,7 +157,11 @@ integrations:
 
 **Note:** You can have more than one GitLab instance.
 
-5. Add the GitLab Filler Processor, this allows auto-filling of the annotations like the project id and slug:
+### Setup Backend Plugin
+
+> NOTE: Currently backstage supports a new way to register backend plugins, see the [Register To The New Backend System](#register-to-the-new-backend-system) section.
+
+1. Add the GitLab Filler Processor, this allows auto-filling of the annotations like the project id and slug:
 
 `packages/backend/src/plugins/catalog.ts`
 
@@ -176,7 +185,7 @@ export default async function createPlugin(
 
 This allows auto-filling of the annotations.
 
-6. Add the `gitlab` route by creating the file `packages/backend/src/plugins/gitlab.ts`:
+2. Add the `gitlab` route by creating the file `packages/backend/src/plugins/gitlab.ts`:
 
 `packages/backend/src/plugins/gitlab.ts`
 
@@ -213,7 +222,7 @@ async function main() {
 }
 ```
 
-7. (**Optional**): You can also add plugin configurations in `app-config.yaml` file:
+3. (**Optional**): You can also add plugin configurations in `app-config.yaml` file:
 
 `app-config.yaml`
 
@@ -234,6 +243,30 @@ gitlab:
     # This parameter controls SSL Certs verification
     # Default: true
     proxySecure: false
+```
+
+### Register To The New Backend System
+
+If you're already using the [New Backend System](https://backstage.io/docs/backend-system/), registering backend plugins will become much easier:
+
+`packages/backend/src/index.ts`
+
+```ts
+// packages/backend/src/index.ts
+import {
+    gitlabPlugin,
+    catalogPluginGitlabFillerProcessorModule,
+} from '@immobiliarelabs/backstage-plugin-gitlab-backend';
+
+async function start() {
+    const backend = createBackend();
+
+    // ...
+    backend.add(gitlabPlugin);
+    backend.add(catalogPluginGitlabFillerProcessorModule);
+
+    // ...
+}
 ```
 
 ## Annotations
