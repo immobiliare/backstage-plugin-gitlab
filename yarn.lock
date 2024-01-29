@@ -3452,17 +3452,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-catalog-node@npm:^1.3.7":
-  version: 1.5.0
-  resolution: "@backstage/plugin-catalog-node@npm:1.5.0"
+"@backstage/plugin-catalog-common@npm:^1.0.20":
+  version: 1.0.20
+  resolution: "@backstage/plugin-catalog-common@npm:1.0.20"
   dependencies:
-    "@backstage/backend-plugin-api": ^0.6.7
-    "@backstage/catalog-client": ^1.4.6
+    "@backstage/catalog-model": ^1.4.3
+    "@backstage/plugin-permission-common": ^0.7.12
+    "@backstage/plugin-search-common": ^1.2.10
+  checksum: 9691e4e022d39b6e2799fe95cbf6397c2f03ff7f0ce7859bb1d90d5df91215a94ee1eed5c174aceaaf2d51d0500eb87c441ae3786a939aae602402f828349dd4
+  languageName: node
+  linkType: hard
+
+"@backstage/plugin-catalog-node@npm:^1.3.7":
+  version: 1.6.1
+  resolution: "@backstage/plugin-catalog-node@npm:1.6.1"
+  dependencies:
+    "@backstage/backend-plugin-api": ^0.6.9
+    "@backstage/catalog-client": ^1.5.2
     "@backstage/catalog-model": ^1.4.3
     "@backstage/errors": ^1.2.3
-    "@backstage/plugin-catalog-common": ^1.0.18
+    "@backstage/plugin-catalog-common": ^1.0.20
+    "@backstage/plugin-permission-common": ^0.7.12
+    "@backstage/plugin-permission-node": ^0.7.20
     "@backstage/types": ^1.1.1
-  checksum: 9c8e8b23cec05585c1bffb6add9debd109ae51bd3d9ab4463a5a2d47937a8a544952c6bf8d84729a55158507458f67e5173d76db9116d1fffeb2bcf9ae2643f6
+  checksum: e046da4bfed4fce0b11e4dd561c35c9414eba3c3a73962447827511a92db9a8f83ad87aecd58b91075535d3e62e2711fd2a725e304a8169ecb4572a092a49ee5
   languageName: node
   linkType: hard
 
@@ -3585,6 +3598,16 @@ __metadata:
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
   checksum: 6baa30e83b68d27fc06411453100cc5fe98895021fe5a3db88c677e68430a8561744bc4581205e20f8326394e749b5e2ff19bb8037ecc86af6cae75124498111
+  languageName: node
+  linkType: hard
+
+"@backstage/plugin-search-common@npm:^1.2.10":
+  version: 1.2.10
+  resolution: "@backstage/plugin-search-common@npm:1.2.10"
+  dependencies:
+    "@backstage/plugin-permission-common": ^0.7.12
+    "@backstage/types": ^1.1.1
+  checksum: e4faae5e46e34c352c6ecb7e981b9efb5c34c62263275cd32e035fe17a77c929e20200a90230e70958496a89b83139ac7168e476b8c1f6497052f1c48d3e1bdd
   languageName: node
   linkType: hard
 
