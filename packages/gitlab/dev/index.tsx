@@ -13,6 +13,7 @@ createDevApp()
         api: GitlabCIApiRef,
         deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
         factory: ({ configApi }) => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
             const cli = GitlabCIClient.setupAPI({
                 discoveryApi: {
