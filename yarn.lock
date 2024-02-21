@@ -4448,36 +4448,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gitbeaker/core@npm:^39.25.0":
-  version: 39.25.0
-  resolution: "@gitbeaker/core@npm:39.25.0"
+"@gitbeaker/core@npm:^39.34.3":
+  version: 39.34.3
+  resolution: "@gitbeaker/core@npm:39.34.3"
   dependencies:
-    "@gitbeaker/requester-utils": ^39.25.0
+    "@gitbeaker/requester-utils": ^39.34.3
     qs: ^6.11.2
     xcase: ^2.0.1
-  checksum: 56ebe3c6ba1078c47a6cae0abcd5ae4fd928dc73c9eb7dc462894d497d6fa5373c0d09a7a7a0583097cffa641eeb0b28b1764d33a085a7b95f0115399240bc7e
+  checksum: 2b0ccd6137ee717b6f51c51c8f7063b84beeebfdb044574f2257f282864411c4f0932f2619893385f2a86bb4fa342b75be972fd1868640ab4e260f2280cc52b3
   languageName: node
   linkType: hard
 
-"@gitbeaker/requester-utils@npm:^39.25.0":
-  version: 39.25.0
-  resolution: "@gitbeaker/requester-utils@npm:39.25.0"
+"@gitbeaker/requester-utils@npm:^39.34.3":
+  version: 39.34.3
+  resolution: "@gitbeaker/requester-utils@npm:39.34.3"
   dependencies:
-    async-sema: ^3.1.1
-    micromatch: ^4.0.5
+    picomatch-browser: ^2.2.6
     qs: ^6.11.2
+    rate-limiter-flexible: ^4.0.0
     xcase: ^2.0.1
-  checksum: 1ca90f5ac705d5ef9df682b3051106326bc660427b9b2a88762992690981ce0b6bed4b22bc08af0ba97043766f9898605ba58ed6c1a08b6711af34032f013ed2
+  checksum: 55881864f42e243d9cd73840ea44c9eee13be7974fa13fde241f19bc47915712532d5f7339a598cdd258c32193a37375719984d2630620ab8d962d6d7724cbeb
   languageName: node
   linkType: hard
 
 "@gitbeaker/rest@npm:^39.0.0":
-  version: 39.25.0
-  resolution: "@gitbeaker/rest@npm:39.25.0"
+  version: 39.34.3
+  resolution: "@gitbeaker/rest@npm:39.34.3"
   dependencies:
-    "@gitbeaker/core": ^39.25.0
-    "@gitbeaker/requester-utils": ^39.25.0
-  checksum: 5732a34fe3f2fe0a048963baf90b237fde7a1be61fa327e2c7aa69266649394b5b48cd99a6c6abaf1cf8b32b84a293800af33eef49c011b252d6e061f7fe1af9
+    "@gitbeaker/core": ^39.34.3
+    "@gitbeaker/requester-utils": ^39.34.3
+  checksum: e2a484891b12c71d4218168ab3884af14d036fb16a710ea023556a3d57dd220b13feaebd1f4aa3f61d0180c9f17b66f283650cd543416bb402d3bed8b6eaa465
   languageName: node
   linkType: hard
 
@@ -10339,13 +10339,6 @@ __metadata:
   dependencies:
     retry: 0.13.1
   checksum: 38a7152ff7265a9321ea214b9c69e8224ab1febbdec98efbbde6e562f17ff68405569b796b1c5271f354aef8783665d29953f051f68c1fc45306e61aec82fdc4
-  languageName: node
-  linkType: hard
-
-"async-sema@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "async-sema@npm:3.1.1"
-  checksum: 07b8c51f6cab107417ecdd8126b7a9fe5a75151b7f69fdd420dcc8ee08f9e37c473a217247e894b56e999b088b32e902dbe41637e4e9b594d3f8dfcdddfadc5e
   languageName: node
   linkType: hard
 
@@ -23024,6 +23017,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"picomatch-browser@npm:^2.2.6":
+  version: 2.2.6
+  resolution: "picomatch-browser@npm:2.2.6"
+  checksum: 946c50a8654da43167a0f9a90dd0b50f3d4e830ee71c0926ee9052d7e6f40d8907deaafba19cea71b97207b4aaa52c245335e4cd5bbaf78fe2ba567cd0c341fa
+  languageName: node
+  linkType: hard
+
 "picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.2, picomatch@npm:^2.2.3, picomatch@npm:^2.3.1":
   version: 2.3.1
   resolution: "picomatch@npm:2.3.1"
@@ -23992,6 +23992,13 @@ __metadata:
   version: 1.2.1
   resolution: "range-parser@npm:1.2.1"
   checksum: 0a268d4fea508661cf5743dfe3d5f47ce214fd6b7dec1de0da4d669dd4ef3d2144468ebe4179049eff253d9d27e719c88dae55be64f954e80135a0cada804ec9
+  languageName: node
+  linkType: hard
+
+"rate-limiter-flexible@npm:^4.0.0":
+  version: 4.0.1
+  resolution: "rate-limiter-flexible@npm:4.0.1"
+  checksum: 88cb4ae4c6a94646eb4987f08ae203896fc340d84038e145958607ab711d9c703e47e55f177a4bf9bab4c637c73ee2254fffe2ec4e289d41389c8502194ca868
   languageName: node
   linkType: hard
 
