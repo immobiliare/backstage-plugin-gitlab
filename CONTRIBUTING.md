@@ -14,7 +14,7 @@ $ yarn
 # run tests
 $ yarn test
 # run the code linter
-$ yarn lint
+$ yarn style:lint
 # Build the lib
 $ yarn build
 # Test UI locally with mocked data
@@ -30,7 +30,7 @@ This projects uses [commitlint](https://commitlint.js.org/) with Angular configu
 Contributions should be validated with the command:
 
 ```bash
-$ codeclimate analyze
+codeclimate analyze
 ```
 
 See [codeclimate](https://github.com/codeclimate/codeclimate).
@@ -49,7 +49,7 @@ $ yarn test
 Style and lint errors should be fixed with
 
 ```bash
-$ yarn lint
+yarn style:lint
 ```
 
 ## Contributors

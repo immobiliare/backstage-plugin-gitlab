@@ -16,7 +16,7 @@
 
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link, Grid } from '@material-ui/core';
+import { Link, Grid, Typography } from '@material-ui/core';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import Alert from '@material-ui/lab/Alert';
 import {
@@ -92,6 +92,11 @@ const sortFunctions: Record<
  */
 export interface ReleasesCardProps {
     /**
+     * Title - The title of the card shown on ReleaseCard component
+     */
+    title?: string;
+
+    /**
      * Filter
      *
      * all - show all releases (default)
@@ -146,6 +151,7 @@ function makeFilter(
  */
 export const ReleasesCard = (props: ReleasesCardProps) => {
     const {
+        title = 'Releases',
         show = 'all',
         limit = 6,
         sort = 'releasedDate',
@@ -217,8 +223,27 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
     // sort the remaining releases in descending order (latest release first)
     releases = releases.slice(0, limit);
 
+    // if no releases were found, just render an empty widgets with a message
     if (releases.length === 0) {
-        return <></>;
+        return (
+            <InfoCard
+                title={title}
+                deepLink={{
+                    link: `${project_web_url}/-/releases`,
+                    title: 'go to Releases',
+                    onClick: (e) => {
+                        e.preventDefault();
+                        window.open(`${project_web_url}/-/releases`);
+                    },
+                }}
+                variant={props.variant}
+                className={classes.infoCard}
+            >
+                <Typography variant="body2">
+                    No releases have been made
+                </Typography>
+            </InfoCard>
+        );
     }
 
     const handleSortChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -227,7 +252,7 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
 
     return (
         <InfoCard
-            title="Releases"
+            title={title}
             deepLink={{
                 link: `${project_web_url}/-/releases`,
                 title: 'go to Releases',
