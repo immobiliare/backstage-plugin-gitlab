@@ -14,7 +14,7 @@
         "eslint-plugin-prettier": "^4.2.1",
         "husky": "^8.0.1",
         "is-ci": "^3.0.1",
-        "lerna": "^6.0.3",
+        "lerna": "^8.1.2",
         "lint-staged": "^13.0.3",
         "markdown-toc": "^1.2.0",
         "prettier": "^2.7.1",
