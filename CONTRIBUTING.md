@@ -30,7 +30,7 @@ This projects uses [commitlint](https://commitlint.js.org/) with Angular configu
 Contributions should be validated with the command:
 
 ```bash
-codeclimate analyze
+$ codeclimate analyze
 ```
 
 See [codeclimate](https://github.com/codeclimate/codeclimate).
@@ -49,7 +49,7 @@ $ yarn test
 Style and lint errors should be fixed with
 
 ```bash
-yarn style:lint
+$ yarn style:lint
 ```
 
 ## Contributors
