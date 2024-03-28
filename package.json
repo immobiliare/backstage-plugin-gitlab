@@ -26,6 +26,7 @@
     "scripts": {
         "type": "tsc --noEmit",
         "style:lint": "eslint packages --ext .ts",
+        "style:lint-fix": "eslint packages --ext .ts --fix",
         "style:prettier": "prettier \"packages/**/*.ts\" --list-different --write",
         "build": "npx lerna run build",
         "bootstrap": "npx lerna bootstrap",
