@@ -15,7 +15,7 @@ export interface Config {
         proxySecure?: boolean;
 
         /**
-         * Active Oauth
+         * Activate Oauth/OIDC
          * @default "false"
          * @visibility backend
          */

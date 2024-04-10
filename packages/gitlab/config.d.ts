@@ -15,7 +15,7 @@ export interface Config {
         defaultReadmePath?: string;
 
         /**
-         * Active Oauth
+         * Activate Oauth/OIDC
          * @default "false"
          * @visibility frontend
          */
