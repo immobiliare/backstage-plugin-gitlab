@@ -29,6 +29,7 @@ export async function createRouter(
 ): Promise<express.Router> {
     const { logger, config } = options;
     const secure = config.getOptionalBoolean('gitlab.proxySecure');
+    const useOAuth = config.getOptionalBoolean('gitlab.useOAuth');
     const basePath = getBasePath(config) || '';
 
     const gitlabIntegrations: GitLabIntegrationConfig[] =
@@ -49,11 +50,21 @@ export async function createRouter(
     // target, causing a ERR_HTTP_HEADERS_SENT crash
     const filter = (_pathname: string, req: Request): boolean => {
         if (req.headers['authorization']) delete req.headers['authorization'];
+        // Forward authorization, this header is defined when gitlab.useOAuth is true
+        if (req.headers['gitlab-authorization'])
+            req.headers['authorization'] = req.headers[
+                'gitlab-authorization'
+            ] as string;
         return req.method === 'GET';
     };
 
     const graphqlFilter = (_pathname: string, req: Request): boolean => {
         if (req.headers['authorization']) delete req.headers['authorization'];
+        // Forward authorization, this header is defined when gitlab.useOAuth is true
+        if (req.headers['gitlab-authorization'])
+            req.headers['authorization'] = req.headers[
+                'gitlab-authorization'
+            ] as string;
         return req.method === 'POST' && !req.body.query?.includes('mutation');
     };
 
@@ -66,7 +77,8 @@ export async function createRouter(
                 target: apiUrl.origin,
                 changeOrigin: true,
                 headers: {
-                    ...(token ? { 'PRIVATE-TOKEN': token } : {}),
+                    // If useOAuth is true, we don't not add the token
+                    ...(token && !useOAuth ? { 'PRIVATE-TOKEN': token } : {}),
                 },
                 secure,
                 onProxyReq: (proxyReq, req) => {
@@ -96,7 +108,8 @@ export async function createRouter(
                 target: apiUrl.origin,
                 changeOrigin: true,
                 headers: {
-                    ...(token ? { 'PRIVATE-TOKEN': token } : {}),
+                    // If useOAuth is true, we don't not add the token
+                    ...(token && !useOAuth ? { 'PRIVATE-TOKEN': token } : {}),
                 },
                 secure,
                 logProvider: () => logger,

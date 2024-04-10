@@ -10,6 +10,7 @@ import {
     createApiFactory,
     createRouteRef,
     discoveryApiRef,
+    gitlabAuthApiRef,
 } from '@backstage/core-plugin-api';
 import { GitlabCIApiRef, GitlabCIClient } from './api';
 
@@ -26,8 +27,14 @@ export const gitlabPlugin = createPlugin({
                 configApi: configApiRef,
                 discoveryApi: discoveryApiRef,
                 identityApi: identityApiRef,
+                gitlabAuthApi: gitlabAuthApiRef,
             },
-            factory: ({ configApi, discoveryApi, identityApi }) =>
+            factory: ({
+                configApi,
+                discoveryApi,
+                identityApi,
+                gitlabAuthApi,
+            }) =>
                 GitlabCIClient.setupAPI({
                     discoveryApi,
                     identityApi,
@@ -37,6 +44,8 @@ export const gitlabPlugin = createPlugin({
                     readmePath: configApi.getOptionalString(
                         'gitlab.defaultReadmePath'
                     ),
+                    gitlabAuthApi,
+                    useOAuth: configApi.getOptionalBoolean('gitlab.useOAuth'),
                 }),
         }),
     ],

@@ -13,5 +13,12 @@ export interface Config {
          * @visibility backend
          */
         proxySecure?: boolean;
+
+        /**
+         * Active Oauth
+         * @default "false"
+         * @visibility backend
+         */
+        useOAuth?: boolean;
     };
 }
