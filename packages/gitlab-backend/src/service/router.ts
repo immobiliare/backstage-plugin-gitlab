@@ -51,20 +51,24 @@ export async function createRouter(
     const filter = (_pathname: string, req: Request): boolean => {
         if (req.headers['authorization']) delete req.headers['authorization'];
         // Forward authorization, this header is defined when gitlab.useOAuth is true
-        if (req.headers['gitlab-authorization'])
+        if (req.headers['gitlab-authorization']) {
             req.headers['authorization'] = req.headers[
                 'gitlab-authorization'
             ] as string;
+            delete req.headers['gitlab-authorization'];
+        }
         return req.method === 'GET';
     };
 
     const graphqlFilter = (_pathname: string, req: Request): boolean => {
         if (req.headers['authorization']) delete req.headers['authorization'];
         // Forward authorization, this header is defined when gitlab.useOAuth is true
-        if (req.headers['gitlab-authorization'])
+        if (req.headers['gitlab-authorization']) {
             req.headers['authorization'] = req.headers[
                 'gitlab-authorization'
             ] as string;
+            delete req.headers['gitlab-authorization'];
+        }
         return req.method === 'POST' && !req.body.query?.includes('mutation');
     };
 
