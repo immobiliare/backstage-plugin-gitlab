@@ -1,4 +1,8 @@
-import { DiscoveryApi, IdentityApi } from '@backstage/core-plugin-api';
+import {
+    DiscoveryApi,
+    IdentityApi,
+    OAuthApi,
+} from '@backstage/core-plugin-api';
 import { PeopleCardEntityData } from '../components/types';
 import { parseCodeOwners } from '../components/utils';
 import {
@@ -21,9 +25,20 @@ import type {
 } from '@gitbeaker/rest';
 import dayjs from 'dayjs';
 
+export type APIOptions = {
+    discoveryApi: DiscoveryApi;
+    identityApi: IdentityApi;
+    codeOwnersPath?: string;
+    readmePath?: string;
+    gitlabAuthApi: OAuthApi;
+    useOAuth?: boolean;
+};
+
 export class GitlabCIClient implements GitlabCIApi {
     discoveryApi: DiscoveryApi;
     identityApi: IdentityApi;
+    gitlabAuthApi: OAuthApi;
+    useOAth: boolean;
     codeOwnersPath: string;
     gitlabInstance: string;
     readmePath: string;
@@ -33,19 +48,17 @@ export class GitlabCIClient implements GitlabCIApi {
         identityApi,
         codeOwnersPath,
         readmePath,
+        gitlabAuthApi,
         gitlabInstance,
-    }: {
-        discoveryApi: DiscoveryApi;
-        identityApi: IdentityApi;
-        codeOwnersPath?: string;
-        readmePath?: string;
-        gitlabInstance: string;
-    }) {
+        useOAuth,
+    }: APIOptions & { gitlabInstance: string }) {
         this.discoveryApi = discoveryApi;
         this.codeOwnersPath = codeOwnersPath || 'CODEOWNERS';
         this.readmePath = readmePath || 'README.md';
         this.gitlabInstance = gitlabInstance;
         this.identityApi = identityApi;
+        this.gitlabAuthApi = gitlabAuthApi;
+        this.useOAth = useOAuth ?? false;
     }
 
     static setupAPI({
@@ -53,12 +66,9 @@ export class GitlabCIClient implements GitlabCIApi {
         identityApi,
         codeOwnersPath,
         readmePath,
-    }: {
-        discoveryApi: DiscoveryApi;
-        identityApi: IdentityApi;
-        codeOwnersPath?: string;
-        readmePath?: string;
-    }) {
+        gitlabAuthApi,
+        useOAuth,
+    }: APIOptions) {
         return {
             build: (gitlabInstance: string) =>
                 new this({
@@ -67,6 +77,8 @@ export class GitlabCIClient implements GitlabCIApi {
                     codeOwnersPath,
                     readmePath,
                     gitlabInstance,
+                    gitlabAuthApi,
+                    useOAuth,
                 }),
         };
     }
@@ -82,15 +94,24 @@ export class GitlabCIClient implements GitlabCIApi {
         )}/${APIkind}/${this.gitlabInstance}`;
         const token = (await this.identityApi.getCredentials()).token;
 
+        const headers: Record<string, string> = {};
         if (token) {
-            options = {
-                ...options,
-                headers: {
-                    ...options?.headers,
-                    Authorization: `Bearer ${token}`,
-                },
-            };
+            headers.Authorization = `Bearer ${token}`;
         }
+        if (this.useOAth) {
+            const oauthToken = await this.gitlabAuthApi.getAccessToken([
+                'read_api',
+            ]);
+            headers['gitlab-authorization'] = `Bearer ${oauthToken}`;
+        }
+
+        options = {
+            ...options,
+            headers: {
+                ...options?.headers,
+                ...headers,
+            },
+        };
 
         const response = await fetch(
             `${apiUrl}${path ? `/${path}` : ''}?${new URLSearchParams(

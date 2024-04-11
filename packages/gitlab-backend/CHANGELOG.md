@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.5.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.4.1-alpha.0...v6.5.0-alpha.0) (2024-04-11)
+
+### Features
+
+-   added oauth authorization ([db52779](https://github.com/immobiliare/backstage-plugin-gitlab/commit/db52779ad4e3ada17718a61792f25fca7298aa3d))
+
 ## [6.4.1-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.4.0...v6.4.1-alpha.0) (2024-02-08)
 
 **Note:** Version bump only for package @immobiliarelabs/backstage-plugin-gitlab-backend
