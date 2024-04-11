@@ -13,5 +13,12 @@ export interface Config {
          * @visibility frontend
          */
         defaultReadmePath?: string;
+
+        /**
+         * Activate Oauth/OIDC
+         * @default "false"
+         * @visibility frontend
+         */
+        useOAuth?: boolean;
     };
 }

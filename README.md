@@ -19,6 +19,7 @@
 -   [Setup](#setup)
     -   [Setup Frontend Plugin](#setup-frontend-plugin)
     -   [Setup Backend Plugin](#setup-backend-plugin)
+    -   [Extra OIDC/OAuth](#extra-oidcoauth)
     -   [Register To The New Backend System](#register-to-the-new-backend-system)
 -   [Annotations](#annotations)
     -   [Code owners file](#code-owners-file)
@@ -243,7 +244,22 @@ gitlab:
     # This parameter controls SSL Certs verification
     # Default: true
     proxySecure: false
+    # Activate Oauth/OIDC
+    # Default: false
+    useOAuth: false
 ```
+
+### Extra OIDC/OAuth
+
+By default, this plugin utilizes the token specified in the configuration file `app-config.yaml` under the key: `integrations.gitlab[i].token`. However, you can opt out of using this token by activating OIDC as shown below:
+
+```yaml
+gitlab:
+    useOAuth: true
+```
+
+**Note:**: To use OIDC you have to configure the `@backstage/plugin-auth-backend-module-gitlab-provider` plugin.
+**Note:**: OIDC does not allow multi GitLab instances!
 
 ### Register To The New Backend System
 
