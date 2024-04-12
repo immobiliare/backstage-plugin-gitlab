@@ -10,6 +10,7 @@ import { Logger } from 'winston';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { Request } from 'http-proxy-middleware/dist/types';
 import bodyParser from 'body-parser';
+import { IncomingHttpHeaders } from 'http';
 
 function getBasePath(config: Config) {
     const baseUrl = config.getOptionalString('backend.baseUrl');
@@ -17,6 +18,16 @@ function getBasePath(config: Config) {
         return undefined;
     }
     return new URL(baseUrl).pathname.replace(/\/$/, '');
+}
+
+function headersManipulation(headers: IncomingHttpHeaders) {
+    // Remove Backstage authorization before forwarding to GitLab
+    if (headers['authorization']) delete headers['authorization'];
+    // Forward authorization, this header is defined when gitlab.useOAuth is true
+    if (headers['gitlab-authorization']) {
+        headers['authorization'] = headers['gitlab-authorization'] as string;
+        delete headers['gitlab-authorization'];
+    }
 }
 
 export interface RouterOptions {
@@ -49,26 +60,12 @@ export async function createRouter(
     // fires _after_ the agent has already sent the headers to the proxy
     // target, causing a ERR_HTTP_HEADERS_SENT crash
     const filter = (_pathname: string, req: Request): boolean => {
-        if (req.headers['authorization']) delete req.headers['authorization'];
-        // Forward authorization, this header is defined when gitlab.useOAuth is true
-        if (req.headers['gitlab-authorization']) {
-            req.headers['authorization'] = req.headers[
-                'gitlab-authorization'
-            ] as string;
-            delete req.headers['gitlab-authorization'];
-        }
+        headersManipulation(req.headers);
         return req.method === 'GET';
     };
 
     const graphqlFilter = (_pathname: string, req: Request): boolean => {
-        if (req.headers['authorization']) delete req.headers['authorization'];
-        // Forward authorization, this header is defined when gitlab.useOAuth is true
-        if (req.headers['gitlab-authorization']) {
-            req.headers['authorization'] = req.headers[
-                'gitlab-authorization'
-            ] as string;
-            delete req.headers['gitlab-authorization'];
-        }
+        headersManipulation(req.headers);
         return req.method === 'POST' && !req.body.query?.includes('mutation');
     };
 
