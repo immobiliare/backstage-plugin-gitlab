@@ -2614,14 +2614,14 @@ __metadata:
   linkType: hard
 
 "@backstage/catalog-model@npm:^1.4.0, @backstage/catalog-model@npm:^1.4.2, @backstage/catalog-model@npm:^1.4.3":
-  version: 1.4.3
-  resolution: "@backstage/catalog-model@npm:1.4.3"
+  version: 1.4.5
+  resolution: "@backstage/catalog-model@npm:1.4.5"
   dependencies:
-    "@backstage/errors": ^1.2.3
+    "@backstage/errors": ^1.2.4
     "@backstage/types": ^1.1.1
     ajv: ^8.10.0
     lodash: ^4.17.21
-  checksum: 56a844d0c78adf62cefc09cf50f5aa221cdcf085e3558512758df9b1ea4ac088c7dbdf8274467a841170177d6cdd83d299ac412ccce5177c907fd6d6e2b2011c
+  checksum: 34aaa4b82d29bf3b0a4b52552f8eb8189041df826f87a7bbdef5107a1efb8ce1f7eb1c1a343868718ca2af9be76d9f5184f6a92076d893d3a3951d16881647b7
   languageName: node
   linkType: hard
 
@@ -3121,6 +3121,16 @@ __metadata:
     "@backstage/types": ^1.1.1
     serialize-error: ^8.0.1
   checksum: 00e367ed9c47404d391d3c4125f5e279fe99393734f86ec0b0102cbea2573c9e9a4a58ca6a09c159b4b543bb3adabe81554a5af6d4d12ee7f45c92ed404705d9
+  languageName: node
+  linkType: hard
+
+"@backstage/errors@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "@backstage/errors@npm:1.2.4"
+  dependencies:
+    "@backstage/types": ^1.1.1
+    serialize-error: ^8.0.1
+  checksum: ed988b2d3594a2fe989dd45fe197154e522194e30602552224e4a2bf6ed895c671e7f832d5c01b8e24881484698ccf3abaf2930dba5374bccfdaa283f4850fb9
   languageName: node
   linkType: hard
 
