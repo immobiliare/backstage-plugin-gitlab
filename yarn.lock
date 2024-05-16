@@ -3753,20 +3753,20 @@ __metadata:
   linkType: hard
 
 "@backstage/core-plugin-api@npm:^1.8.0":
-  version: 1.8.0
-  resolution: "@backstage/core-plugin-api@npm:1.8.0"
+  version: 1.9.2
+  resolution: "@backstage/core-plugin-api@npm:1.9.2"
   dependencies:
-    "@backstage/config": ^1.1.1
+    "@backstage/config": ^1.2.0
+    "@backstage/errors": ^1.2.4
     "@backstage/types": ^1.1.1
-    "@backstage/version-bridge": ^1.0.7
-    "@types/react": ^16.13.1 || ^17.0.0
+    "@backstage/version-bridge": ^1.0.8
+    "@types/react": ^16.13.1 || ^17.0.0 || ^18.0.0
     history: ^5.0.0
-    i18next: ^22.4.15
   peerDependencies:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 1f78c4737c0e30682a3169d967943698cb95b3dccea1e60bd72e82dd14847192f5180db658b8d0b6811d6fb13830085ca3ecc6ea0be58771d0b517f877c97bbb
+  checksum: 2df505c14853b3b35b8644d66f3e58d235bc6ee7f7b81785ec163aa9f089fc03a6c03e3b191d001b247f19d97063e02e585d67661720a8b6a13ab67a2403c218
   languageName: node
   linkType: hard
 
@@ -4262,6 +4262,19 @@ __metadata:
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
   checksum: 806170c331e18469d0e2b0e3af76dd27d51f538f5f90b2122d90a461ad751098f6542bee45984696bcf98c398502cdb53b5727979be50b59a0309894581f5a5d
+  languageName: node
+  linkType: hard
+
+"@backstage/version-bridge@npm:^1.0.8":
+  version: 1.0.8
+  resolution: "@backstage/version-bridge@npm:1.0.8"
+  dependencies:
+    "@types/react": ^16.13.1 || ^17.0.0
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-router-dom: 6.0.0-beta.0 || ^6.3.0
+  checksum: bf74cd70af7c23558d26637a90ed1ffe52449396a9759cbbb0f87f3517c6a2a760140c2723c8aabeb2e94b436e02110e78763e262293a88b37e15e622753f23a
   languageName: node
   linkType: hard
 
@@ -10087,6 +10100,16 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: c72dbebdced882fa39de867b0179ed91259331172458d69250ff30fdb3c61e3d1f3373dacca3771c3de4b19162fd65758179252b17961729213496a016b918d7
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^16.13.1 || ^17.0.0 || ^18.0.0":
+  version: 18.3.2
+  resolution: "@types/react@npm:18.3.2"
+  dependencies:
+    "@types/prop-types": "*"
+    csstype: ^3.0.2
+  checksum: d0b8b9d0ede6cd28dbbe34106d914b5e3652d9d7aa9d0f32fe6171506b6fc7c826d9d6571642976a5422bd29c5022fd893a710ed59a1177a0c1df8e02cf17ffe
   languageName: node
   linkType: hard
 
