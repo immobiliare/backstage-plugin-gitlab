@@ -4230,8 +4230,8 @@ __metadata:
   linkType: hard
 
 "@backstage/theme@npm:^0.5.2":
-  version: 0.5.2
-  resolution: "@backstage/theme@npm:0.5.2"
+  version: 0.5.4
+  resolution: "@backstage/theme@npm:0.5.4"
   dependencies:
     "@emotion/react": ^11.10.5
     "@emotion/styled": ^11.10.5
@@ -4241,7 +4241,7 @@ __metadata:
     "@types/react": ^16.13.1 || ^17.0.0 || ^18.0.0
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
-  checksum: ac99c00b9d4288e6948d09f6c30cc47fe4a143206f113ce3299b63485f887316142dfc043bc7ca731870b9ea3be5286721500851b77bc466b080eb203dcb700d
+  checksum: cc7424008970ffd1668f6288ae49e78b750ce164ba0ab5afb4e6b6a54e3bdaea6161ebf81a2f00deffa45d94a9601a09b63287d34771399fce16638f42b9f7b9
   languageName: node
   linkType: hard
 
