@@ -14,19 +14,19 @@
 
 <!-- toc -->
 
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Setup](#setup)
-  * [Setup Frontend Plugin](#setup-frontend-plugin)
-  * [Setup Backend Plugin](#setup-backend-plugin)
-  * [Extra OIDC/OAuth](#extra-oidcoauth)
-  * [Register To The New Backend System](#register-to-the-new-backend-system)
-- [Annotations](#annotations)
-  * [Code owners file](#code-owners-file)
-- [Old/New GitLab Versions](#oldnew-gitlab-versions)
-- [Migration guides](#migration-guides)
-- [Support & Contribute](#support--contribute)
-- [License](#license)
+-   [Features](#features)
+-   [Screenshots](#screenshots)
+-   [Setup](#setup)
+    -   [Setup Frontend Plugin](#setup-frontend-plugin)
+    -   [Setup Backend Plugin](#setup-backend-plugin)
+    -   [Extra OIDC/OAuth](#extra-oidcoauth)
+    -   [Register To The New Backend System](#register-to-the-new-backend-system)
+-   [Annotations](#annotations)
+    -   [Code owners file](#code-owners-file)
+-   [Old/New GitLab Versions](#oldnew-gitlab-versions)
+-   [Migration guides](#migration-guides)
+-   [Support & Contribute](#support--contribute)
+-   [License](#license)
 
 <!-- tocstop -->
 

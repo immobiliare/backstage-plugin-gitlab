@@ -4,7 +4,10 @@ import {
     OAuthApi,
 } from '@backstage/core-plugin-api';
 import { PeopleCardEntityData } from '../components/types';
-import { parseCodeOwners } from '../components/utils';
+import {
+    convertWildcardFilterArrayToFilterFunction,
+    parseCodeOwners,
+} from '../components/utils';
 import {
     ContributorsSummary,
     GitlabCIApi,
@@ -165,11 +168,14 @@ export class GitlabCIClient implements GitlabCIApi {
 
         const relevantPipelineObjects = refList
             ? pipelineObjects?.filter((pipeline) =>
-                  refList.includes(pipeline.ref)
+                  convertWildcardFilterArrayToFilterFunction(
+                      pipeline.ref,
+                      refList
+                  )
               )
             : pipelineObjects;
 
-        return relevantPipelineObjects || undefined;
+        return relevantPipelineObjects ?? undefined;
     }
 
     async getIssuesSummary(

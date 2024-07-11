@@ -11,11 +11,7 @@ import {
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { createStatusColumn, createWebURLColumn } from './columns';
-import {
-    convertWildcardFilterArrayToFilterFunction,
-    getDuration,
-    getElapsedTime,
-} from '../../utils';
+import { getDuration, getElapsedTime } from '../../utils';
 import type { PipelineSchema } from '@gitbeaker/rest';
 
 export type PipelineDenseTableProps = {
@@ -82,20 +78,14 @@ export const PipelinesTable = ({}) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        const summary = await GitlabCIAPI.getPipelineSummary(projectDetails.id);
+        const summary = await GitlabCIAPI.getPipelineSummary(
+            projectDetails.id,
+            gitlab_relevant_refs
+        );
 
         if (!summary) throw new Error('Merge request summary is undefined!');
 
-        const relevantPipelines = gitlab_relevant_refs
-            ? summary.filter(({ ref }) =>
-                  convertWildcardFilterArrayToFilterFunction(
-                      ref,
-                      gitlab_relevant_refs
-                  )
-              )
-            : summary;
-
-        return { summary: relevantPipelines, projectName: projectDetails.name };
+        return { summary, projectName: projectDetails.name };
     }, []);
 
     if (loading) {
