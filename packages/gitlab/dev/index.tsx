@@ -67,6 +67,8 @@ createDevApp()
                             'gitlab.com/project-id': `${projectId}`,
                             'gitlab.com/codeowners-path': `CODEOWNERS`,
                             'gitlab.com/readme-path': `README.md`,
+                            'gitlab.com/pipeline-refs':
+                                'master,refs/merge-requests/3678/*',
                         },
                         name: 'backstage',
                     },

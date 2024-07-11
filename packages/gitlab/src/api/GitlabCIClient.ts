@@ -146,7 +146,8 @@ export class GitlabCIClient implements GitlabCIApi {
     }
 
     async getPipelineSummary(
-        projectID?: string | number
+        projectID?: string | number,
+        refList?: string[]
     ): Promise<PipelineSchema[] | undefined> {
         const [pipelineObjects, projectObj] = await Promise.all([
             this.callApi<PipelineSchema[]>(
@@ -155,12 +156,20 @@ export class GitlabCIClient implements GitlabCIApi {
             ),
             this.callApi<Record<string, string>>('projects/' + projectID, {}),
         ]);
+
         if (pipelineObjects && projectObj) {
             pipelineObjects.forEach((element) => {
                 element.project_name = projectObj.name;
             });
         }
-        return pipelineObjects || undefined;
+
+        const relevantPipelineObjects = refList
+            ? pipelineObjects?.filter((pipeline) =>
+                  refList.includes(pipeline.ref)
+              )
+            : pipelineObjects;
+
+        return relevantPipelineObjects || undefined;
     }
 
     async getIssuesSummary(

@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Table, TableColumn, Progress } from '@backstage/core-components';
 import Alert from '@material-ui/lab/Alert';
 import { useAsync } from 'react-use';
 import {
     gitlabInstance,
+    gitlabPipelineRelevantRefs,
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { createStatusColumn, createWebURLColumn } from './columns';
-import { getDuration, getElapsedTime } from '../../utils';
+import {
+    convertWildcardFilterArrayToFilterFunction,
+    getDuration,
+    getElapsedTime,
+} from '../../utils';
 import type { PipelineSchema } from '@gitbeaker/rest';
 
 export type PipelineDenseTableProps = {
@@ -32,19 +37,23 @@ export const PipelineDenseTable = ({
     ];
     const title = 'Gitlab Pipelines: ' + projectName;
 
-    const data = summary.map((pipelineObject) => {
-        return {
-            id: pipelineObject.id,
-            status: pipelineObject.status,
-            ref: pipelineObject.ref,
-            web_url: pipelineObject.web_url,
-            created_date: getElapsedTime(pipelineObject.created_at),
-            duration: getDuration(
-                pipelineObject.created_at,
-                pipelineObject.updated_at
-            ),
-        };
-    });
+    const data = useMemo(
+        () =>
+            summary.map((pipelineObject) => {
+                return {
+                    id: pipelineObject.id,
+                    status: pipelineObject.status,
+                    ref: pipelineObject.ref,
+                    web_url: pipelineObject.web_url,
+                    created_date: getElapsedTime(pipelineObject.created_at),
+                    duration: getDuration(
+                        pipelineObject.created_at,
+                        pipelineObject.updated_at
+                    ),
+                };
+            }),
+        [summary]
+    );
 
     return (
         <Table
@@ -60,6 +69,7 @@ export const PipelinesTable = ({}) => {
     const project_id = gitlabProjectId();
     const project_slug = gitlabProjectSlug();
     const gitlab_instance = gitlabInstance();
+    const gitlab_relevant_refs = gitlabPipelineRelevantRefs();
 
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(
         gitlab_instance || 'gitlab.com'
@@ -75,7 +85,17 @@ export const PipelinesTable = ({}) => {
         const summary = await GitlabCIAPI.getPipelineSummary(projectDetails.id);
 
         if (!summary) throw new Error('Merge request summary is undefined!');
-        return { summary, projectName: projectDetails.name };
+
+        const relevantPipelines = gitlab_relevant_refs
+            ? summary.filter(({ ref }) =>
+                  convertWildcardFilterArrayToFilterFunction(
+                      ref,
+                      gitlab_relevant_refs
+                  )
+              )
+            : summary;
+
+        return { summary: relevantPipelines, projectName: projectDetails.name };
     }, []);
 
     if (loading) {
