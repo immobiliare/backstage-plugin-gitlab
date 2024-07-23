@@ -18,6 +18,7 @@ import {
 } from '../../gitlabAppData';
 import gfm from 'remark-gfm';
 import toc from 'remark-toc';
+// @ts-ignore
 import removeComments from 'remark-remove-comments';
 
 import gemoji from 'remark-gemoji';

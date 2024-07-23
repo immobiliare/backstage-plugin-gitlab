@@ -1,5 +1,9 @@
 {
+    "exclude": ["node_modules"],
+    "include": ["packages/*/src", "packages/*/dev"],
     "compilerOptions": {
+        "outDir": "dist-types",
+        "rootDir": ".",
         "allowJs": true,
         "declaration": true,
         "declarationMap": false,
