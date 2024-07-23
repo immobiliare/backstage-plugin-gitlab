@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.6.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.5.1...v6.6.0-alpha.0) (2024-07-23)
+
+### Features
+
+-   bump dependencies to 1.29.1 ([d481b34](https://github.com/immobiliare/backstage-plugin-gitlab/commit/d481b344bdd06c0ca6b9dff02931883a6c1a2466))
+-   **readme:** ✨ adds partial support for GLFM ([bfce13b](https://github.com/immobiliare/backstage-plugin-gitlab/commit/bfce13b0eed2b4a42a1b68d62906074f71628d92))
+
 ## [6.5.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.5.1-alpha.0...v6.5.1) (2024-05-16)
 
 **Note:** Version bump only for package @immobiliarelabs/backstage-plugin-gitlab
