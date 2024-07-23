@@ -5,6 +5,7 @@
         "packages/*"
     ],
     "devDependencies": {
+        "@backstage/cli": "^0.26.11",
         "@commitlint/cli": "^17.1.2",
         "@commitlint/config-conventional": "^17.1.0",
         "@typescript-eslint/eslint-plugin": "^5.36.0",
@@ -14,7 +15,7 @@
         "eslint-plugin-prettier": "^4.2.1",
         "husky": "^8.0.1",
         "is-ci": "^3.0.1",
-        "lerna": "^6.0.3",
+        "lerna": "^8.1.7",
         "lint-staged": "^13.0.3",
         "markdown-toc": "^1.2.0",
         "prettier": "^2.7.1",
@@ -23,12 +24,15 @@
     "engines": {
         "node": ">=18.0.0"
     },
+    "volta": {
+        "node": "20.15.1"
+    },
     "scripts": {
         "type": "tsc --noEmit",
         "style:lint": "eslint packages --ext .ts",
         "style:lint-fix": "eslint packages --ext .ts --fix",
         "style:prettier": "prettier \"packages/**/*.ts\" --list-different --write",
-        "build": "npx lerna run build",
+        "build": "tsc && backstage-cli repo build --all",
         "bootstrap": "npx lerna bootstrap",
         "publish:ci": "lerna publish from-package --yes --pre-dist-tag alpha",
         "test": "lerna run test:ci",
@@ -38,5 +42,5 @@
         "postinstall": "node prepare.js || echo 'Skipping prepare'",
         "prepare": "node prepare.js || echo 'Skipping prepare'"
     },
-    "packageManager": "yarn@3.5.1"
+    "packageManager": "yarn@4.3.1"
 }
