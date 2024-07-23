@@ -14,7 +14,7 @@ jobs:
 
             - uses: actions/setup-node@v3
               with:
-                  node-version: 18
+                  node-version: 20
                   # setting this should create the npmrc with $NODE_AUTH_TOKEN
                   registry-url: 'https://registry.npmjs.org'
 
@@ -27,7 +27,7 @@ jobs:
             - name: Bootstrap lerna
               run: yarn
 
-            - name: Lerna build
+            - name: Build packages
               run: yarn build
 
             - name: Bump release
