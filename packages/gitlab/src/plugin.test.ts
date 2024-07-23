@@ -1,5 +1,5 @@
 import { gitlabPlugin } from './plugin';
-import { parseCodeOwners } from './components/utils';
+import { parseCodeOwners, parseGitLabReadme } from './components/utils';
 
 const CODEOWNERS = `
 # Lines starting with '#' are comments.
@@ -19,6 +19,12 @@ const CODEOWNERS = `
 
 const CODEOWNERS2 = `# Specify a default Code Owner by using a wildcard:
 * @amusolino`;
+
+const README = `## TOC
+[TOC]
+[[_TOC_]]
+## Heading 1
+ [[_TOC_]] `;
 
 describe('gitlabPlugin', () => {
     it('should export plugin', () => {
@@ -48,5 +54,17 @@ describe('gitlabPlugin', () => {
                 rule: '* @amusolino',
             },
         ]);
+    });
+
+    it('parseGitLabReadme converts GLFM TOC into a header', async () => {
+        expect(parseGitLabReadme(README)).toEqual(
+            [
+                `## TOC`,
+                `## <!-- injected_toc -->`,
+                `## <!-- injected_toc -->`,
+                `## Heading 1`,
+                `## <!-- injected_toc -->`,
+            ].join('\n')
+        );
     });
 });

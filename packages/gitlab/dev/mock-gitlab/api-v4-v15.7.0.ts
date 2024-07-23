@@ -6429,7 +6429,9 @@ rust-toolchain @xMAC94x
 [![lines of code](https://tokei.rs/b1/gitlab/veloren/veloren)](https://tokei.rs/b1/gitlab/veloren/veloren)
 [![contributor count](https://img.shields.io/github/contributors/veloren/veloren)](https://gitlab.com/veloren/veloren/-/graphs/master)
 
-## Welcome to Veloren!
+[TOC]
+
+## Welcome to Veloren! :smile:
 
 Veloren is a multiplayer voxel RPG written in Rust. It is inspired by games such as Cube World, The Legend of Zelda: Breath of the Wild, Dwarf Fortress and Minecraft. The game is in active development and enjoys a flourishing player community.
 
