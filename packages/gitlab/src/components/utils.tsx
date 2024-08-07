@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
 import { FileOwnership } from './types';
+import { ProjectSchema } from '@gitbeaker/rest';
 dayjs.extend(relativeTime);
 dayjs.extend(duration);
 
@@ -123,6 +124,37 @@ export const parseGitLabReadme = (readme: string): string => {
         if (/^\[TOC\]|\[\[_TOC_\]\]$/.test(line.trim())) {
             return `## <!-- injected_toc -->`; // remark-toc turns this into a TOC but keeps the heading, then remark-remove-comments makes the heading invisible
         }
+        return line;
+    });
+
+    return modifiedLines.join('\n');
+};
+
+export const resolveReadmeRelativelinks = (
+    readme: string,
+    projectDetails: ProjectSchema
+) => {
+    const { web_url, default_branch } = projectDetails;
+
+    const lines = readme.split('\n');
+
+    const modifiedLines = lines.map((line) => {
+        const markdownLinkMatch = /\[([^\[\]]*)\]\((.*?)\)/g.exec(line);
+        if (markdownLinkMatch && markdownLinkMatch.length === 3) {
+            const [, , linkHref] = markdownLinkMatch;
+
+            const onlyRelativeMatch = /^((?!^[^\/]+:).)*$/.exec(linkHref); // Only match strings without protocols
+
+            if (!onlyRelativeMatch) {
+                return line;
+            }
+
+            const cleanedLink = linkHref.replace(/^\.?\/?/, ''); // Remove any leading ./ or / as they are not needed
+            const resolvedLink = `${web_url}/-/blob/${default_branch}/${cleanedLink}`;
+
+            return line.replaceAll(linkHref, resolvedLink);
+        }
+
         return line;
     });
 
