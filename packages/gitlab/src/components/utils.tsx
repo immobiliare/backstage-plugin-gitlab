@@ -125,3 +125,17 @@ export const convertWildcardFilterArrayToFilterFunction = (
 
     return regex.test(input);
 };
+
+// Remark does not fully support GLFM, but remark-toc can generate a TOC, but it requires a # heading, whereas GLFM does not.
+export const parseGitLabReadme = (readme: string): string => {
+    const lines = readme.split('\n');
+
+    const modifiedLines = lines.map((line) => {
+        if (/^\[TOC\]|\[\[_TOC_\]\]$/.test(line.trim())) {
+            return `## <!-- injected_toc -->`; // remark-toc turns this into a TOC but keeps the heading, then remark-remove-comments makes the heading invisible
+        }
+        return line;
+    });
+
+    return modifiedLines.join('\n');
+};

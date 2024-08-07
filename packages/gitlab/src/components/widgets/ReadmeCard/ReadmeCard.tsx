@@ -1,10 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import ReactMarkdown from 'react-markdown';
 import Alert from '@material-ui/lab/Alert';
 import {
     InfoCard,
     Progress,
-    MarkdownContent,
     InfoCardVariants,
 } from '@backstage/core-components';
 import { GitlabCIApiRef } from '../../../api';
@@ -16,6 +16,13 @@ import {
     gitlabReadmePath,
     gitlabInstance,
 } from '../../gitlabAppData';
+import gfm from 'remark-gfm';
+import toc from 'remark-toc';
+// @ts-ignore
+import removeComments from 'remark-remove-comments';
+
+import gemoji from 'remark-gemoji';
+import { parseGitLabReadme } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -24,10 +31,47 @@ const useStyles = makeStyles((theme) => ({
             marginTop: theme.spacing(3),
         },
     },
+    // https://github.com/backstage/backstage/blob/master/packages/core-components/src/components/MarkdownContent/MarkdownContent.tsx#L28
+    markdown: {
+        '& table': {
+            borderCollapse: 'collapse',
+            border: `1px solid ${theme.palette.border}`,
+        },
+        '& th, & td': {
+            border: `1px solid ${theme.palette.border}`,
+            padding: theme.spacing(1),
+        },
+        '& td': {
+            wordBreak: 'break-word',
+            overflow: 'hidden',
+            verticalAlign: 'middle',
+            lineHeight: '1',
+            margin: 0,
+            padding: theme.spacing(3, 2, 3, 2.5),
+            borderBottom: 0,
+        },
+        '& th': {
+            backgroundColor: theme.palette.background.paper,
+        },
+        '& tr': {
+            backgroundColor: theme.palette.background.paper,
+        },
+        '& tr:nth-child(odd)': {
+            backgroundColor: theme.palette.background.default,
+        },
+
+        '& a': {
+            color: theme.palette.link,
+        },
+        '& img': {
+            maxWidth: '100%',
+        },
+    },
 }));
 
 type Props = {
     variant?: InfoCardVariants;
+    markdownClasses?: string;
 };
 
 export const ReadmeCard = (props: Props) => {
@@ -61,8 +105,9 @@ export const ReadmeCard = (props: Props) => {
         } catch (error) {
             readmeData = undefined;
         }
+
         return {
-            readme: readmeData,
+            readme: readmeData ? parseGitLabReadme(readmeData) : undefined,
         };
     }, []);
 
@@ -82,9 +127,17 @@ export const ReadmeCard = (props: Props) => {
             className={classes.infoCard}
             variant={props.variant}
         >
-            <MarkdownContent
-                content={value?.readme || 'No README found'}
-                dialect="gfm"
+            <ReactMarkdown
+                className={`${classes.markdown} ${
+                    props.markdownClasses ?? ''
+                }`.trim()}
+                remarkPlugins={[
+                    gfm,
+                    gemoji,
+                    [toc, { heading: '<!-- injected_toc -->' }], // tells remark-toc to look for toc injected by parseGitLabReadme
+                    removeComments, // removes HTML comments, including the one we injected
+                ]}
+                children={value?.readme ?? 'No README found'}
             />
         </InfoCard>
     );

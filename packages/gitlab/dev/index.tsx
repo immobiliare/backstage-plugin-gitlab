@@ -1,11 +1,28 @@
 import React from 'react';
 import { createDevApp } from '@backstage/dev-utils';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
-import { gitlabPlugin, EntityGitlabContent } from '../src/plugin';
+import {
+    gitlabPlugin,
+    EntityGitlabContent,
+    EntityGitlabReadmeCard,
+} from '../src/plugin';
 import { GitlabCIApiRef, GitlabCIClient } from '../src/api';
 import { mockedGitlabReqToRes, projectId } from './mock-gitlab/api-v4-v15.7.0';
 import { configApiRef, discoveryApiRef } from '@backstage/core-plugin-api';
 import { GraphQLQuery } from '../src/api/GitlabCIApi';
+
+const devEntity = {
+    metadata: {
+        annotations: {
+            'gitlab.com/project-id': `${projectId}`,
+            'gitlab.com/codeowners-path': `CODEOWNERS`,
+            'gitlab.com/readme-path': `README.md`,
+        },
+        name: 'backstage',
+    },
+    apiVersion: 'backstage.io/v1alpha1',
+    kind: 'Component',
+};
 
 createDevApp()
     .registerPlugin(gitlabPlugin)
@@ -60,27 +77,19 @@ createDevApp()
     })
     .addPage({
         element: (
-            <EntityProvider
-                entity={{
-                    metadata: {
-                        annotations: {
-                            'gitlab.com/project-id': `${projectId}`,
-                            'gitlab.com/codeowners-path': `CODEOWNERS`,
-                            'gitlab.com/readme-path': `README.md`,
-                            'gitlab.com/pipeline-refs':
-                                'master,refs/merge-requests/3678/*',
-                        },
-                        name: 'backstage',
-                    },
-                    apiVersion: 'backstage.io/v1alpha1',
-                    kind: 'Component',
-                }}
-            >
-                {' '}
+            <EntityProvider entity={devEntity}>
                 <EntityGitlabContent />
             </EntityProvider>
         ),
         title: 'Root Page',
         path: '/backstage-plugin-gitlab',
+    })
+    .addPage({
+        element: (
+            <EntityProvider entity={devEntity}>
+                <EntityGitlabReadmeCard />
+            </EntityProvider>
+        ),
+        title: 'Readme Card',
     })
     .render();

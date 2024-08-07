@@ -40,7 +40,7 @@
 -   View Contributors for a project
 -   View Languages used for a project
 -   View Pipeline status for a project
--   View README for a project
+-   View README for a project (with partial support for GLFM)
 -   Works for both project and personal tokens
 -   Pagination for builds
 -   Pagination for Merge Requests
