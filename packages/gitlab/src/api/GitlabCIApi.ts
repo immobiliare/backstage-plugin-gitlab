@@ -43,7 +43,8 @@ export type GitlabProjectCoverageResponse = {
 
 export type GitlabCIApi = {
     getPipelineSummary(
-        projectID: string | number
+        projectID: string | number,
+        refList?: string[]
     ): Promise<PipelineSchema[] | undefined>;
     getContributorsSummary(
         projectID: string | number

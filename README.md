@@ -301,6 +301,7 @@ metadata:
         gitlab.com/project-slug: 'project-slug' # group_name/project_name
         # or
         gitlab.com/instance: gitlab.internal.abcd # abcd, represents local instance used
+        gitlab.com/pipeline-refs: 'main,develop,feature/*,refs/merge-requests/1234/merge' # Optional comma seperated lists of branches/refs to show in pipeline table, default is all, accepts wildcard "*".
 spec:
     type: service
     # ...

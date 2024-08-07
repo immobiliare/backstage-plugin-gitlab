@@ -28,6 +28,7 @@ export const GITLAB_ANNOTATION_PROJECT_SLUG = 'gitlab.com/project-slug';
 export const GITLAB_ANNOTATION_INSTANCE = 'gitlab.com/instance';
 export const GITLAB_ANNOTATION_CODEOWNERS_PATH = 'gitlab.com/codeowners-path';
 export const GITLAB_ANNOTATION_README_PATH = 'gitlab.com/readme-path';
+export const GITLAB_ANNOTATION_PIPELINE_REFS = 'gitlab.com/pipeline-refs';
 const defaultGitlabIntegration = {
     hostname: 'gitlab.com',
     baseUrl: 'https://gitlab.com/api/v4',
@@ -101,4 +102,16 @@ export const gitlabReadmePath = () => {
         entity.metadata.annotations?.[GITLAB_ANNOTATION_README_PATH] ?? '';
 
     return readme_path;
+};
+
+export const gitlabPipelineRelevantRefs = () => {
+    const { entity } = useEntity();
+
+    const relevant_refs =
+        entity.metadata.annotations?.[GITLAB_ANNOTATION_PIPELINE_REFS];
+
+    // I'd prefer to return an array here, but annotations being strings is a requrement of the backstage entity model
+    return relevant_refs
+        ? relevant_refs.split(',').map((ref) => ref.trim())
+        : undefined;
 };

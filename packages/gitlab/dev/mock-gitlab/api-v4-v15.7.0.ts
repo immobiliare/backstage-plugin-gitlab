@@ -1756,7 +1756,7 @@ export const mockedGitlabReqToRes: Record<string, any> = {
             approvals_before_merge: null,
         },
     ],
-    'projects/10174980/pipelines?': [
+    'projects/10174980/pipelines?page=1&per_page=100': [
         {
             id: 721712493,
             iid: 21249,

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Table, TableColumn, Progress } from '@backstage/core-components';
 import Alert from '@material-ui/lab/Alert';
 import { useAsync } from 'react-use';
 import {
     gitlabInstance,
+    gitlabPipelineRelevantRefs,
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
@@ -32,19 +33,23 @@ export const PipelineDenseTable = ({
     ];
     const title = 'Gitlab Pipelines: ' + projectName;
 
-    const data = summary.map((pipelineObject) => {
-        return {
-            id: pipelineObject.id,
-            status: pipelineObject.status,
-            ref: pipelineObject.ref,
-            web_url: pipelineObject.web_url,
-            created_date: getElapsedTime(pipelineObject.created_at),
-            duration: getDuration(
-                pipelineObject.created_at,
-                pipelineObject.updated_at
-            ),
-        };
-    });
+    const data = useMemo(
+        () =>
+            summary.map((pipelineObject) => {
+                return {
+                    id: pipelineObject.id,
+                    status: pipelineObject.status,
+                    ref: pipelineObject.ref,
+                    web_url: pipelineObject.web_url,
+                    created_date: getElapsedTime(pipelineObject.created_at),
+                    duration: getDuration(
+                        pipelineObject.created_at,
+                        pipelineObject.updated_at
+                    ),
+                };
+            }),
+        [summary]
+    );
 
     return (
         <Table
@@ -60,6 +65,7 @@ export const PipelinesTable = ({}) => {
     const project_id = gitlabProjectId();
     const project_slug = gitlabProjectSlug();
     const gitlab_instance = gitlabInstance();
+    const gitlab_relevant_refs = gitlabPipelineRelevantRefs();
 
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(
         gitlab_instance || 'gitlab.com'
@@ -72,9 +78,13 @@ export const PipelinesTable = ({}) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        const summary = await GitlabCIAPI.getPipelineSummary(projectDetails.id);
+        const summary = await GitlabCIAPI.getPipelineSummary(
+            projectDetails.id,
+            gitlab_relevant_refs
+        );
 
         if (!summary) throw new Error('Merge request summary is undefined!');
+
         return { summary, projectName: projectDetails.name };
     }, []);
 

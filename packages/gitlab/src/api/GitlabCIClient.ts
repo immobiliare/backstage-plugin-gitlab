@@ -4,7 +4,10 @@ import {
     OAuthApi,
 } from '@backstage/core-plugin-api';
 import { PeopleCardEntityData } from '../components/types';
-import { parseCodeOwners } from '../components/utils';
+import {
+    convertWildcardFilterArrayToFilterFunction,
+    parseCodeOwners,
+} from '../components/utils';
 import {
     ContributorsSummary,
     GitlabCIApi,
@@ -146,21 +149,54 @@ export class GitlabCIClient implements GitlabCIApi {
     }
 
     async getPipelineSummary(
-        projectID?: string | number
+        projectID?: string | number,
+        refList?: string[]
     ): Promise<PipelineSchema[] | undefined> {
-        const [pipelineObjects, projectObj] = await Promise.all([
-            this.callApi<PipelineSchema[]>(
+        if (!refList || refList.length === 0) {
+            return this.callApi<PipelineSchema[]>(
                 'projects/' + projectID + '/pipelines',
                 {}
-            ),
-            this.callApi<Record<string, string>>('projects/' + projectID, {}),
-        ]);
+            );
+        }
+
+        const projectObj = await this.callApi<Record<string, string>>(
+            'projects/' + projectID,
+            {}
+        );
+
+        const pipelineObjects = [];
+        let page = 1;
+        let response;
+        do {
+            response = await this.callApi<PipelineSchema[]>(
+                'projects/' + projectID + '/pipelines',
+                { page: page.toString(), per_page: '100' }
+            );
+
+            if (!response) {
+                break;
+            }
+
+            pipelineObjects.push(...response);
+            page++;
+        } while (response.length > 0);
+
         if (pipelineObjects && projectObj) {
             pipelineObjects.forEach((element) => {
                 element.project_name = projectObj.name;
             });
         }
-        return pipelineObjects || undefined;
+
+        const relevantPipelineObjects = refList
+            ? pipelineObjects?.filter((pipeline) =>
+                  convertWildcardFilterArrayToFilterFunction(
+                      pipeline.ref,
+                      refList
+                  )
+              )
+            : pipelineObjects;
+
+        return relevantPipelineObjects ?? undefined;
     }
 
     async getIssuesSummary(
