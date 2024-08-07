@@ -6455,6 +6455,8 @@ The official authentication server uses TLS encryption extensively. It also empl
 
 [Future plans](https://gitlab.com/veloren/veloren/-/milestones) - This is the development roadmap and what issues the community is currently working on.
 
+[Relative Link for testing](./CONTRIBUTING.md)
+
 ### Official social media and websites
 
 - [Website](https://veloren.net)

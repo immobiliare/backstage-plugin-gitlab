@@ -22,7 +22,7 @@ import toc from 'remark-toc';
 import removeComments from 'remark-remove-comments';
 
 import gemoji from 'remark-gemoji';
-import { parseGitLabReadme } from '../../utils';
+import { parseGitLabReadme, resolveReadmeRelativelinks } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -106,8 +106,18 @@ export const ReadmeCard = (props: Props) => {
             readmeData = undefined;
         }
 
+        let processedReadme = readmeData;
+
+        if (readmeData) {
+            processedReadme = parseGitLabReadme(readmeData);
+            processedReadme = resolveReadmeRelativelinks(
+                processedReadme,
+                projectDetails
+            );
+        }
+
         return {
-            readme: readmeData ? parseGitLabReadme(readmeData) : undefined,
+            readme: processedReadme,
         };
     }, []);
 
