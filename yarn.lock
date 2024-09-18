@@ -3357,13 +3357,13 @@ __metadata:
   linkType: hard
 
 "@backstage/core-app-api@npm:^1.14.0":
-  version: 1.14.0
-  resolution: "@backstage/core-app-api@npm:1.14.0"
+  version: 1.15.0
+  resolution: "@backstage/core-app-api@npm:1.15.0"
   dependencies:
     "@backstage/config": "npm:^1.2.0"
-    "@backstage/core-plugin-api": "npm:^1.9.3"
+    "@backstage/core-plugin-api": "npm:^1.9.4"
     "@backstage/types": "npm:^1.1.1"
-    "@backstage/version-bridge": "npm:^1.0.8"
+    "@backstage/version-bridge": "npm:^1.0.9"
     "@types/prop-types": "npm:^15.7.3"
     "@types/react": "npm:^16.13.1 || ^17.0.0 || ^18.0.0"
     history: "npm:^5.0.0"
@@ -3377,7 +3377,7 @@ __metadata:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 10/16554540437b588776dfd8845109db7db10c2f23fe7cf6d91b4ddb12810e7365c7a5a5d90303731520ae49539376690ed4f1baab2575a87262a3a10a741775aa
+  checksum: 10/5faf759c742f1c0cf7f3d31c9e637f4c491bd8b5eb03e82872b18d9e11582e207fa16eae410947b76d95847ba689af516a0f509fec6e41a3054fffddfb4635e0
   languageName: node
   linkType: hard
 
@@ -3445,6 +3445,24 @@ __metadata:
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
   checksum: 10/cacc8281f7b13fbdc0c4b035f2f61fd1b412ce0457300bff9108bc97a0d2b1d0807415201ae17e8a89d2201f016468ade25ddfd09444b45283b51c73d73695f6
+  languageName: node
+  linkType: hard
+
+"@backstage/core-plugin-api@npm:^1.9.4":
+  version: 1.9.4
+  resolution: "@backstage/core-plugin-api@npm:1.9.4"
+  dependencies:
+    "@backstage/config": "npm:^1.2.0"
+    "@backstage/errors": "npm:^1.2.4"
+    "@backstage/types": "npm:^1.1.1"
+    "@backstage/version-bridge": "npm:^1.0.9"
+    "@types/react": "npm:^16.13.1 || ^17.0.0 || ^18.0.0"
+    history: "npm:^5.0.0"
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-router-dom: 6.0.0-beta.0 || ^6.3.0
+  checksum: 10/ba0356c2ed7851b33374ae256d52265f0943a8f4a1a0d3bf48f32284ecc7a976a51cc9bd8c045c22dba2bd5d942477c4fd9202d9bdb5366ef299ef4d470cca2a
   languageName: node
   linkType: hard
 
@@ -3787,6 +3805,19 @@ __metadata:
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
   checksum: 10/2684f51e1a1a33b652766e5f9d568e4706b6b03c91bb7d5f93d04b5c66676324bb80e99bd70969850a77d1f0f3ba9cad6d29057f776569c7a31c7572b54d5f41
+  languageName: node
+  linkType: hard
+
+"@backstage/version-bridge@npm:^1.0.9":
+  version: 1.0.9
+  resolution: "@backstage/version-bridge@npm:1.0.9"
+  dependencies:
+    "@types/react": "npm:^16.13.1 || ^17.0.0"
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-router-dom: 6.0.0-beta.0 || ^6.3.0
+  checksum: 10/5499b3cb4515233ce12d7484e1400d3939ae4bc46013a6ea8a8ab4fb97def14869263d0c84cefe6966dd91b67cf14bba20142867db04448b83db2497231dc389
   languageName: node
   linkType: hard
 
