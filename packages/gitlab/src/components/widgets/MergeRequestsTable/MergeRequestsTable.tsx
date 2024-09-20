@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, TableColumn, Progress } from '@backstage/core-components';
 import Alert from '@material-ui/lab/Alert';
 import { useAsync } from 'react-use';
@@ -9,40 +9,64 @@ import {
 } from '../../gitlabAppData';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
-import { getElapsedTime, getDuration } from '../../utils';
+import { getElapsedTime } from '../../utils';
 import { createTitleColumn } from './columns';
+import { MenuItem, Select, Box, Typography } from '@material-ui/core';
 import type { MergeRequestSchema } from '@gitbeaker/rest';
 
 type MergeRequestDenseTableProps = {
     data: MergeRequestSchema[];
     projectName: string;
+    filterState: string;
+    onFilterChange: (value: string) => void;
 };
 
 export const MergeRequestDenseTable = ({
     data,
     projectName,
+    filterState,
+    onFilterChange,
 }: MergeRequestDenseTableProps) => {
     const columns: TableColumn[] = [
-        { title: 'ID', field: 'id' },
         createTitleColumn(),
         { title: 'Creator', field: 'author' },
-        { title: 'State', field: 'state' },
         { title: 'Created At', field: 'created_date' },
-        { title: 'Duration', field: 'duration' },
+
     ];
-    const title = 'Gitlab Merge Request Status: ' + projectName;
-    const mappedData = data.map((mergeRequest) => {
+
+    const title = (
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+            {/* Dropdown for selecting MR state */}
+            <Select
+                value={filterState}
+                onChange={(event) => onFilterChange(event.target.value)}
+                style={{ marginRight: 16 }}
+            >
+                <MenuItem value="opened">Opened</MenuItem>
+                <MenuItem value="closed">Closed</MenuItem>
+                <MenuItem value="merged">Merged</MenuItem>
+            </Select>
+            <Typography variant="h6">Merge Requests</Typography>
+        </Box>
+    );
+
+
+    const filteredData = data.filter(
+        (mergeRequest) => mergeRequest.state === filterState
+    );
+
+    const mappedData = filteredData.map((mergeRequest) => {
+
+        const author = mergeRequest.author ? mergeRequest.author.username : 'N/A';
+
+
         return {
             id: mergeRequest.id,
             state: mergeRequest.state,
-            author: mergeRequest.author.username,
+            author,
             title: mergeRequest.title,
             web_url: mergeRequest.web_url,
             created_date: getElapsedTime(mergeRequest.created_at),
-            duration: getDuration(
-                mergeRequest.created_at,
-                mergeRequest.updated_at
-            ),
         };
     });
 
@@ -54,12 +78,15 @@ export const MergeRequestDenseTable = ({
             data={mappedData || []}
         />
     );
+
 };
 
 export const MergeRequestsTable = ({}) => {
     const project_id = gitlabProjectId();
     const project_slug = gitlabProjectSlug();
     const gitlab_instance = gitlabInstance();
+
+    const [filterState, setFilterState] = useState('opened');
 
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(
         gitlab_instance || 'gitlab.com'
@@ -97,5 +124,12 @@ export const MergeRequestsTable = ({}) => {
         );
     }
 
-    return <MergeRequestDenseTable {...value} />;
+    return (
+        <MergeRequestDenseTable
+            data={value.data}
+            projectName={value.projectName}
+            filterState={filterState}
+            onFilterChange={setFilterState}
+        />
+    );
 };
