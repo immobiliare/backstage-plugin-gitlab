@@ -11,10 +11,13 @@ const CODEOWNERS = `
 # Order is important. The last matching pattern has the most precedence.
 # So if a pull request only touches javascript files, only these owners
 # will be requested to review.
-*.js    @octocat @github/js
+*.js    @octocat @github/js @octo.cat
 
 # You can also use email addresses if you prefer.
-# docs/*  docs@example.com
+docs/*  docs@example.com
+
+# This rule is commented out and will not be parsed
+# tests/*       @antoniomuso
 `;
 
 const CODEOWNERS2 = `# Specify a default Code Owner by using a wildcard:
@@ -39,9 +42,14 @@ describe('gitlabPlugin', () => {
                 rule: '*       @antoniomuso',
             },
             {
-                owners: ['@octocat', '@github/js'],
+                owners: ['@octocat', '@github/js', '@octo.cat'],
                 path: '*.js',
-                rule: '*.js    @octocat @github/js',
+                rule: '*.js    @octocat @github/js @octo.cat',
+            },
+            {
+                owners: ['docs@example.com'],
+                path: 'docs/*',
+                rule: 'docs/*  docs@example.com',
             },
         ]);
     });
