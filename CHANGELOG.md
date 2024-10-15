@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.6.0...v6.6.1) (2024-10-15)
+
+### Bug Fixes
+
+-   Update CODEOWNERS parsing to align to Gitlab's official username regex ([1f5a62a](https://github.com/immobiliare/backstage-plugin-gitlab/commit/1f5a62a3f533bed521becf88407e32d420304a3a))
+
+### Features
+
+-   updating the initial contributors ([9279f70](https://github.com/immobiliare/backstage-plugin-gitlab/commit/9279f70068106e407dc25ffb2f65f8801bb20e28))
+
 # [6.6.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.6.0-alpha.0...v6.6.0) (2024-07-23)
 
 **Note:** Version bump only for package root
