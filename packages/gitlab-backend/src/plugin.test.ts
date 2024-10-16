@@ -47,7 +47,7 @@ describe('gitlabPlugin', () => {
 
         const { server } = await startTestBackend({
             features: [
-                gitlabPlugin(),
+                gitlabPlugin,
                 mockServices.rootConfig.factory({ data: fakeConfig }),
             ],
         });

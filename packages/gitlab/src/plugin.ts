@@ -8,15 +8,11 @@ import {
 import {
     configApiRef,
     createApiFactory,
-    createRouteRef,
     discoveryApiRef,
     gitlabAuthApiRef,
 } from '@backstage/core-plugin-api';
 import { GitlabCIApiRef, GitlabCIClient } from './api';
-
-export const rootRouteRef = createRouteRef({
-    id: 'Gitlab',
-});
+import { rootRouteRef } from './routes';
 
 export const gitlabPlugin = createPlugin({
     id: 'Gitlab',
@@ -161,3 +157,5 @@ export const EntityGitlabReadmeCard = gitlabPlugin.provide(
         },
     })
 );
+
+export { rootRouteRef } from './routes';
