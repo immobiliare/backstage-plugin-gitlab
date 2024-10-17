@@ -54,18 +54,24 @@ export class GitlabFillerProcessor implements CatalogProcessor {
                 if (!entity.metadata.annotations)
                     entity.metadata.annotations = {};
 
-                // Set GitLab Instance
-                if (!entity.metadata.annotations?.[GITLAB_INSTANCE]) {
-                    entity.metadata.annotations![GITLAB_INSTANCE] =
+                // Set GitLab Instance when it's there yet, but handle an empty string as specified.
+                if (
+                    !entity.metadata.annotations[GITLAB_INSTANCE] &&
+                    entity.metadata.annotations[GITLAB_INSTANCE] !== ''
+                ) {
+                    entity.metadata.annotations[GITLAB_INSTANCE] =
                         gitlabInstanceConfig?.host;
                 }
 
-                // Generate Project Slug from location URL if neither Project ID nor Project Slug are specified
+                // Generate Project Slug from location URL if neither Project ID nor Project Slug are specified.
+                // Handle empty strings as specified.
                 if (
-                    !entity.metadata.annotations?.[GITLAB_PROJECT_ID] &&
-                    !entity.metadata.annotations?.[GITLAB_PROJECT_SLUG]
+                    !entity.metadata.annotations[GITLAB_PROJECT_ID] &&
+                    entity.metadata.annotations[GITLAB_PROJECT_ID] !== '' &&
+                    !entity.metadata.annotations[GITLAB_PROJECT_SLUG] &&
+                    entity.metadata.annotations[GITLAB_PROJECT_SLUG] !== ''
                 ) {
-                    entity.metadata.annotations![GITLAB_PROJECT_SLUG] =
+                    entity.metadata.annotations[GITLAB_PROJECT_SLUG] =
                         getProjectPath(
                             location.target,
                             this.getGitlabSubPath(gitlabInstanceConfig)

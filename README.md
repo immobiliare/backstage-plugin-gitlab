@@ -306,6 +306,25 @@ spec:
     # ...
 ```
 
+It's possible to disable the GitLab plugins and cards by setting these annotations to an empty string.
+
+This is useful if the entity (catalog-info.yaml) is hosted on GitLab but the actual source code is hosted
+somewhere else or GitLab isn't used for issue tracking.
+
+```yaml
+# Example catalog-info.yaml entity definition file
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    # ...
+    annotations:
+        gitlab.com/instance: '' # don't show the issue and merge requests cards
+        gitlab.com/project-slug: ''
+spec:
+    type: service
+    # ...
+```
+
 ### Code owners file
 
 The plugins support also the `gitlab.com/codeowners-path` annotation:

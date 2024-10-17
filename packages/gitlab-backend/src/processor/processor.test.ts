@@ -173,6 +173,54 @@ describe('Processor', () => {
         ).toBeUndefined();
     });
 
+    it('The processor does not update GITLAB_PROJECT_SLUG if the annotations GITLAB_PROJECT_ID or GITLAB_PROJECT_SLUG is empty', async () => {
+        const processor = new GitlabFillerProcessor(config);
+        const entity: Entity = {
+            apiVersion: 'backstage.io/v1alpha1',
+            kind: 'Component',
+            metadata: {
+                name: 'backstage',
+                annotations: {
+                    [GITLAB_PROJECT_ID]: '',
+                },
+            },
+        };
+        await processor.postProcessEntity(
+            entity,
+            {
+                type: 'url',
+                target: 'https://my.custom-gitlab.com/backstage/backstage/blob/next/catalog.yaml',
+            },
+            () => undefined
+        );
+
+        expect(entity.metadata?.annotations?.[GITLAB_PROJECT_ID]).toEqual('');
+    });
+
+    it('The processor does not update GITLAB_INSTANCE if the annotation is empty', async () => {
+        const processor = new GitlabFillerProcessor(config);
+        const entity: Entity = {
+            apiVersion: 'backstage.io/v1alpha1',
+            kind: 'Component',
+            metadata: {
+                name: 'backstage',
+                annotations: {
+                    [GITLAB_INSTANCE]: '',
+                },
+            },
+        };
+        await processor.postProcessEntity(
+            entity,
+            {
+                type: 'url',
+                target: 'https://my.custom-gitlab.com/backstage/backstage/blob/next/catalog.yaml',
+            },
+            () => undefined
+        );
+
+        expect(entity.metadata?.annotations?.[GITLAB_INSTANCE]).toEqual('');
+    });
+
     it('The processor does not update annotation if the location is not a gitlab instance', async () => {
         const processor = new GitlabFillerProcessor(config);
         const entity: Entity = {
