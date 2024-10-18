@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.7.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.6.1...v6.7.0) (2024-10-18)
+
+### Features
+
+-   **backend:** add support for empty string annotations ([704620f](https://github.com/immobiliare/backstage-plugin-gitlab/commit/704620f6366dd9bede4f8f887946601505d6201e))
+
 ## [6.6.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.6.0...v6.6.1) (2024-10-15)
 
 ### Bug Fixes
