@@ -7,3 +7,6 @@ export { ReleasesCard, type ReleasesCardProps } from './ReleasesCard';
 export { IssuesTable } from './IssuesTable';
 export { ReadmeCard } from './ReadmeCard';
 export { CoverageCard } from './CoverageCard';
+export { MergeRequestsAssignedToMeCard } from './MergeRequestsAssignedToMeCard';
+export { MergeRequestsAssignedToReviewCard } from './MergeRequestsAssignedToReviewCard';
+export { MergeRequestsForTeamBoard } from './MergeRequestsForTeamBoard';

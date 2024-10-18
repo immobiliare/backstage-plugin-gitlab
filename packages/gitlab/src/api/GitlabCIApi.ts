@@ -51,6 +51,10 @@ export type GitlabCIApi = {
     getMergeRequestsSummary(
         projectID: string | number
     ): Promise<MergeRequestSchema[] | undefined>;
+    getMergeRequestsAssignedToMe(): Promise<MergeRequestSchema[] | undefined>;
+    getMergeRequestsForGroup(groupName: string): Promise<MergeRequestSchema[] | undefined>;
+    getMergeRequestsAssignedToMeAsReviewer(): Promise<MergeRequestSchema[] | undefined>;
+    getPipelinesForMergeRequest(projectId: number | string, mergeRequestIid: number): Promise<PipelineSchema[] | undefined>;
     getMergeRequestsStatusSummary(
         projectID: string | number,
         count: number

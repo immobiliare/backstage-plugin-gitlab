@@ -9,7 +9,7 @@ import {
 } from '../../gitlabAppData';
 import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
-import { createStatusColumn, createWebURLColumn } from './columns';
+import { createStatusColumn, createPipelineIDColumn } from './columns';
 import { getDuration, getElapsedTime } from '../../utils';
 import type { PipelineSchema } from '@gitbeaker/rest';
 
@@ -23,14 +23,24 @@ export const PipelineDenseTable = ({
     summary,
 }: PipelineDenseTableProps) => {
     const columns: TableColumn[] = [
-        { title: 'Pipeline_ID', field: 'id' },
-        createStatusColumn(),
-        { title: 'Branch', field: 'ref' },
-        createWebURLColumn(),
-        { title: 'Created At', field: 'created_date' },
-        { title: 'Duration', field: 'duration' },
+        {
+            ...createPipelineIDColumn(),
+            width: '120px',
+        },
+        {
+            ...createStatusColumn(),
+            width: '80px',
+        },
+        {
+            title: 'Branch',
+            field: 'ref',
+            width: '300px',
+        },
+        { title: 'Created', field: 'created_date', width: '150px' },
+        { title: 'Duration', field: 'duration', width: '150px' },
     ];
-    const title = 'Gitlab Pipelines: ' + projectName;
+
+    const title = 'Pipelines';
 
     const data = summary.map((pipelineObject) => {
         return {
@@ -74,7 +84,7 @@ export const PipelinesTable = ({}) => {
 
         const summary = await GitlabCIAPI.getPipelineSummary(projectDetails.id);
 
-        if (!summary) throw new Error('Merge request summary is undefined!');
+        if (!summary) throw new Error('Pipeline summary is undefined!');
         return { summary, projectName: projectDetails.name };
     }, []);
 

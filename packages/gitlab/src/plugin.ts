@@ -161,3 +161,41 @@ export const EntityGitlabReadmeCard = gitlabPlugin.provide(
         },
     })
 );
+
+
+export const EntityGitlabMergeRequestsAssignedToMeCard = gitlabPlugin.provide(
+    createComponentExtension({
+        name: 'EntityGitlabMergeRequestsAssignedToMeCard',
+        component: {
+            lazy: () =>
+                import('./components/widgets/index').then(
+                    (m) => m.MergeRequestsAssignedToMeCard
+                ),
+        },
+    })
+);
+
+export const EntityGitlabMergeRequestsAssignedToReviewCard = gitlabPlugin.provide(
+    createComponentExtension({
+        name: 'EntityGitlabMergeRequestsAssignedToReviewCard',
+        component: {
+            lazy: () =>
+                import('./components/widgets/index').then(
+                    (m) => m.MergeRequestsAssignedToReviewCard
+                ),
+        },
+    })
+);
+
+export const EntityGitlabMergeRequestsForTeamBoard = gitlabPlugin.provide(
+    createComponentExtension({
+        name: 'EntityGitlabMergeRequestsForTeamBoard',
+        component: {
+            lazy: () =>
+                import('./components/widgets/index').then(
+                    (m) => m.MergeRequestsForTeamBoard
+                ),
+        },
+    })
+);
+
