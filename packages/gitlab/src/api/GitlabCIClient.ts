@@ -112,6 +112,9 @@ export class GitlabCIClient implements GitlabCIApi {
                 ...headers,
             },
         };
+        const fullUrl = `${apiUrl}${path ? `/${path}` : ''}?${new URLSearchParams(query).toString()}`;
+
+        //console.log('Making request to:', fullUrl);
 
         const response = await fetch(
             `${apiUrl}${path ? `/${path}` : ''}?${new URLSearchParams(
@@ -163,6 +166,105 @@ export class GitlabCIClient implements GitlabCIApi {
         return pipelineObjects || undefined;
     }
 
+
+    async getMergeRequestsAssignedToMe(): Promise<MergeRequestSchema[] | undefined> {
+        try {
+            const assigneeUsername = await this.getCurrentUser();
+
+            if (!assigneeUsername) {
+                throw new Error('Current user ID is undefined');
+            }
+
+
+            const assignedMergeRequests = await this.callApi<MergeRequestSchema[]>(
+                'merge_requests',
+                { assignee_username: assigneeUsername, state: 'opened' }
+            );
+
+            if (!assignedMergeRequests || assignedMergeRequests.length === 0) {
+                console.log('No merge requests assigned to the current user.');
+                return undefined;
+            }
+
+            return assignedMergeRequests;
+        } catch (error) {
+            console.error('Error fetching assigned merge requests:', error);
+            return undefined;
+        }
+    }
+
+
+    async getMergeRequestsAssignedToMeAsReviewer(): Promise<MergeRequestSchema[] | undefined> {
+        try {
+            const reviewerId = await this.getCurrentUser();
+
+            if (!reviewerId) {
+                throw new Error('Current user ID is undefined');
+            }
+
+            const assignedReviewRequests = await this.callApi<MergeRequestSchema[]>(
+                'merge_requests',
+                { reviewer_username: reviewerId, state: 'opened' }
+            );
+
+            if (!assignedReviewRequests || assignedReviewRequests.length === 0) {
+                console.log('No merge requests assigned to the current user as a reviewer.');
+                return undefined;
+            }
+
+            return assignedReviewRequests;
+        } catch (error) {
+            console.error('Error fetching assigned review requests:', error);
+            return undefined;
+        }
+    }
+
+
+      async getMergeRequestsForGroup(groupName: string): Promise<MergeRequestSchema[] | undefined> {
+        try {
+
+          const mergeRequests = await this.callApi<MergeRequestSchema[]>(
+            `groups/${encodeURIComponent(groupName)}/merge_requests`,
+            { state: 'opened' }
+          );
+
+          if (!mergeRequests || mergeRequests.length === 0) {
+            console.log(`No merge requests found for group ${groupName}.`);
+            return undefined;
+          }
+
+          return mergeRequests;
+        } catch (error) {
+          console.error(`Error fetching merge requests for group ${groupName}:`, error);
+          return undefined;
+        }
+      }
+
+    async getCurrentUser(): Promise<string | undefined> {
+        try {
+            const identity = await this.identityApi.getBackstageIdentity();
+
+            if (!identity || !identity.userEntityRef) {
+                throw new Error('Failed to retrieve the current Backstage user identity');
+            }
+
+            // userEntityRef format is 'User:default/<user-id>', we split it to get the user ID
+            const userEntityRef = identity.userEntityRef;
+            const userId = userEntityRef.split('/').pop();
+
+            if (!userId) {
+                throw new Error('User ID could not be extracted');
+            }
+            console.log(`Backstage UserID: ${userId}`)
+            return userId;
+        } catch (error) {
+            console.error('Error fetching current Backstage user:', error);
+            return undefined;
+        }
+    }
+
+
+
     async getIssuesSummary(
         projectId: string | number
     ): Promise<IssueSchema[] | undefined> {
@@ -189,7 +291,6 @@ export class GitlabCIClient implements GitlabCIApi {
         return projectObj?.name;
     }
 
-    //TODO: Merge with getUserDetail
     private async getUserProfilesData(
         contributorsData: RepositoryContributorSchema[]
     ): Promise<ContributorsSummary> {
@@ -386,6 +487,17 @@ export class GitlabCIClient implements GitlabCIApi {
             );
         return owners;
     }
+
+    async getPipelinesForMergeRequest(
+        projectId: string | number,
+        mergeRequestIid: number
+    ): Promise<PipelineSchema[] | undefined> {
+        return this.callApi<PipelineSchema[]>(
+            `projects/${projectId}/merge_requests/${mergeRequestIid}/pipelines`,
+            {}
+        );
+    }
+
 
     async getReadme(
         projectID: string | number,
