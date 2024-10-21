@@ -1,4 +1,4 @@
-import { createApiRef } from '@backstage/core-plugin-api';
+import { createApiRef } from '@backstage/frontend-plugin-api';
 import { PeopleCardEntityData, Languages } from '../components/types';
 import type {
     IssueSchema,
