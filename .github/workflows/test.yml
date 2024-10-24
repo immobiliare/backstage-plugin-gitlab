@@ -38,7 +38,7 @@ jobs:
             - name: Install dependencies
               run: yarn install
             - name: Test
-              run: yarn prettier --check .
+              run: yarn style:fmt
     build:
         runs-on: ubuntu-latest
         steps:
