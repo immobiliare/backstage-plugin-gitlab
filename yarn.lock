@@ -3356,6 +3356,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@backstage/config@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@backstage/config@npm:1.3.0"
+  dependencies:
+    "@backstage/errors": "npm:^1.2.5"
+    "@backstage/types": "npm:^1.2.0"
+    ms: "npm:^2.1.3"
+  checksum: 10/a89a16d75091e9b3bedcc7930c3494107a887a7bca1f0bc8acfe3d6be84a42016ba718b5ddec3b04c418815d87ad24e3bd4265d4ef048c1a1ff537cff7b8b8a7
+  languageName: node
+  linkType: hard
+
 "@backstage/core-app-api@npm:^1.14.0":
   version: 1.14.0
   resolution: "@backstage/core-app-api@npm:1.14.0"
@@ -3482,6 +3493,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@backstage/errors@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "@backstage/errors@npm:1.2.5"
+  dependencies:
+    "@backstage/types": "npm:^1.2.0"
+    serialize-error: "npm:^8.0.1"
+  checksum: 10/3c1163c25814c282c927f92fa48093318c2fb7e000116860ff17d5a8a12fdcd4c4652654ef1ad284026b196bbf8603cc4ce91c9ece7f967576dab5eebafb171c
+  languageName: node
+  linkType: hard
+
 "@backstage/eslint-plugin@npm:^0.1.8":
   version: 0.1.8
   resolution: "@backstage/eslint-plugin@npm:0.1.8"
@@ -3546,19 +3567,19 @@ __metadata:
   linkType: hard
 
 "@backstage/integration@npm:^1.13.0":
-  version: 1.13.0
-  resolution: "@backstage/integration@npm:1.13.0"
+  version: 1.15.2
+  resolution: "@backstage/integration@npm:1.15.2"
   dependencies:
     "@azure/identity": "npm:^4.0.0"
-    "@backstage/config": "npm:^1.2.0"
-    "@backstage/errors": "npm:^1.2.4"
+    "@backstage/config": "npm:^1.3.0"
+    "@backstage/errors": "npm:^1.2.5"
     "@octokit/auth-app": "npm:^4.0.0"
     "@octokit/rest": "npm:^19.0.3"
     cross-fetch: "npm:^4.0.0"
-    git-url-parse: "npm:^14.0.0"
+    git-url-parse: "npm:^15.0.0"
     lodash: "npm:^4.17.21"
     luxon: "npm:^3.0.0"
-  checksum: 10/62484d51ac75124f109835a6d5e31d7e53769cdee64df82ff55ebe1e0eacab09cd73b155ae2e2d50163c06d2b8d5d16479e66c67bc2960e6f2751fbeebaa028c
+  checksum: 10/6d46ddd1a9d8c696827ca89fd0b0b78f3c3c99e3feaafab1b6bb35cb2aa8bc8fef66ae85b151c239ab2950880ef25fceeba4f5ec4196f122e227553866263eca
   languageName: node
   linkType: hard
 
@@ -3774,6 +3795,13 @@ __metadata:
   version: 1.1.1
   resolution: "@backstage/types@npm:1.1.1"
   checksum: 10/222f0534af8cc5d144a9ed11ca7118aaa6ec8a15b69dcb51588f4dd716d52944f7a456c9679c1263e9fb8a2684cf55b9d39473938ecf39c85c99ca14a7c048b0
+  languageName: node
+  linkType: hard
+
+"@backstage/types@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@backstage/types@npm:1.2.0"
+  checksum: 10/7e7b35ed04d055153854d7dd9b2c03097ca4abba12d42d07a3444e2c8474e63c951bad4fb08e95936e2e6a6362d0ea2faa70adebaf19afceadf8e6a765a7ee01
   languageName: node
   linkType: hard
 
@@ -17225,6 +17253,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"git-url-parse@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "git-url-parse@npm:15.0.0"
+  dependencies:
+    git-up: "npm:^7.0.0"
+  checksum: 10/b6e54fc58bb4f4c9bfb1060ec93c3d1462880c6bec76926978e32b2bbfac3535001c87efd1ef0dca9cd9ee0ffdaacba2f50dc4f7032ba09ad92d93e9acc9936b
+  languageName: node
+  linkType: hard
+
 "gitconfiglocal@npm:^1.0.0":
   version: 1.0.0
   resolution: "gitconfiglocal@npm:1.0.0"
@@ -23296,7 +23333,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ms@npm:2.1.3, ms@npm:^2.0.0, ms@npm:^2.1.1, ms@npm:^2.1.2":
+"ms@npm:2.1.3, ms@npm:^2.0.0, ms@npm:^2.1.1, ms@npm:^2.1.2, ms@npm:^2.1.3":
   version: 2.1.3
   resolution: "ms@npm:2.1.3"
   checksum: 10/aa92de608021b242401676e35cfa5aa42dd70cbdc082b916da7fb925c542173e36bce97ea3e804923fe92c0ad991434e4a38327e15a1b5b5f945d66df615ae6d
