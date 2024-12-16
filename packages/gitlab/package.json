@@ -70,7 +70,7 @@
         "@backstage/dev-utils": "^1.0.35",
         "@backstage/plugin-catalog-react": "^1.12.2",
         "@backstage/test-utils": "^1.5.8",
-        "@commitlint/cli": "^17.0.0",
+        "@commitlint/cli": "^19.6.1",
         "@commitlint/config-conventional": "^17.0.0",
         "@gitbeaker/rest": "^40.0.2",
         "@nuxtjs/eslint-config-typescript": "^12.0.0",
