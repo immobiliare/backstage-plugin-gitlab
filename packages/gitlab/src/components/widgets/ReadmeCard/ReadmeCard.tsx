@@ -109,7 +109,7 @@ export const ReadmeCard = (props: Props) => {
         return {
             readme: readmeData ? parseGitLabReadme(readmeData) : undefined,
         };
-    }, []);
+    }, [project_id, project_slug]);
 
     if (loading) {
         return <Progress />;
