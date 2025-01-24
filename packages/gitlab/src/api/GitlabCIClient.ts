@@ -32,6 +32,7 @@ export type APIOptions = {
     readmePath?: string;
     gitlabAuthApi: OAuthApi;
     useOAuth?: boolean;
+    cacheTTL?: number;
 };
 
 export class GitlabCIClient implements GitlabCIApi {
@@ -42,6 +43,7 @@ export class GitlabCIClient implements GitlabCIApi {
     codeOwnersPath: string;
     gitlabInstance: string;
     readmePath: string;
+    cacheTTL: number;
 
     constructor({
         discoveryApi,
@@ -50,6 +52,7 @@ export class GitlabCIClient implements GitlabCIApi {
         readmePath,
         gitlabAuthApi,
         gitlabInstance,
+        cacheTTL,
         useOAuth,
     }: APIOptions & { gitlabInstance: string }) {
         this.discoveryApi = discoveryApi;
@@ -59,6 +62,7 @@ export class GitlabCIClient implements GitlabCIApi {
         this.identityApi = identityApi;
         this.gitlabAuthApi = gitlabAuthApi;
         this.useOAth = useOAuth ?? false;
+        this.cacheTTL = cacheTTL ?? 5 * 60 * 1000; // 5 minutes cache TTL
     }
 
     static setupAPI({
@@ -68,6 +72,7 @@ export class GitlabCIClient implements GitlabCIApi {
         readmePath,
         gitlabAuthApi,
         useOAuth,
+        cacheTTL,
     }: APIOptions) {
         return {
             build: (gitlabInstance: string) =>
@@ -79,8 +84,35 @@ export class GitlabCIClient implements GitlabCIApi {
                     gitlabInstance,
                     gitlabAuthApi,
                     useOAuth,
+                    cacheTTL,
                 }),
         };
+    }
+
+    private getCacheKey(path: string, query: object, APIkind: string): string {
+        return `gitlab-cache:${APIkind}:${path}:${JSON.stringify(query)}`;
+    }
+
+    private getCachedData<T>(key: string): T | undefined {
+        const cached = localStorage.getItem(key);
+        if (cached) {
+            const { data, timestamp } = JSON.parse(cached);
+            if (Date.now() - timestamp < this.cacheTTL) {
+                return data as T;
+            }
+            localStorage.removeItem(key);
+        }
+        return undefined;
+    }
+
+    private setCachedData<T>(key: string, data: T): void {
+        localStorage.setItem(
+            key,
+            JSON.stringify({
+                data,
+                timestamp: Date.now(),
+            })
+        );
     }
 
     protected async callApi<T>(
@@ -89,6 +121,13 @@ export class GitlabCIClient implements GitlabCIApi {
         APIkind: 'rest' | 'graphql' = 'rest',
         options: RequestInit = {}
     ): Promise<T | undefined> {
+        const cacheKey = this.getCacheKey(path, query, APIkind);
+        const cachedData = this.getCachedData<T>(cacheKey);
+        if (cachedData) {
+            console.log('hit cache');
+            return cachedData;
+        }
+
         const apiUrl = `${await this.discoveryApi.getBaseUrl(
             'gitlab'
         )}/${APIkind}/${this.gitlabInstance}`;
@@ -120,15 +159,18 @@ export class GitlabCIClient implements GitlabCIApi {
             options
         );
         if (response.status === 200) {
+            let data: T;
             if (
                 response.headers
                     .get('content-type')
                     ?.includes('application/json')
             ) {
-                return (await response.json()) as T;
+                data = (await response.json()) as T;
             } else {
-                return response.text() as unknown as T;
+                data = response.text() as unknown as T;
             }
+            this.setCachedData(cacheKey, data);
+            return data;
         }
         return undefined;
     }
@@ -148,35 +190,43 @@ export class GitlabCIClient implements GitlabCIApi {
     async getPipelineSummary(
         projectID?: string | number
     ): Promise<PipelineSchema[] | undefined> {
-        const [pipelineObjects, projectObj] = await Promise.all([
+        const [projectObj, pipelineObjects] = await Promise.all([
+            this.callApi<Record<string, string>>('projects/' + projectID, {}),
             this.callApi<PipelineSchema[]>(
                 'projects/' + projectID + '/pipelines',
                 {}
             ),
-            this.callApi<Record<string, string>>('projects/' + projectID, {}),
         ]);
-        if (pipelineObjects && projectObj) {
+
+        if (!projectObj) return undefined;
+
+        if (pipelineObjects) {
             pipelineObjects.forEach((element) => {
                 element.project_name = projectObj.name;
             });
+            return pipelineObjects;
         }
-        return pipelineObjects || undefined;
+        return undefined;
     }
 
     async getIssuesSummary(
         projectId: string | number
     ): Promise<IssueSchema[] | undefined> {
-        const [issuesObject, projectObj] = await Promise.all([
-            this.callApi<IssueSchema[]>(`projects/${projectId}/issues`, {}),
+        const [projectObj, issuesObject] = await Promise.all([
             this.callApi<Record<string, string>>('projects/' + projectId, {}),
+            this.callApi<IssueSchema[]>(`projects/${projectId}/issues`, {}),
         ]);
-        if (issuesObject && projectObj) {
+
+        if (!projectObj) return undefined;
+
+        if (issuesObject) {
             issuesObject.forEach((element) => {
                 element.project_name = projectObj.name;
             });
+            return issuesObject;
         }
 
-        return issuesObject || undefined;
+        return undefined;
     }
 
     async getProjectName(
@@ -193,26 +243,35 @@ export class GitlabCIClient implements GitlabCIApi {
     private async getUserProfilesData(
         contributorsData: RepositoryContributorSchema[]
     ): Promise<ContributorsSummary> {
-        return Promise.all(
-            contributorsData.map(async (contributor) => {
-                const userProfile = await this.callApi<UserSchema[]>('users', {
-                    search: contributor.email,
+        const uniqueEmails = [...new Set(contributorsData.map((c) => c.email))];
+        const userProfiles = await Promise.all(
+            uniqueEmails.map((email) =>
+                this.callApi<UserSchema[]>('users', {
+                    search: email,
                     without_project_bots: 'true',
-                });
-
-                const user = userProfile?.find(
-                    (v) => v.name === contributor.name
-                );
-
-                if (user) {
-                    return {
-                        ...contributor,
-                        ...user,
-                    };
-                }
-                return contributor;
-            })
+                })
+            )
         );
+
+        const emailToUser = new Map<string, UserSchema>();
+        userProfiles.forEach((profiles, idx) => {
+            if (profiles) {
+                const email = uniqueEmails[idx];
+                const user = profiles.find((v) =>
+                    contributorsData.some(
+                        (c) => c.email === email && c.name === v.name
+                    )
+                );
+                if (user) {
+                    emailToUser.set(email, user);
+                }
+            }
+        });
+
+        return contributorsData.map((contributor) => {
+            const user = emailToUser.get(contributor.email);
+            return user ? { ...contributor, ...user } : contributor;
+        });
     }
 
     private async getUserDetail(username: string): Promise<UserSchema> {
@@ -229,6 +288,7 @@ export class GitlabCIClient implements GitlabCIApi {
 
         return userDetail;
     }
+
     private async getGroupDetail(name: string): Promise<GroupSchema> {
         if (name.startsWith('@')) {
             name = name.slice(1);
@@ -271,8 +331,10 @@ export class GitlabCIClient implements GitlabCIApi {
             sort: 'desc',
         });
 
+        if (!contributorsData) return undefined;
+
         const updatedContributorsData = await this.getUserProfilesData(
-            contributorsData!
+            contributorsData
         );
 
         return updatedContributorsData;
@@ -366,25 +428,26 @@ export class GitlabCIClient implements GitlabCIApi {
         const uniqueOwners = [
             ...new Set(codeOwners.flatMap((owner) => owner.owners)),
         ];
-        const ownersSettledResult: PromiseSettledResult<PeopleCardEntityData>[] =
-            await Promise.allSettled(
-                uniqueOwners.map(async (owner) => {
+
+        const ownersMap = new Map<string, PeopleCardEntityData>();
+
+        await Promise.all(
+            uniqueOwners.map(async (owner) => {
+                try {
+                    const ownerData = await this.getUserDetail(owner);
+                    ownersMap.set(owner, ownerData);
+                } catch {
                     try {
-                        const ownerData = await this.getUserDetail(owner);
-                        return ownerData;
-                    } catch (error) {
-                        return this.getGroupDetail(owner);
+                        const groupData = await this.getGroupDetail(owner);
+                        ownersMap.set(owner, groupData);
+                    } catch {
+                        // Skip invalid owners
                     }
-                })
-            );
-        const owners = ownersSettledResult
-            .filter((result) => result.status === 'fulfilled')
-            .map(
-                (result) =>
-                    (result as PromiseFulfilledResult<PeopleCardEntityData>)
-                        .value
-            );
-        return owners;
+                }
+            })
+        );
+
+        return Array.from(ownersMap.values());
     }
 
     async getReadme(

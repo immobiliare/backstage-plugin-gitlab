@@ -20,5 +20,12 @@ export interface Config {
          * @visibility frontend
          */
         useOAuth?: boolean;
+
+        /**
+         * Cache TTL for the Gitlab plugin in ms
+         * @default 5 * 60 * 1000 (5 minutes)
+         * @visibility frontend
+         */
+        cacheTTL?: number;
     };
 }
