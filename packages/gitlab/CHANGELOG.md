@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.8.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.7.0...v6.8.0-alpha.0) (2025-01-28)
+
+### Bug Fixes
+
+-   Add readme_path to the dependencies of ReadmeCard ([9dc9978](https://github.com/immobiliare/backstage-plugin-gitlab/commit/9dc997887e9f53e1f0845a9faadfc33c3ecb0f48))
+-   added missing ttl ([6b8dd38](https://github.com/immobiliare/backstage-plugin-gitlab/commit/6b8dd381fce860ec961241be323110e945329803))
+-   forget await in case of string ([c17edcf](https://github.com/immobiliare/backstage-plugin-gitlab/commit/c17edcf5c3e32cc47cb3378b59e2417956b86096))
+-   Re-render when the GitlabIds change ([3082892](https://github.com/immobiliare/backstage-plugin-gitlab/commit/308289257ce12b29a93a0f6dfab80fbb104caf8d))
+
+### Features
+
+-   backstage deps and caching ([55c2c44](https://github.com/immobiliare/backstage-plugin-gitlab/commit/55c2c44ae8b2ac11edc311a45125a865a1391ae8))
+
 ## [6.6.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.6.0...v6.6.1) (2024-10-15)
 
 ### Bug Fixes
