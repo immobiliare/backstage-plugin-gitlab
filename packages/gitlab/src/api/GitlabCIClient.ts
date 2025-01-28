@@ -67,6 +67,7 @@ export class GitlabCIClient implements GitlabCIApi {
         this.useOAth = useOAuth ?? false;
         this.cacheTTL = cacheTTL ?? 5 * 60 * 1000; // 5 minutes cache TTL
         this.httpFetch = httpFetch;
+        this.cleanupExpiredCache();
     }
 
     static setupAPI({
@@ -93,6 +94,29 @@ export class GitlabCIClient implements GitlabCIApi {
         };
     }
 
+    private cleanupExpiredCache(): void {
+        const now = Date.now();
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key?.startsWith('gitlab-cache:')) {
+                try {
+                    const cached = localStorage.getItem(key);
+                    if (cached) {
+                        const { timestamp } = JSON.parse(cached);
+                        if (now - timestamp >= this.cacheTTL) {
+                            localStorage.removeItem(key);
+                            i--; // Adjust index since we removed an item
+                        }
+                    }
+                } catch (error) {
+                    // In case of corrupted data, remove the item
+                    localStorage.removeItem(key);
+                    i--; // Adjust index since we removed an item
+                }
+            }
+        }
+    }
+
     private getCacheKey(path: string, query: object, APIkind: string): string {
         return `gitlab-cache:${APIkind}:${path}:${JSON.stringify(query)}`;
     }
@@ -100,11 +124,15 @@ export class GitlabCIClient implements GitlabCIApi {
     private getCachedData<T>(key: string): T | undefined {
         const cached = localStorage.getItem(key);
         if (cached) {
-            const { data, timestamp } = JSON.parse(cached);
-            if (Date.now() - timestamp < this.cacheTTL) {
-                return data as T;
+            try {
+                const { data, timestamp } = JSON.parse(cached);
+                if (Date.now() - timestamp < this.cacheTTL) {
+                    return data as T;
+                }
+                localStorage.removeItem(key);
+            } catch (error) {
+                localStorage.removeItem(key);
             }
-            localStorage.removeItem(key);
         }
         return undefined;
     }
