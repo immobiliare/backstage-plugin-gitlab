@@ -33,6 +33,7 @@ export type APIOptions = {
     gitlabAuthApi: OAuthApi;
     useOAuth?: boolean;
     cacheTTL?: number;
+    httpFetch?: typeof fetch;
 };
 
 export class GitlabCIClient implements GitlabCIApi {
@@ -44,6 +45,7 @@ export class GitlabCIClient implements GitlabCIApi {
     gitlabInstance: string;
     readmePath: string;
     cacheTTL: number;
+    httpFetch: typeof fetch;
 
     constructor({
         discoveryApi,
@@ -54,6 +56,7 @@ export class GitlabCIClient implements GitlabCIApi {
         gitlabInstance,
         cacheTTL,
         useOAuth,
+        httpFetch = fetch,
     }: APIOptions & { gitlabInstance: string }) {
         this.discoveryApi = discoveryApi;
         this.codeOwnersPath = codeOwnersPath || 'CODEOWNERS';
@@ -63,6 +66,7 @@ export class GitlabCIClient implements GitlabCIApi {
         this.gitlabAuthApi = gitlabAuthApi;
         this.useOAth = useOAuth ?? false;
         this.cacheTTL = cacheTTL ?? 5 * 60 * 1000; // 5 minutes cache TTL
+        this.httpFetch = httpFetch;
     }
 
     static setupAPI({
@@ -152,7 +156,7 @@ export class GitlabCIClient implements GitlabCIApi {
             },
         };
 
-        const response = await fetch(
+        const response = await this.httpFetch(
             `${apiUrl}${path ? `/${path}` : ''}?${new URLSearchParams(
                 query
             ).toString()}`,
