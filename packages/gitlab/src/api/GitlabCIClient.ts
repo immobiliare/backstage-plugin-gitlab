@@ -56,7 +56,7 @@ export class GitlabCIClient implements GitlabCIApi {
         gitlabInstance,
         cacheTTL,
         useOAuth,
-        httpFetch = fetch,
+        httpFetch = window.fetch.bind(window),
     }: APIOptions & { gitlabInstance: string }) {
         this.discoveryApi = discoveryApi;
         this.codeOwnersPath = codeOwnersPath || 'CODEOWNERS';
@@ -171,7 +171,7 @@ export class GitlabCIClient implements GitlabCIApi {
             ) {
                 data = (await response.json()) as T;
             } else {
-                data = response.text() as unknown as T;
+                data = (await response.text()) as unknown as T;
             }
             this.setCachedData(cacheKey, data);
             return data;
