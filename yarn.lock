@@ -5220,7 +5220,7 @@ __metadata:
     eslint-plugin-prettier: "npm:^4.2.1"
     husky: "npm:^8.0.0"
     prettier: "npm:^3.2.5"
-    react: "npm:^18.0.2"
+    react: "npm:^19.0.0"
     react-dom: "npm:^18.0.2"
     react-markdown: "npm:^9.0.1"
     react-router: "npm:^6.3.0"
@@ -28224,12 +28224,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.0.2":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-  checksum: 10/b9214a9bd79e99d08de55f8bef2b7fc8c39630be97c4e29d7be173d14a9a10670b5325e94485f74cd8bff4966ef3c78ee53c79a7b0b9b70cba20aa8973acc694
+"react@npm:^19.0.0":
+  version: 19.0.0
+  resolution: "react@npm:19.0.0"
+  checksum: 10/2490969c503f644703c88990d20e4011fa6119ddeca451e9de48f6d7ab058d670d2852a5fcd3aa3cd90a923ab2815d532637bd4a814add402ae5c0d4f129ee71
   languageName: node
   linkType: hard
 
