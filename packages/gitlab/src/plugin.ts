@@ -46,7 +46,12 @@ export const gitlabPlugin = createPlugin({
                     ),
                     gitlabAuthApi,
                     useOAuth: configApi.getOptionalBoolean('gitlab.useOAuth'),
-                    cacheTTL: configApi.getOptionalNumber('gitlab.cacheTTL'),
+                    cache: {
+                        enabled: configApi.getOptionalBoolean(
+                            'gitlab.cache.enabled'
+                        ),
+                        ttl: configApi.getOptionalNumber('gitlab.cache.ttl'),
+                    },
                 }),
         }),
     ],

@@ -22,10 +22,23 @@ export interface Config {
         useOAuth?: boolean;
 
         /**
-         * Cache TTL for the Gitlab plugin in ms
-         * @default 5 * 60 * 1000 (5 minutes)
+         * Cache configuration
          * @visibility frontend
          */
-        cacheTTL?: number;
+        cache?: {
+            /**
+             * Enable caching for the Gitlab plugin
+             * @default false
+             * @visibility frontend
+             */
+            enabled?: boolean;
+
+            /**
+             * Cache TTL for the Gitlab plugin in seconds
+             * @default 300
+             * @visibility frontend
+             */
+            ttl?: number;
+        };
     };
 }
