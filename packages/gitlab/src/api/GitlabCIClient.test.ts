@@ -43,7 +43,7 @@ describe('GitlabCIClient', () => {
             expect(client.codeOwnersPath).toBe('CODEOWNERS');
             expect(client.readmePath).toBe('README.md');
             expect(client.useOAth).toBe(false);
-            expect(client.cacheTTL).toBe(5 * 60 * 1000);
+            expect(client.cacheTTL).toBe(undefined);
         });
 
         it('should initialize with custom values', () => {
@@ -52,12 +52,16 @@ describe('GitlabCIClient', () => {
                 codeOwnersPath: 'custom/OWNERS',
                 readmePath: 'docs/README.md',
                 useOAuth: true,
-                cacheTTL: 1000,
+                cache: {
+                    enabled: true,
+                    ttl: 1,
+                },
             });
 
             expect(client.codeOwnersPath).toBe('custom/OWNERS');
             expect(client.readmePath).toBe('docs/README.md');
             expect(client.useOAth).toBe(true);
+            expect(client.cacheEnabled).toBe(true);
             expect(client.cacheTTL).toBe(1000);
         });
     });
@@ -244,7 +248,13 @@ describe('GitlabCIClient', () => {
         global.fetch = mockFetch;
 
         beforeEach(() => {
-            client = new GitlabCIClient({ ...defaultOptions, cacheTTL: 1000 });
+            client = new GitlabCIClient({
+                ...defaultOptions,
+                cache: {
+                    enabled: true,
+                    ttl: 1,
+                },
+            });
             mockFetch.mockReset();
         });
 

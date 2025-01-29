@@ -32,7 +32,10 @@ export type APIOptions = {
     readmePath?: string;
     gitlabAuthApi: OAuthApi;
     useOAuth?: boolean;
-    cacheTTL?: number;
+    cache?: {
+        enabled?: boolean;
+        ttl?: number;
+    };
     httpFetch?: typeof fetch;
 };
 
@@ -44,7 +47,8 @@ export class GitlabCIClient implements GitlabCIApi {
     codeOwnersPath: string;
     gitlabInstance: string;
     readmePath: string;
-    cacheTTL: number;
+    cacheTTL?: number;
+    cacheEnabled: boolean;
     httpFetch: typeof fetch;
 
     constructor({
@@ -54,7 +58,7 @@ export class GitlabCIClient implements GitlabCIApi {
         readmePath,
         gitlabAuthApi,
         gitlabInstance,
-        cacheTTL,
+        cache,
         useOAuth,
         httpFetch = window.fetch.bind(window),
     }: APIOptions & { gitlabInstance: string }) {
@@ -65,7 +69,11 @@ export class GitlabCIClient implements GitlabCIApi {
         this.identityApi = identityApi;
         this.gitlabAuthApi = gitlabAuthApi;
         this.useOAth = useOAuth ?? false;
-        this.cacheTTL = cacheTTL ?? 5 * 60 * 1000; // 5 minutes cache TTL
+        this.cacheEnabled = cache?.enabled ?? false;
+        // Default TTL is 5 minutes, convert to milliseconds
+        this.cacheTTL = this.cacheEnabled
+            ? (cache?.ttl ?? 60 * 5) * 1000
+            : undefined;
         this.httpFetch = httpFetch;
         this.cleanupExpiredCache();
     }
@@ -77,7 +85,7 @@ export class GitlabCIClient implements GitlabCIApi {
         readmePath,
         gitlabAuthApi,
         useOAuth,
-        cacheTTL,
+        cache,
     }: APIOptions) {
         return {
             build: (gitlabInstance: string) =>
@@ -89,12 +97,13 @@ export class GitlabCIClient implements GitlabCIApi {
                     gitlabInstance,
                     gitlabAuthApi,
                     useOAuth,
-                    cacheTTL,
+                    cache,
                 }),
         };
     }
 
     private cleanupExpiredCache(): void {
+        if (!this.cacheEnabled || !this.cacheTTL) return;
         const now = Date.now();
         for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i);
@@ -122,6 +131,7 @@ export class GitlabCIClient implements GitlabCIApi {
     }
 
     private getCachedData<T>(key: string): T | undefined {
+        if (!this.cacheEnabled || !this.cacheTTL) return undefined;
         const cached = localStorage.getItem(key);
         if (cached) {
             try {
@@ -138,6 +148,7 @@ export class GitlabCIClient implements GitlabCIApi {
     }
 
     private setCachedData<T>(key: string, data: T): void {
+        if (!this.cacheEnabled) return;
         localStorage.setItem(
             key,
             JSON.stringify({
@@ -156,7 +167,6 @@ export class GitlabCIClient implements GitlabCIApi {
         const cacheKey = this.getCacheKey(path, query, APIkind);
         const cachedData = this.getCachedData<T>(cacheKey);
         if (cachedData) {
-            console.log('hit cache');
             return cachedData;
         }
 
