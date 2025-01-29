@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.8.0-alpha.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.8.0-alpha.0...v6.8.0-alpha.1) (2025-01-29)
+
+### Bug Fixes
+
+-   disable cache by default ([dd63bfd](https://github.com/immobiliare/backstage-plugin-gitlab/commit/dd63bfd8a0cbb854d0f2b223947b11b0e39dcaa0))
+
 # [6.8.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.7.0...v6.8.0-alpha.0) (2025-01-28)
 
 ### Bug Fixes
