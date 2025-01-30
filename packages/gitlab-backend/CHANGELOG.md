@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.8.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.8.0-alpha.1...v6.8.0) (2025-01-30)
+
+**Note:** Version bump only for package @immobiliarelabs/backstage-plugin-gitlab-backend
+
 # [6.8.0-alpha.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.8.0-alpha.0...v6.8.0-alpha.1) (2025-01-29)
 
 **Note:** Version bump only for package @immobiliarelabs/backstage-plugin-gitlab-backend
