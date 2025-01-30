@@ -237,7 +237,7 @@ gitlab:
     # Default path for README file
     # Default: README.md
     defaultReadmePath: .gitlab/README.md
-    # Entity Kinds to witch the plugin works, if you want to render gitlab
+    # Entity Kinds to which the plugin works, if you want to render gitlab
     # information for one Kind you have to add it in this list.
     # Default: ['Component']
     allowedKinds: ['Component', 'Resource']
@@ -247,6 +247,14 @@ gitlab:
     # Activate Oauth/OIDC
     # Default: false
     useOAuth: false
+    # Cache configuration
+    cache:
+        # Enable caching for the Gitlab plugin
+        # Default: false
+        enabled: true
+        # Cache TTL for the Gitlab plugin in seconds
+        # Default: 300
+        ttl: 300
 ```
 
 ### Extra OIDC/OAuth
