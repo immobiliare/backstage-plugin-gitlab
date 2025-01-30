@@ -20,5 +20,25 @@ export interface Config {
          * @visibility frontend
          */
         useOAuth?: boolean;
+
+        /**
+         * Cache configuration
+         * @visibility frontend
+         */
+        cache?: {
+            /**
+             * Enable caching for the Gitlab plugin
+             * @default false
+             * @visibility frontend
+             */
+            enabled?: boolean;
+
+            /**
+             * Cache TTL for the Gitlab plugin in seconds
+             * @default 300
+             * @visibility frontend
+             */
+            ttl?: number;
+        };
     };
 }
