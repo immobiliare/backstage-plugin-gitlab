@@ -240,6 +240,20 @@ describe('GitlabCIClient', () => {
                 expect(result).toEqual(mockReleases);
             });
         });
+        describe('getTags', () => {
+            it('should return tags', async () => {
+                const mockTags = [{ message: '1.0.0' }];
+
+                mockFetch.mockResolvedValueOnce({
+                    status: 200,
+                    headers: { get: () => 'application/json' },
+                    json: () => Promise.resolve(mockTags),
+                });
+
+                const result = await client.getReleasesSummary('123');
+                expect(result).toEqual(mockTags);
+            });
+        });
     });
 
     describe('Cache handling', () => {

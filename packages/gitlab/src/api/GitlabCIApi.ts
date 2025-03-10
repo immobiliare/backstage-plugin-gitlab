@@ -8,6 +8,7 @@ import type {
     ReleaseSchema,
     RepositoryContributorSchema,
     UserSchema,
+    TagSchema,
 } from '@gitbeaker/rest';
 
 export type ContributorsSummary = (RepositoryContributorSchema &
@@ -75,6 +76,7 @@ export type GitlabCIApi = {
     getReleasesSummary(
         projectID: string | number
     ): Promise<ReleaseSchema[] | undefined>;
+    getTags(projectID: string | number): Promise<TagSchema[] | undefined>;
     getContributorsLink(
         projectWebUrl: string,
         projectDefaultBranch: string
