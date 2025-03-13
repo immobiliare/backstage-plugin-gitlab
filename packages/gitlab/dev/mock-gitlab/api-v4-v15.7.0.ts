@@ -2140,6 +2140,30 @@ export const mockedGitlabReqToRes: Record<string, any> = {
             deletions: 0,
         },
     ],
+    'projects/10174980/members/all?': [
+        {
+            access_level: 50,
+            membership_state: 'active',
+            id: 7487985,
+            username: 'cpetig',
+            name: 'Christof Petig',
+            state: 'active',
+            avatar_url:
+                'https://gitlab.com/uploads/-/system/user/avatar/7487985/avatar.png',
+            web_url: 'https://gitlab.com/cpetig',
+        },
+        {
+            access_level: 30,
+            membership_state: 'active',
+            id: 8152986,
+            username: 'papiris',
+            name: 'Jacob Ludvigsen',
+            state: 'active',
+            avatar_url:
+                'https://secure.gravatar.com/avatar/a195cbacfdf18e635ab956fc17fcd580?s=80\u0026d=identicon',
+            web_url: 'https://gitlab.com/papiris',
+        },
+    ],
     'projects/10174980/issues?': [
         {
             id: 120368248,

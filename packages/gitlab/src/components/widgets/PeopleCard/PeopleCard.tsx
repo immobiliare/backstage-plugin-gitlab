@@ -16,7 +16,9 @@ import {
     gitlabInstance,
 } from '../../gitlabAppData';
 import { PeopleList } from './components/PeopleList';
+import { MembersList } from './components/MembersList';
 import { PeopleCardEntityData, PeopleLink } from '../../types';
+import { MemberCardEntityData } from '../../types';
 import { Divider } from '@material-ui/core';
 import { ProjectSchema } from '@gitbeaker/rest';
 
@@ -53,6 +55,7 @@ export const PeopleCard = (props: Props) => {
     /* TODO: to change the below logic to get contributors data*/
     const { value, loading, error } = useAsync(async (): Promise<{
         contributors: PeopleCardEntityData[] | undefined;
+        members: MemberCardEntityData[] | undefined;
         owners: PeopleCardEntityData[] | undefined;
         projectDetails: ProjectSchema;
     }> => {
@@ -63,6 +66,10 @@ export const PeopleCard = (props: Props) => {
             throw new Error('wrong project_slug or project_id');
 
         const contributorData = await GitlabCIAPI.getContributorsSummary(
+            projectDetails.id
+        );
+
+        const memberData = await GitlabCIAPI.getMembersSummary(
             projectDetails.id
         );
 
@@ -79,6 +86,7 @@ export const PeopleCard = (props: Props) => {
         }
         return {
             contributors: contributorData!,
+            members: memberData!,
             owners: codeOwners,
             projectDetails,
         };
@@ -88,6 +96,7 @@ export const PeopleCard = (props: Props) => {
     const project_default_branch = value?.projectDetails?.default_branch;
 
     let contributorsDeepLink: PeopleLink | undefined;
+    let membersDeepLink: PeopleLink | undefined;
     let ownersDeepLink: PeopleLink | undefined;
     if (project_web_url && project_default_branch) {
         const contributorsLink = GitlabCIAPI.getContributorsLink(
@@ -100,6 +109,16 @@ export const PeopleCard = (props: Props) => {
             onClick: (e) => {
                 e.preventDefault();
                 window.open(contributorsLink);
+            },
+        };
+
+        const membersLink = GitlabCIAPI.getMembersLink(project_web_url);
+        membersDeepLink = {
+            link: membersLink,
+            title: 'go to Members',
+            onClick: (e) => {
+                e.preventDefault();
+                window.open(membersLink);
             },
         };
 
@@ -148,6 +167,13 @@ export const PeopleCard = (props: Props) => {
                 title="Contributors"
                 peopleObj={value?.contributors || []}
                 deepLink={contributorsDeepLink}
+            />
+
+            <Divider className={classes.divider}></Divider>
+            <MembersList
+                title="Members"
+                memberObj={value?.members || []}
+                deepLink={membersDeepLink}
             />
         </InfoCard>
     );

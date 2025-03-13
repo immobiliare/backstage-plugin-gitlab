@@ -7,6 +7,7 @@ import { PeopleCardEntityData } from '../components/types';
 import { parseCodeOwners } from '../components/utils';
 import {
     ContributorsSummary,
+    MembersSummary,
     GitlabCIApi,
     GitlabProjectCoverageResponse,
     GraphQLQuery,
@@ -21,6 +22,7 @@ import type {
     ProjectSchema,
     ReleaseSchema,
     RepositoryContributorSchema,
+    RepositoryMemberSchema,
     UserSchema,
 } from '@gitbeaker/rest';
 import dayjs from 'dayjs';
@@ -316,6 +318,53 @@ export class GitlabCIClient implements GitlabCIApi {
         });
     }
 
+    private async getUserMembersData(
+        membersData: RepositoryMemberSchema[]
+    ): Promise<MembersSummary> {
+        return membersData
+            .filter(
+                (member) =>
+                    member.state == 'active' &&
+                    member.membership_state == 'active'
+            )
+            .map((member) => {
+                // Access level label determination (https://docs.gitlab.com/api/members/)
+                let access_level_label;
+                switch (member.access_level) {
+                    case 0:
+                        access_level_label = 'No access';
+                        break;
+                    case 5:
+                        access_level_label = 'Minimal access';
+                        break;
+                    case 10:
+                        access_level_label = 'Guest';
+                        break;
+                    case 15:
+                        access_level_label = 'Planner';
+                        break;
+                    case 20:
+                        access_level_label = 'Reporter';
+                        break;
+                    case 30:
+                        access_level_label = 'Developer';
+                        break;
+                    case 40:
+                        access_level_label = 'Maintainer';
+                        break;
+                    case 50:
+                        access_level_label = 'Owner';
+                        break;
+                    case 60:
+                        access_level_label = 'Admin';
+                        break;
+                    default:
+                        access_level_label = String(member.access_level);
+                }
+                return { ...member, access_level_label: access_level_label };
+            });
+    }
+
     private async getUserDetail(username: string): Promise<UserSchema> {
         if (username.startsWith('@')) {
             username = username.slice(1);
@@ -380,6 +429,21 @@ export class GitlabCIClient implements GitlabCIApi {
         );
 
         return updatedContributorsData;
+    }
+
+    async getMembersSummary(
+        projectID?: string | number
+    ): Promise<MembersSummary | undefined> {
+        const membersData = await this.callApi<RepositoryMemberSchema[]>(
+            'projects/' + projectID + '/members/all',
+            {}
+        );
+
+        if (!membersData) return undefined;
+
+        const updatedMembersData = await this.getUserMembersData(membersData);
+
+        return updatedMembersData;
     }
 
     async getLanguagesSummary(
@@ -520,6 +584,10 @@ export class GitlabCIClient implements GitlabCIApi {
         projectDefaultBranch: string
     ): string {
         return `${projectWebUrl}/-/graphs/${projectDefaultBranch}`;
+    }
+
+    getMembersLink(projectWebUrl: string): string {
+        return `${projectWebUrl}/-/project_members`;
     }
 
     getOwnersLink(
