@@ -17,6 +17,20 @@ export type PeopleLink = {
     onClick: MouseEventHandler;
 };
 
+export type MemberCardEntityData = {
+    name: string;
+    email?: string;
+    avatar_url?: string;
+    id?: number;
+    state?: string;
+    username?: string;
+    web_url?: string;
+    full_path?: string;
+    access_level?: number;
+    access_level_label?: string;
+    membership_state?: string;
+};
+
 export type FileOwnership = {
     rule: string;
     path: string;
