@@ -7,12 +7,15 @@ import type {
     ProjectSchema,
     ReleaseSchema,
     RepositoryContributorSchema,
+    SimpleMemberSchema,
     UserSchema,
     TagSchema,
 } from '@gitbeaker/rest';
 
 export type ContributorsSummary = (RepositoryContributorSchema &
     Partial<UserSchema>)[];
+
+export type MembersSummary = (SimpleMemberSchema & Partial<UserSchema>)[];
 
 export type LanguagesSummary = Languages;
 
@@ -49,6 +52,9 @@ export type GitlabCIApi = {
     getContributorsSummary(
         projectID: string | number
     ): Promise<ContributorsSummary | undefined>;
+    getMembersSummary(
+        projectID: string | number
+    ): Promise<MembersSummary | undefined>;
     getMergeRequestsSummary(
         projectID: string | number
     ): Promise<MergeRequestSchema[] | undefined>;
@@ -81,6 +87,7 @@ export type GitlabCIApi = {
         projectWebUrl: string,
         projectDefaultBranch: string
     ): string;
+    getMembersLink(projectWebUrl: string): string;
     getOwnersLink(
         projectWebUrl: string,
         projectDefaultBranch: string,
