@@ -25,6 +25,7 @@ import {
     type RepositoryContributorSchema,
     type SimpleMemberSchema,
     type UserSchema,
+    type TagSchema,
 } from '@gitbeaker/rest';
 import dayjs from 'dayjs';
 
@@ -455,6 +456,15 @@ export class GitlabCIClient implements GitlabCIApi {
     ): Promise<ReleaseSchema[] | undefined> {
         return this.callApi<ReleaseSchema[]>(
             'projects/' + projectID + '/releases',
+            {}
+        );
+    }
+
+    async getTags(
+        projectID: string | number
+    ): Promise<TagSchema[] | undefined> {
+        return this.callApi<TagSchema[]>(
+            'projects/' + projectID + '/repository/tags',
             {}
         );
     }
