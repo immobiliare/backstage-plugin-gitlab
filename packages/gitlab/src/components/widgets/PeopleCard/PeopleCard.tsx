@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 type Props = {
     variant?: InfoCardVariants;
+    disableMembersList?: boolean;
 };
 
 export const PeopleCard = (props: Props) => {
@@ -169,12 +170,16 @@ export const PeopleCard = (props: Props) => {
                 deepLink={contributorsDeepLink}
             />
 
-            <Divider className={classes.divider}></Divider>
-            <MembersList
-                title="Members"
-                memberObj={value?.members || []}
-                deepLink={membersDeepLink}
-            />
+            {props.disableMembersList || (
+                <>
+                    <Divider className={classes.divider}></Divider>
+                    <MembersList
+                        title="Members"
+                        memberObj={value?.members || []}
+                        deepLink={membersDeepLink}
+                    />
+                </>
+            )}
         </InfoCard>
     );
 };
