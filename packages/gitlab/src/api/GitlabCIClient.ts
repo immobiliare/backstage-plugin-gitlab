@@ -14,16 +14,17 @@ import {
     LanguagesSummary,
 } from './GitlabCIApi';
 
-import type {
-    GroupSchema,
-    IssueSchema,
-    MergeRequestSchema,
-    PipelineSchema,
-    ProjectSchema,
-    ReleaseSchema,
-    RepositoryContributorSchema,
-    RepositoryMemberSchema,
-    UserSchema,
+import {
+    AccessLevel,
+    type GroupSchema,
+    type IssueSchema,
+    type MergeRequestSchema,
+    type PipelineSchema,
+    type ProjectSchema,
+    type ReleaseSchema,
+    type RepositoryContributorSchema,
+    type SimpleMemberSchema,
+    type UserSchema,
 } from '@gitbeaker/rest';
 import dayjs from 'dayjs';
 
@@ -319,7 +320,7 @@ export class GitlabCIClient implements GitlabCIApi {
     }
 
     private async getUserMembersData(
-        membersData: RepositoryMemberSchema[]
+        membersData: SimpleMemberSchema[]
     ): Promise<MembersSummary> {
         return membersData
             .filter(
@@ -331,32 +332,26 @@ export class GitlabCIClient implements GitlabCIApi {
                 // Access level label determination (https://docs.gitlab.com/api/members/)
                 let access_level_label;
                 switch (member.access_level) {
-                    case 0:
+                    case AccessLevel.NO_ACCESS:
                         access_level_label = 'No access';
                         break;
-                    case 5:
+                    case AccessLevel.MINIMAL_ACCESS:
                         access_level_label = 'Minimal access';
                         break;
-                    case 10:
+                    case AccessLevel.GUEST:
                         access_level_label = 'Guest';
                         break;
-                    case 15:
-                        access_level_label = 'Planner';
-                        break;
-                    case 20:
+                    case AccessLevel.REPORTER:
                         access_level_label = 'Reporter';
                         break;
-                    case 30:
+                    case AccessLevel.DEVELOPER:
                         access_level_label = 'Developer';
                         break;
-                    case 40:
+                    case AccessLevel.MAINTAINER:
                         access_level_label = 'Maintainer';
                         break;
-                    case 50:
+                    case AccessLevel.OWNER:
                         access_level_label = 'Owner';
-                        break;
-                    case 60:
-                        access_level_label = 'Admin';
                         break;
                     default:
                         access_level_label = String(member.access_level);
@@ -434,7 +429,7 @@ export class GitlabCIClient implements GitlabCIApi {
     async getMembersSummary(
         projectID?: string | number
     ): Promise<MembersSummary | undefined> {
-        const membersData = await this.callApi<RepositoryMemberSchema[]>(
+        const membersData = await this.callApi<SimpleMemberSchema[]>(
             'projects/' + projectID + '/members/all',
             {}
         );

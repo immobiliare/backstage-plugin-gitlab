@@ -7,14 +7,14 @@ import type {
     ProjectSchema,
     ReleaseSchema,
     RepositoryContributorSchema,
-    RepositoryMemberSchema,
+    SimpleMemberSchema,
     UserSchema,
 } from '@gitbeaker/rest';
 
 export type ContributorsSummary = (RepositoryContributorSchema &
     Partial<UserSchema>)[];
 
-export type MembersSummary = (RepositoryMemberSchema & Partial<UserSchema>)[];
+export type MembersSummary = (SimpleMemberSchema & Partial<UserSchema>)[];
 
 export type LanguagesSummary = Languages;
 
