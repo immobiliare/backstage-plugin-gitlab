@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.10.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.9.0...v6.10.0-alpha.0) (2025-03-18)
+
+### Bug Fixes
+
+-   Fix RepositoryMemberSchema type error ([59a06b0](https://github.com/immobiliare/backstage-plugin-gitlab/commit/59a06b0a9cd1281cf1683a66795bc94cc6949702))
+
+### Features
+
+-   add members list in people card ([84c3b18](https://github.com/immobiliare/backstage-plugin-gitlab/commit/84c3b18e3b957e860348f736732475bdf063d641))
+-   **api:** added api request for all tags from repository ([f3bb023](https://github.com/immobiliare/backstage-plugin-gitlab/commit/f3bb0237a5ea2529eba73354e90458a7f76f58fe))
+
 # [6.9.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.9.0-alpha.0...v6.9.0) (2025-03-03)
 
 **Note:** Version bump only for package root
