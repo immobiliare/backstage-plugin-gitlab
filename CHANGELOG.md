@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.10.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.10.0-alpha.0...v6.10.0) (2025-03-19)
+
+### Features
+
+-   added possibility to disable members list ([5ddb5bf](https://github.com/immobiliare/backstage-plugin-gitlab/commit/5ddb5bf903be31abf64525ee80e84a094bea6b54))
+
 # [6.10.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.9.0...v6.10.0-alpha.0) (2025-03-18)
 
 ### Bug Fixes
