@@ -37,6 +37,8 @@ import { ReleaseSchema } from '@gitbeaker/rest';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import SortIcon from '@material-ui/icons/Sort';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import { gitlabTranslationRef } from '../../../translation';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -150,8 +152,9 @@ function makeFilter(
  * @public
  */
 export const ReleasesCard = (props: ReleasesCardProps) => {
+    const { t } = useTranslationRef(gitlabTranslationRef);
     const {
-        title = 'Releases',
+        title = t('releasesCard.title'),
         show = 'all',
         limit = 6,
         sort = 'releasedDate',
@@ -230,7 +233,7 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
                 title={title}
                 deepLink={{
                     link: `${project_web_url}/-/releases`,
-                    title: 'go to Releases',
+                    title: t('releasesCard.deepLinkTitle'),
                     onClick: (e) => {
                         e.preventDefault();
                         window.open(`${project_web_url}/-/releases`);
@@ -240,7 +243,7 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
                 className={classes.infoCard}
             >
                 <Typography variant="body2">
-                    No releases have been made
+                    {t('releasesCard.noReleases')}
                 </Typography>
             </InfoCard>
         );
@@ -255,7 +258,7 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
             title={title}
             deepLink={{
                 link: `${project_web_url}/-/releases`,
-                title: 'go to Releases',
+                title: t('releasesCard.deepLinkTitle'),
                 onClick: (e) => {
                     e.preventDefault();
                     window.open(`${project_web_url}/-/releases`);
@@ -273,10 +276,10 @@ export const ReleasesCard = (props: ReleasesCardProps) => {
                             onChange={handleSortChange}
                         >
                             <MenuItem value="releasedDate">
-                                Released Date
+                                {t('releasesCard.releasedDate')}
                             </MenuItem>
                             <MenuItem value="releasedVersion">
-                                Released Version
+                                {t('releasesCard.releasedVersion')}
                             </MenuItem>
                         </Select>
                         <SortIcon />

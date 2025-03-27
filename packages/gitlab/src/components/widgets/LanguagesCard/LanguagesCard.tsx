@@ -17,6 +17,8 @@ import {
 import { Chip, Tooltip } from '@material-ui/core';
 import { colors } from './colors';
 import { Languages } from '../../types';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import { gitlabTranslationRef } from '../../../translation';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -59,6 +61,7 @@ export const LanguagesCard = (props: Props) => {
     const project_id = gitlabProjectId();
     const project_slug = gitlabProjectSlug();
     const gitlab_instance = gitlabInstance();
+    const { t } = useTranslationRef(gitlabTranslationRef);
 
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(
         gitlab_instance || 'gitlab.com'
@@ -91,7 +94,7 @@ export const LanguagesCard = (props: Props) => {
     }
 
     return value ? (
-        <InfoCard title="Languages" variant={props.variant}>
+        <InfoCard title={t('languagesCard.title')} variant={props.variant}>
             <div className={classes.barContainer}>
                 {Object.entries(value).map((language, index: number) => {
                     barWidth = barWidth + language[1];
@@ -140,6 +143,6 @@ export const LanguagesCard = (props: Props) => {
             ))}
         </InfoCard>
     ) : (
-        <InfoCard title="Languages" variant={props.variant} />
+        <InfoCard title={t('languagesCard.title')} variant={props.variant} />
     );
 };

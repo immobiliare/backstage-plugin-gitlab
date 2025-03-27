@@ -13,6 +13,8 @@ import { useApi } from '@backstage/core-plugin-api';
 import { InfoCard, InfoCardVariants } from '@backstage/core-components';
 import { LineChart } from '@mui/x-charts/LineChart';
 import dayjs from 'dayjs';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import { gitlabTranslationRef } from '../../../translation';
 
 const useStyles = makeStyles(() => ({
     lineChartContainer: {
@@ -34,6 +36,7 @@ const CoverageCard = (props: Props) => {
     const project_id = gitlabProjectId();
     const project_slug = gitlabProjectSlug();
     const gitlab_instance = gitlabInstance();
+    const { t } = useTranslationRef(gitlabTranslationRef);
 
     const classes = useStyles();
 
@@ -87,10 +90,10 @@ const CoverageCard = (props: Props) => {
 
     return value ? (
         <InfoCard
-            title="Coverage statistics"
+            title={t('coverageCard.title')}
             deepLink={{
                 link: `${value.webUrl}/-/graphs/main/charts`,
-                title: 'go to Analytics',
+                title: t('coverageCard.deepLinkTitle'),
                 onClick: (e) => {
                     e.preventDefault();
                     window.open(
@@ -120,15 +123,15 @@ const CoverageCard = (props: Props) => {
 
                 <div>
                     {' '}
-                    <b>Last Coverage: </b>
+                    <b>{t('coverageCard.lastCoverage')}</b>
                     {dataset.length > 0
                         ? `${value.coverageDetails[0].coverage}%`
-                        : 'No data'}
+                        : t('coverageCard.noData')}
                 </div>
             </Box>
         </InfoCard>
     ) : (
-        <InfoCard title="Coverage Statistics" />
+        <InfoCard title={t('coverageCard.title')} />
     );
 };
 

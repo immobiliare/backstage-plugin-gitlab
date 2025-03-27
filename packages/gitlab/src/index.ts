@@ -13,3 +13,4 @@ export {
 } from './plugin';
 export * from './api';
 export { isGitlabAvailable } from './components';
+export { gitlabTranslationRef } from './translation';

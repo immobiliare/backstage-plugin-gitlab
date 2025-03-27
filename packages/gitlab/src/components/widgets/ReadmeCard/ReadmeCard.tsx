@@ -23,6 +23,8 @@ import removeComments from 'remark-remove-comments';
 
 import gemoji from 'remark-gemoji';
 import { parseGitLabReadme } from '../../utils';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import { gitlabTranslationRef } from '../../../translation';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -80,6 +82,7 @@ export const ReadmeCard = (props: Props) => {
     const project_slug = gitlabProjectSlug();
     const gitlab_instance = gitlabInstance();
     const readme_path = gitlabReadmePath();
+    const { t } = useTranslationRef(gitlabTranslationRef);
 
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(
         gitlab_instance || 'gitlab.com'
@@ -137,7 +140,7 @@ export const ReadmeCard = (props: Props) => {
                     [toc, { heading: '<!-- injected_toc -->' }], // tells remark-toc to look for toc injected by parseGitLabReadme
                     removeComments, // removes HTML comments, including the one we injected
                 ]}
-                children={value?.readme ?? 'No README found'}
+                children={value?.readme ?? t('readmeCard.noReadme')}
             />
         </InfoCard>
     );
