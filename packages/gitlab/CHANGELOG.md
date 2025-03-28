@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.11.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.10.0...v6.11.0-alpha.0) (2025-03-28)
+
+### Features
+
+-   support i18n ([812e533](https://github.com/immobiliare/backstage-plugin-gitlab/commit/812e533227165a98006e8edf1e9a1e0dcfee980d))
+
 # [6.10.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.10.0-alpha.0...v6.10.0) (2025-03-19)
 
 ### Features
