@@ -21,6 +21,8 @@ import { PeopleCardEntityData, PeopleLink } from '../../types';
 import { MemberCardEntityData } from '../../types';
 import { Divider } from '@material-ui/core';
 import { ProjectSchema } from '@gitbeaker/rest';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import { gitlabTranslationRef } from '../../../translation';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -49,6 +51,7 @@ export const PeopleCard = (props: Props) => {
     const project_slug = gitlabProjectSlug();
     const gitlab_instance = gitlabInstance();
     const codeowners_path = gitlabCodeOwnerPath();
+    const { t } = useTranslationRef(gitlabTranslationRef);
 
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(
         gitlab_instance || 'gitlab.com'
@@ -106,7 +109,7 @@ export const PeopleCard = (props: Props) => {
         );
         contributorsDeepLink = {
             link: contributorsLink,
-            title: 'go to Contributors',
+            title: t('peopleCard.contributorList.deepLinkTitle'),
             onClick: (e) => {
                 e.preventDefault();
                 window.open(contributorsLink);
@@ -116,7 +119,7 @@ export const PeopleCard = (props: Props) => {
         const membersLink = GitlabCIAPI.getMembersLink(project_web_url);
         membersDeepLink = {
             link: membersLink,
-            title: 'go to Members',
+            title: t('peopleCard.memberList.deepLinkTitle'),
             onClick: (e) => {
                 e.preventDefault();
                 window.open(membersLink);
@@ -130,7 +133,7 @@ export const PeopleCard = (props: Props) => {
         );
         ownersDeepLink = {
             link: ownersLink,
-            title: 'go to Owners File',
+            title: t('peopleCard.ownerList.deepLinkTitle'),
             onClick: (e) => {
                 e.preventDefault();
                 window.open(ownersLink);
@@ -149,14 +152,14 @@ export const PeopleCard = (props: Props) => {
     }
     return (
         <InfoCard
-            title="People"
+            title={t('peopleCard.title')}
             className={classes.infoCard}
             variant={props.variant}
         >
             {value?.owners && (
                 <>
                     <PeopleList
-                        title="Owners"
+                        title={t('peopleCard.ownerList.title')}
                         peopleObj={value?.owners}
                         deepLink={ownersDeepLink}
                     />
@@ -165,7 +168,7 @@ export const PeopleCard = (props: Props) => {
             )}
 
             <PeopleList
-                title="Contributors"
+                title={t('peopleCard.contributorList.title')}
                 peopleObj={value?.contributors || []}
                 deepLink={contributorsDeepLink}
             />
@@ -174,7 +177,7 @@ export const PeopleCard = (props: Props) => {
                 <>
                     <Divider className={classes.divider}></Divider>
                     <MembersList
-                        title="Members"
+                        title={t('peopleCard.memberList.title')}
                         memberObj={value?.members || []}
                         deepLink={membersDeepLink}
                     />

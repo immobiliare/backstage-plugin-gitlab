@@ -12,6 +12,8 @@ import { useApi } from '@backstage/core-plugin-api';
 import { getElapsedTime, getDuration } from '../../utils';
 import { createTitleColumn } from './columns';
 import type { MergeRequestSchema } from '@gitbeaker/rest';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import { gitlabTranslationRef } from '../../../translation';
 
 type MergeRequestDenseTableProps = {
     data: MergeRequestSchema[];
@@ -22,15 +24,25 @@ export const MergeRequestDenseTable = ({
     data,
     projectName,
 }: MergeRequestDenseTableProps) => {
+    const { t } = useTranslationRef(gitlabTranslationRef);
     const columns: TableColumn[] = [
         { title: 'ID', field: 'id' },
-        createTitleColumn(),
-        { title: 'Creator', field: 'author' },
-        { title: 'State', field: 'state' },
-        { title: 'Created At', field: 'created_date' },
-        { title: 'Duration', field: 'duration' },
+        createTitleColumn(t),
+        {
+            title: t('mergeRequestsTable.columnsTitle.creator'),
+            field: 'author',
+        },
+        { title: t('mergeRequestsTable.columnsTitle.state'), field: 'state' },
+        {
+            title: t('mergeRequestsTable.columnsTitle.createdAt'),
+            field: 'created_date',
+        },
+        {
+            title: t('mergeRequestsTable.columnsTitle.duration'),
+            field: 'duration',
+        },
     ];
-    const title = 'Gitlab Merge Request Status: ' + projectName;
+    const title = t('mergeRequestsTable.title', { projectName });
     const mappedData = data.map((mergeRequest) => {
         return {
             id: mergeRequest.id,
