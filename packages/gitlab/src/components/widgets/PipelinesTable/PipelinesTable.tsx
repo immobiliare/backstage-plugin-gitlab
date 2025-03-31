@@ -12,6 +12,8 @@ import { useApi } from '@backstage/core-plugin-api';
 import { createStatusColumn, createWebURLColumn } from './columns';
 import { getDuration, getElapsedTime } from '../../utils';
 import type { PipelineSchema } from '@gitbeaker/rest';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import { gitlabTranslationRef } from '../../../translation';
 
 export type PipelineDenseTableProps = {
     projectName: string;
@@ -22,15 +24,19 @@ export const PipelineDenseTable = ({
     projectName,
     summary,
 }: PipelineDenseTableProps) => {
+    const { t } = useTranslationRef(gitlabTranslationRef);
     const columns: TableColumn[] = [
-        { title: 'Pipeline_ID', field: 'id' },
-        createStatusColumn(),
-        { title: 'Branch', field: 'ref' },
-        createWebURLColumn(),
-        { title: 'Created At', field: 'created_date' },
-        { title: 'Duration', field: 'duration' },
+        { title: t('pipelinesTable.columnsTitle.pipelineID'), field: 'id' },
+        createStatusColumn(t),
+        { title: t('pipelinesTable.columnsTitle.branch'), field: 'ref' },
+        createWebURLColumn(t),
+        {
+            title: t('pipelinesTable.columnsTitle.createdAt'),
+            field: 'created_date',
+        },
+        { title: t('pipelinesTable.columnsTitle.duration'), field: 'duration' },
     ];
-    const title = 'Gitlab Pipelines: ' + projectName;
+    const title = t('pipelinesTable.title', { projectName });
 
     const data = summary.map((pipelineObject) => {
         return {

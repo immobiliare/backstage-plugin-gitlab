@@ -1,4 +1,12 @@
-import { Progress, Table, TableColumn } from '@backstage/core-components';
+import {
+    Avatar,
+    Progress,
+    StatusAborted,
+    StatusOK,
+    StatusPending,
+    Table,
+    TableColumn,
+} from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import Alert from '@material-ui/lab/Alert';
 import React from 'react';
@@ -10,20 +18,46 @@ import {
     gitlabProjectSlug,
 } from '../../gitlabAppData';
 import { getElapsedTime } from '../../utils';
-import { AuthorColumn, IssueStateIndicator, IssueTitle } from './columns';
 import type { IssueSchema } from '@gitbeaker/rest';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import { gitlabTranslationRef } from '../../../translation';
+import { Box, Typography } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
 
-// export type IssueObject = {
-//   id: string;
-//   project_id: string;
-//   title: string;
-//   state: IssueState;
-//   type: IssueType;
-//   description: string;
-//   created_at: string;
-//   updated_at: string;
-//   author: Author;
-// };
+export function AuthorColumn(
+    issueObject: IssueSchema
+): TableColumn<Record<string, unknown>> {
+    return (
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Avatar
+                customStyles={{ width: 32, height: 32 }}
+                picture={issueObject.author.avatar_url}
+                displayName={issueObject.author.username}
+            />
+            <Typography variant="body2" noWrap>
+                <Box ml={1} component="span">
+                    <Link href={issueObject.author.web_url} target="_blank">
+                        {issueObject.author.username}
+                    </Link>
+                </Box>
+            </Typography>
+        </Box>
+    );
+}
+
+const IssueTitle = (
+    issueObject: IssueSchema
+): TableColumn<Record<string, unknown>> => {
+    return (
+        <Typography variant="body2" noWrap>
+            <Box ml={1} component="span">
+                <Link href={issueObject.web_url} target="_blank">
+                    {issueObject.title}
+                </Link>
+            </Box>
+        </Typography>
+    );
+};
 
 export const DenseTable = ({
     issuesObjects,
@@ -32,16 +66,38 @@ export const DenseTable = ({
     issuesObjects: IssueSchema[];
     projectName: string | undefined;
 }) => {
+    const { t } = useTranslationRef(gitlabTranslationRef);
+
+    const IssueStateIndicator = (
+        issueObject: IssueSchema
+    ): TableColumn<Record<string, unknown>> => {
+        switch (issueObject.state) {
+            case 'opened':
+                return (
+                    <StatusPending>
+                        {t('issuesTable.status.open')}
+                    </StatusPending>
+                );
+            case 'closed':
+                return <StatusOK>{t('issuesTable.status.close')}</StatusOK>;
+            default:
+                return <StatusAborted />;
+        }
+    };
+
     const columns: TableColumn<IssueSchema>[] = [
-        { title: 'Issue ID', field: 'id' },
-        { title: 'Title', render: IssueTitle },
-        { title: 'Author', render: AuthorColumn },
-        { title: 'Created At', field: 'created_at' },
-        { title: 'Issue Type', field: 'type' },
-        { title: 'Issue Status', render: IssueStateIndicator },
+        { title: t('issuesTable.columnsTitle.issueId'), field: 'id' },
+        { title: t('issuesTable.columnsTitle.title'), render: IssueTitle },
+        { title: t('issuesTable.columnsTitle.author'), render: AuthorColumn },
+        { title: t('issuesTable.columnsTitle.createdAt'), field: 'created_at' },
+        { title: t('issuesTable.columnsTitle.issueType'), field: 'type' },
+        {
+            title: t('issuesTable.columnsTitle.issueStatus'),
+            render: IssueStateIndicator,
+        },
     ];
 
-    const title = 'Gitlab Issues: ' + projectName;
+    const title = t('issuesTable.title', { projectName: projectName || '' });
 
     const data = issuesObjects.map((issue) => ({
         ...issue,

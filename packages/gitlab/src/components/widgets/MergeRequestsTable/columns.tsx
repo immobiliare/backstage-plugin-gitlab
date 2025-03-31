@@ -4,10 +4,14 @@ import { TableColumn } from '@backstage/core-components';
 import type { MergeRequestSchema } from '@gitbeaker/rest';
 import { getStatusIconType } from './Icons';
 import Link from '@material-ui/core/Link';
+import { gitlabTranslationRef } from '../../../translation';
+import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
 
-export function createTitleColumn(): TableColumn<Record<string, unknown>> {
+export function createTitleColumn(
+    t: TranslationFunction<typeof gitlabTranslationRef.T>
+): TableColumn<Record<string, unknown>> {
     return {
-        title: 'Title',
+        title: t('mergeRequestsTable.columnsTitle.title'),
         field: 'title',
         highlight: true,
         render: (row: Partial<MergeRequestSchema>) => (

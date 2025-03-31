@@ -9,6 +9,8 @@ import {
 } from '@backstage/core-components';
 import { TableColumn } from '@backstage/core-components';
 import type { PipelineSchema } from '@gitbeaker/rest';
+import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
+import { gitlabTranslationRef } from '../../../translation';
 
 export const GitlabCIStateIndicator = ({
     state,
@@ -30,9 +32,11 @@ export const GitlabCIStateIndicator = ({
     }
 };
 
-export function createStatusColumn(): TableColumn<Record<string, unknown>> {
+export function createStatusColumn(
+    t: TranslationFunction<typeof gitlabTranslationRef.T>
+): TableColumn<Record<string, unknown>> {
     return {
-        title: 'Status',
+        title: t('pipelinesTable.columnsTitle.status'),
         render: (row: Partial<PipelineSchema>) => (
             <Box display="flex" alignItems="center">
                 <GitlabCIStateIndicator state={row.status} />
@@ -42,9 +46,11 @@ export function createStatusColumn(): TableColumn<Record<string, unknown>> {
     };
 }
 
-export function createWebURLColumn(): TableColumn<Record<string, unknown>> {
+export function createWebURLColumn(
+    t: TranslationFunction<typeof gitlabTranslationRef.T>
+): TableColumn<Record<string, unknown>> {
     return {
-        title: 'Web URL',
+        title: t('pipelinesTable.columnsTitle.webURL'),
         render: (row: Partial<PipelineSchema>) => (
             <Link
                 href={`${row.web_url}`}

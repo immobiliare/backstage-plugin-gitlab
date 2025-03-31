@@ -25,6 +25,8 @@ import {
 import dayjs from 'dayjs';
 import { Entity } from '@backstage/catalog-model';
 import { MergeRequestSchema } from '@gitbeaker/rest';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import { gitlabTranslationRef } from '../../../translation';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -81,6 +83,7 @@ const MergeRequestStats = (props: Props) => {
     const project_id = gitlabProjectId();
     const project_slug = gitlabProjectSlug();
     const gitlab_instance = gitlabInstance();
+    const { t } = useTranslationRef(gitlabTranslationRef);
 
     const GitlabCIAPI = useApi(GitlabCIApiRef).build(
         gitlab_instance || 'gitlab.com'
@@ -126,7 +129,7 @@ const MergeRequestStats = (props: Props) => {
 
     return value ? (
         <InfoCard
-            title="Merge requests statistics"
+            title={t('mergeRequestStats.title')}
             className={classes.infoCard}
             variant={props.variant}
         >
@@ -151,13 +154,18 @@ const MergeRequestStats = (props: Props) => {
                             <MenuItem value={50}>50</MenuItem>
                             <MenuItem value={100}>100</MenuItem>
                         </Select>
-                        <FormHelperText>Number of MRs</FormHelperText>
+                        <FormHelperText>
+                            {t('mergeRequestStats.helperText')}
+                        </FormHelperText>
                     </FormControl>
                 </Box>
             </Box>
         </InfoCard>
     ) : (
-        <InfoCard title="Merge Request Statistics" variant={props.variant} />
+        <InfoCard
+            title={t('mergeRequestStats.title')}
+            variant={props.variant}
+        />
     );
 };
 
