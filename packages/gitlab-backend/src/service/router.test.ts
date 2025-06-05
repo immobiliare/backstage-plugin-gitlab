@@ -1,4 +1,4 @@
-import { getVoidLogger } from '@backstage/backend-common';
+import { mockServices } from '@backstage/backend-test-utils';
 import { ConfigReader } from '@backstage/config';
 import express from 'express';
 import request from 'supertest';
@@ -86,7 +86,7 @@ describe('createRouter', () => {
 
     beforeAll(async () => {
         const router = await createRouter({
-            logger: getVoidLogger(),
+            logger: mockServices.logger.mock(),
             config,
         });
         app = express().use('/api/gitlab', router);
@@ -293,7 +293,7 @@ describe('createRouter with baseUrl', () => {
 
     beforeAll(async () => {
         const router = await createRouter({
-            logger: getVoidLogger(),
+            logger: mockServices.logger.mock(),
             config,
         });
         app = express().use(`${basePath}/api/gitlab`, router);
@@ -526,7 +526,7 @@ describe('OAuth token authorizations', () => {
 
     beforeAll(async () => {
         const router = await createRouter({
-            logger: getVoidLogger(),
+            logger: mockServices.logger.mock(),
             config,
         });
         app = express().use('/api/gitlab', router);
