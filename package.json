@@ -5,7 +5,7 @@
         "packages/*"
     ],
     "devDependencies": {
-        "@backstage/cli": "^0.30.0",
+        "@backstage/cli": "^0.32.0",
         "@commitlint/cli": "^17.1.2",
         "@commitlint/config-conventional": "^17.1.0",
         "@typescript-eslint/eslint-plugin": "^5.36.0",
