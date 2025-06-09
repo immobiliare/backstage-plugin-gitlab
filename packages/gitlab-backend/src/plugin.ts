@@ -4,7 +4,6 @@ import {
     createBackendPlugin,
 } from '@backstage/backend-plugin-api';
 import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
-import { loggerToWinstonLogger } from '@backstage/backend-common';
 import { GitlabFillerProcessor } from './processor';
 import { createRouter } from './service/router';
 
@@ -34,10 +33,9 @@ export const gitlabPlugin = createBackendPlugin({
                 config: coreServices.rootConfig,
             },
             async init({ config, logger, http }) {
-                const winstonLogger = loggerToWinstonLogger(logger);
                 http.use(
                     await createRouter({
-                        logger: winstonLogger,
+                        logger,
                         config,
                     })
                 );
