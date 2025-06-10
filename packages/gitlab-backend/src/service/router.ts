@@ -1,12 +1,12 @@
-import { errorHandler } from '@backstage/backend-common';
 import { Config } from '@backstage/config';
+import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
 import {
     readGitLabIntegrationConfigs,
     GitLabIntegrationConfig,
 } from '@backstage/integration';
+import { LoggerService } from '@backstage/backend-plugin-api';
 import express from 'express';
 import Router from 'express-promise-router';
-import { Logger } from 'winston';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { Request } from 'http-proxy-middleware/dist/types';
 import bodyParser from 'body-parser';
@@ -31,7 +31,7 @@ function headersManipulation(headers: IncomingHttpHeaders) {
 }
 
 export interface RouterOptions {
-    logger: Logger;
+    logger: LoggerService;
     config: Config;
 }
 
@@ -96,7 +96,13 @@ export async function createRouter(
                         proxyReq.write(bodyData);
                     }
                 },
-                logProvider: () => logger,
+                logProvider: () => ({
+                    log: logger.info.bind(logger),
+                    debug: logger.debug.bind(logger),
+                    info: logger.info.bind(logger),
+                    warn: logger.warn.bind(logger),
+                    error: logger.error.bind(logger),
+                }),
                 pathRewrite: {
                     [`^${basePath}/api/gitlab/graphql/${host}`]: `/api/graphql`,
                 },
@@ -113,14 +119,20 @@ export async function createRouter(
                     ...(token && !useOAuth ? { 'PRIVATE-TOKEN': token } : {}),
                 },
                 secure,
-                logProvider: () => logger,
+                logProvider: () => ({
+                    log: logger.info.bind(logger),
+                    debug: logger.debug.bind(logger),
+                    info: logger.info.bind(logger),
+                    warn: logger.warn.bind(logger),
+                    error: logger.error.bind(logger),
+                }),
                 pathRewrite: {
                     [`^${basePath}/api/gitlab/rest/${host}`]: apiUrl.pathname,
                 },
             })
         );
     }
-
-    router.use(errorHandler());
+    const middleware = MiddlewareFactory.create({ logger, config });
+    router.use(middleware.error());
     return router;
 }
