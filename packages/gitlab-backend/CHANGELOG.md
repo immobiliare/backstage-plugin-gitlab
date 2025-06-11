@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.12.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.11.0...v6.12.0-alpha.0) (2025-06-11)
+
+### Features
+
+-   remove deprecated @backstage/backend-common ([8d2050c](https://github.com/immobiliare/backstage-plugin-gitlab/commit/8d2050c4a21d9ecbbd436f7c13e718f2b926fd61))
+
 # [6.11.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.11.0-alpha.0...v6.11.0) (2025-03-31)
 
 **Note:** Version bump only for package @immobiliarelabs/backstage-plugin-gitlab-backend
