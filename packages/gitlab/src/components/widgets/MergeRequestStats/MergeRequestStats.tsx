@@ -109,13 +109,14 @@ const MergeRequestStats = (props: Props) => {
 
         if (stats.mergedCount === 0)
             return {
-                avgTimeUntilMerge: 'Never',
-                mergedToTotalRatio: '0%',
+                [t('mergeRequestStats.avgTimeUntilMerge')]: 'Never',
+                [t('mergeRequestStats.mergedToTotalRatio')]: '0%',
             };
 
         return {
-            avgTimeUntilMerge: stats.avgTimeUntilMerge.humanize(),
-            mergedToTotalRatio: `${Math.round(
+            [t('mergeRequestStats.avgTimeUntilMerge')]:
+                stats.avgTimeUntilMerge.humanize(),
+            [t('mergeRequestStats.mergedToTotalRatio')]: `${Math.round(
                 (stats.mergedCount / count) * 100
             )}%`,
         };
