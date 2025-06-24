@@ -140,7 +140,17 @@ const MergeRequestStats = (props: Props) => {
                 </Box>*/}
 
             <Box position="relative">
-                <StructuredMetadataTable metadata={value} />
+                <StructuredMetadataTable
+                    metadata={value}
+                    options={{
+                        titleFormat: (key) =>
+                            t(
+                                `mergeRequestStats.${key}` as
+                                    | 'mergeRequestStats.avgTimeUntilMerge'
+                                    | 'mergeRequestStats.mergedToTotalRatio'
+                            ),
+                    }}
+                />
                 <Box display="flex" justifyContent="flex-end">
                     <FormControl>
                         <Select
