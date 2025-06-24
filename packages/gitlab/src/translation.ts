@@ -40,6 +40,8 @@ export const gitlabTranslationRef = createTranslationRef({
         mergeRequestStats: {
             title: 'Merge Request Statistics',
             helperText: 'Number of MRs',
+            avgTimeUntilMerge: 'Average time until merge',
+            mergedToTotalRatio: 'Merged to total ratio',
         },
         peopleCard: {
             title: 'People',
