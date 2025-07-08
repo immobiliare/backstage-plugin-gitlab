@@ -7,6 +7,12 @@ import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/
 import { GitlabFillerProcessor } from './processor';
 import { createRouter } from './service/router';
 
+/**
+ * @deprecated
+ * use `@immobiliarelabs/backstage-plugin-catalog-backend-module-gitlab-filter-processor` instead.
+ * backend.add(import('@immobiliarelabs/backstage-plugin-catalog-backend-module-gitlab-filter-processor'))
+ * This module is deprecated and will be removed in the future.
+ */
 export const catalogPluginGitlabFillerProcessorModule = createBackendModule({
     pluginId: 'catalog',
     moduleId: 'gitlabFillerProcessor',
