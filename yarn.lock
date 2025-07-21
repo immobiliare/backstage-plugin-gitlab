@@ -5056,7 +5056,7 @@ __metadata:
     "@types/semver": "npm:^7.3.12"
     cross-fetch: "npm:^3.1.4"
     dayjs: "npm:^1.11.10"
-    eslint-config-prettier: "npm:^8.5.0"
+    eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-prettier: "npm:^4.2.1"
     husky: "npm:^8.0.0"
     prettier: "npm:^3.2.5"
@@ -15787,14 +15787,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^8.5.0":
-  version: 8.10.0
-  resolution: "eslint-config-prettier@npm:8.10.0"
+"eslint-config-prettier@npm:^10.1.8":
+  version: 10.1.8
+  resolution: "eslint-config-prettier@npm:10.1.8"
   peerDependencies:
     eslint: ">=7.0.0"
   bin:
     eslint-config-prettier: bin/cli.js
-  checksum: 10/0a51ab1417cbf80fabcf7a406960a142663539c8140fdb0a187b78f3d708b9d137a62a4bc4e689150e290b667750ddabd1740a516623b0cb4adb6cc1962cfe2c
+  checksum: 10/03f8e6ea1a6a9b8f9eeaf7c8c52a96499ec4b275b9ded33331a6cc738ed1d56de734097dbd0091f136f0e84bc197388bd8ec22a52a4658105883f8c8b7d8921a
   languageName: node
   linkType: hard
 
@@ -28065,7 +28065,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^5.36.0"
     "@typescript-eslint/parser": "npm:^5.36.0"
     eslint: "npm:^8.23.0"
-    eslint-config-prettier: "npm:^8.5.0"
+    eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-prettier: "npm:^4.2.1"
     husky: "npm:^8.0.1"
     is-ci: "npm:^3.0.1"
