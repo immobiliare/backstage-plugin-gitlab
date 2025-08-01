@@ -247,6 +247,9 @@ gitlab:
     # Activate Oauth/OIDC
     # Default: false
     useOAuth: false
+    # Automatically fetch project IDs from GitLab
+    # Default: false
+    projectIdExtraction: true
     # Cache configuration
     cache:
         # Enable caching for the Gitlab plugin
@@ -280,6 +283,7 @@ If you're already using the [New Backend System](https://backstage.io/docs/backe
 import {
     gitlabPlugin,
     catalogPluginGitlabFillerProcessorModule,
+    catalogPluginGitlabProjectIdProcessorModule,
 } from '@immobiliarelabs/backstage-plugin-gitlab-backend';
 
 async function start() {
@@ -288,6 +292,7 @@ async function start() {
     // ...
     backend.add(gitlabPlugin);
     backend.add(catalogPluginGitlabFillerProcessorModule);
+    backend.add(catalogPluginGitlabProjectIdProcessorModule);
 
     // ...
 }
