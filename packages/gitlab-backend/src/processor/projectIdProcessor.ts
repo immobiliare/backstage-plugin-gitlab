@@ -32,7 +32,8 @@ export class GitlabProjectIdProcessor implements CatalogProcessor {
         try {
             const cached = await this.cache.get<string>(cacheKey);
             if (cached) {
-                annotations![GITLAB_PROJECT_ID] = cached;
+                entity.metadata.annotations = entity.metadata.annotations || {};
+                entity.metadata.annotations[GITLAB_PROJECT_ID] = cached;
                 return entity;
             }
 
