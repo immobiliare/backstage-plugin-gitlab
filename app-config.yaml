@@ -1,11 +1,19 @@
 app:
     title: Backstage Example App
     baseUrl: http://localhost:3000
+    packages: all
     #datadogRum:
     #  clientToken: '123456789'
     #  applicationId: qwerty
     #   site: # datadoghq.eu default = datadoghq.com
     #   env: # optional
+    extensions:
+        - entity-card:gitlab/people
+        - entity-card:gitlab/languages
+        - entity-card:gitlab/merge-requests-stats
+        - entity-card:gitlab/releases
+        - entity-card:gitlab/coverage
+        - entity-card:gitlab/readme
     support:
         url: https://github.com/backstage/backstage/issues # Used by common ErrorPage
         items: # Used by common SupportButton component

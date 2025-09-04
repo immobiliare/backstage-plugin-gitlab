@@ -1,0 +1,63 @@
+{
+    "name": "app-next",
+    "version": "0.0.0",
+    "private": true,
+    "bundled": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/immobiliare/backstage-plugin-gitlab",
+        "directory": "packages/app-next"
+    },
+    "backstage": {
+        "role": "frontend"
+    },
+    "scripts": {
+        "start": "backstage-cli package start",
+        "build": "backstage-cli package build",
+        "clean": "backstage-cli package clean",
+        "test": "backstage-cli package test",
+        "lint": "backstage-cli package lint"
+    },
+    "dependencies": {
+        "@backstage/app-defaults": "^1.6.5",
+        "@backstage/catalog-model": "^1.7.5",
+        "@backstage/cli": "^0.34.1",
+        "@backstage/core-compat-api": "^0.5.1",
+        "@backstage/core-components": "^0.17.5",
+        "@backstage/frontend-defaults": "^0.3.0",
+        "@backstage/frontend-plugin-api": "^0.11.0",
+        "@backstage/plugin-catalog": "^1.31.2",
+        "@backstage/plugin-catalog-react": "^1.20.1",
+        "@backstage/plugin-user-settings": "^0.8.25",
+        "@immobiliarelabs/backstage-plugin-gitlab": "workspace:^",
+        "@material-ui/icons": "^4.9.1",
+        "react": "^18.0.2",
+        "react-dom": "^18.0.2",
+        "react-router": "^6.3.0",
+        "react-router-dom": "^6.3.0",
+        "react-use": "^17.2.4"
+    },
+    "devDependencies": {
+        "@backstage/test-utils": "^1.7.11",
+        "@testing-library/dom": "^9.0.0",
+        "@testing-library/jest-dom": "^6.0.0",
+        "@testing-library/react": "^14.0.0",
+        "@testing-library/user-event": "^14.0.0",
+        "@types/react-dom": "*"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "files": [
+        "dist"
+    ]
+}
