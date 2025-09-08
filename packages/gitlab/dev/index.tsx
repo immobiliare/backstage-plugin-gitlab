@@ -8,7 +8,7 @@ import {
 } from '../src/plugin';
 import { GitlabCIApiRef, GitlabCIClient } from '../src/api';
 import { mockedGitlabReqToRes, projectId } from './mock-gitlab/api-v4-v15.7.0';
-import { configApiRef, discoveryApiRef } from '@backstage/core-plugin-api';
+import { configApiRef } from '@backstage/core-plugin-api';
 import { GraphQLQuery } from '../src/api/GitlabCIApi';
 
 const devEntity = {
@@ -28,7 +28,7 @@ createDevApp()
     .registerPlugin(gitlabPlugin)
     .registerApi({
         api: GitlabCIApiRef,
-        deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
+        deps: { configApi: configApiRef },
         factory: ({ configApi }) => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
