@@ -20,5 +20,12 @@ export interface Config {
          * @visibility backend
          */
         useOAuth?: boolean;
+
+        /**
+         * Enable automatic project id extraction using the GitLab API
+         * @default false
+         * @visibility backend
+         */
+        projectIdExtraction?: boolean;
     };
 }
