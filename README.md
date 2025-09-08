@@ -18,6 +18,7 @@
 -   [Screenshots](#screenshots)
 -   [Setup](#setup)
     -   [Setup Frontend Plugin](#setup-frontend-plugin)
+        -   [New Frontend System (Alpha)](#new-frontend-system-alpha)
     -   [Setup Backend Plugin](#setup-backend-plugin)
     -   [Extra OIDC/OAuth](#extra-oidcoauth)
     -   [Register To The New Backend System](#register-to-the-new-backend-system)
@@ -157,6 +158,48 @@ integrations:
 ```
 
 **Note:** You can have more than one GitLab instance.
+
+#### New Frontend System (Alpha)
+
+The Gitlab plugin currently support the New Frontend System via an `/alpha` export, here's how to use it:
+
+1. Install the frontend plugin:
+
+    ```bash
+    # From your Backstage root directory
+    yarn --cwd packages/app add @immobiliarelabs/backstage-plugin-gitlab
+    ```
+
+2. If you have [Feature Discovery](https://backstage.io/docs/frontend-system/architecture/app#feature-discovery) enabled, no additional configuration is required. Otherwise, you should be able to enable the plugin in your `packages/app(-next)/src/App.tsx`:
+
+    ```diff
+    + import gitlabPlugin from '@immobiliarelabs/backstage-plugin-gitlab/alpha';
+
+      export const app = createApp({
+          features: [
+              catalogPlugin,
+              catalogImportPlugin,
+              userSettingsPlugin,
+    +         gitlabPlugin,
+              // ...
+          ],
+      });
+    ```
+
+    3. To display specific GitLab cards on the overview page, list them in your `app-config.yaml` under the `app.extensions` section. For example:
+
+    ```yaml
+    app:
+        extensions:
+            - entity-card:gitlab/people
+            - entity-card:gitlab/languages
+            - entity-card:gitlab/merge-requests-stats
+            - entity-card:gitlab/releases
+            - entity-card:gitlab/coverage
+            - entity-card:gitlab/readme
+    ```
+
+    Add or remove cards as needed to customize your overview page.
 
 ### Setup Backend Plugin
 
