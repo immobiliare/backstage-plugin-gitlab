@@ -173,7 +173,7 @@ The Gitlab plugin currently support the New Frontend System via an `/alpha` expo
 2. If you have [Feature Discovery](https://backstage.io/docs/frontend-system/architecture/app#feature-discovery) enabled, no additional configuration is required. Otherwise, you should be able to enable the plugin in your `packages/app(-next)/src/App.tsx`:
 
     ```diff
-    + import gitlabPlugin from '@immobiliarelabs/backstage-plugin-gitlab';
+    + import gitlabPlugin from '@immobiliarelabs/backstage-plugin-gitlab/alpha';
 
       export const app = createApp({
           features: [
