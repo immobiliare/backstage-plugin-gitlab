@@ -25877,12 +25877,13 @@ __metadata:
   linkType: hard
 
 "remark-remove-comments@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "remark-remove-comments@npm:1.0.1"
+  version: 1.1.1
+  resolution: "remark-remove-comments@npm:1.1.1"
   dependencies:
     html-comment-regex: "npm:^1.1.2"
-    unist-util-visit: "npm:^4.1.1"
-  checksum: 10/92170406f2db1b60dbf7a90f61bdcfabb03063d5e63202b22c3965441bf8ae7e352cba625c592c5b3e50a5c7c2ccd8b7a065ab1d85d98f2a1c52d1e247757425
+    unist-util-visit: "npm:^5.0.0"
+    vfile: "npm:^6.0.3"
+  checksum: 10/2aa8a52551f103f5b7fae41c972f8cdacf9cacb2f5206927417176f0b075a00a06c092e784264a5328b0096e424f2873dbcb5303f3542020a0462e3a0249cc90
   languageName: node
   linkType: hard
 
@@ -29171,7 +29172,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unist-util-visit@npm:^4.0.0, unist-util-visit@npm:^4.1.1":
+"unist-util-visit@npm:^4.0.0":
   version: 4.1.2
   resolution: "unist-util-visit@npm:4.1.2"
   dependencies:
@@ -29572,6 +29573,16 @@ __metadata:
     unist-util-stringify-position: "npm:^4.0.0"
     vfile-message: "npm:^4.0.0"
   checksum: 10/7f8412f9ce7709d3be4041fd68a159e2cf96f9c9a4f095bcb18d1561009757b8efb37b71d0ae087e5202fe0e3b3162aae0adf92e30e2448a45645912c23c4ab2
+  languageName: node
+  linkType: hard
+
+"vfile@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "vfile@npm:6.0.3"
+  dependencies:
+    "@types/unist": "npm:^3.0.0"
+    vfile-message: "npm:^4.0.0"
+  checksum: 10/a5a85293c9eb8787aa42e180edaef00c13199a493d6ed82fecf13ab29a68526850788e22434d77808ea6b17a74e03ff899b9b4711df5b9eee75afcddd7c2e1fb
   languageName: node
   linkType: hard
 
