@@ -3939,7 +3939,7 @@ __metadata:
     msw: "npm:^1.0.0"
     supertest: "npm:^6.2.4"
     winston: "npm:^3.2.1"
-    yn: "npm:^4.0.0"
+    yn: "npm:^5.1.0"
   languageName: unknown
   linkType: soft
 
@@ -30236,6 +30236,13 @@ __metadata:
   version: 4.0.0
   resolution: "yn@npm:4.0.0"
   checksum: 10/2d60113b6f43f7c29a0a97719d8da4f626b755f5bb2fd19b00d1fe732db1900ad3f1785811a86d941cbe2800f02773af00d0ed99201333eeb3618db8502f7e96
+  languageName: node
+  linkType: hard
+
+"yn@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "yn@npm:5.1.0"
+  checksum: 10/1b14400065385e221f054a25a2c770c07910360268a6a542161d968990988a03090cb71fea8c4fd1758b59c5be1b8002fed6fbe338321096b2ee23c8c339d20f
   languageName: node
   linkType: hard
 
