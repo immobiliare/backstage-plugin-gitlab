@@ -1,16 +1,16 @@
-import React from 'react';
-import { Box, Typography, Link } from '@material-ui/core';
 import {
-    StatusPending,
-    StatusRunning,
-    StatusOK,
     StatusAborted,
     StatusError,
+    StatusOK,
+    StatusPending,
+    StatusRunning,
+    type TableColumn,
 } from '@backstage/core-components';
-import { TableColumn } from '@backstage/core-components';
+import type { TranslationFunction } from '@backstage/core-plugin-api/alpha';
 import type { PipelineSchema } from '@gitbeaker/rest';
-import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
-import { gitlabTranslationRef } from '../../../translation';
+import { Box, Link, Typography } from '@material-ui/core';
+import React from 'react';
+import type { gitlabTranslationRef } from '../../../translation';
 
 export const GitlabCIStateIndicator = ({
     state,

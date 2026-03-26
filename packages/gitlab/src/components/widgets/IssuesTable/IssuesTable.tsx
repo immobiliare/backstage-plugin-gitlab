@@ -5,24 +5,24 @@ import {
     StatusOK,
     StatusPending,
     Table,
-    TableColumn,
+    type TableColumn,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import type { IssueSchema } from '@gitbeaker/rest';
+import { Box, Typography } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
 import Alert from '@material-ui/lab/Alert';
 import React from 'react';
 import { useAsync } from 'react-use';
 import { GitlabCIApiRef } from '../../../api';
+import { gitlabTranslationRef } from '../../../translation';
 import {
     gitlabInstance,
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
 import { getElapsedTime } from '../../utils';
-import type { IssueSchema } from '@gitbeaker/rest';
-import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
-import { gitlabTranslationRef } from '../../../translation';
-import { Box, Typography } from '@material-ui/core';
-import Link from '@material-ui/core/Link';
 
 export function AuthorColumn(
     issueObject: IssueSchema
@@ -114,7 +114,7 @@ export const DenseTable = ({
     );
 };
 
-export const IssuesTable = ({}) => {
+export const IssuesTable = () => {
     const project_id = gitlabProjectId();
     const project_slug = gitlabProjectSlug();
     const gitlab_instance = gitlabInstance();

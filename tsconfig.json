@@ -2,7 +2,7 @@
     "exclude": ["node_modules"],
     "include": ["packages/*/src", "packages/*/dev"],
     "compilerOptions": {
-        "ignoreDeprecations": "5.0",
+        "ignoreDeprecations": "6.0",
         "outDir": "dist-types",
         "rootDir": ".",
         "allowJs": true,
@@ -17,7 +17,7 @@
         "jsx": "react",
         "lib": ["DOM", "DOM.Iterable", "ScriptHost", "ES2020"],
         "module": "ESNext",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,

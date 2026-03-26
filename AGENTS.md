@@ -119,18 +119,18 @@ Tests use Jest configured by `@backstage/cli`. There are 5 test suites total:
 ### Linting & Formatting
 
 ```bash
-yarn style:lint       # eslint packages --ext .ts
-yarn style:lint-fix   # eslint packages --ext .ts --fix
-yarn style:prettier   # prettier "packages/**/*.ts" --write
+yarn style:lint       # biome check packages
+yarn style:lint-fix   # biome check --write packages
+yarn style:prettier   # biome format --write packages
 ```
 
 ### Pre-commit Hook
 
-Husky runs `lint-staged` on every commit. The `lint-staged.config.cjs` runs:
+Lefthook runs on every commit. The `lefthook.yml` runs:
 
-1. `prettier --write` on all staged files
-2. `npm run style:lint` + `npm run style:prettier` on `.ts` files
-3. `tsc -p tsconfig.json --noEmit` (full type check) on `.ts` files
+1. `yarn biome check --write` on all staged files
+2. `yarn markdown-toc -i` on `.md` files
+3. `yarn type` (full type check via typescript) on `.ts` files
 
 **Important**: The pre-commit hook runs the full type check — a TypeScript error anywhere in the repo will block commits.
 

@@ -1,6 +1,6 @@
+import { compatWrapper } from '@backstage/core-compat-api';
 import { EntityCardBlueprint } from '@backstage/plugin-catalog-react/alpha';
 import React from 'react';
-import { compatWrapper } from '@backstage/core-compat-api';
 
 export const gitlabReadmeCard = EntityCardBlueprint.make({
     name: 'readme',

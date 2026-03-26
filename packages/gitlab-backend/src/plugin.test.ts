@@ -1,8 +1,8 @@
 import { mockServices, startTestBackend } from '@backstage/backend-test-utils';
+import { HttpResponse, http } from 'msw';
+import { setupServer } from 'msw/node';
 import request from 'supertest';
 import { gitlabPlugin } from './plugin';
-import { http, HttpResponse } from 'msw';
-import { setupServer } from 'msw/node';
 
 describe('gitlabPlugin', () => {
     const mockServer = setupServer(

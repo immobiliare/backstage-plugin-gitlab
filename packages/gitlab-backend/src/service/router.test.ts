@@ -1,9 +1,9 @@
 import { mockServices } from '@backstage/backend-test-utils';
 import { ConfigReader } from '@backstage/config';
 import express from 'express';
-import request from 'supertest';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse, http } from 'msw';
 import { setupServer } from 'msw/node';
+import request from 'supertest';
 
 import { createRouter } from './router';
 
@@ -194,7 +194,7 @@ describe('createRouter', () => {
                 'patch',
             ]) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
+                // @ts-expect-error
                 const response = await agent?.[method](
                     '/api/gitlab/graphql/non-existing-example.com'
                 );
@@ -231,7 +231,7 @@ describe('createRouter', () => {
                 'patch',
             ]) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
+                // @ts-expect-error
                 const response = await agent?.[method](
                     '/api/gitlab/rest/non-existing-example-2.com/projects/434'
                 );
@@ -405,7 +405,7 @@ describe('createRouter with baseUrl', () => {
                 'patch',
             ]) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
+                // @ts-expect-error
                 const response = await agent?.[method](
                     `${basePath}/api/gitlab/graphql/non-existing-example.com`
                 );
@@ -444,7 +444,7 @@ describe('createRouter with baseUrl', () => {
                 'patch',
             ]) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
+                // @ts-expect-error
                 const response = await agent?.[method](
                     `${basePath}/api/gitlab/rest/non-existing-example-2.com/projects/434`
                 );

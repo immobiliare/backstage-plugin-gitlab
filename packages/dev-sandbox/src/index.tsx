@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import app from './App';
 
-ReactDOM.render(app, document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container!);
+root.render(app);

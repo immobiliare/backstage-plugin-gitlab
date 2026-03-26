@@ -1,16 +1,13 @@
 import {
+    configApiRef,
+    createApiFactory,
     createComponentExtension,
     createPlugin,
     createRoutableExtension,
-    identityApiRef,
-} from '@backstage/core-plugin-api';
-
-import {
-    configApiRef,
-    createApiFactory,
     createRouteRef,
     discoveryApiRef,
     gitlabAuthApiRef,
+    identityApiRef,
 } from '@backstage/core-plugin-api';
 import { GitlabCIApiRef, GitlabCIClient } from './api';
 

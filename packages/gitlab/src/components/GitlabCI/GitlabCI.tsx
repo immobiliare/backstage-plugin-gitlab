@@ -2,15 +2,15 @@ import { Content, Page } from '@backstage/core-components';
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import {
-    PeopleCard,
+    CoverageCard,
     IssuesTable,
     LanguagesCard,
-    MergeRequestsTable,
     MergeRequestStats,
+    MergeRequestsTable,
+    PeopleCard,
     PipelinesTable,
     ReleasesCard,
-    ReleasesCardProps,
-    CoverageCard,
+    type ReleasesCardProps,
 } from '../widgets';
 
 export type GitlabPageProps = {

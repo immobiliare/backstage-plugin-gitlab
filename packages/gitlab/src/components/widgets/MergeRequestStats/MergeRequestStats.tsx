@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
-import { Progress } from '@backstage/core-components';
+import type { Entity } from '@backstage/catalog-model';
+import {
+    InfoCard,
+    type InfoCardVariants,
+    Progress,
+    StructuredMetadataTable,
+} from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import type { MergeRequestSchema } from '@gitbeaker/rest';
 import {
     Box,
-    makeStyles,
     FormControl,
     FormHelperText,
-    Select,
     MenuItem,
+    makeStyles,
+    Select,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
+import dayjs from 'dayjs';
+import React, { useState } from 'react';
 import { useAsync } from 'react-use';
+import { GitlabCIApiRef } from '../../../api';
+import { gitlabTranslationRef } from '../../../translation';
 import {
     gitlabInstance,
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { GitlabCIApiRef } from '../../../api';
-import { useApi } from '@backstage/core-plugin-api';
-import {
-    InfoCard,
-    StructuredMetadataTable,
-    InfoCardVariants,
-} from '@backstage/core-components';
-import dayjs from 'dayjs';
-import { Entity } from '@backstage/catalog-model';
-import { MergeRequestSchema } from '@gitbeaker/rest';
-import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
-import { gitlabTranslationRef } from '../../../translation';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {

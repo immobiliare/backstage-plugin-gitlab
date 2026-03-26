@@ -1,24 +1,24 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Alert from '@material-ui/lab/Alert';
 import {
     InfoCard,
-    InfoCardVariants,
+    type InfoCardVariants,
     Progress,
 } from '@backstage/core-components';
-import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import { Chip, Tooltip } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
+import React from 'react';
 import { useAsync } from 'react-use';
+import { GitlabCIApiRef } from '../../../api';
+import { gitlabTranslationRef } from '../../../translation';
 import {
     gitlabInstance,
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { Chip, Tooltip } from '@material-ui/core';
+import type { Languages } from '../../types';
 import { colors } from './colors';
-import { Languages } from '../../types';
-import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
-import { gitlabTranslationRef } from '../../../translation';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {

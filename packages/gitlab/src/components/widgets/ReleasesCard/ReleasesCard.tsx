@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Link, Grid, Typography } from '@material-ui/core';
-import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
-import Alert from '@material-ui/lab/Alert';
 import {
     InfoCard,
-    InfoCardVariants,
+    type InfoCardVariants,
     Progress,
 } from '@backstage/core-components';
-import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import type { ReleaseSchema } from '@gitbeaker/rest';
+import { Grid, Link, Typography } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import { makeStyles } from '@material-ui/core/styles';
+import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
+import SortIcon from '@material-ui/icons/Sort';
+import Alert from '@material-ui/lab/Alert';
+import React from 'react';
 import { useAsync } from 'react-use';
+import { prerelease, rcompare, valid } from 'semver';
+import { GitlabCIApiRef } from '../../../api';
+import { gitlabTranslationRef } from '../../../translation';
 import {
+    gitlabInstance,
     gitlabProjectId,
     gitlabProjectSlug,
-    gitlabInstance,
 } from '../../gitlabAppData';
-import { rcompare, valid, prerelease } from 'semver';
-import { ReleaseSchema } from '@gitbeaker/rest';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import SortIcon from '@material-ui/icons/Sort';
-import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
-import { gitlabTranslationRef } from '../../../translation';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {

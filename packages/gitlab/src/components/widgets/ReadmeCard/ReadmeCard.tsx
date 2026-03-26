@@ -1,30 +1,28 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import ReactMarkdown from 'react-markdown';
-import Alert from '@material-ui/lab/Alert';
 import {
     InfoCard,
+    type InfoCardVariants,
     Progress,
-    InfoCardVariants,
 } from '@backstage/core-components';
-import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import { useAsync } from 'react-use';
+import gemoji from 'remark-gemoji';
+import gfm from 'remark-gfm';
+import removeComments from 'remark-remove-comments';
+import toc from 'remark-toc';
+import { GitlabCIApiRef } from '../../../api';
+import { gitlabTranslationRef } from '../../../translation';
 import {
+    gitlabInstance,
     gitlabProjectId,
     gitlabProjectSlug,
     gitlabReadmePath,
-    gitlabInstance,
 } from '../../gitlabAppData';
-import gfm from 'remark-gfm';
-import toc from 'remark-toc';
-// @ts-ignore
-import removeComments from 'remark-remove-comments';
-
-import gemoji from 'remark-gemoji';
 import { parseGitLabReadme } from '../../utils';
-import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
-import { gitlabTranslationRef } from '../../../translation';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {
@@ -98,7 +96,7 @@ export const ReadmeCard = (props: Props) => {
         if (!projectDetails)
             throw new Error('wrong project_slug or project_id');
 
-        let readmeData: string | undefined = undefined;
+        let readmeData: string | undefined;
         try {
             readmeData = await GitlabCIAPI.getReadme(
                 projectDetails.id,

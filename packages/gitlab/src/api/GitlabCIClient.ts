@@ -1,19 +1,8 @@
-import {
+import type {
     DiscoveryApi,
     IdentityApi,
     OAuthApi,
 } from '@backstage/core-plugin-api';
-import { PeopleCardEntityData } from '../components/types';
-import { parseCodeOwners } from '../components/utils';
-import {
-    ContributorsSummary,
-    MembersSummary,
-    GitlabCIApi,
-    GitlabProjectCoverageResponse,
-    GraphQLQuery,
-    LanguagesSummary,
-} from './GitlabCIApi';
-
 import {
     AccessLevel,
     type GroupSchema,
@@ -24,10 +13,20 @@ import {
     type ReleaseSchema,
     type RepositoryContributorSchema,
     type SimpleMemberSchema,
-    type UserSchema,
     type TagSchema,
+    type UserSchema,
 } from '@gitbeaker/rest';
 import dayjs from 'dayjs';
+import type { PeopleCardEntityData } from '../components/types';
+import { parseCodeOwners } from '../components/utils';
+import type {
+    ContributorsSummary,
+    GitlabCIApi,
+    GitlabProjectCoverageResponse,
+    GraphQLQuery,
+    LanguagesSummary,
+    MembersSummary,
+} from './GitlabCIApi';
 
 export type APIOptions = {
     discoveryApi: DiscoveryApi;
@@ -93,7 +92,7 @@ export class GitlabCIClient implements GitlabCIApi {
     }: APIOptions) {
         return {
             build: (gitlabInstance: string) =>
-                new this({
+                new GitlabCIClient({
                     discoveryApi,
                     identityApi,
                     codeOwnersPath,

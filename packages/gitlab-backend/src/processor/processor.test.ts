@@ -1,11 +1,11 @@
-import { GitlabFillerProcessor } from './processor';
+import type { Entity } from '@backstage/catalog-model';
 import { ConfigReader } from '@backstage/config';
-import { Entity } from '@backstage/catalog-model';
 import {
-    GITLAB_PROJECT_SLUG,
-    GITLAB_PROJECT_ID,
     GITLAB_INSTANCE,
+    GITLAB_PROJECT_ID,
+    GITLAB_PROJECT_SLUG,
 } from '../annotations';
+import { GitlabFillerProcessor } from './processor';
 
 describe('Processor', () => {
     const config = new ConfigReader({

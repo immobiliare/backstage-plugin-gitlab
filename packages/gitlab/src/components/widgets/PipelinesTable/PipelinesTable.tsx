@@ -1,19 +1,19 @@
-import React from 'react';
-import { Table, TableColumn, Progress } from '@backstage/core-components';
+import { Progress, Table, type TableColumn } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import type { PipelineSchema } from '@gitbeaker/rest';
 import Alert from '@material-ui/lab/Alert';
+import React from 'react';
 import { useAsync } from 'react-use';
+import { GitlabCIApiRef } from '../../../api';
+import { gitlabTranslationRef } from '../../../translation';
 import {
     gitlabInstance,
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { GitlabCIApiRef } from '../../../api';
-import { useApi } from '@backstage/core-plugin-api';
-import { createStatusColumn, createWebURLColumn } from './columns';
 import { getDuration, getElapsedTime } from '../../utils';
-import type { PipelineSchema } from '@gitbeaker/rest';
-import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
-import { gitlabTranslationRef } from '../../../translation';
+import { createStatusColumn, createWebURLColumn } from './columns';
 
 export type PipelineDenseTableProps = {
     projectName: string;

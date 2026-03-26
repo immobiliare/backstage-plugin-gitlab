@@ -7,20 +7,14 @@
     "devDependencies": {
         "@backstage/cli": "^0.36.0",
         "@backstage/cli-defaults": "^0.1.0",
+        "@biomejs/biome": "^2.4.9",
         "@commitlint/cli": "^20.5.0",
         "@commitlint/config-conventional": "^20.5.0",
-        "@typescript-eslint/eslint-plugin": "^8.57.2",
-        "@typescript-eslint/parser": "^8.57.2",
-        "eslint": "^8.57.1",
-        "eslint-config-prettier": "^10.1.8",
-        "eslint-plugin-prettier": "^5.5.5",
-        "husky": "^9.1.7",
         "is-ci": "^4.1.0",
+        "lefthook": "^2.1.4",
         "lerna": "^9.0.7",
-        "lint-staged": "^16.4.0",
         "markdown-toc": "^1.2.0",
-        "prettier": "^3.8.1",
-        "typescript": "~5.7.0"
+        "typescript": "~6.0.2"
     },
     "engines": {
         "node": ">=24.0.0"
@@ -30,9 +24,9 @@
     },
     "scripts": {
         "type": "tsc --noEmit",
-        "style:lint": "eslint packages --ext .ts",
-        "style:lint-fix": "eslint packages --ext .ts --fix",
-        "style:prettier": "prettier \"packages/**/*.ts\" --list-different --write",
+        "style:lint": "biome check packages",
+        "style:lint-fix": "biome check --write packages",
+        "style:prettier": "biome format --write packages",
         "build": "tsc && backstage-cli repo build --all",
         "bootstrap": "npx lerna bootstrap",
         "publish:ci": "lerna publish from-package --yes --no-private --pre-dist-tag alpha",

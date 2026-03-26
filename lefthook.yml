@@ -1,0 +1,18 @@
+pre-commit:
+  skip: [ci]
+  commands:
+    biome:
+      glob: "**/*.{js,ts,jsx,tsx,json}"
+      run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git add {staged_files}
+    markdown-toc:
+      glob: "**/*.md"
+      run: |
+        for file in {staged_files}; do
+            yarn markdown-toc -i "$file"
+        done && git add {staged_files}
+
+commit-msg:
+  skip: [ci]
+  commands:
+    commitlint:
+      run: yarn commitlint --edit {1}

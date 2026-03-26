@@ -1,10 +1,10 @@
 import type { Entity } from '@backstage/catalog-model';
-import { Config } from '@backstage/config';
+import type { Config } from '@backstage/config';
 import {
+    type GitLabIntegrationConfig,
     readGitLabIntegrationConfigs,
-    GitLabIntegrationConfig,
 } from '@backstage/integration';
-import { getProjectPath } from './urls';
+import type { LocationSpec } from '@backstage/plugin-catalog-common';
 import type {
     CatalogProcessor,
     CatalogProcessorEmit,
@@ -14,7 +14,7 @@ import {
     GITLAB_PROJECT_ID,
     GITLAB_PROJECT_SLUG,
 } from './../annotations';
-import type { LocationSpec } from '@backstage/plugin-catalog-common';
+import { getProjectPath } from './urls';
 
 /** @public */
 export class GitlabFillerProcessor implements CatalogProcessor {
