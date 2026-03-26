@@ -1,12 +1,12 @@
 {
-    "name": "app-next",
+    "name": "dev-sandbox",
     "version": "0.0.0",
     "private": true,
     "bundled": true,
     "repository": {
         "type": "git",
         "url": "https://github.com/immobiliare/backstage-plugin-gitlab",
-        "directory": "packages/app-next"
+        "directory": "packages/dev-sandbox"
     },
     "backstage": {
         "role": "frontend"
@@ -19,31 +19,34 @@
         "lint": "backstage-cli package lint"
     },
     "dependencies": {
-        "@backstage/app-defaults": "^1.6.5",
-        "@backstage/catalog-model": "^1.7.5",
-        "@backstage/cli": "^0.34.1",
-        "@backstage/core-compat-api": "^0.5.1",
-        "@backstage/core-components": "^0.17.5",
-        "@backstage/frontend-defaults": "^0.3.0",
-        "@backstage/frontend-plugin-api": "^0.11.0",
-        "@backstage/plugin-catalog": "^1.31.2",
-        "@backstage/plugin-catalog-react": "^1.20.1",
-        "@backstage/plugin-user-settings": "^0.8.25",
+        "@backstage/app-defaults": "^1.7.6",
+        "@backstage/catalog-model": "^1.7.7",
+        "@backstage/cli": "^0.36.0",
+        "@backstage/core-compat-api": "^0.5.9",
+        "@backstage/core-components": "^0.18.8",
+        "@backstage/frontend-defaults": "^0.5.0",
+        "@backstage/frontend-plugin-api": "^0.15.1",
+        "@backstage/plugin-app-react": "^0.2.1",
+        "@backstage/plugin-catalog": "^2.0.1",
+        "@backstage/plugin-catalog-react": "^2.1.0",
+        "@backstage/plugin-user-settings": "^0.9.1",
         "@immobiliarelabs/backstage-plugin-gitlab": "workspace:^",
         "@material-ui/icons": "^4.9.1",
-        "react": "^18.0.2",
-        "react-dom": "^18.0.2",
-        "react-router": "^6.3.0",
-        "react-router-dom": "^6.3.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router": "^6.30.0",
+        "react-router-dom": "^6.30.0",
         "react-use": "^17.2.4"
     },
     "devDependencies": {
-        "@backstage/test-utils": "^1.7.11",
-        "@testing-library/dom": "^9.0.0",
+        "@backstage/frontend-test-utils": "^0.5.1",
+        "@backstage/test-utils": "^1.7.16",
+        "@testing-library/dom": "^10.0.0",
         "@testing-library/jest-dom": "^6.0.0",
-        "@testing-library/react": "^14.0.0",
+        "@testing-library/react": "^16.0.0",
         "@testing-library/user-event": "^14.0.0",
-        "@types/react-dom": "*"
+        "@types/react": "^18.3.28",
+        "@types/react-dom": "^18.3.7"
     },
     "browserslist": {
         "production": [

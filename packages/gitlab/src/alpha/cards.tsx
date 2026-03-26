@@ -61,3 +61,33 @@ export const gitlabLanguagesCard = EntityCardBlueprint.make({
             ),
     },
 });
+
+export const gitlabIssuesTableCard = EntityCardBlueprint.make({
+    name: 'issues-table',
+    params: {
+        loader: async () =>
+            import('../components/widgets/IssuesTable').then((m) =>
+                compatWrapper(<m.IssuesTable />)
+            ),
+    },
+});
+
+export const gitlabPipelinesTableCard = EntityCardBlueprint.make({
+    name: 'pipelines-table',
+    params: {
+        loader: async () =>
+            import('../components/widgets/PipelinesTable').then((m) =>
+                compatWrapper(<m.PipelinesTable />)
+            ),
+    },
+});
+
+export const gitlabMergeRequestsTableCard = EntityCardBlueprint.make({
+    name: 'merge-requests-table',
+    params: {
+        loader: async () =>
+            import('../components/widgets/MergeRequestsTable').then((m) =>
+                compatWrapper(<m.MergeRequestsTable />)
+            ),
+    },
+});

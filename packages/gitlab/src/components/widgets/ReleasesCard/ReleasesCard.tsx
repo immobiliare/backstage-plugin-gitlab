@@ -48,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     releaseTitle: {
-        ...theme.typography.h6,
+        ...theme.typography.body2,
+        fontWeight: 500,
         margin: 0,
         marginRight: '0.5rem',
     },

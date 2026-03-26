@@ -1,29 +1,26 @@
 import { mockServices, startTestBackend } from '@backstage/backend-test-utils';
 import request from 'supertest';
 import { gitlabPlugin } from './plugin';
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 
 describe('gitlabPlugin', () => {
     const mockServer = setupServer(
-        rest.get(
+        http.get(
             'https://non-existing-example.com/api/v4/projects/434',
-            (req, res, ctx) => {
-                return res(
-                    ctx.status(200),
-                    ctx.json({
-                        url: req.url.toString(),
-                        headers: req.headers.all(),
-                    })
-                );
+            ({ request: req }) => {
+                return HttpResponse.json({
+                    url: req.url.toString(),
+                    headers: Object.fromEntries(req.headers.entries()),
+                });
             }
         )
     );
 
     beforeAll(async () => {
         mockServer.listen({
-            onUnhandledRequest: ({ headers }, print) => {
-                if (headers.get('User-Agent') === 'supertest') {
+            onUnhandledRequest: (req, print) => {
+                if (req.headers.get('User-Agent') === 'supertest') {
                     return;
                 }
                 print.error();

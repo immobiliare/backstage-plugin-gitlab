@@ -19,8 +19,11 @@ import {
     ApiBlueprint,
     configApiRef,
     createFrontendModule,
-    SignInPageBlueprint,
 } from '@backstage/frontend-plugin-api';
+import {
+    SignInPageBlueprint,
+    type SignInPageProps,
+} from '@backstage/plugin-app-react';
 import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
 
@@ -42,7 +45,7 @@ import {
 
 const signInPage = SignInPageBlueprint.make({
     params: {
-        loader: async () => (props) =>
+        loader: async () => (props: SignInPageProps) =>
             <SignInPage {...props} providers={['guest']} />,
     },
 });
