@@ -121,7 +121,7 @@ export class GitlabCIClient implements GitlabCIApi {
                             i--; // Adjust index since we removed an item
                         }
                     }
-                } catch (error) {
+                } catch {
                     // In case of corrupted data, remove the item
                     localStorage.removeItem(key);
                     i--; // Adjust index since we removed an item
@@ -144,7 +144,7 @@ export class GitlabCIClient implements GitlabCIApi {
                     return data as T;
                 }
                 localStorage.removeItem(key);
-            } catch (error) {
+            } catch {
                 localStorage.removeItem(key);
             }
         }
@@ -420,9 +420,8 @@ export class GitlabCIClient implements GitlabCIApi {
 
         if (!contributorsData) return undefined;
 
-        const updatedContributorsData = await this.getUserProfilesData(
-            contributorsData
-        );
+        const updatedContributorsData =
+            await this.getUserProfilesData(contributorsData);
 
         return updatedContributorsData;
     }
@@ -550,7 +549,10 @@ export class GitlabCIClient implements GitlabCIApi {
                 } catch {
                     try {
                         const groupData = await this.getGroupDetail(owner);
-                        ownersMap.set(owner, groupData);
+                        ownersMap.set(owner, {
+                            ...groupData,
+                            avatar_url: groupData.avatar_url || undefined,
+                        });
                     } catch {
                         // Skip invalid owners
                     }

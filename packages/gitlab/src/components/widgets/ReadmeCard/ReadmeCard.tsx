@@ -130,18 +130,21 @@ export const ReadmeCard = (props: Props) => {
             className={classes.infoCard}
             variant={props.variant}
         >
-            <ReactMarkdown
+            <div
                 className={`${classes.markdown} ${
                     props.markdownClasses ?? ''
                 }`.trim()}
-                remarkPlugins={[
-                    gfm,
-                    gemoji,
-                    [toc, { heading: '<!-- injected_toc -->' }], // tells remark-toc to look for toc injected by parseGitLabReadme
-                    removeComments, // removes HTML comments, including the one we injected
-                ]}
-                children={value?.readme ?? t('readmeCard.noReadme')}
-            />
+            >
+                <ReactMarkdown
+                    remarkPlugins={[
+                        gfm,
+                        gemoji,
+                        [toc, { heading: '<!-- injected_toc -->' }], // tells remark-toc to look for toc injected by parseGitLabReadme
+                        removeComments, // removes HTML comments, including the one we injected
+                    ]}
+                    children={value?.readme ?? t('readmeCard.noReadme')}
+                />
+            </div>
         </InfoCard>
     );
 };

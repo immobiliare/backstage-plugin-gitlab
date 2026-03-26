@@ -2,6 +2,7 @@
     "exclude": ["node_modules"],
     "include": ["packages/*/src", "packages/*/dev"],
     "compilerOptions": {
+        "ignoreDeprecations": "5.0",
         "outDir": "dist-types",
         "rootDir": ".",
         "allowJs": true,

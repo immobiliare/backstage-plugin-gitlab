@@ -1,12 +1,13 @@
 <p align="center">
   <img src="https://avatars.githubusercontent.com/u/10090828?s=200&v=4" width="200px" alt="logo"/>
 </p>
-<h1 align="center">Backstage Plugin GitLab</h1>
+<h1 align="center">Backstage   GitLab</h1>
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier?style=flat-square)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
-![npm (scoped)](https://img.shields.io/npm/v/@immobiliarelabs/backstage-plugin-gitlab?style=flat-square)
-![license](https://img.shields.io/github/license/immobiliare/backstage-plugin-gitlab)
+<p align="center">
+  <img src="https://img.shields.io/badge/Backstage-%3E%3D%201.48.3-%239c27b0?style=flat-square&logo=backstage" alt="Backstage Version Support" />
+  <img src="https://img.shields.io/npm/v/@immobiliarelabs/backstage-plugin-gitlab-backend?style=flat-square" alt="npm (scoped)" />
+  <img src="https://img.shields.io/github/license/immobiliare/backstage-plugin-gitlab?style=flat-square" alt="license" />
+</p>
 
 > [Backstage](https://backstage.io/) plugins to interact with [GitLab](https://gitlab.com/)
 
@@ -14,40 +15,41 @@
 
 <!-- toc -->
 
--   [Features](#features)
--   [Screenshots](#screenshots)
--   [Setup](#setup)
-    -   [Setup Frontend Plugin](#setup-frontend-plugin)
-        -   [New Frontend System (Alpha)](#new-frontend-system-alpha)
-    -   [Setup Backend Plugin](#setup-backend-plugin)
-    -   [Extra OIDC/OAuth](#extra-oidcoauth)
-    -   [Register To The New Backend System](#register-to-the-new-backend-system)
--   [Annotations](#annotations)
-    -   [Code owners file](#code-owners-file)
--   [Old/New GitLab Versions](#oldnew-gitlab-versions)
--   [Migration guides](#migration-guides)
--   [Support & Contribute](#support--contribute)
--   [License](#license)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Setup](#setup)
+    - [Requirements](#requirements)
+    - [Setup Frontend Plugin](#setup-frontend-plugin)
+        - [New Frontend System (Alpha)](#new-frontend-system-alpha)
+    - [Setup Backend Plugin](#setup-backend-plugin)
+    - [Extra OIDC/OAuth](#extra-oidcoauth)
+    - [Register To The New Backend System](#register-to-the-new-backend-system)
+- [Annotations](#annotations)
+    - [Code owners file](#code-owners-file)
+- [Old/New GitLab Versions](#oldnew-gitlab-versions)
+- [Migration guides](#migration-guides)
+- [Support & Contribute](#support--contribute)
+- [License](#license)
 
 <!-- tocstop -->
 
 ## Features
 
--   List top 20 builds for a project
--   List top 20 Merge Requests for a project
--   List top 20 Issues for a project
--   List last releases
--   View Code Owners for a project
--   View Contributors for a project
--   View Languages used for a project
--   View Pipeline status for a project
--   View README for a project (with partial support for GLFM)
--   Works for both project and personal tokens
--   Pagination for builds
--   Pagination for Merge Requests
--   Merge Requests Statistics
--   Support for Olds/New GitLab APIs version
--   Support for multi GitLab Instance
+- List top 20 builds for a project
+- List top 20 Merge Requests for a project
+- List top 20 Issues for a project
+- List last releases
+- View Code Owners for a project
+- View Contributors for a project
+- View Languages used for a project
+- View Pipeline status for a project
+- View README for a project (with partial support for GLFM)
+- Works for both project and personal tokens
+- Pagination for builds
+- Pagination for Merge Requests
+- Merge Requests Statistics
+- Support for Olds/New GitLab APIs version
+- Support for multi GitLab Instance
 
 ## Screenshots
 
@@ -63,6 +65,14 @@
 yarn --cwd packages/app add @immobiliarelabs/backstage-plugin-gitlab
 yarn --cwd packages/backend add @immobiliarelabs/backstage-plugin-gitlab-backend
 ```
+
+### Requirements
+
+| Tool       | Version                             | Notes                                                        |
+| ---------- | ----------------------------------- | ------------------------------------------------------------ |
+| Node.js    | >=24.0.0 (pinned 24.14.1 via Volta) | See `engines` and `volta` in root `package.json`             |
+| Yarn       | 4.3.1 (Berry)                       | `node-modules` linker — not PnP                              |
+| TypeScript | ~5.7.0                              | Strict mode; `noUnusedLocals`, `noUnusedParameters` enforced |
 
 ### Setup Frontend Plugin
 
@@ -94,6 +104,8 @@ const serviceEntityPage = (
     </EntityLayout>
 );
 ```
+
+> NOTE: CI uses **Node 24.x** (GitHub Actions `actions/setup-node`). Update `test.yml` when the Node version changes.
 
 2. (**Optional**) Add the GitLab cards to the Overview tab on the entity page.
 

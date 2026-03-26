@@ -7,26 +7,26 @@
     "devDependencies": {
         "@backstage/cli": "^0.36.0",
         "@backstage/cli-defaults": "^0.1.0",
-        "@commitlint/cli": "^17.1.2",
-        "@commitlint/config-conventional": "^17.1.0",
-        "@typescript-eslint/eslint-plugin": "^7.0.0",
-        "@typescript-eslint/parser": "^7.0.0",
-        "eslint": "^8.23.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-prettier": "^4.2.1",
-        "husky": "^8.0.1",
-        "is-ci": "^3.0.1",
-        "lerna": "^8.1.7",
-        "lint-staged": "^13.0.3",
+        "@commitlint/cli": "^20.5.0",
+        "@commitlint/config-conventional": "^20.5.0",
+        "@typescript-eslint/eslint-plugin": "^8.57.2",
+        "@typescript-eslint/parser": "^8.57.2",
+        "eslint": "^8.57.1",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-prettier": "^5.5.5",
+        "husky": "^9.1.7",
+        "is-ci": "^4.1.0",
+        "lerna": "^9.0.7",
+        "lint-staged": "^16.4.0",
         "markdown-toc": "^1.2.0",
-        "prettier": "^2.7.1",
-        "typescript": "~5.4.0"
+        "prettier": "^3.8.1",
+        "typescript": "~5.7.0"
     },
     "engines": {
-        "node": ">=18.0.0"
+        "node": ">=24.0.0"
     },
     "volta": {
-        "node": "20.15.1"
+        "node": "24.14.1"
     },
     "scripts": {
         "type": "tsc --noEmit",
