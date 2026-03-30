@@ -1,3 +1,4 @@
+import type { IncomingHttpHeaders } from 'node:http';
 import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
 import type { LoggerService } from '@backstage/backend-plugin-api';
 import type { Config } from '@backstage/config';
@@ -8,7 +9,6 @@ import {
 import bodyParser from 'body-parser';
 import type express from 'express';
 import Router from 'express-promise-router';
-import type { IncomingHttpHeaders } from 'http';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 function getBasePath(config: Config) {

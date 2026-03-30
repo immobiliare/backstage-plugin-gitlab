@@ -3,7 +3,7 @@ pre-commit:
   commands:
     biome:
       glob: "**/*.{js,ts,jsx,tsx,json}"
-      run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git add {staged_files}
+      run: yarn biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git add {staged_files}
     markdown-toc:
       glob: "**/*.md"
       run: |

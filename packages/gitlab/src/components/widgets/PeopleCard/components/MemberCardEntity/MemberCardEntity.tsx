@@ -23,7 +23,11 @@ export const MemberCardEntity = ({ memberCardEntity }: Props) => {
                 .filter(Boolean)
                 .join(' : ')}
         >
-            <a href={memberCardEntity.web_url} target="_blank" rel="noopener">
+            <a
+                href={memberCardEntity.web_url}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <Avatar
                     key={memberCardEntity.name}
                     alt={memberCardEntity.name}

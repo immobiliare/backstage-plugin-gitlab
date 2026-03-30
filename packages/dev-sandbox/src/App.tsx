@@ -30,6 +30,7 @@ import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { catalogApiMock } from '@backstage/plugin-catalog-react/testUtils';
 import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
+import type { GraphQLQuery } from '@immobiliarelabs/backstage-plugin-gitlab';
 import {
     GitlabCIApiRef,
     GitlabCIClient,

@@ -58,8 +58,8 @@ This is a **standalone Backstage plugin monorepo** providing GitLab integration 
 │   └── dev-sandbox/             # Local dev app (private, not published)
 │       └── src/App.tsx          # Uses new frontend system (createApp from @backstage/frontend-defaults)
 ├── .github/workflows/           # CI/CD pipelines
-├── .eslintrc                    # ESLint config (root:true — important for worktrees)
-├── .prettierrc                  # Prettier config
+├── biome.json                   # Biome config (formatting, linting)
+├── lefthook.yml                 # Pre-commit hooks and automation
 ├── tsconfig.json                # Root TypeScript config (covers all packages)
 ├── backstage.json               # Backstage version compatibility marker
 ├── commitlint.config.cjs        # Conventional commits enforcement
@@ -163,24 +163,24 @@ In `package.json` exports:
 
 ```json
 {
-    ".": "./src/index.ts",
-    "./alpha": "./src/alpha/index.ts"
+  ".": "./src/index.ts",
+  "./alpha": "./src/alpha/index.ts"
 }
 ```
 
 **New frontend system pattern** (`src/alpha/`): Components from the classic system are wrapped using `compatWrapper` from `@backstage/core-compat-api`:
 
 ```tsx
-import { compatWrapper } from '@backstage/core-compat-api';
+import { compatWrapper } from "@backstage/core-compat-api";
 
 export const gitlabCard = EntityCardBlueprint.make({
-    name: 'my-card',
-    params: {
-        loader: async () =>
-            import('../components/widgets/MyCard').then((m) =>
-                compatWrapper(<m.MyCard />)
-            ),
-    },
+  name: "my-card",
+  params: {
+    loader: async () =>
+      import("../components/widgets/MyCard").then((m) =>
+        compatWrapper(<m.MyCard />),
+      ),
+  },
 });
 ```
 
@@ -236,22 +236,22 @@ Frontend hooks for reading these are in `src/components/gitlabAppData.tsx`.
 
 ```yaml
 gitlab:
-    defaultCodeOwnersPath: 'CODEOWNERS' # default
-    defaultReadmePath: 'README.md' # default
-    useOAuth: false # enable OAuth/OIDC auth
-    cache:
-        enabled: false
-        ttl: 300 # seconds
+  defaultCodeOwnersPath: "CODEOWNERS" # default
+  defaultReadmePath: "README.md" # default
+  useOAuth: false # enable OAuth/OIDC auth
+  cache:
+    enabled: false
+    ttl: 300 # seconds
 ```
 
 ### Backend config (`packages/gitlab-backend/config.d.ts`)
 
 ```yaml
 gitlab:
-    allowedKinds: # catalog kinds to auto-annotate
-        - Component
-    proxySecure: true # verify SSL certificates
-    useOAuth: false # OAuth mode
+  allowedKinds: # catalog kinds to auto-annotate
+    - Component
+  proxySecure: true # verify SSL certificates
+  useOAuth: false # OAuth mode
 ```
 
 ---
@@ -262,7 +262,7 @@ gitlab:
 | ----------- | ----------------------------------- | ------------------------------------------------------------- |
 | Node.js     | >=24.0.0 (pinned 24.14.1 via Volta) | See `engines` and `volta` in root `package.json`              |
 | Yarn        | 4.3.1 (Berry)                       | `node-modules` linker — not PnP                               |
-| TypeScript  | ~5.7.0                              | Strict mode; `noUnusedLocals`, `noUnusedParameters` enforced  |
+| TypeScript  | ~6.0.2                              | Strict mode; `noUnusedLocals`, `noUnusedParameters` enforced  |
 | React       | ^18 (peer dep)                      |                                                               |
 | Material UI | v4 (`@material-ui/core` ^4.12.2)    | **Backstage itself uses MUI v4** — see important note below   |
 | Backstage   | tracks `backstage.json` version     |                                                               |
@@ -288,16 +288,16 @@ The only MUI v5 package in use is `@mui/x-charts` (charts component) — this is
 - Do not suppress errors with `// @ts-ignore` without adding a `// @ts-ignore` comment explaining why (lint rule: `@typescript-eslint/ban-ts-comment` is `warn`).
 - `@typescript-eslint/no-non-null-assertion` is off — non-null assertions (`!`) are allowed but discourage them in new code.
 
-### Prettier
+### Biome
 
-Config (`.prettierrc`):
+Config (`biome.json`):
 
 - 4-space tab width
 - Single quotes
 - Trailing commas (`es5`)
-- End of line: `auto`
+- End of line: `auto` (LF)
 
-Always run `prettier --write` before committing. The pre-commit hook enforces this.
+Biome runs automatically on every commit via the pre-commit hook (`lefthook.yml`). Use `yarn style:lint-fix` to fix formatting and linting issues manually, or `yarn style:prettier` to format files only.
 
 ### Commit Messages
 
@@ -332,7 +332,7 @@ Use the PR template (`.github/pull_request_template.md`). Link related issues. C
 Use `@testing-library/react` and `@backstage/test-utils`. Tests use `renderInTestApp` or `renderWithEffects` from Backstage test utils.
 
 ```tsx
-import { renderInTestApp } from '@backstage/test-utils';
+import { renderInTestApp } from "@backstage/test-utils";
 ```
 
 ### Backend Tests
@@ -401,9 +401,7 @@ CI uses **Node 24.x** (GitHub Actions `actions/setup-node`). Update `test.yml` w
 
 ## Working in Worktrees
 
-This repository may be worked on inside a git worktree. The `.eslintrc` has `"root": true` — this is intentional and prevents ESLint from traversing up into the parent repository's config, which would cause duplicate plugin conflicts.
-
-Do not remove `"root": true` from `.eslintrc`.
+This repository may be worked on inside a git worktree. The `biome.json` configuration is isolated and does not require special root settings like ESLint's `"root": true`; Biome's configuration scope is limited to the workspace root, so no additional configuration is needed when working in worktrees.
 
 ---
 
