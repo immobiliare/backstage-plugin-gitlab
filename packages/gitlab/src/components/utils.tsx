@@ -118,7 +118,7 @@ const codeOwnersEmailRegex =
 
 // matches gitlab usernames - taken from https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/path_regex.rb#L127-135
 const codeOwnersGitlabUsernameRegex =
-    /^@[a-zA-Z0-9_.][a-zA-Z0-9_\-.]{0,254}[a-zA-Z0-9_-]$/;
+    /^@[a-zA-Z0-9_.][a-zA-Z0-9_\-./]{0,254}[a-zA-Z0-9_-]$/;
 
 // ensures that only the following patterns are allowed @octocat @github/js docs@example.com @octo.cat
 const codeOwnerRegex = new RegExp(
