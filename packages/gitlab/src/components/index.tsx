@@ -1,17 +1,17 @@
-import React from 'react';
-
-import { Entity } from '@backstage/catalog-model';
-import { useEntity } from '@backstage/plugin-catalog-react';
-import { GitlabCI } from './GitlabCI';
+import type { Entity } from '@backstage/catalog-model';
 import {
     LinkButton,
     MissingAnnotationEmptyState,
 } from '@backstage/core-components';
+import { useEntity } from '@backstage/plugin-catalog-react';
+import React from 'react';
+import { GitlabCI } from './GitlabCI';
 
 import {
     GITLAB_ANNOTATION_PROJECT_ID,
     GITLAB_ANNOTATION_PROJECT_SLUG,
 } from './gitlabAppData';
+
 export * from './gitlabAppData';
 
 export const isGitlabAvailable = (entity: Entity) =>

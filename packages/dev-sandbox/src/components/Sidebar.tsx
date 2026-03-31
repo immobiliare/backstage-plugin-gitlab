@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
+
 import { compatWrapper } from '@backstage/core-compat-api';
 import {
     Sidebar,
@@ -32,6 +32,7 @@ import {
 } from '@backstage/plugin-user-settings';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
+import React from 'react';
 
 export const navigationExtension = createExtension({
     name: 'nav',

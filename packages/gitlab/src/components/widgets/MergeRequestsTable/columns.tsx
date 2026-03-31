@@ -1,11 +1,12 @@
-import React from 'react';
-import { Box, Typography } from '@material-ui/core';
-import { TableColumn } from '@backstage/core-components';
+import type { TableColumn } from '@backstage/core-components';
+import type { TranslationFunction } from '@backstage/core-plugin-api/alpha';
 import type { MergeRequestSchema } from '@gitbeaker/rest';
-import { getStatusIconType } from './Icons';
+import { Box, Typography } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
-import { gitlabTranslationRef } from '../../../translation';
-import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
+import React from 'react';
+import type { gitlabTranslationRef } from '../../../translation';
+
+import { getStatusIconType } from './Icons';
 
 export function createTitleColumn(
     t: TranslationFunction<typeof gitlabTranslationRef.T>

@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
+
+import { compatWrapper } from '@backstage/core-compat-api';
 import {
     ApiBlueprint,
     configApiRef,
@@ -21,10 +22,10 @@ import {
     gitlabAuthApiRef,
     identityApiRef,
 } from '@backstage/frontend-plugin-api';
-import { compatWrapper } from '@backstage/core-compat-api';
 import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
-import { isGitlabAvailable } from '../components';
+import React from 'react';
 import { GitlabCIApiRef, GitlabCIClient } from '../api';
+import { isGitlabAvailable } from '../components';
 
 export const gitlabEntityContent = EntityContentBlueprint.make({
     name: 'gitlab',

@@ -1,15 +1,15 @@
-import React from 'react';
+import { configApiRef } from '@backstage/core-plugin-api';
 import { createDevApp } from '@backstage/dev-utils';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
+import React from 'react';
+import { GitlabCIApiRef, GitlabCIClient } from '../src/api';
+import type { GraphQLQuery } from '../src/api/GitlabCIApi';
 import {
-    gitlabPlugin,
     EntityGitlabContent,
     EntityGitlabReadmeCard,
+    gitlabPlugin,
 } from '../src/plugin';
-import { GitlabCIApiRef, GitlabCIClient } from '../src/api';
 import { mockedGitlabReqToRes, projectId } from './mock-gitlab/api-v4-v15.7.0';
-import { configApiRef } from '@backstage/core-plugin-api';
-import { GraphQLQuery } from '../src/api/GitlabCIApi';
 
 const devEntity = {
     metadata: {
@@ -31,7 +31,7 @@ createDevApp()
         deps: { configApi: configApiRef },
         factory: ({ configApi }) => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
+            //@ts-expect-error
             const cli = GitlabCIClient.setupAPI({
                 discoveryApi: {
                     getBaseUrl: () => Promise.resolve('https://gitlab.com'),
@@ -46,11 +46,11 @@ createDevApp()
 
             // Here we mock the client requests to GitLab
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            cli.callApi = async function (
+            // @ts-expect-error
+            cli.callApi = async (
                 path: string,
                 query: { [key in string]: string }
-            ) {
+            ) => {
                 const response =
                     mockedGitlabReqToRes[
                         `${path}?${new URLSearchParams(query).toString()}`
@@ -60,8 +60,8 @@ createDevApp()
 
             // Here we mock the client requests to GitLab
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            cli.callGraphQLApi = async function (query: GraphQLQuery) {
+            // @ts-expect-error
+            cli.callGraphQLApi = async (query: GraphQLQuery) => {
                 const queries = query.query.match(/query [\w]+\(/);
                 if (!queries) return undefined;
 

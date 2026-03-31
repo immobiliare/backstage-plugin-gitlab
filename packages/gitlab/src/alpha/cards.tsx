@@ -1,6 +1,6 @@
+import { compatWrapper } from '@backstage/core-compat-api';
 import { EntityCardBlueprint } from '@backstage/plugin-catalog-react/alpha';
 import React from 'react';
-import { compatWrapper } from '@backstage/core-compat-api';
 
 export const gitlabReadmeCard = EntityCardBlueprint.make({
     name: 'readme',
@@ -58,6 +58,36 @@ export const gitlabLanguagesCard = EntityCardBlueprint.make({
         loader: async () =>
             import('../components/widgets/LanguagesCard').then((m) =>
                 compatWrapper(<m.LanguagesCard />)
+            ),
+    },
+});
+
+export const gitlabIssuesTableCard = EntityCardBlueprint.make({
+    name: 'issues-table',
+    params: {
+        loader: async () =>
+            import('../components/widgets/IssuesTable').then((m) =>
+                compatWrapper(<m.IssuesTable />)
+            ),
+    },
+});
+
+export const gitlabPipelinesTableCard = EntityCardBlueprint.make({
+    name: 'pipelines-table',
+    params: {
+        loader: async () =>
+            import('../components/widgets/PipelinesTable').then((m) =>
+                compatWrapper(<m.PipelinesTable />)
+            ),
+    },
+});
+
+export const gitlabMergeRequestsTableCard = EntityCardBlueprint.make({
+    name: 'merge-requests-table',
+    params: {
+        loader: async () =>
+            import('../components/widgets/MergeRequestsTable').then((m) =>
+                compatWrapper(<m.MergeRequestsTable />)
             ),
     },
 });

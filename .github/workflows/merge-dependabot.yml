@@ -1,24 +1,45 @@
+# This workflow automatically approves and merges Dependabot pull requests
+# based on predefined semver rules and dependency types.
 name: Dependabot auto-merge
 
 on: pull_request
 
 permissions:
-    contents: write
+  contents: write
+  pull-requests: write
 
 jobs:
-    dependabot:
-        runs-on: ubuntu-latest
-        if: ${{ github.actor == 'dependabot[bot]' }}
-        steps:
-            - uses: actions/checkout@v3
+  dependabot:
+    runs-on: ubuntu-latest
+    # Only run this job for PRs created by the Dependabot bot
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - uses: actions/checkout@v6
 
-            - name: Dependabot metadata
-              id: metadata
-              uses: dependabot/fetch-metadata@v1.6.0
+      # Fetches metadata (like semver update type and dependency type) about the PR
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1.6.0
 
-            - name: Enable auto-merge for Dependabot PRs
-              if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' }}
-              run: gh pr merge --auto --merge "$PR_URL"
-              env:
-                  GH_TOKEN: ${{ secrets.DEPENDABOT_NODE_TOKEN }}
-                  PR_URL: ${{github.event.pull_request.html_url}}
+      # Rule 1: Automatically approve and merge all "patch" updates (e.g., 1.0.0 -> 1.0.1)
+      # This applies to both production and development dependencies.
+      - name: Auto-approve and merge patches (Production & Development)
+        if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' }}
+        run: |
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --merge "$PR_URL"
+        env:
+          GH_TOKEN: ${{ secrets.DEPENDABOT_NODE_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+
+      # Rule 2: Automatically approve and merge "minor" updates (e.g., 1.0.0 -> 1.1.0)
+      # This ONLY applies to development dependencies (direct:development).
+      # Production minor updates still require manual review.
+      - name: Auto-approve and merge minor updates (Development only)
+        if: ${{ steps.metadata.outputs.dependency-type == 'direct:development' && steps.metadata.outputs.update-type == 'version-update:semver-minor' }}
+        run: |
+          gh pr review --approve "$PR_URL"
+          gh pr merge --auto --merge "$PR_URL"
+        env:
+          GH_TOKEN: ${{ secrets.DEPENDABOT_NODE_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}

@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0-alpha.2](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v7.0.0-alpha.1...v7.0.0-alpha.2) (2026-03-31)
+
+**Note:** Version bump only for package root
+
+
+
+
+
+# [7.0.0-alpha.1](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v7.0.0-alpha.0...v7.0.0-alpha.1) (2026-03-31)
+
+**Note:** Version bump only for package root
+
+
+
+
+
+# [7.0.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.13.0...v7.0.0-alpha.0) (2026-03-31)
+
+
+### Bug Fixes
+
+* update regex for GitLab usernames to allow additional characters ([f722c73](https://github.com/immobiliare/backstage-plugin-gitlab/commit/f722c7336c20e8f3c475c46ce6185bfe6c50c02b))
+
+
+* feat!: upgrade Backstage to >=1.48, rename app-next to dev-sandbox, fix ReleasesCard layout ([91c8dfc](https://github.com/immobiliare/backstage-plugin-gitlab/commit/91c8dfc75647a32da950a8585d8556a7982da14e))
+
+
+### BREAKING CHANGES
+
+* updates all deps
+
+
+
+
+
 # [6.13.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.13.0-alpha.0...v6.13.0) (2025-09-08)
 
 **Note:** Version bump only for package root

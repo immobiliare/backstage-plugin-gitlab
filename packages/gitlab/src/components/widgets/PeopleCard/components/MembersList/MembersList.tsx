@@ -1,10 +1,10 @@
-import React from 'react';
-import { Grid, Box } from '@material-ui/core';
 import { Link } from '@backstage/core-components';
-import { MemberCardEntity } from '../MemberCardEntity';
-import { MemberCardEntityData, PeopleLink } from '../../../../types';
+import { Box, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowIcon from '@material-ui/icons/ArrowForward';
+import React from 'react';
+import type { MemberCardEntityData, PeopleLink } from '../../../../types';
+import { MemberCardEntity } from '../MemberCardEntity';
 
 interface MembersListProps {
     title: string;

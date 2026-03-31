@@ -3,22 +3,22 @@ name: Backmerge main -> next
 on:
     push:
         branches:
-            - 'main'
+            - "main"
 
 jobs:
     backmerge:
         runs-on: ubuntu-latest
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v6
               with:
                   persist-credentials: false
+                  fetch-depth: 0
 
             - name: Merge main -> next
-              uses: devmasx/merge-branch@master
+              uses: everlytic/branch-merge@1.1.5
               with:
-                  type: now
-                  from_branch: main
-                  target_branch: next
                   github_token: ${{ secrets.GH_NODE_TOKEN }}
-                  message: "Merge 'main' into 'next' [skip ci]"
+                  source_branch: main
+                  target_branch: next
+                  commit_message_template: "Merge 'main' into 'next' [skip ci]"

@@ -1,7 +1,7 @@
-import React from 'react';
 import { Avatar, Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { MemberCardEntityData } from '../../../../types';
+import React from 'react';
+import type { MemberCardEntityData } from '../../../../types';
 
 type Props = {
     memberCardEntity: MemberCardEntityData;
@@ -16,16 +16,18 @@ const LightTooltip = withStyles({
     },
 })(Tooltip);
 
-export const MemberCardEntity = ({
-    memberCardEntity: memberCardEntity,
-}: Props) => {
+export const MemberCardEntity = ({ memberCardEntity }: Props) => {
     return (
         <LightTooltip
             title={[memberCardEntity.name, memberCardEntity.access_level_label]
                 .filter(Boolean)
                 .join(' : ')}
         >
-            <a href={memberCardEntity.web_url} target="_blank">
+            <a
+                href={memberCardEntity.web_url}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <Avatar
                     key={memberCardEntity.name}
                     alt={memberCardEntity.name}

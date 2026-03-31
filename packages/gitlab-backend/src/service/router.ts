@@ -1,16 +1,15 @@
-import { Config } from '@backstage/config';
+import type { IncomingHttpHeaders } from 'node:http';
 import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
+import type { LoggerService } from '@backstage/backend-plugin-api';
+import type { Config } from '@backstage/config';
 import {
+    type GitLabIntegrationConfig,
     readGitLabIntegrationConfigs,
-    GitLabIntegrationConfig,
 } from '@backstage/integration';
-import { LoggerService } from '@backstage/backend-plugin-api';
-import express from 'express';
+import bodyParser from 'body-parser';
+import type express from 'express';
 import Router from 'express-promise-router';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { Request } from 'http-proxy-middleware/dist/types';
-import bodyParser from 'body-parser';
-import { IncomingHttpHeaders } from 'http';
 
 function getBasePath(config: Config) {
     const baseUrl = config.getOptionalString('backend.baseUrl');
@@ -59,14 +58,20 @@ export async function createRouter(
     // `onProxyReq` because when global-agent is enabled then `onProxyReq`
     // fires _after_ the agent has already sent the headers to the proxy
     // target, causing a ERR_HTTP_HEADERS_SENT crash
-    const filter = (_pathname: string, req: Request): boolean => {
+    const filter = (_pathname: string, req: express.Request): boolean => {
         headersManipulation(req.headers);
         return req.method === 'GET';
     };
 
-    const graphqlFilter = (_pathname: string, req: Request): boolean => {
+    const graphqlFilter = (
+        _pathname: string,
+        req: express.Request
+    ): boolean => {
         headersManipulation(req.headers);
-        return req.method === 'POST' && !req.body.query?.includes('mutation');
+        return (
+            req.method === 'POST' &&
+            !(req.body as any).query?.includes('mutation')
+        );
     };
 
     for (const { host, apiBaseUrl, token } of gitlabIntegrations) {
@@ -74,7 +79,8 @@ export async function createRouter(
 
         router.use(
             `/graphql/${host}`,
-            createProxyMiddleware(graphqlFilter, {
+            createProxyMiddleware(graphqlFilter as any, {
+                // Cast required: Type mismatch between Express and http-proxy-middleware filter signatures
                 target: apiUrl.origin,
                 changeOrigin: true,
                 headers: {
@@ -82,7 +88,7 @@ export async function createRouter(
                     ...(token && !useOAuth ? { 'PRIVATE-TOKEN': token } : {}),
                 },
                 secure,
-                onProxyReq: (proxyReq, req) => {
+                onProxyReq: (proxyReq, req: any) => {
                     // Here we have to convert body into a stream to avoid to break middleware
                     if (req.body) {
                         const bodyData = JSON.stringify(req.body);
@@ -111,7 +117,8 @@ export async function createRouter(
 
         router.use(
             `/rest/${host}`,
-            createProxyMiddleware(filter, {
+            createProxyMiddleware(filter as any, {
+                // Cast required: Type mismatch between Express and http-proxy-middleware filter signatures
                 target: apiUrl.origin,
                 changeOrigin: true,
                 headers: {

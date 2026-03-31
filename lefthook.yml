@@ -1,0 +1,19 @@
+pre-commit:
+  skip: [ci]
+  commands:
+    biome:
+      glob: "**/*.{js,ts,jsx,tsx,json}"
+      run: yarn biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git add {staged_files}
+    markdown-toc:
+      glob: "**/*.md"
+      run: |
+        printf "%s\0" {staged_files} | while IFS= read -r -d '' file; do
+          yarn markdown-toc -i "$file"
+          git add -- "$file"
+        done
+
+commit-msg:
+  skip: [ci]
+  commands:
+    commitlint:
+      run: yarn commitlint --edit {1}

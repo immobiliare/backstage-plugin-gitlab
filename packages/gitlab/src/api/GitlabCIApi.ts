@@ -1,5 +1,4 @@
 import { createApiRef } from '@backstage/core-plugin-api';
-import { PeopleCardEntityData, Languages } from '../components/types';
 import type {
     IssueSchema,
     MergeRequestSchema,
@@ -8,9 +7,10 @@ import type {
     ReleaseSchema,
     RepositoryContributorSchema,
     SimpleMemberSchema,
-    UserSchema,
     TagSchema,
+    UserSchema,
 } from '@gitbeaker/rest';
+import type { Languages, PeopleCardEntityData } from '../components/types';
 
 export type ContributorsSummary = (RepositoryContributorSchema &
     Partial<UserSchema>)[];

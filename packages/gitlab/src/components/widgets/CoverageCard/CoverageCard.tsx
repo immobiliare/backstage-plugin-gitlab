@@ -1,20 +1,23 @@
-import React from 'react';
-import { Progress } from '@backstage/core-components';
+import {
+    InfoCard,
+    type InfoCardVariants,
+    Progress,
+} from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
 import { Box, makeStyles } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
+import { LineChart } from '@mui/x-charts/LineChart';
+import dayjs from 'dayjs';
+import React from 'react';
 import { useAsync } from 'react-use';
+import { GitlabCIApiRef } from '../../../api';
+import { gitlabTranslationRef } from '../../../translation';
 import {
     gitlabInstance,
     gitlabProjectId,
     gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { GitlabCIApiRef } from '../../../api';
-import { useApi } from '@backstage/core-plugin-api';
-import { InfoCard, InfoCardVariants } from '@backstage/core-components';
-import { LineChart } from '@mui/x-charts/LineChart';
-import dayjs from 'dayjs';
-import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
-import { gitlabTranslationRef } from '../../../translation';
 
 const useStyles = makeStyles(() => ({
     lineChartContainer: {
@@ -59,7 +62,7 @@ const CoverageCard = (props: Props) => {
         return {
             webUrl: projectDetails.web_url,
             defaultBranch: projectDetails.default_branch,
-            coverageDetails: !!coverageDetails
+            coverageDetails: coverageDetails
                 ? coverageDetails.data.project.pipelines.nodes
                 : [],
         };
@@ -125,7 +128,7 @@ const CoverageCard = (props: Props) => {
                     {' '}
                     <b>{t('coverageCard.lastCoverage')}</b>
                     {dataset.length > 0
-                        ? `${value.coverageDetails[0].coverage}%`
+                        ? `${dataset[dataset.length - 1].y}%`
                         : t('coverageCard.noData')}
                 </div>
             </Box>
