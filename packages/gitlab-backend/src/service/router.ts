@@ -80,6 +80,7 @@ export async function createRouter(
         router.use(
             `/graphql/${host}`,
             createProxyMiddleware(graphqlFilter as any, {
+                // Cast required: Type mismatch between Express and http-proxy-middleware filter signatures
                 target: apiUrl.origin,
                 changeOrigin: true,
                 headers: {
@@ -117,6 +118,7 @@ export async function createRouter(
         router.use(
             `/rest/${host}`,
             createProxyMiddleware(filter as any, {
+                // Cast required: Type mismatch between Express and http-proxy-middleware filter signatures
                 target: apiUrl.origin,
                 changeOrigin: true,
                 headers: {

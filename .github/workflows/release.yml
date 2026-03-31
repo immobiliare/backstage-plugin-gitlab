@@ -16,7 +16,7 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 24.x
           registry-url: "https://registry.npmjs.org"
@@ -51,9 +51,18 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_NODE_TOKEN }}
 
       - name: merge main -> next
-        uses: everlytic/branch-merge@1.1.5
+        uses: actions/github-script@v7
         with:
-          github_token: ${{ secrets.GH_NODE_TOKEN }}
-          source_branch: main
-          target_branch: next
-          commit_message_template: "Merge 'main' into 'next' [skip ci]"
+          github-token: ${{ secrets.GH_NODE_TOKEN }}
+          script: |
+            try {
+              await github.rest.repos.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                base: 'next',
+                head: 'main',
+                commit_message: "Merge 'main' into 'next' [skip ci]"
+              });
+            } catch (error) {
+              core.setFailed(`Failed to merge main into next: ${error.message}`);
+            }

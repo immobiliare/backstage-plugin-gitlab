@@ -128,7 +128,7 @@ const CoverageCard = (props: Props) => {
                     {' '}
                     <b>{t('coverageCard.lastCoverage')}</b>
                     {dataset.length > 0
-                        ? `${value.coverageDetails[0].coverage}%`
+                        ? `${dataset[dataset.length - 1].y}%`
                         : t('coverageCard.noData')}
                 </div>
             </Box>

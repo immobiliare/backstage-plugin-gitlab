@@ -121,7 +121,7 @@ Tests use Jest configured by `@backstage/cli`. There are 5 test suites total:
 ```bash
 yarn style:lint       # biome check packages
 yarn style:lint-fix   # biome check --write packages
-yarn style:prettier   # biome format --write packages
+yarn style:format     # biome format --write packages
 ```
 
 ### Pre-commit Hook
@@ -285,7 +285,7 @@ The only MUI v5 package in use is `@mui/x-charts` (charts component) — this is
 ### TypeScript
 
 - **Strict mode** is on. All flags (`strictNullChecks`, `noUnusedLocals`, `noUnusedParameters`, etc.) are enforced.
-- Do not suppress errors with `// @ts-ignore` without adding a `// @ts-ignore` comment explaining why (lint rule: `@typescript-eslint/ban-ts-comment` is `warn`).
+- Prefer `// @ts-expect-error` over `// @ts-ignore` when suppressing type errors. If `// @ts-ignore` is ever used, it must be accompanied by a comment explaining why (lint rule: `@typescript-eslint/ban-ts-comment` is `warn`). Any suppression requires an explanatory comment.
 - `@typescript-eslint/no-non-null-assertion` is off — non-null assertions (`!`) are allowed but discourage them in new code.
 
 ### Biome
@@ -297,7 +297,7 @@ Config (`biome.json`):
 - Trailing commas (`es5`)
 - End of line: `auto` (LF)
 
-Biome runs automatically on every commit via the pre-commit hook (`lefthook.yml`). Use `yarn style:lint-fix` to fix formatting and linting issues manually, or `yarn style:prettier` to format files only.
+Biome runs automatically on every commit via the pre-commit hook (`lefthook.yml`). Use `yarn style:lint-fix` to fix formatting and linting issues manually, or `yarn style:format` to format files only.
 
 ### Commit Messages
 

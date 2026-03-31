@@ -491,24 +491,21 @@ export class GitlabCIClient implements GitlabCIApi {
                 updatedAfter: dayjs().subtract(30, 'days').format('YYYY-MM-DD'),
             },
             query: /* GraphQL */ `
-                query getProjectCoverage(
-                    $projectSlug: ID!
-                    $updatedAfter: Time
-                    $projectDefaultBranch: String
-                ) {
-                    project(fullPath: $projectSlug) {
-                        pipelines(
-                            ref: $projectDefaultBranch
-                            updatedAfter: $updatedAfter
-                        ) {
-                            nodes {
-                                coverage
-                                createdAt
-                            }
-                        }
-                    }
-                }
-            `,
+        query getProjectCoverage(
+          $projectSlug: ID!
+          $updatedAfter: Time
+          $projectDefaultBranch: String
+        ) {
+          project(fullPath: $projectSlug) {
+            pipelines(ref: $projectDefaultBranch, updatedAfter: $updatedAfter) {
+              nodes {
+                coverage
+                createdAt
+              }
+            }
+          }
+        }
+      `,
         });
     }
 
@@ -550,7 +547,7 @@ export class GitlabCIClient implements GitlabCIApi {
                         const groupData = await this.getGroupDetail(owner);
                         ownersMap.set(owner, {
                             ...groupData,
-                            avatar_url: groupData.avatar_url || undefined,
+                            avatar_url: groupData.avatar_url ?? undefined,
                         });
                     } catch {
                         // Skip invalid owners

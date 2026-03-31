@@ -80,7 +80,8 @@ export const PipelinesTable = ({}) => {
 
         const summary = await GitlabCIAPI.getPipelineSummary(projectDetails.id);
 
-        if (!summary) throw new Error('Merge request summary is undefined!');
+        if (!summary) throw new Error('Pipeline summary is undefined');
+
         return { summary, projectName: projectDetails.name };
     }, []);
 

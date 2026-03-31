@@ -57,7 +57,8 @@ type Props = {
 export const LanguagesCard = (props: Props) => {
     const classes = useStyles();
     let barWidth = 0;
-    let languageTitle = new String();
+    let languageTitle = '';
+
     const project_id = gitlabProjectId();
     const project_slug = gitlabProjectSlug();
     const gitlab_instance = gitlabInstance();
