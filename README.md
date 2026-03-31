@@ -11,6 +11,8 @@
 
 > [Backstage](https://backstage.io/) plugins to interact with [GitLab](https://gitlab.com/)
 
+> **Note:** This version works on Backstage 1.48+. If you are using an older version of Backstage, please use the older v4 of this plugin.
+
 ## Table of contents
 
 <!-- toc -->
