@@ -16,9 +16,9 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 24.x
           registry-url: "https://registry.npmjs.org"
 
       - name: Config git user
@@ -51,9 +51,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_NODE_TOKEN }}
 
       - name: merge main -> next
-        uses: actions/setup-node@v3
+        uses: everlytic/branch-merge@1.1.5
         with:
-          type: now
-          from_branch: main
-          target_branch: next
           github_token: ${{ secrets.GH_NODE_TOKEN }}
+          source_branch: main
+          target_branch: next
+          commit_message_template: "Merge 'main' into 'next' [skip ci]"
