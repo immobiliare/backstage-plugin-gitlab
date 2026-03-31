@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0-alpha.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.13.0...v7.0.0-alpha.0) (2026-03-31)
+
+
+* feat!: upgrade Backstage to >=1.48, rename app-next to dev-sandbox, fix ReleasesCard layout ([91c8dfc](https://github.com/immobiliare/backstage-plugin-gitlab/commit/91c8dfc75647a32da950a8585d8556a7982da14e))
+
+
+### BREAKING CHANGES
+
+* updates all deps
+
+
+
+
+
 # [6.13.0](https://github.com/immobiliare/backstage-plugin-gitlab/compare/v6.13.0-alpha.0...v6.13.0) (2025-09-08)
 
 **Note:** Version bump only for package @immobiliarelabs/backstage-plugin-gitlab-backend
