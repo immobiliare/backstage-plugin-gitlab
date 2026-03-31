@@ -5,33 +5,28 @@
         "packages/*"
     ],
     "devDependencies": {
-        "@backstage/cli": "^0.34.1",
-        "@commitlint/cli": "^17.1.2",
-        "@commitlint/config-conventional": "^17.1.0",
-        "@typescript-eslint/eslint-plugin": "^5.36.0",
-        "@typescript-eslint/parser": "^5.36.0",
-        "eslint": "^8.23.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-prettier": "^4.2.1",
-        "husky": "^8.0.1",
-        "is-ci": "^3.0.1",
-        "lerna": "^8.1.7",
-        "lint-staged": "^13.0.3",
+        "@backstage/cli": "^0.36.0",
+        "@backstage/cli-defaults": "^0.1.0",
+        "@biomejs/biome": "^2.4.9",
+        "@commitlint/cli": "^20.5.0",
+        "@commitlint/config-conventional": "^20.5.0",
+        "is-ci": "^4.1.0",
+        "lefthook": "^2.1.4",
+        "lerna": "^9.0.7",
         "markdown-toc": "^1.2.0",
-        "prettier": "^2.7.1",
-        "typescript": "~5.0.0"
+        "typescript": "~6.0.2"
     },
     "engines": {
-        "node": ">=18.0.0"
+        "node": ">=24.0.0"
     },
     "volta": {
-        "node": "20.15.1"
+        "node": "24.14.1"
     },
     "scripts": {
         "type": "tsc --noEmit",
-        "style:lint": "eslint packages --ext .ts",
-        "style:lint-fix": "eslint packages --ext .ts --fix",
-        "style:prettier": "prettier \"packages/**/*.ts\" --list-different --write",
+        "style:lint": "biome check packages",
+        "style:lint-fix": "biome check --write packages",
+        "style:prettier": "biome format --write packages",
         "build": "tsc && backstage-cli repo build --all",
         "bootstrap": "npx lerna bootstrap",
         "publish:ci": "lerna publish from-package --yes --no-private --pre-dist-tag alpha",

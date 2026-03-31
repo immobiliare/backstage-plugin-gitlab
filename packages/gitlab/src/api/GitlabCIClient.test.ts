@@ -1,9 +1,9 @@
-import { GitlabCIClient } from './GitlabCIClient';
-import {
+import type {
     DiscoveryApi,
     IdentityApi,
     OAuthApi,
 } from '@backstage/core-plugin-api';
+import { GitlabCIClient } from './GitlabCIClient';
 
 describe('GitlabCIClient', () => {
     const mockDiscoveryApi: jest.Mocked<DiscoveryApi> = {

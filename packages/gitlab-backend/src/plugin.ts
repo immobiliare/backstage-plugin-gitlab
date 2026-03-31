@@ -3,7 +3,7 @@ import {
     createBackendModule,
     createBackendPlugin,
 } from '@backstage/backend-plugin-api';
-import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
+import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node';
 import { GitlabFillerProcessor } from './processor';
 import { createRouter } from './service/router';
 

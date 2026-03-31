@@ -13,37 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
+
+import type { Entity } from '@backstage/catalog-model';
+import { SignInPage } from '@backstage/core-components';
 import { createApp } from '@backstage/frontend-defaults';
 import {
     ApiBlueprint,
     configApiRef,
     createFrontendModule,
-    SignInPageBlueprint,
 } from '@backstage/frontend-plugin-api';
-import catalogPlugin from '@backstage/plugin-catalog/alpha';
-import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
-
-import { navigationExtension } from './components/Sidebar';
-import { SignInPage } from '@backstage/core-components';
-import { catalogApiMock } from '@backstage/plugin-catalog-react/testUtils';
-
-import gitlabPlugin from '@immobiliarelabs/backstage-plugin-gitlab/alpha';
-import { Entity } from '@backstage/catalog-model';
 import {
-    mockedGitlabReqToRes,
-    projectId,
-} from '../../gitlab/dev/mock-gitlab/api-v4-v15.7.0';
+    SignInPageBlueprint,
+    type SignInPageProps,
+} from '@backstage/plugin-app-react';
+import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
+import { catalogApiMock } from '@backstage/plugin-catalog-react/testUtils';
+import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
+import type { GraphQLQuery } from '@immobiliarelabs/backstage-plugin-gitlab';
 import {
     GitlabCIApiRef,
     GitlabCIClient,
 } from '@immobiliarelabs/backstage-plugin-gitlab';
+import gitlabPlugin from '@immobiliarelabs/backstage-plugin-gitlab/alpha';
+import React from 'react';
+import {
+    mockedGitlabReqToRes,
+    projectId,
+} from '../../gitlab/dev/mock-gitlab/api-v4-v15.7.0';
+import { navigationExtension } from './components/Sidebar';
 
 const signInPage = SignInPageBlueprint.make({
     params: {
-        loader: async () => (props) =>
-            <SignInPage {...props} providers={['guest']} />,
+        loader: async () => (props: SignInPageProps) => (
+            <SignInPage {...props} providers={['guest']} />
+        ),
     },
 });
 
@@ -84,7 +88,7 @@ const gitlabDevApi = ApiBlueprint.make({
             deps: { configApi: configApiRef },
             factory({ configApi }) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                //@ts-ignore
+                //@ts-expect-error
                 const cli = GitlabCIClient.setupAPI({
                     discoveryApi: {
                         getBaseUrl: () => Promise.resolve('https://gitlab.com'),
@@ -99,11 +103,11 @@ const gitlabDevApi = ApiBlueprint.make({
 
                 // Here we mock the client requests to GitLab
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                cli.callApi = async function (
+                // @ts-expect-error
+                cli.callApi = async (
                     path: string,
                     query: { [key in string]: string }
-                ) {
+                ) => {
                     const response =
                         mockedGitlabReqToRes[
                             `${path}?${new URLSearchParams(query).toString()}`
@@ -113,8 +117,8 @@ const gitlabDevApi = ApiBlueprint.make({
 
                 // Here we mock the client requests to GitLab
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                cli.callGraphQLApi = async function (query: GraphQLQuery) {
+                // @ts-expect-error
+                cli.callGraphQLApi = async (query: GraphQLQuery) => {
                     const queries = query.query.match(/query [\w]+\(/);
                     if (!queries) return undefined;
 

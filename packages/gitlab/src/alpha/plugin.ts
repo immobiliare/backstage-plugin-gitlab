@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import { createFrontendPlugin } from '@backstage/frontend-plugin-api';
-import { gitlabApi, gitlabEntityContent } from './extensions';
 import * as cards from './cards';
+import { gitlabApi, gitlabEntityContent } from './extensions';
 /**
  * @alpha
  */

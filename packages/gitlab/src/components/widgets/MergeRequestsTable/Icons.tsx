@@ -1,6 +1,7 @@
-import React from 'react';
-import { makeStyles, Tooltip } from '@material-ui/core';
 import type { MergeRequestSchema } from '@gitbeaker/rest';
+import { makeStyles, Tooltip } from '@material-ui/core';
+import React from 'react';
+
 const useStyles = makeStyles(() => ({
     open: {
         fill: '#22863a',

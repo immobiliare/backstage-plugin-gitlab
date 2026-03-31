@@ -1,60 +1,48 @@
 import { mockServices } from '@backstage/backend-test-utils';
 import { ConfigReader } from '@backstage/config';
 import express from 'express';
-import request from 'supertest';
-import { rest } from 'msw';
+import { HttpResponse, http } from 'msw';
 import { setupServer } from 'msw/node';
+import request from 'supertest';
 
 import { createRouter } from './router';
 
 const buildServer = () => {
     return setupServer(
-        rest.get(
+        http.get(
             'https://non-existing-example.com/api/v4/projects/434',
-            (req, res, ctx) => {
-                return res(
-                    ctx.status(200),
-                    ctx.json({
-                        url: req.url.toString(),
-                        headers: req.headers.all(),
-                    })
-                );
+            ({ request: req }) => {
+                return HttpResponse.json({
+                    url: req.url.toString(),
+                    headers: Object.fromEntries(req.headers.entries()),
+                });
             }
         ),
-        rest.get(
+        http.get(
             'https://non-existing-example-2.com/api/v4/projects/434',
-            (req, res, ctx) => {
-                return res(
-                    ctx.status(200),
-                    ctx.json({
-                        url: req.url.toString(),
-                        headers: req.headers.all(),
-                    })
-                );
+            ({ request: req }) => {
+                return HttpResponse.json({
+                    url: req.url.toString(),
+                    headers: Object.fromEntries(req.headers.entries()),
+                });
             }
         ),
-        rest.post(
+        http.post(
             'https://non-existing-example.com/api/graphql',
-            (req, res, ctx) => {
-                return res(
-                    ctx.status(200),
-                    ctx.json({
-                        url: req.url.toString(),
-                        headers: req.headers.all(),
-                    })
-                );
+            ({ request: req }) => {
+                return HttpResponse.json({
+                    url: req.url.toString(),
+                    headers: Object.fromEntries(req.headers.entries()),
+                });
             }
         ),
-        rest.post(
+        http.post(
             'https://non-existing-example-2.com/api/graphql',
-            (req, res, ctx) => {
-                return res(
-                    ctx.status(200),
-                    ctx.json({
-                        url: req.url.toString(),
-                        headers: req.headers.all(),
-                    })
-                );
+            ({ request: req }) => {
+                return HttpResponse.json({
+                    url: req.url.toString(),
+                    headers: Object.fromEntries(req.headers.entries()),
+                });
             }
         )
     );
@@ -91,8 +79,8 @@ describe('createRouter', () => {
         });
         app = express().use('/api/gitlab', router);
         server.listen({
-            onUnhandledRequest: ({ headers }, print) => {
-                if (headers.get('User-Agent') === 'supertest') {
+            onUnhandledRequest: (req, print) => {
+                if (req.headers.get('User-Agent') === 'supertest') {
                     return;
                 }
                 print.error();
@@ -203,11 +191,10 @@ describe('createRouter', () => {
                 'delete',
                 'put',
                 'options',
-                'trace',
                 'patch',
             ]) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
+                // @ts-expect-error
                 const response = await agent?.[method](
                     '/api/gitlab/graphql/non-existing-example.com'
                 );
@@ -241,11 +228,10 @@ describe('createRouter', () => {
                 'delete',
                 'put',
                 'options',
-                'trace',
                 'patch',
             ]) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
+                // @ts-expect-error
                 const response = await agent?.[method](
                     '/api/gitlab/rest/non-existing-example-2.com/projects/434'
                 );
@@ -298,8 +284,8 @@ describe('createRouter with baseUrl', () => {
         });
         app = express().use(`${basePath}/api/gitlab`, router);
         server.listen({
-            onUnhandledRequest: ({ headers }, print) => {
-                if (headers.get('User-Agent') === 'supertest') {
+            onUnhandledRequest: (req, print) => {
+                if (req.headers.get('User-Agent') === 'supertest') {
                     return;
                 }
                 print.error();
@@ -416,11 +402,10 @@ describe('createRouter with baseUrl', () => {
                 'delete',
                 'put',
                 'options',
-                'trace',
                 'patch',
             ]) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
+                // @ts-expect-error
                 const response = await agent?.[method](
                     `${basePath}/api/gitlab/graphql/non-existing-example.com`
                 );
@@ -456,11 +441,10 @@ describe('createRouter with baseUrl', () => {
                 'delete',
                 'put',
                 'options',
-                'trace',
                 'patch',
             ]) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
+                // @ts-expect-error
                 const response = await agent?.[method](
                     `${basePath}/api/gitlab/rest/non-existing-example-2.com/projects/434`
                 );
@@ -486,27 +470,24 @@ describe('OAuth token authorizations', () => {
     let app: express.Application;
     const OAuthToken = 'Bearer iT6P7Ikla2zgBfGSPEWps';
     const server = setupServer(
-        rest.get(
+        http.get(
             'https://example-gitlab.com/api/v4/projects/434',
-            (req, res, ctx) => {
-                return res(
-                    ctx.status(200),
-                    ctx.json({
-                        url: req.url.toString(),
-                        headers: req.headers.all(),
-                    })
-                );
+            ({ request: req }) => {
+                return HttpResponse.json({
+                    url: req.url.toString(),
+                    headers: Object.fromEntries(req.headers.entries()),
+                });
             }
         ),
-        rest.post('https://example-gitlab.com/api/graphql', (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json({
+        http.post(
+            'https://example-gitlab.com/api/graphql',
+            ({ request: req }) => {
+                return HttpResponse.json({
                     url: req.url.toString(),
-                    headers: req.headers.all(),
-                })
-            );
-        })
+                    headers: Object.fromEntries(req.headers.entries()),
+                });
+            }
+        )
     );
 
     const config = new ConfigReader({
@@ -531,8 +512,8 @@ describe('OAuth token authorizations', () => {
         });
         app = express().use('/api/gitlab', router);
         server.listen({
-            onUnhandledRequest: ({ headers }, print) => {
-                if (headers.get('User-Agent') === 'supertest') {
+            onUnhandledRequest: (req, print) => {
+                if (req.headers.get('User-Agent') === 'supertest') {
                     return;
                 }
                 print.error();

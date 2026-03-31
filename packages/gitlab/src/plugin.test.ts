@@ -1,5 +1,5 @@
-import { gitlabPlugin } from './plugin';
 import { parseCodeOwners, parseGitLabReadme } from './components/utils';
+import { gitlabPlugin } from './plugin';
 
 const CODEOWNERS = `
 # Lines starting with '#' are comments.

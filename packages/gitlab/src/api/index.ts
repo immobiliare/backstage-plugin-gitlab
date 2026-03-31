@@ -1,7 +1,8 @@
 export type {
-    GitlabCIApi,
-    LanguagesSummary,
     ContributorsSummary,
+    GitlabCIApi,
+    GraphQLQuery,
+    LanguagesSummary,
     MembersSummary,
 } from './GitlabCIApi';
 export { GitlabCIApiRef } from './GitlabCIApi';

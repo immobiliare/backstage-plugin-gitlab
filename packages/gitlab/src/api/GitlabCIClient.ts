@@ -1,19 +1,8 @@
-import {
+import type {
     DiscoveryApi,
     IdentityApi,
     OAuthApi,
 } from '@backstage/core-plugin-api';
-import { PeopleCardEntityData } from '../components/types';
-import { parseCodeOwners } from '../components/utils';
-import {
-    ContributorsSummary,
-    MembersSummary,
-    GitlabCIApi,
-    GitlabProjectCoverageResponse,
-    GraphQLQuery,
-    LanguagesSummary,
-} from './GitlabCIApi';
-
 import {
     AccessLevel,
     type GroupSchema,
@@ -24,10 +13,20 @@ import {
     type ReleaseSchema,
     type RepositoryContributorSchema,
     type SimpleMemberSchema,
-    type UserSchema,
     type TagSchema,
+    type UserSchema,
 } from '@gitbeaker/rest';
 import dayjs from 'dayjs';
+import type { PeopleCardEntityData } from '../components/types';
+import { parseCodeOwners } from '../components/utils';
+import type {
+    ContributorsSummary,
+    GitlabCIApi,
+    GitlabProjectCoverageResponse,
+    GraphQLQuery,
+    LanguagesSummary,
+    MembersSummary,
+} from './GitlabCIApi';
 
 export type APIOptions = {
     discoveryApi: DiscoveryApi;
@@ -93,7 +92,7 @@ export class GitlabCIClient implements GitlabCIApi {
     }: APIOptions) {
         return {
             build: (gitlabInstance: string) =>
-                new this({
+                new GitlabCIClient({
                     discoveryApi,
                     identityApi,
                     codeOwnersPath,
@@ -121,7 +120,7 @@ export class GitlabCIClient implements GitlabCIApi {
                             i--; // Adjust index since we removed an item
                         }
                     }
-                } catch (error) {
+                } catch {
                     // In case of corrupted data, remove the item
                     localStorage.removeItem(key);
                     i--; // Adjust index since we removed an item
@@ -144,7 +143,7 @@ export class GitlabCIClient implements GitlabCIApi {
                     return data as T;
                 }
                 localStorage.removeItem(key);
-            } catch (error) {
+            } catch {
                 localStorage.removeItem(key);
             }
         }
@@ -420,9 +419,8 @@ export class GitlabCIClient implements GitlabCIApi {
 
         if (!contributorsData) return undefined;
 
-        const updatedContributorsData = await this.getUserProfilesData(
-            contributorsData
-        );
+        const updatedContributorsData =
+            await this.getUserProfilesData(contributorsData);
 
         return updatedContributorsData;
     }
@@ -550,7 +548,10 @@ export class GitlabCIClient implements GitlabCIApi {
                 } catch {
                     try {
                         const groupData = await this.getGroupDetail(owner);
-                        ownersMap.set(owner, groupData);
+                        ownersMap.set(owner, {
+                            ...groupData,
+                            avatar_url: groupData.avatar_url || undefined,
+                        });
                     } catch {
                         // Skip invalid owners
                     }

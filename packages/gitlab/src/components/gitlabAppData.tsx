@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { useEntity } from '@backstage/plugin-catalog-react';
-import { useApi } from '@backstage/core-plugin-api';
-import { scmIntegrationsApiRef } from '@backstage/integration-react';
 import {
-    parseLocationRef,
     ANNOTATION_LOCATION,
     ANNOTATION_SOURCE_LOCATION,
+    parseLocationRef,
 } from '@backstage/catalog-model';
+import { useApi } from '@backstage/core-plugin-api';
+import { scmIntegrationsApiRef } from '@backstage/integration-react';
+import { useEntity } from '@backstage/plugin-catalog-react';
 
 export const GITLAB_ANNOTATION_PROJECT_ID = 'gitlab.com/project-id';
 export const GITLAB_ANNOTATION_PROJECT_SLUG = 'gitlab.com/project-slug';

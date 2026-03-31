@@ -1,28 +1,31 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Alert from '@material-ui/lab/Alert';
 import {
     InfoCard,
-    InfoCardVariants,
+    type InfoCardVariants,
     Progress,
 } from '@backstage/core-components';
-import { GitlabCIApiRef } from '../../../api';
 import { useApi } from '@backstage/core-plugin-api';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import type { ProjectSchema } from '@gitbeaker/rest';
+import { Divider } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
+import React from 'react';
 import { useAsync } from 'react-use';
+import { GitlabCIApiRef } from '../../../api';
+import { gitlabTranslationRef } from '../../../translation';
 import {
-    gitlabProjectId,
-    gitlabProjectSlug,
     gitlabCodeOwnerPath,
     gitlabInstance,
+    gitlabProjectId,
+    gitlabProjectSlug,
 } from '../../gitlabAppData';
-import { PeopleList } from './components/PeopleList';
+import type {
+    MemberCardEntityData,
+    PeopleCardEntityData,
+    PeopleLink,
+} from '../../types';
 import { MembersList } from './components/MembersList';
-import { PeopleCardEntityData, PeopleLink } from '../../types';
-import { MemberCardEntityData } from '../../types';
-import { Divider } from '@material-ui/core';
-import { ProjectSchema } from '@gitbeaker/rest';
-import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
-import { gitlabTranslationRef } from '../../../translation';
+import { PeopleList } from './components/PeopleList';
 
 const useStyles = makeStyles((theme) => ({
     infoCard: {

@@ -1,12 +1,13 @@
 <p align="center">
   <img src="https://avatars.githubusercontent.com/u/10090828?s=200&v=4" width="200px" alt="logo"/>
 </p>
-<h1 align="center">Backstage Plugin GitLab</h1>
+<h1 align="center">Backstage GitLab</h1>
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier?style=flat-square)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
-![npm (scoped)](https://img.shields.io/npm/v/@immobiliarelabs/backstage-plugin-gitlab?style=flat-square)
-![license](https://img.shields.io/github/license/immobiliare/backstage-plugin-gitlab)
+<p align="center">
+  <img src="https://img.shields.io/badge/Backstage-%3E%3D%201.48.3-%239c27b0?style=flat-square&logo=backstage" alt="Backstage Version Support" />
+  <img src="https://img.shields.io/npm/v/@immobiliarelabs/backstage-plugin-gitlab-backend?style=flat-square" alt="npm (scoped)" />
+  <img src="https://img.shields.io/github/license/immobiliare/backstage-plugin-gitlab?style=flat-square" alt="license" />
+</p>
 
 > [Backstage](https://backstage.io/) plugins to interact with [GitLab](https://gitlab.com/)
 
@@ -14,40 +15,41 @@
 
 <!-- toc -->
 
--   [Features](#features)
--   [Screenshots](#screenshots)
--   [Setup](#setup)
-    -   [Setup Frontend Plugin](#setup-frontend-plugin)
-        -   [New Frontend System (Alpha)](#new-frontend-system-alpha)
-    -   [Setup Backend Plugin](#setup-backend-plugin)
-    -   [Extra OIDC/OAuth](#extra-oidcoauth)
-    -   [Register To The New Backend System](#register-to-the-new-backend-system)
--   [Annotations](#annotations)
-    -   [Code owners file](#code-owners-file)
--   [Old/New GitLab Versions](#oldnew-gitlab-versions)
--   [Migration guides](#migration-guides)
--   [Support & Contribute](#support--contribute)
--   [License](#license)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Setup](#setup)
+  - [Requirements](#requirements)
+  - [Setup Frontend Plugin](#setup-frontend-plugin)
+    - [New Frontend System (Alpha)](#new-frontend-system-alpha)
+  - [Setup Backend Plugin](#setup-backend-plugin)
+  - [Extra OIDC/OAuth](#extra-oidcoauth)
+  - [Register To The New Backend System](#register-to-the-new-backend-system)
+- [Annotations](#annotations)
+  - [Code owners file](#code-owners-file)
+- [Old/New GitLab Versions](#oldnew-gitlab-versions)
+- [Migration guides](#migration-guides)
+- [Support & Contribute](#support--contribute)
+- [License](#license)
 
 <!-- tocstop -->
 
 ## Features
 
--   List top 20 builds for a project
--   List top 20 Merge Requests for a project
--   List top 20 Issues for a project
--   List last releases
--   View Code Owners for a project
--   View Contributors for a project
--   View Languages used for a project
--   View Pipeline status for a project
--   View README for a project (with partial support for GLFM)
--   Works for both project and personal tokens
--   Pagination for builds
--   Pagination for Merge Requests
--   Merge Requests Statistics
--   Support for Olds/New GitLab APIs version
--   Support for multi GitLab Instance
+- List top 20 builds for a project
+- List top 20 Merge Requests for a project
+- List top 20 Issues for a project
+- List last releases
+- View Code Owners for a project
+- View Contributors for a project
+- View Languages used for a project
+- View Pipeline status for a project
+- View README for a project (with partial support for GLFM)
+- Works for both project and personal tokens
+- Pagination for builds
+- Pagination for Merge Requests
+- Merge Requests Statistics
+- Support for Olds/New GitLab APIs version
+- Support for multi GitLab Instance
 
 ## Screenshots
 
@@ -64,6 +66,14 @@ yarn --cwd packages/app add @immobiliarelabs/backstage-plugin-gitlab
 yarn --cwd packages/backend add @immobiliarelabs/backstage-plugin-gitlab-backend
 ```
 
+### Requirements
+
+| Tool       | Version                             | Notes                                                        |
+| ---------- | ----------------------------------- | ------------------------------------------------------------ |
+| Node.js    | >=24.0.0 (pinned 24.14.1 via Volta) | See `engines` and `volta` in root `package.json`             |
+| Yarn       | 4.3.1 (Berry)                       | `node-modules` linker — not PnP                              |
+| TypeScript | ~6.0.2                              | Strict mode; `noUnusedLocals`, `noUnusedParameters` enforced |
+
 ### Setup Frontend Plugin
 
 1. Add a new GitLab tab to the entity page.
@@ -76,24 +86,22 @@ yarn --cwd packages/backend add @immobiliarelabs/backstage-plugin-gitlab-backend
 // packages/app/src/components/catalog/EntityPage.tsx
 
 import {
-    isGitlabAvailable,
-    EntityGitlabContent,
-} from '@immobiliarelabs/backstage-plugin-gitlab';
+  isGitlabAvailable,
+  EntityGitlabContent,
+} from "@immobiliarelabs/backstage-plugin-gitlab";
 
 // Farther down at the serviceEntityPage declaration
 const serviceEntityPage = (
-    <EntityLayout>
-        {/* Place the following section where you want the tab to appear */}
-        <EntityLayout.Route
-            if={isGitlabAvailable}
-            path="/gitlab"
-            title="Gitlab"
-        >
-            <EntityGitlabContent />
-        </EntityLayout.Route>
-    </EntityLayout>
+  <EntityLayout>
+    {/* Place the following section where you want the tab to appear */}
+    <EntityLayout.Route if={isGitlabAvailable} path="/gitlab" title="Gitlab">
+      <EntityGitlabContent />
+    </EntityLayout.Route>
+  </EntityLayout>
 );
 ```
+
+> NOTE: CI uses **Node 24.x** (GitHub Actions `actions/setup-node`). Update `test.yml` when the Node version changes.
 
 2. (**Optional**) Add the GitLab cards to the Overview tab on the entity page.
 
@@ -103,47 +111,47 @@ const serviceEntityPage = (
 // packages/app/src/components/catalog/EntityPage.tsx
 
 import {
-    isGitlabAvailable,
-    EntityGitlabContent,
-    EntityGitlabLanguageCard,
-    EntityGitlabMergeRequestsTable,
-    EntityGitlabMergeRequestStatsCard,
-    EntityGitlabPeopleCard,
-    EntityGitlabPipelinesTable,
-    EntityGitlabReadmeCard,
-    EntityGitlabReleasesCard,
-} from '@immobiliarelabs/backstage-plugin-gitlab';
+  isGitlabAvailable,
+  EntityGitlabContent,
+  EntityGitlabLanguageCard,
+  EntityGitlabMergeRequestsTable,
+  EntityGitlabMergeRequestStatsCard,
+  EntityGitlabPeopleCard,
+  EntityGitlabPipelinesTable,
+  EntityGitlabReadmeCard,
+  EntityGitlabReleasesCard,
+} from "@immobiliarelabs/backstage-plugin-gitlab";
 
 //Farther down at the overviewContent declaration
 //You can add only selected widgets or all of them.
 const overviewContent = (
-    <Grid container spacing={3} alignItems="stretch">
-        <EntitySwitch>
-            <EntitySwitch.Case if={isGitlabAvailable}>
-                <Grid item md={12}>
-                    <EntityGitlabReadmeCard />
-                </Grid>
-                <Grid item sm={12} md={3} lg={3}>
-                    <EntityGitlabPeopleCard />
-                </Grid>
-                <Grid item sm={12} md={3} lg={3}>
-                    <EntityGitlabLanguageCard />
-                </Grid>
-                <Grid item sm={12} md={3} lg={3}>
-                    <EntityGitlabMergeRequestStatsCard />
-                </Grid>
-                <Grid item sm={12} md={3} lg={3}>
-                    <EntityGitlabReleasesCard />
-                </Grid>
-                <Grid item md={12}>
-                    <EntityGitlabPipelinesTable />
-                </Grid>
-                <Grid item md={12}>
-                    <EntityGitlabMergeRequestsTable />
-                </Grid>
-            </EntitySwitch.Case>
-        </EntitySwitch>
-    </Grid>
+  <Grid container spacing={3} alignItems="stretch">
+    <EntitySwitch>
+      <EntitySwitch.Case if={isGitlabAvailable}>
+        <Grid item md={12}>
+          <EntityGitlabReadmeCard />
+        </Grid>
+        <Grid item sm={12} md={3} lg={3}>
+          <EntityGitlabPeopleCard />
+        </Grid>
+        <Grid item sm={12} md={3} lg={3}>
+          <EntityGitlabLanguageCard />
+        </Grid>
+        <Grid item sm={12} md={3} lg={3}>
+          <EntityGitlabMergeRequestStatsCard />
+        </Grid>
+        <Grid item sm={12} md={3} lg={3}>
+          <EntityGitlabReleasesCard />
+        </Grid>
+        <Grid item md={12}>
+          <EntityGitlabPipelinesTable />
+        </Grid>
+        <Grid item md={12}>
+          <EntityGitlabMergeRequestsTable />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
+  </Grid>
 );
 ```
 
@@ -152,9 +160,9 @@ const overviewContent = (
 
 ```yaml
 integrations:
-    gitlab:
-        - host: gitlab.com
-          token: ${GITLAB_TOKEN}
+  gitlab:
+    - host: gitlab.com
+      token: ${GITLAB_TOKEN}
 ```
 
 **Note:** You can have more than one GitLab instance.
@@ -165,41 +173,41 @@ The Gitlab plugin currently support the New Frontend System via an `/alpha` expo
 
 1. Install the frontend plugin:
 
-    ```bash
-    # From your Backstage root directory
-    yarn --cwd packages/app add @immobiliarelabs/backstage-plugin-gitlab
-    ```
+   ```bash
+   # From your Backstage root directory
+   yarn --cwd packages/app add @immobiliarelabs/backstage-plugin-gitlab
+   ```
 
 2. If you have [Feature Discovery](https://backstage.io/docs/frontend-system/architecture/app#feature-discovery) enabled, no additional configuration is required. Otherwise, you should be able to enable the plugin in your `packages/app(-next)/src/App.tsx`:
 
-    ```diff
-    + import gitlabPlugin from '@immobiliarelabs/backstage-plugin-gitlab/alpha';
+   ```diff
+   + import gitlabPlugin from '@immobiliarelabs/backstage-plugin-gitlab/alpha';
 
-      export const app = createApp({
-          features: [
-              catalogPlugin,
-              catalogImportPlugin,
-              userSettingsPlugin,
-    +         gitlabPlugin,
-              // ...
-          ],
-      });
-    ```
+     export const app = createApp({
+         features: [
+             catalogPlugin,
+             catalogImportPlugin,
+             userSettingsPlugin,
+   +         gitlabPlugin,
+             // ...
+         ],
+     });
+   ```
 
-    3. To display specific GitLab cards on the overview page, list them in your `app-config.yaml` under the `app.extensions` section. For example:
+   3. To display specific GitLab cards on the overview page, list them in your `app-config.yaml` under the `app.extensions` section. For example:
 
-    ```yaml
-    app:
-        extensions:
-            - entity-card:gitlab/people
-            - entity-card:gitlab/languages
-            - entity-card:gitlab/merge-requests-stats
-            - entity-card:gitlab/releases
-            - entity-card:gitlab/coverage
-            - entity-card:gitlab/readme
-    ```
+   ```yaml
+   app:
+     extensions:
+       - entity-card:gitlab/people
+       - entity-card:gitlab/languages
+       - entity-card:gitlab/merge-requests-stats
+       - entity-card:gitlab/releases
+       - entity-card:gitlab/coverage
+       - entity-card:gitlab/readme
+   ```
 
-    Add or remove cards as needed to customize your overview page.
+   Add or remove cards as needed to customize your overview page.
 
 ### Setup Backend Plugin
 
@@ -211,19 +219,19 @@ The Gitlab plugin currently support the New Frontend System via an `/alpha` expo
 
 ```ts
 // packages/backend/src/plugins/catalog.ts
-import { GitlabFillerProcessor } from '@immobiliarelabs/backstage-plugin-gitlab-backend';
+import { GitlabFillerProcessor } from "@immobiliarelabs/backstage-plugin-gitlab-backend";
 
 export default async function createPlugin(
-    env: PluginEnvironment
+  env: PluginEnvironment,
 ): Promise<Router> {
-    const builder = await CatalogBuilder.create(env);
-    //...
-    // Add this line
-    builder.addProcessor(new GitlabFillerProcessor(env.config));
-    //...
-    const { processingEngine, router } = await builder.build();
-    await processingEngine.start();
-    return router;
+  const builder = await CatalogBuilder.create(env);
+  //...
+  // Add this line
+  builder.addProcessor(new GitlabFillerProcessor(env.config));
+  //...
+  const { processingEngine, router } = await builder.build();
+  await processingEngine.start();
+  return router;
 }
 ```
 
@@ -235,17 +243,17 @@ This allows auto-filling of the annotations.
 
 ```ts
 // packages/backend/src/plugins/gitlab.ts
-import { PluginEnvironment } from '../types';
-import { Router } from 'express-serve-static-core';
-import { createRouter } from '@immobiliarelabs/backstage-plugin-gitlab-backend';
+import { PluginEnvironment } from "../types";
+import { Router } from "express-serve-static-core";
+import { createRouter } from "@immobiliarelabs/backstage-plugin-gitlab-backend";
 
 export default async function createPlugin(
-    env: PluginEnvironment
+  env: PluginEnvironment,
 ): Promise<Router> {
-    return createRouter({
-        logger: env.logger,
-        config: env.config,
-    });
+  return createRouter({
+    logger: env.logger,
+    config: env.config,
+  });
 }
 ```
 
@@ -255,14 +263,14 @@ then you have to add the route as follows:
 
 ```ts
 // packages/backend/src/index.ts
-import gitlab from './plugins/gitlab';
+import gitlab from "./plugins/gitlab";
 
 async function main() {
-    //...
-    const gitlabEnv = useHotMemoize(module, () => createEnv('gitlab'));
-    //...
-    apiRouter.use('/gitlab', await gitlab(gitlabEnv));
-    //...
+  //...
+  const gitlabEnv = useHotMemoize(module, () => createEnv("gitlab"));
+  //...
+  apiRouter.use("/gitlab", await gitlab(gitlabEnv));
+  //...
 }
 ```
 
@@ -274,30 +282,30 @@ async function main() {
 # app-config.yaml
 # ...
 gitlab:
-    # Default path for CODEOWNERS file
-    # Default: CODEOWNERS
-    defaultCodeOwnersPath: .gitlab/CODEOWNERS
-    # Default path for README file
-    # Default: README.md
-    defaultReadmePath: .gitlab/README.md
-    # Entity Kinds to which the plugin works, if you want to render gitlab
-    # information for one Kind you have to add it in this list.
-    # Default: ['Component']
-    allowedKinds: ['Component', 'Resource']
-    # This parameter controls SSL Certs verification
-    # Default: true
-    proxySecure: false
-    # Activate Oauth/OIDC
+  # Default path for CODEOWNERS file
+  # Default: CODEOWNERS
+  defaultCodeOwnersPath: .gitlab/CODEOWNERS
+  # Default path for README file
+  # Default: README.md
+  defaultReadmePath: .gitlab/README.md
+  # Entity Kinds to which the plugin works, if you want to render gitlab
+  # information for one Kind you have to add it in this list.
+  # Default: ['Component']
+  allowedKinds: ["Component", "Resource"]
+  # This parameter controls SSL Certs verification
+  # Default: true
+  proxySecure: false
+  # Activate Oauth/OIDC
+  # Default: false
+  useOAuth: false
+  # Cache configuration
+  cache:
+    # Enable caching for the Gitlab plugin
     # Default: false
-    useOAuth: false
-    # Cache configuration
-    cache:
-        # Enable caching for the Gitlab plugin
-        # Default: false
-        enabled: true
-        # Cache TTL for the Gitlab plugin in seconds
-        # Default: 300
-        ttl: 300
+    enabled: true
+    # Cache TTL for the Gitlab plugin in seconds
+    # Default: 300
+    ttl: 300
 ```
 
 ### Extra OIDC/OAuth
@@ -306,7 +314,7 @@ By default, this plugin utilizes the token specified in the configuration file `
 
 ```yaml
 gitlab:
-    useOAuth: true
+  useOAuth: true
 ```
 
 **Note:**: To use OIDC you have to configure the `@backstage/plugin-auth-backend-module-gitlab-provider` plugin.
@@ -321,18 +329,18 @@ If you're already using the [New Backend System](https://backstage.io/docs/backe
 ```ts
 // packages/backend/src/index.ts
 import {
-    gitlabPlugin,
-    catalogPluginGitlabFillerProcessorModule,
-} from '@immobiliarelabs/backstage-plugin-gitlab-backend';
+  gitlabPlugin,
+  catalogPluginGitlabFillerProcessorModule,
+} from "@immobiliarelabs/backstage-plugin-gitlab-backend";
 
 async function start() {
-    const backend = createBackend();
+  const backend = createBackend();
 
-    // ...
-    backend.add(gitlabPlugin);
-    backend.add(catalogPluginGitlabFillerProcessorModule);
+  // ...
+  backend.add(gitlabPlugin);
+  backend.add(catalogPluginGitlabFillerProcessorModule);
 
-    // ...
+  // ...
 }
 ```
 
@@ -345,16 +353,16 @@ By default, the plugin automatically shows the project info corresponding to the
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-    # ...
-    annotations:
-        gitlab.com/project-id: 'project-id' #1234. This must be in quotes and can be found under Settings --> General
-        # or
-        gitlab.com/project-slug: 'project-slug' # group_name/project_name
-        # or
-        gitlab.com/instance: gitlab.internal.abcd # abcd, represents local instance used
+  # ...
+  annotations:
+    gitlab.com/project-id: "project-id" #1234. This must be in quotes and can be found under Settings --> General
+    # or
+    gitlab.com/project-slug: "project-slug" # group_name/project_name
+    # or
+    gitlab.com/instance: gitlab.internal.abcd # abcd, represents local instance used
 spec:
-    type: service
-    # ...
+  type: service
+  # ...
 ```
 
 It's possible to disable the GitLab plugins and cards by setting these annotations to an empty string.
@@ -367,13 +375,13 @@ somewhere else or GitLab isn't used for issue tracking.
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-    # ...
-    annotations:
-        gitlab.com/instance: '' # don't show the issue and merge requests cards
-        gitlab.com/project-slug: ''
+  # ...
+  annotations:
+    gitlab.com/instance: "" # don't show the issue and merge requests cards
+    gitlab.com/project-slug: ""
 spec:
-    type: service
-    # ...
+  type: service
+  # ...
 ```
 
 ### Code owners file
@@ -385,14 +393,14 @@ The plugins support also the `gitlab.com/codeowners-path` annotation:
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-    # ...
-    annotations:
-        # You can change the CODEOWNERS path
-        # if it is not passed default specified in `app-config.yaml` is used
-        gitlab.com/codeowners-path: 'somewhere/CODEOWNERS'
+  # ...
+  annotations:
+    # You can change the CODEOWNERS path
+    # if it is not passed default specified in `app-config.yaml` is used
+    gitlab.com/codeowners-path: "somewhere/CODEOWNERS"
 spec:
-    type: service
-    # ...
+  type: service
+  # ...
 ```
 
 ## Old/New GitLab Versions
@@ -402,26 +410,24 @@ If you have an old GitLab version, or a new one, we allow you to extend the GitL
 `packages/app/src/api.ts`
 
 ```ts
-import { GitlabCIApiRef } from '@immobiliarelabs/backstage-plugin-gitlab';
-import { CustomGitlabCIClient } from '@immobiliarelabs/backstage-plugin-gitlab';
-import { discoveryApiRef, configApiRef } from '@backstage/core-plugin-api';
-import { CustomGitlabCIClient } from 'packages/app/src/myCustomClient.ts';
+import { GitlabCIApiRef } from "@immobiliarelabs/backstage-plugin-gitlab";
+import { CustomGitlabCIClient } from "@immobiliarelabs/backstage-plugin-gitlab";
+import { discoveryApiRef, configApiRef } from "@backstage/core-plugin-api";
+import { CustomGitlabCIClient } from "packages/app/src/myCustomClient.ts";
 
 export const apis: AnyApiFactory[] = [
-    createApiFactory({
-        api: GitlabCIApiRef,
-        deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
-        factory: ({ configApi, discoveryApi }) =>
-            CustomGitlabCIClient.setupAPI({
-                discoveryApi,
-                codeOwnersPath: configApi.getOptionalString(
-                    'gitlab.defaultCodeOwnersPath'
-                ),
-                readmePath: configApi.getOptionalString(
-                    'gitlab.defaultReadmePath'
-                ),
-            }),
-    }),
+  createApiFactory({
+    api: GitlabCIApiRef,
+    deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
+    factory: ({ configApi, discoveryApi }) =>
+      CustomGitlabCIClient.setupAPI({
+        discoveryApi,
+        codeOwnersPath: configApi.getOptionalString(
+          "gitlab.defaultCodeOwnersPath",
+        ),
+        readmePath: configApi.getOptionalString("gitlab.defaultReadmePath"),
+      }),
+  }),
 ];
 ```
 
