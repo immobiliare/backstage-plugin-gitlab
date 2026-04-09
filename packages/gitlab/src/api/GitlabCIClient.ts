@@ -326,8 +326,9 @@ export class GitlabCIClient implements GitlabCIApi {
         return membersData
             .filter(
                 (member) =>
-                    member.state == 'active' &&
-                    (member.membership_state == 'active' || !member.membership_state)
+                    member.state === 'active' &&
+                    (member.membership_state === undefined ||
+                        member.membership_state === 'active')
             )
             .map((member) => {
                 // Access level label determination (https://docs.gitlab.com/api/members/)
