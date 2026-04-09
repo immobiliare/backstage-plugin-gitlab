@@ -64,7 +64,7 @@
     "@material-ui/lab": "4.0.0-alpha.61",
     "@mui/material": "^7.3.9",
     "@mui/system": "^7.3.9",
-    "@mui/x-charts": "^6.19.6",
+    "@mui/x-charts": "^9.0.1",
     "dayjs": "^1.11.20",
     "react-markdown": "^10.1.0",
     "react-use": "^17.6.0",
