@@ -51,7 +51,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_NODE_TOKEN }}
 
       - name: merge main -> next
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.GH_NODE_TOKEN }}
           script: |
