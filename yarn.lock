@@ -24659,8 +24659,8 @@ __metadata:
   linkType: hard
 
 "msw@npm:^2.7.1":
-  version: 2.13.2
-  resolution: "msw@npm:2.13.2"
+  version: 2.13.3
+  resolution: "msw@npm:2.13.3"
   dependencies:
     "@inquirer/confirm": "npm:^5.0.0"
     "@mswjs/interceptors": "npm:^0.41.2"
@@ -24673,7 +24673,7 @@ __metadata:
     outvariant: "npm:^1.4.3"
     path-to-regexp: "npm:^6.3.0"
     picocolors: "npm:^1.1.1"
-    rettime: "npm:^0.10.1"
+    rettime: "npm:^0.11.7"
     statuses: "npm:^2.0.2"
     strict-event-emitter: "npm:^0.5.1"
     tough-cookie: "npm:^6.0.0"
@@ -24687,7 +24687,7 @@ __metadata:
       optional: true
   bin:
     msw: cli/index.js
-  checksum: 10/7fd38d39da090b4e67f20dfa472a27ef148dad67466039e21b7b5281fa035d8a5ac9552f3c9ab8acf43b34868f9fb114d142b7a315ad3c1cd32bbfc5f728eb9d
+  checksum: 10/bc300b87bff126970174f4178389984100c04e9f56e923b0f72f19ba73bf3ad2b4f81aa80d04bea3afa20487910ae02cd329d31d5376eae2d6ee081190bcc9e1
   languageName: node
   linkType: hard
 
@@ -28813,10 +28813,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rettime@npm:^0.10.1":
-  version: 0.10.1
-  resolution: "rettime@npm:0.10.1"
-  checksum: 10/a9b98b4125147f5e7fb37e39f6e36cdf4e2cf8a28c3eeff51fdae83f2817fb7240f85a32b0179c1a835f5083373093f382ca77b5d1bd09a8641a197d29df1770
+"rettime@npm:^0.11.7":
+  version: 0.11.7
+  resolution: "rettime@npm:0.11.7"
+  checksum: 10/bb986507587a110f6af68ab28176bd788ac59bd1864671a7c0426f29a3d50a1f3328638e6043515f78c3d3af715d6b77b5cb1d1f281b6d123f63634a465e5339
   languageName: node
   linkType: hard
 
