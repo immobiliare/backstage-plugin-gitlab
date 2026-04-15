@@ -3131,11 +3131,11 @@ __metadata:
   linkType: hard
 
 "@backstage/plugin-app-react@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@backstage/plugin-app-react@npm:0.2.1"
+  version: 0.2.2
+  resolution: "@backstage/plugin-app-react@npm:0.2.2"
   dependencies:
-    "@backstage/core-plugin-api": "npm:^1.12.4"
-    "@backstage/frontend-plugin-api": "npm:^0.15.0"
+    "@backstage/core-plugin-api": "npm:^1.12.5"
+    "@backstage/frontend-plugin-api": "npm:^0.16.0"
     "@material-ui/core": "npm:^4.9.13"
   peerDependencies:
     "@types/react": ^17.0.0 || ^18.0.0
@@ -3145,7 +3145,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10/4fd69268109036a345384bf940be26cb6d92d67dd95c12e64073661fd894f736b2215773c2d796fbf5031726b260794da06365d9097317deaf4322fbc12e9e02
+  checksum: 10/1cb10da9953f30e16f5e527b79a8d88ebb3d7cdbee416cbc71eaaf597c8aea025e726e5bbf4087259ba3d042eefba63980b18f2b9c1d02b71b9196de4d27ac9f
   languageName: node
   linkType: hard
 
