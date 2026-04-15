@@ -322,11 +322,13 @@ export class GitlabCIClient implements GitlabCIApi {
     private async getUserMembersData(
         membersData: SimpleMemberSchema[]
     ): Promise<MembersSummary> {
+        // If membership_state doesn't exist, but state is active, we can consider the user as active member. This is to handle the case when the API doesn't return membership_state for some users.
         return membersData
             .filter(
                 (member) =>
-                    member.state == 'active' &&
-                    member.membership_state == 'active'
+                    member.membership_state === 'active' ||
+                    (member.membership_state === undefined &&
+                        member.state === 'active')
             )
             .map((member) => {
                 // Access level label determination (https://docs.gitlab.com/api/members/)
