@@ -19,7 +19,7 @@ jobs:
       # Fetches metadata (like semver update type and dependency type) about the PR
       - name: Dependabot metadata
         id: metadata
-        uses: dependabot/fetch-metadata@v1.6.0
+        uses: dependabot/fetch-metadata@v3.1.0
 
       # Rule 1: Automatically approve and merge all "patch" updates (e.g., 1.0.0 -> 1.0.1)
       # This applies to both production and development dependencies.
