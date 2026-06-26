@@ -1,3 +1,7 @@
+>[!CAUTION]
+>This repository was affected by the current wave of Miasma malware, which managed to push some malicious versions to NPM. Fortunately we were still working when the publish happened and were able to react immediately. We unpublished the affected backend versions of this plugin, but the frontend ones cannot be unpublished by us, so we've asked NPM to remove them. In the meantime we published patches with corrected versions so automated tools won't pick up the compromised ones. We'll keep you updated.
+Affected backend plugin versions: 1.0.1, 2.1.2, 3.0.3, 4.0.2, 5.2.1, 6.13.1, 7.0.2
+
 <p align="center">
   <img src="https://avatars.githubusercontent.com/u/10090828?s=200&v=4" width="200px" alt="logo"/>
 </p>
