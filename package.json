@@ -9,7 +9,7 @@
     "@backstage/cli-defaults": "^0.1.0",
     "@biomejs/biome": "^2.4.9",
     "@commitlint/cli": "^20.5.0",
-    "@commitlint/config-conventional": "^20.5.0",
+    "@commitlint/config-conventional": "^21.1.0",
     "is-ci": "^4.1.0",
     "lefthook": "^2.1.4",
     "lerna": "^9.0.7",
