@@ -47,7 +47,7 @@
     "body-parser": "^2.2.2",
     "express": "5.2.1",
     "express-promise-router": "^4.1.1",
-    "http-proxy-middleware": "^2.0.6"
+    "http-proxy-middleware": "^4.1.1"
   },
   "devDependencies": {
     "@backstage/backend-test-utils": "^1.11.1",

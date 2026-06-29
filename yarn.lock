@@ -5999,7 +5999,7 @@ __metadata:
     body-parser: "npm:^2.2.2"
     express: "npm:5.2.1"
     express-promise-router: "npm:^4.1.1"
-    http-proxy-middleware: "npm:^2.0.6"
+    http-proxy-middleware: "npm:^4.1.1"
     jest: "npm:29.7.0"
     jest-environment-jsdom: "npm:29.7.0"
     msw: "npm:^2.7.1"
@@ -21564,7 +21564,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-proxy-middleware@npm:^2.0.6, http-proxy-middleware@npm:^2.0.9":
+"http-proxy-middleware@npm:^2.0.9":
   version: 2.0.9
   resolution: "http-proxy-middleware@npm:2.0.9"
   dependencies:
@@ -21579,6 +21579,19 @@ __metadata:
     "@types/express":
       optional: true
   checksum: 10/4ece416a91d52e96f8136c5f4abfbf7ac2f39becbad21fa8b158a12d7e7d8f808287ff1ae342b903fd1f15f2249dee87fabc09e1f0e73106b83331c496d67660
+  languageName: node
+  linkType: hard
+
+"http-proxy-middleware@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "http-proxy-middleware@npm:4.1.1"
+  dependencies:
+    debug: "npm:^4.4.3"
+    httpxy: "npm:^0.5.3"
+    is-glob: "npm:^4.0.3"
+    is-plain-obj: "npm:^4.1.0"
+    micromatch: "npm:^4.0.8"
+  checksum: 10/286450e8736a4f2f20a68252f8c84ecbcdba777398108466bd16cd6e95f9f1c490798e7fd5f32cce8a86f6eaf80b862c276fa38dbf97a2cc145c08868bd87e21
   languageName: node
   linkType: hard
 
@@ -21617,6 +21630,13 @@ __metadata:
     agent-base: "npm:^7.0.2"
     debug: "npm:4"
   checksum: 10/9ec844f78fd643608239c9c3f6819918631df5cd3e17d104cc507226a39b5d4adda9d790fc9fd63ac0d2bb8a761b2f9f60faa80584a9bf9d7f2e8c5ed0acd330
+  languageName: node
+  linkType: hard
+
+"httpxy@npm:^0.5.3":
+  version: 0.5.3
+  resolution: "httpxy@npm:0.5.3"
+  checksum: 10/0c46bd2c603b6c13ca5511cace37746ee8781a109dd692656ba1d33a0067ee50661838c143dd9139f7b36495eed2cf8a19370d3da6b7ffe2a2334583de132144
   languageName: node
   linkType: hard
 
